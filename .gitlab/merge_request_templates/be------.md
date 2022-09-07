@@ -1,5 +1,5 @@
 /title "[BE]"
-/label ~backend
+/label ~back
 /assign me
 /reviewer @cg1735  
 /reviewer @opal18
