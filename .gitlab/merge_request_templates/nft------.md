@@ -1,9 +1,8 @@
 /title "[NFT]"
 /label ~NFT
 /assign me
-/reviewer @cg1735  
-/reviewer @aa981204
-/reviewer @stopone2639
+/reviewer @pubhan35
+/reviewer @kimmin930
 
 /remove_reviewer me
 
