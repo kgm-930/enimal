@@ -1,9 +1,8 @@
 /title "[FE]"
 /label ~frontend
 /assign me
-/reviewer @rdg9074
-/reviewer @pwlsghq
-/reviewer @soye0822
+/reviewer @aklsjd7380
+/reviewer @haengsong
 
 /remove_reviewer me
 
