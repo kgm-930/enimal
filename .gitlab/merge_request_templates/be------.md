@@ -2,8 +2,7 @@
 /label ~backend
 /assign me
 /reviewer @cg1735  
-/reviewer @aa981204
-/reviewer @stopone2639
+/reviewer @opal18
 
 /remove_reviewer me
 
