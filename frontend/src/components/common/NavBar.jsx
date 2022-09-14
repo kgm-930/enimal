@@ -8,7 +8,7 @@ import './NavBar.scss'
 
 function NavBar() {
   return (
-    <header>
+    <header className="fixed-top">
       <Navbar className="mainNav" expand="lg">
         <Navbar.Brand href="/" className="mainlogo notoBold fs-24">Enimal</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
