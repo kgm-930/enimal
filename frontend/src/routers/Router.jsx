@@ -17,7 +17,7 @@ import Draw from "@screens/Draw";
 import Notice from "@screens/Notice";
 
 // community
-import Community from "@screens/Community";
+import Community from "@screens/Community/CommunityMain";
 
 // not found
 import NotFound from "@screens/NotFound";
