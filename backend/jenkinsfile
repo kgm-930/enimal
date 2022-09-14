@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage("git"){ //git에 브랜치 url, credentialsId는 젠킨스에 등록한 인증으로
             steps{ // https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C106
-                git branch: 'back', credentialsId: 'back', url: 'https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C106.git'
+                git branch: 'back', credentialsId: 'cg1735', url: 'https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C106.git'
             }
         }
         stage('build') {
