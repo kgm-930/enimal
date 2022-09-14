@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import NavBar from "@components/common/NavBar";
 
 // screens
 
@@ -25,7 +26,7 @@ import NotFound from "@screens/NotFound";
 function Router() {
   return (
     <>
-      <div>상단바</div>
+      <NavBar />
       <Routes>
         {/* main */}
         <Route path="/" element={<Home />} />
