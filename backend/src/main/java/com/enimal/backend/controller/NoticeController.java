@@ -22,21 +22,19 @@ public class NoticeController {
         this.noticeService = noticeService;
     }
     // 공지사항 작성
-//    @PostMapping("/notice")
-//    public ResponseEntity<?> registNotice(@RequestBody NoticeRegistDto noticeRegistDto){
-//        Map<String,Object> result = new HashMap<>();
-//        HttpStatus status;
-//        try{
-//            boolean is = noticeService.registNotice(noticeRegistDto);
-//            result.put("result",is);
-//            status = HttpStatus.OK;
-//            if(is){
-//
-//            }
-//        }catch (Exception e){
-//            result.put("result","서버에러");
-//            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//        }
-//        return new ResponseEntity<>(result,status);
-//    }
+    @PostMapping("/notice")
+    public ResponseEntity<?> registNotice(@RequestBody NoticeRegistDto noticeRegistDto){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        try{
+            boolean is = noticeService.registNotice(noticeRegistDto);
+            result.put("result",is);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("result","서버에러");
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
+    // 공지사항 조회
 }

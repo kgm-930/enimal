@@ -10,6 +10,9 @@ public class Intercepter implements HandlerInterceptor {
     // 컨트롤러 전 실행
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // 토큰이 유효한지...? 무슨 말이쥐...? ....?
+        String accessToken = request.getHeader("accessToken");
+
         System.out.println("preHandle");
         return true;
     }
