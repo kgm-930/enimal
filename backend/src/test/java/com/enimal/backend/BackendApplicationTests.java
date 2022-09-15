@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Transactional
+//@Transactional
 class BackendApplicationTests {
 	@Autowired
 	NoticeRepository noticeRepository;
@@ -63,5 +63,14 @@ class BackendApplicationTests {
 		//엑세스 토큰에서 나온 아이디를 회원 삭제
 		String userId = "test12";
 		userRepository.deleteById(userId);
+	}
+	@Test
+	void 회원_수정(){
+		String userId = "test";
+		String updateNickname = "updateTest";
+		Optional<User> user = userRepository.findById(userId);
+		user.get().setNickname(updateNickname);
+
+		userRepository.save(user.get());
 	}
 }
