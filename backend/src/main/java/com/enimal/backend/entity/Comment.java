@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -15,8 +16,12 @@ public class Comment {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idx;
-
-    private String user_id;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
     private String content;
-    private int board_idx;
+    @ManyToOne
+    @JoinColumn(name="board_idx")
+    private Board board;
+    private LocalDateTime createdate;
 }

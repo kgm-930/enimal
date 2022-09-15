@@ -1,5 +1,6 @@
 package com.enimal.backend.service;
 
+import com.enimal.backend.dto.User.UserCommentListDto;
 import com.enimal.backend.dto.User.UserLoginDto;
 import com.enimal.backend.dto.User.UserPostListDto;
 
@@ -14,4 +15,5 @@ public interface UserService {
 
     Map<Integer, LocalDateTime>  attendUser(String userId);
     List<UserPostListDto> boardList(String userId);
+    List<UserCommentListDto> listCommentUser(String userId);
 }

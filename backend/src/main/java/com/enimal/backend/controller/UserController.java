@@ -1,6 +1,7 @@
 package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.User.UserCommentListDto;
 import com.enimal.backend.dto.User.UserLoginDto;
 import com.enimal.backend.dto.User.UserPostListDto;
 import com.enimal.backend.service.JwtService;
@@ -113,6 +114,22 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             List<UserPostListDto> data = userService.boardList(userId);
+            result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(result,status);
+    }
+    @GetMapping("/user/comment") //작성한 댓글 조회
+    public ResponseEntity<?> listCommentUser(HttpServletRequest request){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            List<UserCommentListDto> data = userService.listCommentUser(userId);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){

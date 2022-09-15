@@ -1,13 +1,16 @@
 package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.User.UserCommentListDto;
 import com.enimal.backend.dto.User.UserLoginDto;
 import com.enimal.backend.dto.User.UserPostListDto;
 import com.enimal.backend.entity.Attendence;
 import com.enimal.backend.entity.Board;
+import com.enimal.backend.entity.Comment;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.AttendenceRepository;
 import com.enimal.backend.repository.BoardRepository;
+import com.enimal.backend.repository.CommentRepository;
 import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +27,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private AttendenceRepository attendenceRepository;
     private BoardRepository boardRepository;
+    private CommentRepository commentRepository;
     @Autowired
-    UserServiceImpl(UserRepository userRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository){
+    UserServiceImpl(UserRepository userRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
         this.userRepository = userRepository;
         this.attendenceRepository = attendenceRepository;
         this.boardRepository = boardRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
@@ -89,5 +94,20 @@ public class UserServiceImpl implements UserService {
         }
 
         return userPostListDtos;
+    }
+
+    @Override
+    public List<UserCommentListDto> listCommentUser(String userId) {
+        List<UserCommentListDto> userCommentListDtos = new ArrayList<>();
+        List<Comment> comments = commentRepository.findByUserId(userId);
+        for(Comment comment : comments){
+            UserCommentListDto userCommentListDto = new UserCommentListDto();
+            userCommentListDto.setBoardIdx(comment.getBoard().getIdx());
+            userCommentListDto.setBoardTitle(comment.getBoard().getTitle());
+            userCommentListDto.setContent(comment.getContent());
+            userCommentListDto.setCreateDate(comment.getCreatedate());
+            userCommentListDtos.add(userCommentListDto);
+        }
+        return userCommentListDtos;
     }
 }

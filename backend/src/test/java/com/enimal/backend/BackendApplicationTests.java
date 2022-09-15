@@ -1,14 +1,8 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
-import com.enimal.backend.entity.Attendence;
-import com.enimal.backend.entity.Board;
-import com.enimal.backend.entity.Notice;
-import com.enimal.backend.entity.User;
-import com.enimal.backend.repository.AttendenceRepository;
-import com.enimal.backend.repository.BoardRepository;
-import com.enimal.backend.repository.NoticeRepository;
-import com.enimal.backend.repository.UserRepository;
+import com.enimal.backend.entity.*;
+import com.enimal.backend.repository.*;
 import com.enimal.backend.service.JwtService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,13 +26,15 @@ class BackendApplicationTests {
 	UserRepository userRepository;
 	AttendenceRepository attendenceRepository;
 	BoardRepository boardRepository;
+	CommentRepository commentRepository;
 	@Autowired
-	public BackendApplicationTests(NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository){
+	public BackendApplicationTests(NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
 		this.noticeRepository = noticeRepository;
 		this.jwtService = jwtService;
 		this.userRepository = userRepository;
 		this.attendenceRepository = attendenceRepository;
 		this.boardRepository = boardRepository;
+		this.commentRepository = commentRepository;
 	}
 	@Test
 	void 공지사항_등록_테스트() {
@@ -122,6 +118,16 @@ class BackendApplicationTests {
 			System.out.println(board.getUser().getNickname());
 		}
 
+	}
+	@Test
+	void 작성한댓글조회(){
+		String userId = "test";
+		List<Comment> comments = null;
+		comments = commentRepository.findByUserId(userId);
+		for(Comment comment : comments){
+			System.out.println(comment.getContent() + " : " + comment.getCreatedate());
+			System.out.println(comment.getBoard().getTitle());
+		}
 	}
 	@Test
 	void 재화내역조회(){
