@@ -2,9 +2,11 @@ package com.enimal.backend;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.entity.Attendence;
+import com.enimal.backend.entity.Board;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.AttendenceRepository;
+import com.enimal.backend.repository.BoardRepository;
 import com.enimal.backend.repository.NoticeRepository;
 import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.JwtService;
@@ -29,12 +31,14 @@ class BackendApplicationTests {
 	JwtService jwtService;
 	UserRepository userRepository;
 	AttendenceRepository attendenceRepository;
+	BoardRepository boardRepository;
 	@Autowired
-	public BackendApplicationTests(NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository){
+	public BackendApplicationTests(NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository){
 		this.noticeRepository = noticeRepository;
 		this.jwtService = jwtService;
 		this.userRepository = userRepository;
 		this.attendenceRepository = attendenceRepository;
+		this.boardRepository = boardRepository;
 	}
 	@Test
 	void 공지사항_등록_테스트() {
@@ -100,6 +104,21 @@ class BackendApplicationTests {
 		List<Attendence> attendences = attendenceRepository.findByUserId(userId);
 		for(Attendence attendence : attendences){
 			System.out.println(attendence.getAttenddate());
+		}
+	}
+	@Test
+	void 작성한글조회(){
+		String userId = "test";
+		Integer pageSize = 5;
+		Integer lastIdx =0;
+		Slice<Board> boards = null;
+		Pageable pageable = PageRequest.ofSize(pageSize);
+		if(lastIdx == 0){
+			lastIdx = boardRepository.findTop1ByOrderByIdxDesc().get().getIdx() +1;
+		}
+		boards = boardRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
+		for(Board board : boards){
+			System.out.println(board.getContent() + " : " + board.getTitle());
 		}
 	}
 	@Test

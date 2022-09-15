@@ -16,8 +16,8 @@ public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idx;
-
-    private String user_id;
+    @Column(name = "user_id")
+    private String userId;
     private String title;
     private Date createdate;
     private Date modifydate;
