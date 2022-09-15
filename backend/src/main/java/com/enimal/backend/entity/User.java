@@ -3,27 +3,26 @@ package com.enimal.backend.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "USER")
 public class User {
-    @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idx;
 
     private String wallet;
     private String nickname;
+    @Id
     private String id;
     private int credit;
-    private Date createdate;
+    private LocalDateTime createdate = LocalDateTime.now();;
     private int usedcredit;
     private int usedcount;
     private int donation;
