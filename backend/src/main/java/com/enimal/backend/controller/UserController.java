@@ -2,6 +2,7 @@ package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.User.UserLoginDto;
+import com.enimal.backend.dto.User.UserPostListDto;
 import com.enimal.backend.service.JwtService;
 import com.enimal.backend.service.NoticeService;
 import com.enimal.backend.service.UserService;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -94,8 +96,8 @@ public class UserController {
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            Map<Integer, LocalDateTime> resultService = userService.attendUser(userId);
-            result.put("data",resultService);
+            Map<Integer, LocalDateTime> data = userService.attendUser(userId);
+            result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
@@ -104,4 +106,21 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
+    @GetMapping("/user/post") //작성한 글 조회
+    public ResponseEntity<?> listBoardUser(HttpServletRequest request){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            List<UserPostListDto> data = userService.boardList(userId);
+            result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(result,status);
+    }
+
 }

@@ -119,7 +119,9 @@ class BackendApplicationTests {
 		boards = boardRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
 		for(Board board : boards){
 			System.out.println(board.getContent() + " : " + board.getTitle());
+			System.out.println(board.getUser().getNickname());
 		}
+
 	}
 	@Test
 	void 재화내역조회(){

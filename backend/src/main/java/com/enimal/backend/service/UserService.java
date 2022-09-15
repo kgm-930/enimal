@@ -1,6 +1,7 @@
 package com.enimal.backend.service;
 
 import com.enimal.backend.dto.User.UserLoginDto;
+import com.enimal.backend.dto.User.UserPostListDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,4 +13,5 @@ public interface UserService {
     void updateUser(String userId, String userNickname);
 
     Map<Integer, LocalDateTime>  attendUser(String userId);
+    List<UserPostListDto> boardList(String userId);
 }

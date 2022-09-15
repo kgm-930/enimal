@@ -16,7 +16,7 @@ public interface BoardRepository extends JpaRepository<Board,Integer> {
 
     Optional<Board> findTop1ByOrderByIdxDesc();
     @Query("SELECT t FROM Board t " +
-            "WHERE t.userId = :userId AND t.idx < :lastIdx " +
+            "WHERE t.user.id = :userId AND t.idx < :lastIdx " +
             "order by t.idx DESC")
     Slice<Board> findByUserIdOrderByIdxDesc(String userId, Integer lastIdx, Pageable pageable);
 }
