@@ -32,8 +32,8 @@ public class UserController {
         this.userService=userService;
         this.jwtService = jwtService;
     }
-    // 공지사항 작성
-    @PostMapping("/user/login")
+
+    @PostMapping("/user/login") // 지갑연결
     public ResponseEntity<?> loginUser(@RequestBody UserLoginDto userLoginDto, HttpServletResponse response){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
@@ -59,5 +59,4 @@ public class UserController {
         }
         return new ResponseEntity<>(result,status);
     }
-    // 공지사항 조회
 }

@@ -29,6 +29,7 @@ public class Intercepter implements HandlerInterceptor {
         if(decodeId.equals(timeOut)){ // 토큰 만료
             return false;
         }else{
+            request.setAttribute("userId",decodeId);
             return true;
         }
     }

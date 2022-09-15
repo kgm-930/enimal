@@ -7,12 +7,17 @@ import com.enimal.backend.repository.NoticeRepository;
 import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.JwtService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
+@Transactional
 class BackendApplicationTests {
 	@Autowired
 	NoticeRepository noticeRepository;
@@ -51,5 +56,12 @@ class BackendApplicationTests {
 		System.out.println(accessToken);
 		System.out.println(refreshToken);
 
+	}
+
+	@Test
+	void 회원_탈퇴(){
+		//엑세스 토큰에서 나온 아이디를 회원 삭제
+		String userId = "test12";
+		userRepository.deleteById(userId);
 	}
 }
