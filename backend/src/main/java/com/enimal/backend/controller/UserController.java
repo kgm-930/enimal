@@ -76,8 +76,10 @@ public class UserController {
     public ResponseEntity<?> updateUser(HttpServletRequest request,@RequestBody Map<String, String> updateNickname){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
-        String userId = request.getHeader("userId");
+        String userId = (String) request.getAttribute("userId");
         try{
+            System.out.println(userId);
+            System.out.println(updateNickname);
             userService.updateUser(userId,updateNickname.get("nickname"));
             status = HttpStatus.OK;
         }catch (Exception e){

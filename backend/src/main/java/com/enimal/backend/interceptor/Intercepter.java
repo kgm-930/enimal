@@ -4,8 +4,10 @@ import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,11 +15,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class Intercepter implements HandlerInterceptor {
+public class Intercepter extends HandlerInterceptorAdapter {
     @Autowired
-    private JwtService jwtService;
-    @Autowired
-    private UserRepository userRepository;
+    JwtService jwtService;
+
     private static final String timeOut = "timeOut";
 
     // 컨트롤러 전 실행
@@ -25,8 +26,11 @@ public class Intercepter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 로그인 해야만 사용할 수 있는 서비스들 체크
         String accessToken = request.getHeader("Authorization");
+        System.out.println(accessToken);
         String decodeId = jwtService.decodeToken(accessToken);
+        System.out.println(decodeId);
         if(decodeId.equals(timeOut)){ // 토큰 만료
+            response.setStatus(401);
             return false;
         }else{
             request.setAttribute("userId",decodeId);
