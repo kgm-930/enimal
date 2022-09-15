@@ -3,9 +3,10 @@ package com.enimal.backend.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -21,7 +22,7 @@ public class User {
     @Id
     private String id;
     private int credit;
-    private Date createdate;
+    private LocalDateTime createdate = LocalDateTime.now();;
     private int usedcredit;
     private int usedcount;
     private int donation;
