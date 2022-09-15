@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,6 +80,22 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             userService.updateUser(userId,updateNickname.get("nickname"));
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(result,status);
+    }
+    @GetMapping("/user/attend") //출석 정보 조회
+    public ResponseEntity<?> attendUser(HttpServletRequest request){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            Map<Integer, LocalDateTime> resultService = userService.attendUser(userId);
+            result.put("data",resultService);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
