@@ -73,4 +73,14 @@ class BackendApplicationTests {
 
 		userRepository.save(user.get());
 	}
+	@Test
+	void 프로필조회_타인(){
+		String userId = "test";
+		Optional<User> user = userRepository.findById(userId);
+
+	}
+	@Test
+	void 프로필조회_본인(){
+
+	}
 }
