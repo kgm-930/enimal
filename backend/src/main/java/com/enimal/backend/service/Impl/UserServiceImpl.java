@@ -31,4 +31,12 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String userId) {
         userRepository.deleteById(userId);
     }
+
+    @Override
+    public void updateUser(String userId, String userNickname) {
+        Optional<User> user = userRepository.findById(userId);
+        user.get().setNickname(userNickname);
+
+        userRepository.save(user.get());
+    }
 }

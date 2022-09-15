@@ -57,13 +57,28 @@ public class UserController {
         }
         return new ResponseEntity<>(result,status);
     }
-    @DeleteMapping("user") // 회원탈퇴
+    @DeleteMapping("/user") // 회원탈퇴
     public ResponseEntity<?> deleteUser(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = request.getHeader("userId");
         try{
             userService.deleteUser(userId);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(result,status);
+    }
+    @PutMapping("/user") // 회원 수정
+    public ResponseEntity<?> updateUser(HttpServletRequest request,@RequestBody Map<String, String> updateNickname){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = request.getHeader("userId");
+        try{
+            userService.updateUser(userId,updateNickname.get("nickname"));
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
