@@ -1,8 +1,10 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.entity.Attendence;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
+import com.enimal.backend.repository.AttendenceRepository;
 import com.enimal.backend.repository.NoticeRepository;
 import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.JwtService;
@@ -10,21 +12,30 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 //@Transactional
 class BackendApplicationTests {
-	@Autowired
 	NoticeRepository noticeRepository;
-	@Autowired
 	JwtService jwtService;
-	@Autowired
 	UserRepository userRepository;
+	AttendenceRepository attendenceRepository;
+	@Autowired
+	public BackendApplicationTests(NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository){
+		this.noticeRepository = noticeRepository;
+		this.jwtService = jwtService;
+		this.userRepository = userRepository;
+		this.attendenceRepository = attendenceRepository;
+	}
 	@Test
 	void 공지사항_등록_테스트() {
 		NoticeRegistDto noticeRegistDto = new NoticeRegistDto();
@@ -82,5 +93,32 @@ class BackendApplicationTests {
 	@Test
 	void 프로필조회_본인(){
 
+	}
+	@Test
+	void 출석내역조회(){
+		String userId = "test";
+		List<Attendence> attendences = attendenceRepository.findByUserId(userId);
+		for(Attendence attendence : attendences){
+			System.out.println(attendence.getAttenddate());
+		}
+	}
+	@Test
+	void 재화내역조회(){
+//		String userId = "test";
+//		Integer pageSize = 5;
+//		Integer lastIdx =0;
+//		Slice<Attendence> attendences = null;
+//		Pageable pageable = PageRequest.ofSize(pageSize);
+//		List<Attendence> test = attendenceRepository.findByUserId(userId);
+//		System.out.println(test.getConvertdate());
+//
+//		if(lastIdx == 0){
+//			lastIdx = attendenceRepository.findTop1ByOrderByIdxDesc().get().getIdx() +1;
+//		}
+//		System.out.println(lastIdx);
+//		attendences = attendenceRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
+//		for(Attendence attendence : attendences){
+//			System.out.println(attendence.getAttenddate());
+//		}
 	}
 }

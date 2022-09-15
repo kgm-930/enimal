@@ -78,8 +78,6 @@ public class UserController {
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            System.out.println(userId);
-            System.out.println(updateNickname);
             userService.updateUser(userId,updateNickname.get("nickname"));
             status = HttpStatus.OK;
         }catch (Exception e){
