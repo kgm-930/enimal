@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin("*")
 public class NoticeController {
-    private final NoticeService noticeService;
+    NoticeService noticeService;
     @Autowired
     NoticeController(NoticeService noticeService){
         this.noticeService = noticeService;

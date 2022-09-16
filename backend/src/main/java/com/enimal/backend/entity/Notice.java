@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,12 +16,12 @@ import java.util.Date;
 public class Notice {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int idx;
+    private Integer idx;
 
     private String user_id;
     private String title;
-    private Date createdate;
-    private Date modifydate;
+    private LocalDateTime createdate;
+    private LocalDateTime modifydate;
     private String content;
-    private int view;
+    private Integer view;
 }
