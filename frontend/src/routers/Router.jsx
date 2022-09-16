@@ -7,6 +7,12 @@ import NavBar from "@components/common/NavBar";
 // main
 import Home from "@screens/Home";
 
+// intro
+import Intro from "@screens/Intro";
+
+// rank
+import Rank from "@screens/Rank";
+
 // mypage
 import MyPage from "@screens/MyPage";
 
@@ -30,6 +36,12 @@ function Router() {
       <Routes>
         {/* main */}
         <Route path="/" element={<Home />} />
+
+        {/* intro */}
+        <Route path="/intro" element={<Intro />} />
+
+        {/* rank */}
+        <Route path="/rank" element={<Rank />} />
 
         {/* mypage */}
         <Route path="/mypage" element={<MyPage />} />

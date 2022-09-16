@@ -5,16 +5,20 @@
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
+  min-height: 1000px;
 }
 
 .MainPage2{
   height: 94vh;
-  margin-top: 55px; 
+  margin-top: 55px;
+  min-height: 1000px;
 }
 
 .MainPage3{
   height: 90vh;
   margin-top: 10%; 
+  min-height: 1000px;
+  margin-bottom: 100px;
 }
 
 .Line{
@@ -26,14 +30,14 @@
 
 .TodayAnimalImg{
   display: block;
+  margin-top: 0;
   margin-inline: auto;
-  border-radius: 20px;
-  width: 90%;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
   height: auto;
+  
 }
-.Page2Height{
-  min-height: 970px;
-}
+
 .Page1{
   display: flex;
   flex-direction: column;
@@ -76,17 +80,22 @@
   border-radius: 5px;
   background-color: #466b8b;
   color: white;
+  text-align: center;
+  padding-top: 10px;
 }
 .Button3{
-  width: 250px;
+  display: block;
+  width: 15%;
+  min-width: 200px;
   height: 35px;
-  margin-inline: auto;
   border-radius: 5px;
   background-color: #ffffff;
   color: #466b8b;
+  text-align: center;
+  padding-top: 10px;
 }
 .AnimalDescription{
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .collectionRank{
@@ -114,4 +123,10 @@
 .textEnd{
   padding-right: 4%;
   text-align: end;
+}
+
+.AnimalCard{
+  border: 1px solid rgb(194, 193, 193);
+  border-radius: 20px;
+  padding-bottom: 30px;
 }
