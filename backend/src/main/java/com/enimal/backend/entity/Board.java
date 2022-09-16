@@ -4,25 +4,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "BOARD")
 public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idx;
-
-    private String user_id;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
     private String title;
-    private Date createdate;
-    private Date modifydate;
+    private LocalDateTime createdate;
+    private LocalDateTime modifydate;
     private String content;
     private int view;
     private Byte[] picture;
