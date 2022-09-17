@@ -1,0 +1,12 @@
+.comment {
+  margin-bottom: vw(16px);
+  img {
+    width: vw(32px);
+    height: vw(32px);
+    margin-right: vw(12px);
+  }
+
+  &_content {
+    margin-left: vw(12px);
+  }
+}
