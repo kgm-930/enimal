@@ -1,0 +1,92 @@
+.container {
+  justify-content: center;
+}
+
+.commudetail {
+  width: vw(1100px);
+  margin-top: vw(66px);
+  &_title {
+    margin-bottom: vw(40px);
+  }
+
+  .divide {
+    width: 100%;
+    height: (1px);
+    background-color: $GRAY-E4;
+
+  }
+
+  &_all {
+    width: vw(720px);
+    margin-left: vw(225px);
+    &_profile {
+      margin-top: vw(54px);
+      margin-bottom: vw(24px);
+      &_img {
+        width: vw(90px);
+        height: vw(90px);
+        
+        img{
+          border-radius: vw(15px);
+        }
+      }
+      &_extra {
+        flex-direction: column;
+        // justify-content: space-between;
+        align-items: center;
+        margin-left: vw(12px);
+  
+        &_name {
+          margin-top: vw(24px);
+          margin-bottom: vw(12px);
+        }
+      }
+    }
+  
+    &_content {
+      flex-direction: column;
+      margin-bottom: vw(60px);
+
+      &_photo {
+        margin-bottom: vw(48px);
+        img {
+          width: vw(720px);
+          height: vw(720px);
+          border-radius: vw(15px);
+        }
+      }
+
+      &_title {
+        margin-bottom: vw(16px);
+      }
+
+      &_txt {
+        margin-top: vw(16px);
+      }
+    }
+
+    &_comment {
+      margin-bottom: vw(40px);
+      
+
+      &_sub {
+        margin-right: vw(16px);
+      }
+
+      textarea {
+        width: vw(570px);
+        margin-right: vw(16px);
+        // 텍스트에어리어 스크롤 막아야 할까?? 글자수 제한 해야할까??
+      }
+      
+      &_enter {
+        button {
+          width: vw(68px);
+          height: vw(40px);
+          background-color: $MAIN;
+          border-radius: vw(12px);
+        }
+      }
+    }
+  }
+}
