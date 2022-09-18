@@ -1,10 +1,13 @@
 import React from "react";
 
+import MyArticles from "./MyArticle/MyArticles";
+import MyComment from "./MyArticle/MyComment";
 
 function MyArticle() {
   return (
     <div>
-      내가쓴글
+      <MyArticles />
+      <MyComment />
     </div>
   )
 }

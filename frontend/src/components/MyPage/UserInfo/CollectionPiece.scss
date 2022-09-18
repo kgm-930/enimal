@@ -6,22 +6,22 @@
 
 .Angle{
   width: 50px;
-  height: 100px;
+  height: 65px;
   color: $TYPO-27;
-  margin-top: 250px;
   margin-inline: 20px;
+  margin-block: 30px;
 }
 
 .puzzle{
-  width: 752px;
-  height: 752px;
+  width: vw(752px);
+  height: vw(752px);
   padding: 0;
 }
 
 .PieceImg{
   object-fit: fill;
-  width: 250px;
-  height: 250px;
+  width: vw(250px);
+  height: vw(250px);
   margin: -1px;
   padding: 0;
   border: 1px solid black;
@@ -37,6 +37,6 @@
   border-radius: 10px;
 
   margin-block: 30px;
-  margin-inline: auto;
+  margin-inline: 30px;
 
 }

@@ -13,16 +13,16 @@
 .NFTcard{
   display: inline-block;
   background-color: $MAIN;
-  width: 300px;
-  height: 450px;
+  width: vw(300px);
+  height: vw(450px);
   margin-inline: 50px;
   margin-block: 30px;
   text-align: center;
   box-shadow: 3px 3px 5px 0;
 }
 .NFTImg{
-  width: 300px;
-  height: 350px;
+  width: vw(300px);
+  height: vw(350px);
 }
 .NFTList::-webkit-scrollbar {
   width: 10px;
@@ -36,8 +36,4 @@
 
 .NFTList::-webkit-scrollbar-track {
   background: rgba(196, 217, 248, 0.1);
-}
-
-.Made{
-  
 }

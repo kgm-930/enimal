@@ -13,7 +13,7 @@ function MyNFT() {
         <li className="NFTcard">
           <img className="NFTImg" src={NFTtest} alt="#" />
           <h1 className="fs-32 notoBold my-3">숲속의 사슴</h1>
-          <div className="Made flex justify-center">
+          <div className="flex justify-center">
             <h1 className="fs-18 roThin">Made by</h1>
             <h1 className="fs-18 mx-2 roMid">HaengSong</h1>
           </div>
@@ -21,7 +21,7 @@ function MyNFT() {
         <li className="NFTcard">
           <img className="NFTImg" src={Test} alt="#" />
           <h1 className="fs-32 notoBold my-3">???????</h1>
-          <div className="Made flex justify-center">
+          <div className="flex justify-center">
             <h1 className="fs-18 roThin">Made by</h1>
             <h1 className="fs-18 mx-2 roMid">HaengSong</h1>
           </div>
@@ -29,7 +29,7 @@ function MyNFT() {
         <li className="NFTcard">
           <img className="NFTImg" src={Test} alt="#" />
           <h1 className="fs-32 notoBold my-3">???????</h1>
-          <div className="Made flex justify-center">
+          <div className="flex justify-center">
             <h1 className="fs-18 roThin">Made by</h1>
             <h1 className="fs-18 mx-2 roMid">HaengSong</h1>
           </div>

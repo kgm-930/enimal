@@ -29,7 +29,6 @@ function MyPage() {
 
   function TabChange(e){
     setTab(e.target.id)
-    console.log(e.target.id)
     for (let i=0; i<4; i+=1) {
       if (e.target.id === tabList[i]){
         document.getElementById(tabList[i]).className = 'mypageTabA'

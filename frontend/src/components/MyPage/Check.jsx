@@ -5,6 +5,7 @@ function Check() {
   return (
     <div className="">
       <DayCheck />
+      <div> 달력 연구가 필요......</div>
     </div>
   )
 }
