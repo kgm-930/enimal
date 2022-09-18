@@ -20,7 +20,7 @@ import MyPage from "@screens/MyPage";
 import Draw from "@screens/Draw";
 
 // notice
-import Notice from "@screens/Notice";
+import Notice from "@screens/Notice/Notice";
 
 // community
 import Community from "@screens/Community";

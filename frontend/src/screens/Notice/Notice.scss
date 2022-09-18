@@ -1,0 +1,30 @@
+.container {
+  justify-content: center;
+}
+
+.notice {
+  width: vw(1100px);
+  margin-top: vw(66px);
+
+  &_pagetitle {
+    margin-bottom: vw(40px);
+  }
+
+  .divide {
+    width: 100%;
+    height: (1px);
+    background-color: $GRAY-E4;
+  }
+
+  &_table {
+    margin-top: vw(20px);
+    margin-left: vw(50px);
+    margin-bottom: vw(20px);
+    width: vw(950px);
+    justify-content: space-between;
+  }
+
+  &_list {
+    margin-bottom: vw(100px);
+  }
+}
