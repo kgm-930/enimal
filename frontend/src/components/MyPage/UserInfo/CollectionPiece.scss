@@ -1,0 +1,42 @@
+.MyCollection{
+  display: block;
+  text-align: center;
+  margin-block: 50px;
+}
+
+.Angle{
+  width: 50px;
+  height: 100px;
+  color: $TYPO-27;
+  margin-top: 250px;
+  margin-inline: 20px;
+}
+
+.puzzle{
+  width: 752px;
+  height: 752px;
+  padding: 0;
+}
+
+.PieceImg{
+  object-fit: fill;
+  width: 250px;
+  height: 250px;
+  margin: -1px;
+  padding: 0;
+  border: 1px solid black;
+}
+
+.collectionName{
+  width: 300px;
+  height: 65px;
+  background-color: $MAIN;
+  color: $TYPO-27;
+  text-align: center;
+  padding: 13px;
+  border-radius: 10px;
+
+  margin-block: 30px;
+  margin-inline: auto;
+
+}
