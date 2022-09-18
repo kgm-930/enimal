@@ -1,5 +1,6 @@
 package com.enimal.backend.dto.Notice;
 
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,9 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NoticeListDto {
-    private String title;
+public class NoticeShowDto {
     private String user_id;
-    private int view;
-    private int idx;
+    private String title;
+    private LocalDateTime noticedate;
+    private String content;
+    private Integer view;
 }

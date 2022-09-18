@@ -1,6 +1,7 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.Notice.NoticeShowDto;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
 import com.enimal.backend.service.JwtService;
@@ -62,19 +63,17 @@ class NoticeListTests {
 		}
 	}
 	@Test
-	void 작성한글조회() {
-		String userId = "test";
-		Integer pageSize = 5;
-		Integer lastIdx = 0;
-		Slice<Board> boards = null;
-		Pageable pageable = PageRequest.ofSize(pageSize);
-		if (lastIdx == 0) {
-			lastIdx = boardRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
-		}
-		boards = boardRepository.findByUserIdOrderByIdxDesc(userId, lastIdx, pageable);
-		for (Board board : boards) {
-			System.out.println(board.getContent() + " : " + board.getTitle());
-			System.out.println(board.getUser().getNickname());
-		}
+	void 공지사항_세부_조회() {
+		Integer idx = 5;
+		Optional<Notice> notice = noticeRepository.findById(idx);
+		NoticeShowDto noticeShowDto = new NoticeShowDto();
+		noticeShowDto.setUser_id(notice.get().getUser_id());
+		noticeShowDto.setTitle(notice.get().getTitle());
+		noticeShowDto.setContent(notice.get().getContent());
+		noticeShowDto.setNoticedate(notice.get().getModifydate());
+		noticeShowDto.setView(notice.get().getView());
+		System.out.println(noticeShowDto.getTitle());
+		System.out.println(noticeShowDto.getContent());
+		System.out.println(noticeShowDto.getNoticedate());
 	}
 }

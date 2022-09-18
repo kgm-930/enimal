@@ -2,16 +2,21 @@ package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.Notice.NoticeShowDto;
+import com.enimal.backend.entity.Notice;
 import com.enimal.backend.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -50,6 +55,49 @@ public class NoticeController {
         HttpStatus status;
         try{
             List<NoticeListDto> data = noticeService.listNotice();
+            result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
+    @GetMapping("/notice") // 공지사항 세부 조회
+    public ResponseEntity<?> detailNotice(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "idx") Integer idx){
+        Map<String,Object> result = new HashMap<>() ;
+        HttpStatus status;
+//        Boolean hitadd = false;
+//        Cookie[] cookies = request.getCookies();
+//        Cookie Cookieview = null;
+//
+//        if(cookies!=null && cookies.length>0) {
+//            for (int i = 0; i < cookies.length; i++) {
+//                if (cookies[i].getName().equals("cookie")) {
+//                    Cookieview = cookies[i];
+//                }
+//            }
+//        }
+//        System.out.println(Cookieview);
+//        if(Cookieview==null){
+//            String cookName = "cookie";
+//            Cookie newCookie = new Cookie(cookName,"," + idx);
+//            newCookie.setMaxAge(60*30);
+//            response.addCookie(newCookie);
+//            hitadd=true;
+//        }
+//        else{
+//            String value = Cookieview.getValue();
+//            if(value.indexOf("," + idx)<0){
+//                hitadd=true;
+//                value = value + "," + idx;
+//                Cookieview.setValue(value);
+//                response.addCookie(Cookieview);
+//            }
+//        }
+//        System.out.println(hitadd);
+        try{
+            NoticeShowDto data = noticeService.detailNotice(idx);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
