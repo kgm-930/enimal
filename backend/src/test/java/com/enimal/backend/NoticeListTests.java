@@ -50,15 +50,15 @@ class NoticeListTests {
 	void 공지사항_리스트_조회(){
 		Integer pageSize = 5;
 		Integer lastIdx = 0;
-		Slice<Notice> noitces = null;
+		Slice<Notice> notices = null;
 		Pageable pageable = PageRequest.ofSize(pageSize);
 		// 맨처음
 		if (lastIdx == 0) {
 			lastIdx = noticeRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
 		}
-		noitces = noticeRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
-		for (Notice noitce : noitces) {
-			System.out.println(noitce.getContent() + " : " + noitce.getTitle());
+		notices = noticeRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+		for (Notice notice : notices) {
+			System.out.println(notice.getContent() + " : " + notice.getTitle());
 		}
 	}
 	@Test
