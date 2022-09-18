@@ -40,10 +40,12 @@ function Home() {
           <h1 className="fs-32 notoBold my-3 page1FontColor">Enimal</h1>
           <h3 className="fs-24 notoMid my-3 page1FontColor">멸종위기동물 NFT카드를 수집하면서</h3>
           <h3 className="fs-24 notoMid my-3 page1FontColor">우리와 함께 멸종위기 생물을 지켜주세요.</h3>
-          <h3 className="fs-24 notoMid my-3 page1FontColor">사용된 SSF코인은 동물보호단체에 기부하는데 사용이 됩니다</h3>
+          <h3 className="fs-24 notoMid my-3 page1FontColor">사용된 SSF코인은 동물보호단체에 기부하는데 사용이 됩니다.</h3>
           <Link to="/intro" className="Button3 fs-16 notoBold">자세한 설명 보기</Link>
         </div>
       </div>
+
+
       <div className="MainPage2">
         <div className="container d-flex flex-column justify-content-center align-items-center Page2Height">
           <h1 className="fs-60 notoBold text-center my-3 page2FontColor">오늘의 동물</h1>
@@ -51,15 +53,12 @@ function Home() {
             <img className="TodayAnimalImg" src={todayAnimal} alt="#" />
             <div className="AnimalDescription">
               <h3 className="fs-40 notoBold text-center my-3 page2FontColor">북극곰</h3>
-              <article className="fs-32 NotoSansRegular AnialContent page2FontColor">백곰이라고도 한다.   암컷은 수컷보다 몸이 작다. 다른 곰보다 머리가 작고 목이 길며 귀는 작고 둥글다. 발바닥에는 털이 있으며 척구(蹠球)는 작아서 얼음 위를 걸어 다니기에 알맞다. 몸빛은 털갈이 직후에는 흰색이나 차츰 황백색으로 변한다.
+              <article className="fs-32 notoReg AnialContent page2FontColor"> 백곰이라고도 한다.   암컷은 수컷보다 몸이 작다. 다른 곰보다 머리가 작고 목이 길며 귀는 작고 둥글다. 발바닥에는 털이 있으며 척구(蹠球)는 작아서 얼음 위를 걸어 다니기에 알맞다. 몸빛은 털갈이 직후에는 흰색이나 차츰 황백색으로 변한다.
               </article>
               <button className="Button fs-15 notoMid" type="button">영상 시청하고 포인트 받기</button>
             </div>
           </div>
-
-
         </div>
-
       </div>
 
       <hr className="Line" />
