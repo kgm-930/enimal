@@ -7,10 +7,7 @@ import com.enimal.backend.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -37,6 +34,22 @@ public class BoardController {
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("result","서버에러");
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
+    @DeleteMapping("/board")
+    public ResponseEntity<?> deleteBoard(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            boolean is = boardService.deleteBoard(userId,idx);
+            if(is) result.put("message",okay);
+            else result.put("message",fail);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);

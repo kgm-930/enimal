@@ -10,6 +10,8 @@ import com.enimal.backend.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -37,5 +39,21 @@ public class BoardServiceImpl implements BoardService {
         board.setModifydate(LocalDateTime.now());
         board.setView(0);
         boardRepository.save(board);
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteBoard(String userId, Integer idx) {
+        Optional<Board> board = boardRepository.findById(idx);
+        if(board.isPresent()){
+            String realId = board.get().getUser().getId();
+            // 작성자의 경우만 삭제 가능하도록
+            if(realId.equals(userId)){
+                boardRepository.deleteById(idx);
+                return true;
+            }
+            else return false;
+        }
+        else return false;
     }
 }

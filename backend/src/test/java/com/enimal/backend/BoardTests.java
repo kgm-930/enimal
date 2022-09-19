@@ -50,4 +50,9 @@ public class BoardTests {
         System.out.println(board.getContent());
         System.out.println(board.getPicture());
     }
+    @Test
+    void 자유게시판_삭제(){
+        Integer idx = 1;
+        boardRepository.deleteById(idx);
+    }
 }
