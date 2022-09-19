@@ -100,7 +100,7 @@ public class NoticeController {
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -121,7 +121,7 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -142,7 +142,7 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);

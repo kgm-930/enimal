@@ -52,7 +52,7 @@ public class BoardController {
             else result.put("message",fail);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -66,7 +66,7 @@ public class BoardController {
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
