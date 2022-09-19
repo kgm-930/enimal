@@ -53,7 +53,9 @@
 
 [자세히 보기](https://www.notion.so/ERD-useCase-69e6c52a95c4440ab46a93880c2a4c62)
 
-![img](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/4e3c61cd-c56d-462a-a874-c1942409f4bd/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220916%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220916T043234Z&X-Amz-Expires=86400&X-Amz-Signature=18c021bcbbf45cdcfe58387b1e8e4228611ef9d311276c0c47b18a5408807de2&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)![image-20220916133311407](README.assets/image-20220916133311407.png)
+
+
+![img](README.assets/useCase.png)![image-20220916133311407](README.assets/image-20220916133311407.png)
 
 ---
 
