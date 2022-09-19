@@ -2,8 +2,10 @@ package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Board.BoardListDto;
 import com.enimal.backend.dto.Board.BoardRegistDto;
+import com.enimal.backend.dto.Board.BoardShowDto;
 import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.Notice.NoticeShowDto;
 import com.enimal.backend.repository.BoardRepository;
 import com.enimal.backend.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,20 @@ public class BoardController {
         HttpStatus status;
         try{
             List<BoardListDto> data = boardService.listBoard(pageSize,lastIdx);
+            result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message","서버에러");
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
+    @GetMapping("/board") // 공지사항 세부 조회
+    public ResponseEntity<?> detailBoard(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
+        Map<String,Object> result = new HashMap<>() ;
+        HttpStatus status;
+        try{
+            BoardShowDto data = boardService.detailBoard(idx);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){

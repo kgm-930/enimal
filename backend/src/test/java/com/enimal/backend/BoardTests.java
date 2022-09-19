@@ -85,9 +85,11 @@ public class BoardTests {
         boardShowDto.setTitle(board.get().getTitle());
         boardShowDto.setContent(board.get().getContent());
         boardShowDto.setPicture(board.get().getPicture());
+        board.get().setView(board.get().getView()+1);
+        boardRepository.save(board.get());
         boardShowDto.setView(board.get().getView());
         System.out.println(boardShowDto.getTitle());
         System.out.println(boardShowDto.getContent());
-        System.out.println(boardShowDto.getUser_id());
+        System.out.println(boardShowDto.getView());
     }
 }
