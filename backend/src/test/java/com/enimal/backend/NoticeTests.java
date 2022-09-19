@@ -14,13 +14,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 //@Transactional
-class NoticeListTests {
+class NoticeTests {
 	NoticeRepository noticeRepository;
 	JwtService jwtService;
 	UserRepository userRepository;
@@ -28,7 +27,7 @@ class NoticeListTests {
 	BoardRepository boardRepository;
 	CommentRepository commentRepository;
 	@Autowired
-	public NoticeListTests(NoticeRepository noticeRepository, JwtService jwtService, UserRepository userRepository, AttendenceRepository attendenceRepository, BoardRepository boardRepository, CommentRepository commentRepository){
+	public NoticeTests(NoticeRepository noticeRepository, JwtService jwtService, UserRepository userRepository, AttendenceRepository attendenceRepository, BoardRepository boardRepository, CommentRepository commentRepository){
 		this.noticeRepository = noticeRepository;
 		this.jwtService = jwtService;
 		this.userRepository = userRepository;
