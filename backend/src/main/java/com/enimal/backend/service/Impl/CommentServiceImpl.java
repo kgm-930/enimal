@@ -1,6 +1,7 @@
 package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Comment.CommentRegistDto;
+import com.enimal.backend.dto.Comment.CommentShowDto;
 import com.enimal.backend.entity.Board;
 import com.enimal.backend.entity.Comment;
 import com.enimal.backend.entity.User;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +38,21 @@ public class CommentServiceImpl implements CommentService {
         comment.setCreatedate(LocalDateTime.now());
         comment.setUser(user.get());
         commentRepository.save(comment);
+    }
+
+    @Override
+    public List<CommentShowDto> listComment(Integer idx) {
+        List<Comment> comments = commentRepository.findByBoard_Idx(idx);
+        List<CommentShowDto> commentShowDtos = new ArrayList<>();
+        for(int i=0; i<comments.size(); i++){
+            CommentShowDto commentShowDto = new CommentShowDto();
+            commentShowDto.setCommentTime(comments.get(i).getCreatedate());
+            commentShowDto.setComment_idx(comments.get(i).getIdx());
+            commentShowDto.setContent(comments.get(i).getContent());
+            commentShowDto.setUser_id(comments.get(i).getUser().getId());
+            commentShowDto.setIdx(idx);
+            commentShowDtos.add(commentShowDto);
+        }
+        return commentShowDtos;
     }
 }

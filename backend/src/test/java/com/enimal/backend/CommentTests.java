@@ -50,7 +50,7 @@ public class CommentTests {
     }
     @Test
     void 댓글_조회(){
-        Integer idx = 7;
+        Integer idx = 3;
         List<Comment> comments = commentRepository.findByBoard_Idx(idx);
         List<CommentShowDto> commentShowDtos = new ArrayList<>();
         for(int i=0; i<comments.size(); i++){
