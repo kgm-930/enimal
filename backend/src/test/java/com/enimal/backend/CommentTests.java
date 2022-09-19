@@ -1,5 +1,6 @@
 package com.enimal.backend;
 
+import com.enimal.backend.dto.Comment.CommentShowDto;
 import com.enimal.backend.entity.Board;
 import com.enimal.backend.entity.Comment;
 import com.enimal.backend.entity.User;
@@ -12,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.swing.plaf.IconUIResource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -43,5 +47,24 @@ public class CommentTests {
         System.out.println(comment.getContent());
         System.out.println(comment.getUser().getId());
         System.out.println(comment.getBoard().getIdx());
+    }
+    @Test
+    void 댓글_조회(){
+        Integer idx = 7;
+        List<Comment> comments = commentRepository.findByBoard_Idx(idx);
+        List<CommentShowDto> commentShowDtos = new ArrayList<>();
+        for(int i=0; i<comments.size(); i++){
+            CommentShowDto commentShowDto = new CommentShowDto();
+            commentShowDto.setCommentTime(comments.get(i).getCreatedate());
+            commentShowDto.setComment_idx(comments.get(i).getIdx());
+            commentShowDto.setContent(comments.get(i).getContent());
+            commentShowDto.setUser_id(comments.get(i).getUser().getId());
+            commentShowDto.setIdx(idx);
+            commentShowDtos.add(commentShowDto);
+        }
+        for(int i=0; i<commentShowDtos.size(); i++){
+            System.out.println(commentShowDtos.get(i).getUser_id());
+            System.out.println(commentShowDtos.get(i).getContent());
+        }
     }
 }
