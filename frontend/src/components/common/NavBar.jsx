@@ -2,12 +2,14 @@ import React from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "./NavBar.scss";
 
+import nav from '@images/NAV.png'
+
 function NavBar() {
   return (
     <header className="fixed-top">
       <Navbar className="mainNav" expand="lg">
         <Navbar.Brand href="/" className="mainlogo notoBold fs-24">
-          Enimal
+          <img className="logoimg" src={nav} alt="#" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

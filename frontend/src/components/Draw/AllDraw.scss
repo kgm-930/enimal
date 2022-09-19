@@ -1,0 +1,44 @@
+.AllDraw{
+  margin-top: 50px;
+  margin-inline: 135px;
+}
+
+.drawImg{
+  width: vw(100px);
+  height: vw(110px);
+}
+
+.drawTitle{
+  text-align: center;
+}
+
+.drawCard{
+  width: vw(100px);
+  height: vw(150px);
+  margin-inline: 25px;
+}
+
+.CardList{
+  flex-wrap: wrap;
+}
+
+.drawButton{
+  display: block;
+  width: vw(300px);
+  height: vw(50px);
+  background-color: #CBDFF1;
+  margin-inline: auto;
+  margin-block: 50px;
+  border-radius: 10px;
+  color: $TYPO-27;
+}
+
+.drawNotice{
+  margin-block: 10px;
+  text-align: center;
+}
+
+.drawNotice2{
+  margin-top: 30px;
+  color: $TYPO-27;
+}
