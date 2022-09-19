@@ -20,7 +20,8 @@ import MyPage from "@screens/MyPage";
 import Draw from "@screens/Draw";
 
 // notice
-import Notice from "@screens/Notice";
+import Notice from "@screens/Notice/Notice";
+import NoticeRegist from "@screens/Notice/NoticeRegist";
 
 // community
 import Community from "@screens/Community/CommunityMain";
@@ -53,6 +54,7 @@ function Router() {
 
         {/* notice */}
         <Route path="/notice" element={<Notice />} />
+        <Route path="/notice/regist" element={<NoticeRegist />} />
 
         {/* community */}
         <Route path="/community" element={<Community />} />
