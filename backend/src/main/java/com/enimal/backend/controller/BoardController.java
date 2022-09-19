@@ -3,9 +3,11 @@ package com.enimal.backend.controller;
 import com.enimal.backend.dto.Board.BoardListDto;
 import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.dto.Board.BoardShowDto;
+import com.enimal.backend.dto.Board.BoardUpdateDto;
 import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.Notice.NoticeShowDto;
+import com.enimal.backend.dto.Notice.NoticeUpdateDto;
 import com.enimal.backend.repository.BoardRepository;
 import com.enimal.backend.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +75,7 @@ public class BoardController {
         }
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/board") // 공지사항 세부 조회
+    @GetMapping("/board") // 자유게시판 세부 조회
     public ResponseEntity<?> detailBoard(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
         Map<String,Object> result = new HashMap<>() ;
         HttpStatus status;
@@ -87,4 +89,26 @@ public class BoardController {
         }
         return new ResponseEntity<>(result,status);
     }
+    @PutMapping("/board") // 자유게시판 수정
+    public ResponseEntity<?> updateBoard(HttpServletRequest request, @RequestBody BoardUpdateDto boardUpdateDto){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            if(userId.equals(boardUpdateDto.getUser_id())){ // 작성자인지 확인
+                boolean is = boardService.updateBoard(boardUpdateDto);
+                result.put("result",is);
+                status = HttpStatus.OK;
+            }
+            else{
+                result.put("message",fail);
+                status = HttpStatus.OK;
+            }
+        }catch (Exception e){
+            result.put("message","서버에러");
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
+
 }

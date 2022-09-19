@@ -3,6 +3,7 @@ package com.enimal.backend.service.Impl;
 import com.enimal.backend.dto.Board.BoardListDto;
 import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.dto.Board.BoardShowDto;
+import com.enimal.backend.dto.Board.BoardUpdateDto;
 import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.entity.Board;
 import com.enimal.backend.entity.Notice;
@@ -99,5 +100,18 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.save(board.get());
         boardShowDto.setView(board.get().getView());
         return boardShowDto;
+    }
+
+    @Override
+    public boolean updateBoard(BoardUpdateDto boardUpdateDto) {
+        Optional<Board> board = boardRepository.findById(boardUpdateDto.getIdx());
+        if(board.isPresent()){
+            board.get().setTitle(boardUpdateDto.getTitle());
+            board.get().setContent(boardUpdateDto.getContent());
+            board.get().setPicture(boardUpdateDto.getPicture());
+            board.get().setModifydate(LocalDateTime.now());
+        }
+        boardRepository.save(board.get());
+        return true;
     }
 }

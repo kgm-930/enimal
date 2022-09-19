@@ -92,4 +92,16 @@ public class BoardTests {
         System.out.println(boardShowDto.getContent());
         System.out.println(boardShowDto.getView());
     }
+    @Test
+    void 자유게시판_수정(){
+        Integer idx = 7;
+        String titleC = "제목 수정합니다111111";
+        Optional<Board> board = boardRepository.findById(idx);
+        if(board.isPresent()){
+            board.get().setTitle(titleC);
+            board.get().setModifydate(LocalDateTime.now());
+        }
+        boardRepository.save(board.get());
+        System.out.println(board.get().getTitle());
+    }
 }
