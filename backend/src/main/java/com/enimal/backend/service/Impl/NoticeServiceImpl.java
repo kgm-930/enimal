@@ -80,6 +80,7 @@ public class NoticeServiceImpl implements NoticeService {
         if(notice.isPresent()){
             notice.get().setTitle(noticeUpdateDto.getTitle());
             notice.get().setContent(noticeUpdateDto.getContent());
+            notice.get().setModifydate(LocalDateTime.now());
         }
         noticeRepository.save(notice.get());
         return true;
