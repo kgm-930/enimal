@@ -40,7 +40,7 @@ public class BoardController {
             boardService.registBoard(boardRegistDto);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("result","서버에러");
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -97,7 +97,7 @@ public class BoardController {
         try{
             if(userId.equals(boardUpdateDto.getUser_id())){ // 작성자인지 확인
                 boolean is = boardService.updateBoard(boardUpdateDto);
-                result.put("result",is);
+                result.put("message",okay);
                 status = HttpStatus.OK;
             }
             else{

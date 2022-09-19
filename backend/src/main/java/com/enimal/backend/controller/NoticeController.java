@@ -35,7 +35,7 @@ public class NoticeController {
         try{
             if(userId.equals(admin)){ // 작성자인지 확인
                 noticeService.registNotice(noticeRegistDto);
-                result.put("result",okay);
+                result.put("message",okay);
                 status = HttpStatus.OK;
             }
             else{
@@ -43,7 +43,7 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("result","서버에러");
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -113,7 +113,7 @@ public class NoticeController {
         try{
             if(userId.equals(admin)){ // 작성자인지 확인
                 noticeService.deleteNotice(idx);
-                result.put("result",okay);
+                result.put("message",okay);
                 status = HttpStatus.OK;
             }
             else{
@@ -134,7 +134,7 @@ public class NoticeController {
         try{
             if(userId.equals(admin)){ // 작성자인지 확인
                 boolean is = noticeService.updateNotice(noticeUpdateDto);
-                result.put("result",is);
+                result.put("message",okay);
                 status = HttpStatus.OK;
             }
             else{
