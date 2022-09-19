@@ -1,6 +1,7 @@
 package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.User.UserAttendenceListDto;
 import com.enimal.backend.dto.User.UserCommentListDto;
 import com.enimal.backend.dto.User.UserLoginDto;
 import com.enimal.backend.dto.User.UserPostListDto;
@@ -108,12 +109,12 @@ public class UserController {
         return new ResponseEntity<>(result,status);
     }
     @GetMapping("/user/post") // 작성한 글 조회
-    public ResponseEntity<?> listBoardUser(HttpServletRequest request){
+    public ResponseEntity<?> listBoardUser(HttpServletRequest request, @RequestParam(value = "lastIdx") Integer lastIdx,@RequestParam(value = "pageSize") Integer pageSize){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            List<UserPostListDto> data = userService.boardList(userId);
+            List<UserPostListDto> data = userService.boardList(userId,pageSize,lastIdx);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -124,12 +125,28 @@ public class UserController {
         return new ResponseEntity<>(result,status);
     }
     @GetMapping("/user/comment") //작성한 댓글 조회
-    public ResponseEntity<?> listCommentUser(HttpServletRequest request){
+    public ResponseEntity<?> listCommentUser(HttpServletRequest request, @RequestParam(value = "lastIdx") Integer lastIdx,@RequestParam(value = "pageSize") Integer pageSize){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            List<UserCommentListDto> data = userService.listCommentUser(userId);
+            List<UserCommentListDto> data = userService.listCommentUser(userId,pageSize,lastIdx);
+            result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(result,status);
+    }
+    @GetMapping("/user/attendenceList") //출석 조회
+    public ResponseEntity<?> listAttendenceUser(HttpServletRequest request){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            List<UserAttendenceListDto> data = userService.listAttendenceUser(userId);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
