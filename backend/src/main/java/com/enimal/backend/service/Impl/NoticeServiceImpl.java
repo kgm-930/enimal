@@ -22,8 +22,11 @@ import java.util.Optional;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
+    private NoticeRepository noticeRepository;
     @Autowired
-    NoticeRepository noticeRepository;
+    NoticeServiceImpl(NoticeRepository noticeRepository){
+        this.noticeRepository = noticeRepository;
+    }
     @Override
     public boolean registNotice(NoticeRegistDto noticeRegistDto) {
         Notice notice = new Notice();
