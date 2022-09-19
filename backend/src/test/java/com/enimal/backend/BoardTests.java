@@ -1,6 +1,8 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.Board.BoardRegistDto;
+import com.enimal.backend.dto.Board.BoardShowDto;
+import com.enimal.backend.dto.Notice.NoticeShowDto;
 import com.enimal.backend.entity.Board;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
@@ -72,5 +74,20 @@ public class BoardTests {
         for (Board board : boards) {
             System.out.println(board.getContent() + " : " + board.getTitle());
         }
+    }
+    @Test
+    void 자유게시판_세부_조회() {
+        Integer idx = 5;
+        Optional<Board> board = boardRepository.findById(idx);
+        BoardShowDto boardShowDto = new BoardShowDto();
+        boardShowDto.setBoardTime(board.get().getModifydate());
+        boardShowDto.setUser_id(board.get().getUser().getId());
+        boardShowDto.setTitle(board.get().getTitle());
+        boardShowDto.setContent(board.get().getContent());
+        boardShowDto.setPicture(board.get().getPicture());
+        boardShowDto.setView(board.get().getView());
+        System.out.println(boardShowDto.getTitle());
+        System.out.println(boardShowDto.getContent());
+        System.out.println(boardShowDto.getUser_id());
     }
 }
