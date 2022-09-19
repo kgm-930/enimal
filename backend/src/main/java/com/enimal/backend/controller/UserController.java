@@ -31,7 +31,7 @@ public class UserController {
     @Autowired
     UserController(NoticeService noticeService,UserService userService,JwtService jwtService){
         this.noticeService = noticeService;
-        this.userService=userService;
+        this.userService = userService;
         this.jwtService = jwtService;
     }
 
@@ -91,7 +91,7 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/attend") //출석 정보 조회
+    @GetMapping("/user/attend") // 출석 정보 조회
     public ResponseEntity<?> attendUser(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
@@ -107,7 +107,7 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/post") //작성한 글 조회
+    @GetMapping("/user/post") // 작성한 글 조회
     public ResponseEntity<?> listBoardUser(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
