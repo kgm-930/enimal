@@ -9,4 +9,6 @@ public interface CommentService {
     void registComment(CommentRegistDto commentRegistDto);
 
     List<CommentShowDto> listComment(Integer idx);
+
+    boolean deleteComment(Integer idx, String userId);
 }

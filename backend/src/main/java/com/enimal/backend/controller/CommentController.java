@@ -57,4 +57,20 @@ public class CommentController {
         }
         return new ResponseEntity<>(result,status);
     }
+    @DeleteMapping("/comment") // 댓글 삭제
+    public ResponseEntity<?> deleteComment(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            boolean is = commentService.deleteComment(idx,userId);
+            if(is) result.put("message",okay);
+            else result.put("message",fail);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message","서버에러");
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
 }

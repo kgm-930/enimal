@@ -55,4 +55,14 @@ public class CommentServiceImpl implements CommentService {
         }
         return commentShowDtos;
     }
+
+    @Override
+    public boolean deleteComment(Integer idx, String userId) {
+        Optional<Comment> comment = commentRepository.findById(idx);
+        if(userId.equals(comment.get().getUser().getId())){
+            commentRepository.deleteById(idx);
+            return true;
+        }
+        else return false;
+    }
 }

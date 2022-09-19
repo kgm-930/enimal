@@ -67,4 +67,13 @@ public class CommentTests {
             System.out.println(commentShowDtos.get(i).getContent());
         }
     }
+    @Test
+    void 댓글_삭제(){
+        Integer idx = 8;
+        String userId = "sadfsafsdf";
+        Optional<Comment> comment = commentRepository.findById(idx);
+        if(userId.equals(comment.get().getUser().getId())){
+            commentRepository.deleteById(idx);
+        }
+    }
 }
