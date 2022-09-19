@@ -49,11 +49,11 @@ public class NoticeController {
         return new ResponseEntity<>(result,status);
     }
     @GetMapping("/noticeList") // 공지사항 리스트 조회
-    public ResponseEntity<?> listNotice(){
+    public ResponseEntity<?> listNotice(@RequestParam(value = "pageSize") Integer pageSize,@RequestParam(value = "lastIdx") Integer lastIdx){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            List<NoticeListDto> data = noticeService.listNotice();
+            List<NoticeListDto> data = noticeService.listNotice(pageSize,lastIdx);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -105,7 +105,7 @@ public class NoticeController {
         }
         return new ResponseEntity<>(result,status);
     }
-    @DeleteMapping("/notice")
+    @DeleteMapping("/notice") // 공지사항 삭제
     public ResponseEntity<?> deleteNotice(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
@@ -126,7 +126,7 @@ public class NoticeController {
         }
         return new ResponseEntity<>(result,status);
     }
-    @PutMapping("/notice")
+    @PutMapping("/notice") // 공지사항 수정
     public ResponseEntity<?> updateNotice(HttpServletRequest request, @RequestBody NoticeUpdateDto noticeUpdateDto){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;

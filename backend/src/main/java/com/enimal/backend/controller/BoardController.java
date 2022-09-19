@@ -1,6 +1,8 @@
 package com.enimal.backend.controller;
 
+import com.enimal.backend.dto.Board.BoardListDto;
 import com.enimal.backend.dto.Board.BoardRegistDto;
+import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.repository.BoardRepository;
 import com.enimal.backend.service.BoardService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,7 +41,7 @@ public class BoardController {
         }
         return new ResponseEntity<>(result,status);
     }
-    @DeleteMapping("/board")
+    @DeleteMapping("/board") // 자유게시판 삭제
     public ResponseEntity<?> deleteBoard(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
@@ -47,6 +50,20 @@ public class BoardController {
             boolean is = boardService.deleteBoard(userId,idx);
             if(is) result.put("message",okay);
             else result.put("message",fail);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
+    @GetMapping("/boardList") // 자유게시판 리스트 조회
+    public ResponseEntity<?> listBoard(@RequestParam(value = "pageSize") Integer pageSize,@RequestParam(value = "lastIdx") Integer lastIdx){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        try{
+            List<BoardListDto> data = boardService.listBoard(pageSize,lastIdx);
+            result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);

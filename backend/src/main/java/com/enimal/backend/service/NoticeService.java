@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface NoticeService {
     boolean registNotice(NoticeRegistDto noticeRegistDto);
-    List<NoticeListDto> listNotice();
+    List<NoticeListDto> listNotice(Integer pageSize, Integer lastIdx);
     NoticeShowDto detailNotice(Integer idx);
     boolean deleteNotice(Integer idx);
     boolean updateNotice(NoticeUpdateDto noticeUpdateDto);

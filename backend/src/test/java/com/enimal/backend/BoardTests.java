@@ -2,6 +2,7 @@ package com.enimal.backend;
 
 import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.entity.Board;
+import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.*;
 import com.enimal.backend.service.JwtService;
@@ -9,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
@@ -54,5 +58,19 @@ public class BoardTests {
     void 자유게시판_삭제(){
         Integer idx = 1;
         boardRepository.deleteById(idx);
+    }
+    @Test
+    void 자유게시판_리스트_조회(){
+        Integer pageSize = 5;
+        Integer lastIdx = 0;
+        Slice<Board> boards = null;
+        Pageable pageable = PageRequest.ofSize(pageSize);
+        if (lastIdx == 0) {
+            lastIdx = boardRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
+        }
+        boards = boardRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+        for (Board board : boards) {
+            System.out.println(board.getContent() + " : " + board.getTitle());
+        }
     }
 }
