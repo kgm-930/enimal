@@ -24,7 +24,9 @@ import Notice from "@screens/Notice/Notice";
 import NoticeRegist from "@screens/Notice/NoticeRegist";
 
 // community
-import Community from "@screens/Community";
+import Community from "@screens/Community/CommunityMain";
+import CommunityRegist from "@screens/Community/CommunityRegist";
+import CommunityDetail from "@screens/Community/CommunityDetail";
 
 // not found
 import NotFound from "@screens/NotFound";
@@ -56,6 +58,8 @@ function Router() {
 
         {/* community */}
         <Route path="/community" element={<Community />} />
+        <Route path="/community/regist" element={<CommunityRegist />} />
+        <Route path="/community/detail" element={<CommunityDetail />} />
 
         {/* NotFound */}
         <Route path="/*" element={<NotFound />} />

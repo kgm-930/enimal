@@ -1,0 +1,22 @@
+.container {
+  justify-content: center;
+}
+
+.commu {
+  width: vw(1100px);
+  margin-top: vw(66px);
+  &_up {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: vw(56px);
+
+    &_btn {
+      background-color: $MAIN;
+      color: $WHITE;
+      border-radius: vw(15px);
+      width: vw(140px);
+      height: vw(64px);
+    }
+  }
+}
+
