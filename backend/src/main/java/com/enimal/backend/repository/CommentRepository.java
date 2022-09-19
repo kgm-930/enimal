@@ -15,4 +15,5 @@ import java.util.Optional;
 public interface CommentRepository extends JpaRepository<Comment,Integer> {
 
     List<Comment> findByUserId(String userId);
+    List<Comment> findByBoard_Idx(Integer idx);
 }

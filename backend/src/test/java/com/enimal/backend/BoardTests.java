@@ -2,12 +2,9 @@ package com.enimal.backend;
 
 import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.dto.Board.BoardShowDto;
-import com.enimal.backend.dto.Notice.NoticeShowDto;
 import com.enimal.backend.entity.Board;
-import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.*;
-import com.enimal.backend.service.JwtService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

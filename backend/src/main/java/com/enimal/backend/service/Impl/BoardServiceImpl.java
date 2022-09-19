@@ -6,9 +6,11 @@ import com.enimal.backend.dto.Board.BoardShowDto;
 import com.enimal.backend.dto.Board.BoardUpdateDto;
 import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.entity.Board;
+import com.enimal.backend.entity.Comment;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.BoardRepository;
+import com.enimal.backend.repository.CommentRepository;
 import com.enimal.backend.repository.NoticeRepository;
 import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.BoardService;
@@ -31,11 +33,13 @@ public class BoardServiceImpl implements BoardService {
     private NoticeRepository noticeRepository;
     private UserRepository userRepository;
     private BoardRepository boardRepository;
+    private CommentRepository commentRepository;
     @Autowired
-    BoardServiceImpl(NoticeRepository noticeRepository,UserRepository userRepository,BoardRepository boardRepository){
+    BoardServiceImpl(NoticeRepository noticeRepository,UserRepository userRepository,BoardRepository boardRepository,CommentRepository commentRepository){
         this.noticeRepository = noticeRepository;
         this.userRepository = userRepository;
         this.boardRepository = boardRepository;
+        this.commentRepository = commentRepository;
     }
     @Override
     public void registBoard(BoardRegistDto boardRegistDto) {
@@ -55,11 +59,15 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public boolean deleteBoard(String userId, Integer idx) {
         Optional<Board> board = boardRepository.findById(idx);
+        List<Comment> comments = commentRepository.findByBoard_Idx(idx);
         if(board.isPresent()){
             String realId = board.get().getUser().getId();
             // 작성자의 경우만 삭제 가능하도록
             if(realId.equals(userId)){
                 boardRepository.deleteById(idx);
+                for(int i=0; i<comments.size(); i++){ // 관련 게시물 댓글 삭제
+                    commentRepository.deleteById(comments.get(i).getIdx());
+                }
                 return true;
             }
             else return false;
