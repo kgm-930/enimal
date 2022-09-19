@@ -1,6 +1,7 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.User.UserProfileDto;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.NoticeRepository;
@@ -34,9 +35,11 @@ class BackendApplicationTests {
 	CommentRepository commentRepository;
 	NoticeRepository noticeRepository;
 	MoneyRepository moneyRepository;
+	CollectionRepository collectionRepository;
 	@Autowired
-	public BackendApplicationTests(MoneyRepository moneyRepository,NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+	public BackendApplicationTests(CollectionRepository collectionRepository,MoneyRepository moneyRepository,NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
 		this.noticeRepository = noticeRepository;
+		this.collectionRepository = collectionRepository;
 		this.moneyRepository = moneyRepository;
 		this.jwtService = jwtService;
 		this.userRepository = userRepository;
@@ -156,5 +159,26 @@ class BackendApplicationTests {
 		for(Money money : monies){
 			System.out.println(money.getCreatedate());
 		}
+	}
+	@Test
+	void 유저프로필조회_기본정보(){ // resultSet이 다르다고함. JPA 서브쿼리 매핑을 어떻게?
+		// 필요한거 : 닉네임, 랭킹순위-컬렉션수+기부순위, 완성된 컬렉션 수, 뽑기 횟수, 사용한 포인트, 획득한 업적들
+		String userId = "test";
+		User user = userRepository.findById(userId).get();
+		Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
+		Integer colletionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션
+		Integer colletionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
+		List<Collection> collections = collectionRepository.findByUserId(userId);
+		System.out.println("기부 순위 : " + donationRank);
+		System.out.println("컬렉션 순위 : " + colletionRank);
+		for(Collection collection : collections){
+			System.out.println(collection.getAnimal());
+		}
+
+	}
+	@Test
+	void 유저프로필조회_수집중인컬렉션(){
+		String userId = "test";
+//		userRepository.findByIdAndColletion(userId);
 	}
 }

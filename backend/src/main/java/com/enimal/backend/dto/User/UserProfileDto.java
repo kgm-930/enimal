@@ -4,12 +4,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 public class UserProfileDto {
-    private String nickname;
-    private String wallet;
+//    String getUserId();
+//    String getNickname();
+//    String getWallet();
+//    String getRanking();
+    String user_id;
+    String wallet;
+    String nickname;
+    Integer ranking;
+
+    public UserProfileDto(String userId, String nickname,String wallet, Integer ranking){
+        this.user_id = userId;
+        this.nickname = nickname;
+        this.wallet = wallet;
+        this.ranking = ranking;
+    }
+
     // 랭킹?
     // 보유 업적 - 타인도 가능
     // 보유 컬렉션 - 타인도 가능
