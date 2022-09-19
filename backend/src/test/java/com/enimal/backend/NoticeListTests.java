@@ -76,4 +76,20 @@ class NoticeListTests {
 		System.out.println(noticeShowDto.getContent());
 		System.out.println(noticeShowDto.getNoticedate());
 	}
+	@Test
+	void 공지사항_삭제(){
+		Integer idx = 5;
+		noticeRepository.deleteById(idx);
+	}
+	@Test
+	void 공지사항_수정(){
+		Integer idx = 2;
+		String titleC = "제목 수정합니다";
+		Optional<Notice> notice = noticeRepository.findById(idx);
+		if(notice.isPresent()){
+			notice.get().setTitle(titleC);
+		}
+		noticeRepository.save(notice.get());
+		System.out.println(notice.get().getTitle());
+	}
 }

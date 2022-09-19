@@ -3,6 +3,7 @@ package com.enimal.backend.service.Impl;
 import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.Notice.NoticeShowDto;
+import com.enimal.backend.dto.Notice.NoticeUpdateDto;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.repository.NoticeRepository;
 import com.enimal.backend.service.NoticeService;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.expression.spel.ast.StringLiteral;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,6 @@ public class NoticeServiceImpl implements NoticeService {
         }
         return noticeListDtos;
     }
-
     @Override
     public NoticeShowDto detailNotice(Integer idx) {
         Optional<Notice> notice = noticeRepository.findById(idx);
@@ -66,5 +67,21 @@ public class NoticeServiceImpl implements NoticeService {
         noticeShowDto.setNoticedate(notice.get().getModifydate());
         noticeShowDto.setView(notice.get().getView());
         return noticeShowDto;
+    }
+    @Override
+    @Transactional
+    public boolean deleteNotice(Integer idx) {
+        noticeRepository.deleteById(idx);
+        return true;
+    }
+    @Override
+    public boolean updateNotice(NoticeUpdateDto noticeUpdateDto) {
+        Optional<Notice> notice = noticeRepository.findById(noticeUpdateDto.getIdx());
+        if(notice.isPresent()){
+            notice.get().setTitle(noticeUpdateDto.getTitle());
+            notice.get().setContent(noticeUpdateDto.getContent());
+        }
+        noticeRepository.save(notice.get());
+        return true;
     }
 }
