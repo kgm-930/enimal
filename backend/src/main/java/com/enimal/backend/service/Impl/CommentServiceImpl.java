@@ -57,10 +57,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteComment(Integer idx, String userId) {
-        Optional<Comment> comment = commentRepository.findById(idx);
+    public boolean deleteComment(Integer comment_idx, String userId) {
+        Optional<Comment> comment = commentRepository.findById(comment_idx);
         if(userId.equals(comment.get().getUser().getId())){
-            commentRepository.deleteById(idx);
+            commentRepository.deleteById(comment_idx);
             return true;
         }
         else return false;

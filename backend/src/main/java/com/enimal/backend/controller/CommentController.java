@@ -58,12 +58,12 @@ public class CommentController {
         return new ResponseEntity<>(result,status);
     }
     @DeleteMapping("/comment") // 댓글 삭제
-    public ResponseEntity<?> deleteComment(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
+    public ResponseEntity<?> deleteComment(HttpServletRequest request, @RequestParam(value = "comment_idx") Integer comment_idx){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            boolean is = commentService.deleteComment(idx,userId);
+            boolean is = commentService.deleteComment(comment_idx,userId);
             if(is) result.put("message",okay);
             else result.put("message",fail);
             status = HttpStatus.OK;
