@@ -14,7 +14,6 @@ function MyArticles() {
         <CommunityCard />
         <CommunityCard />
       </div>
-
     </div>
   );
 }
