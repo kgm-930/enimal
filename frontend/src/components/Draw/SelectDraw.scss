@@ -2,3 +2,24 @@
   margin-top: 50px;
   margin-inline: 135px;
 }
+
+.drawCard2{
+  width: vw(100px);
+  height: vw(150px);
+  margin-inline: 25px;
+  opacity: 50%;
+}
+.CardList{
+  flex-wrap: wrap;
+}
+
+.selectbutton{
+  padding: 0;
+}
+
+.selectedCard{
+  width: vw(100px);
+  height: vw(150px);
+  margin-inline: 25px;
+  opacity: 100%;
+}
