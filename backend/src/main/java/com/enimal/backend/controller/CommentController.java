@@ -1,11 +1,7 @@
 package com.enimal.backend.controller;
 
-import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.dto.Comment.CommentRegistDto;
-import com.enimal.backend.dto.Comment.CommentShowDto;
-import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.service.CommentService;
-import com.enimal.backend.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -37,21 +32,6 @@ public class CommentController {
             commentRegistDto.setUser_id(userId);
             commentService.registComment(commentRegistDto);
             result.put("message",okay);
-            status = HttpStatus.OK;
-        }catch (Exception e){
-            result.put("message",fail);
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<>(result,status);
-    }
-    @GetMapping("/comment") // 댓글 조회
-    public ResponseEntity<?> listComment(@RequestParam(name = "idx")Integer idx){
-        Map<String,Object> result = new HashMap<>();
-        HttpStatus status;
-        try{
-            List<CommentShowDto> data = commentService.listComment(idx);
-            result.put("message",okay);
-            result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);

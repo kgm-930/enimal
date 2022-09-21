@@ -4,12 +4,9 @@ import com.enimal.backend.dto.Board.BoardListDto;
 import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.dto.Board.BoardShowDto;
 import com.enimal.backend.dto.Board.BoardUpdateDto;
-import com.enimal.backend.dto.Notice.NoticeListDto;
-import com.enimal.backend.dto.Notice.NoticeRegistDto;
-import com.enimal.backend.dto.Notice.NoticeShowDto;
-import com.enimal.backend.dto.Notice.NoticeUpdateDto;
-import com.enimal.backend.repository.BoardRepository;
+import com.enimal.backend.dto.Comment.CommentShowDto;
 import com.enimal.backend.service.BoardService;
+import com.enimal.backend.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +23,10 @@ public class BoardController {
     private static final String okay = "SUCCESS";
     private static final String fail = "FAIL";
     private final BoardService boardService;
+    private final CommentService commentService;
     @Autowired
-    BoardController(BoardService boardService){
+    BoardController(BoardService boardService,CommentService commentService){
+        this.commentService = commentService;
         this.boardService = boardService;
     }
     @PostMapping("/board") // 자유게시판 등록
@@ -83,8 +82,10 @@ public class BoardController {
         HttpStatus status;
         try{
             BoardShowDto data = boardService.detailBoard(idx);
+            List<CommentShowDto> comment = commentService.listComment(idx);
             result.put("message",okay);
             result.put("data",data);
+            result.put("comment",comment);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
