@@ -146,7 +146,6 @@ public class UserServiceImpl implements UserService {
         Integer colletionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
         if(colletionRank == null) colletionRank = Math.toIntExact(userRepository.count());
         List<Badge> badges = badgeRepository.findByUserId(userId);
-        List<Collection> collections = collectionRepository.findByUserId(userId);
 
         userProfileDto.setNickname(user.getNickname());
         userProfileDto.setColletionCount(colletionCount);
@@ -155,7 +154,6 @@ public class UserServiceImpl implements UserService {
         userProfileDto.setUsedCount(user.getUsedcount());
         userProfileDto.setUsedCredit(user.getUsedcredit());
         userProfileDto.setBadges(badges);
-        userProfileDto.setCollections(collections);
         return userProfileDto;
     }
 }
