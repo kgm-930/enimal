@@ -75,8 +75,8 @@ public class BoardController {
         }
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/board") // 자유게시판 세부 조회
-    public ResponseEntity<?> detailBoard(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
+    @GetMapping("/boardList/{idx}") // 자유게시판 세부 조회
+    public ResponseEntity<?> detailBoard(@PathVariable(value = "idx") Integer idx){
         Map<String,Object> result = new HashMap<>() ;
         HttpStatus status;
         try{
