@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,4 +20,5 @@ public class Badge {
     private String userId;
     private String badge;
     private int percentage;
+    private LocalDateTime createdate;
 }

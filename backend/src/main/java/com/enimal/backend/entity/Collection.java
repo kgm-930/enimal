@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,6 +20,6 @@ public class Collection {
     @Column(name = "user_id")
     private String userId;
     private String animal;
-    private Date createdate;
+    private LocalDateTime createdate;
     private String info;
 }
