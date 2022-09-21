@@ -191,4 +191,11 @@ class BackendApplicationTests {
 		List<Puzzle> puzzles = puzzleRepository.findByUserIdOrderByAnimal(userId);
 
 	}
+	@Test
+	void 랭킹조회_기부(){
+		List<User> users = userRepository.findTop10ByOrderByDonation();
+		for(User user : users){
+			System.out.println(user.getNickname());
+		}
+	}
 }

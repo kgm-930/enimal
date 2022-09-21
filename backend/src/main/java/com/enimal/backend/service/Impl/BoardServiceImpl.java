@@ -87,7 +87,7 @@ public class BoardServiceImpl implements BoardService {
             BoardListDto boardListDto = new BoardListDto();
             boardListDto.setTitle(board.getTitle());
             boardListDto.setView(board.getView());
-            boardListDto.setUser_id(board.getUser().getId());
+            boardListDto.setNickname(board.getUser().getNickname());
             boardListDto.setIdx(board.getIdx());
             boardListDto.setPicture(board.getPicture());
             boardListDtos.add(boardListDto);
@@ -96,11 +96,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardShowDto detailBoard(Integer idx) {
+    public BoardShowDto detailBoard(Integer idx,String userId) {
         Optional<Board> board = boardRepository.findById(idx);
         BoardShowDto boardShowDto = new BoardShowDto();
         boardShowDto.setBoardTime(board.get().getModifydate());
-        boardShowDto.setUser_id(board.get().getUser().getId());
+        if(userId.equals(board.get().getUser().getId())){ // 작성자라면
+            boardShowDto.setIsWriter(true);
+        }
+        boardShowDto.setNickname(board.get().getUser().getNickname());
         boardShowDto.setTitle(board.get().getTitle());
         boardShowDto.setContent(board.get().getContent());
         boardShowDto.setPicture(board.get().getPicture());

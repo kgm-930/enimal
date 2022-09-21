@@ -159,12 +159,12 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/profile/{userId}") //프로필 조회 - 기본정보
-    public ResponseEntity<?> profileUser(HttpServletRequest request, @PathVariable("userId") String profileId){
+    @GetMapping("/user/profile/{nickname}") //프로필 조회 - 기본정보
+    public ResponseEntity<?> profileUser(HttpServletRequest request, @PathVariable("nickname") String nickname){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            UserProfileDto userProfileDto = userService.profileUser(profileId);
+            UserProfileDto userProfileDto = userService.profileUser(nickname);
             result.put("message",okay);
             result.put("data",userProfileDto);
             status = HttpStatus.OK;
@@ -175,12 +175,12 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/completion/{userId}") //프로필 조회 - 보유중인 컬렉션
-    public ResponseEntity<?> completionUser(HttpServletRequest request, @PathVariable("userId") String profileId){
+    @GetMapping("/user/completion/{nickname}") //프로필 조회 - 보유중인 컬렉션
+    public ResponseEntity<?> completionUser(HttpServletRequest request, @PathVariable("nickname") String nickname){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            List<Map<String,Object>> data = userService.completionUser(profileId);
+            List<Map<String,Object>> data = userService.completionUser(nickname);
             result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;

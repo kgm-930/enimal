@@ -21,5 +21,5 @@ public class UserProfileDto {
     private Integer collectionCount;
     private Integer collectionRank;
     private Integer donationRank;
-    private List<Badge> badges;
+    private List<UserBadgeListDto> badges;
 }
