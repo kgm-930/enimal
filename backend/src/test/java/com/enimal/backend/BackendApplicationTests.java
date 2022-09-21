@@ -188,7 +188,7 @@ class BackendApplicationTests {
 	@Test
 	void 유저프로필조회_수집중인컬렉션(){
 		String userId = "test";
-		List<Puzzle> puzzles = puzzleRepository.findByUserId(userId);
+		List<Puzzle> puzzles = puzzleRepository.findByUserIdOrderByAnimal(userId);
 
 	}
 }
