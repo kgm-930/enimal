@@ -16,7 +16,7 @@ import java.util.Date;
 public class Board {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int idx;
+    private Integer idx;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
@@ -24,6 +24,6 @@ public class Board {
     private LocalDateTime createdate;
     private LocalDateTime modifydate;
     private String content;
-    private int view;
+    private Integer view;
     private Byte[] picture;
 }

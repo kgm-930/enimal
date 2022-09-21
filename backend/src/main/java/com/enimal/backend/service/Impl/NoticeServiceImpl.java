@@ -22,8 +22,11 @@ import java.util.Optional;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
+    private NoticeRepository noticeRepository;
     @Autowired
-    NoticeRepository noticeRepository;
+    NoticeServiceImpl(NoticeRepository noticeRepository){
+        this.noticeRepository = noticeRepository;
+    }
     @Override
     public boolean registNotice(NoticeRegistDto noticeRegistDto) {
         Notice notice = new Notice();
@@ -37,10 +40,8 @@ public class NoticeServiceImpl implements NoticeService {
         return true;
     }
     @Override
-    public List<NoticeListDto> listNotice() {
+    public List<NoticeListDto> listNotice(Integer pageSize, Integer lastIdx) {
         List<NoticeListDto> noticeListDtos = new ArrayList<>();
-        Integer pageSize = 5;
-        Integer lastIdx = 0;
         Pageable pageable = PageRequest.ofSize(pageSize);
         // 맨처음
         if (lastIdx == 0) {
@@ -53,6 +54,7 @@ public class NoticeServiceImpl implements NoticeService {
             noticeListDto.setView(notice.getView());
             noticeListDto.setUser_id(notice.getUser_id());
             noticeListDto.setIdx(notice.getIdx());
+            noticeListDto.setNoticeTime(notice.getModifydate());
             noticeListDtos.add(noticeListDto);
         }
         return noticeListDtos;
@@ -65,7 +67,7 @@ public class NoticeServiceImpl implements NoticeService {
         noticeShowDto.setTitle(notice.get().getTitle());
         noticeShowDto.setContent(notice.get().getContent());
         noticeShowDto.setNoticedate(notice.get().getModifydate());
-        noticeShowDto.setView(notice.get().getView());
+        noticeShowDto.setView(notice.get().getView()+1);
         return noticeShowDto;
     }
     @Override

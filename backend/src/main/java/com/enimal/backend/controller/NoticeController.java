@@ -4,25 +4,23 @@ import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.Notice.NoticeShowDto;
 import com.enimal.backend.dto.Notice.NoticeUpdateDto;
-import com.enimal.backend.entity.Notice;
 import com.enimal.backend.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
 public class NoticeController {
+    private static final String okay = "SUCCESS";
     private static final String fail = "FAIL";
+    private static final String admin = "admin";
     NoticeService noticeService;
     @Autowired
     NoticeController(NoticeService noticeService){
@@ -35,9 +33,9 @@ public class NoticeController {
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            if(userId.equals("admin")){ // 작성자인지 확인
-                boolean is = noticeService.registNotice(noticeRegistDto);
-                result.put("result",is);
+            if(userId.equals(admin)){ // 작성자인지 확인
+                noticeService.registNotice(noticeRegistDto);
+                result.put("message",okay);
                 status = HttpStatus.OK;
             }
             else{
@@ -45,17 +43,17 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("result","서버에러");
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
     }
     @GetMapping("/noticeList") // 공지사항 리스트 조회
-    public ResponseEntity<?> listNotice(){
+    public ResponseEntity<?> listNotice(@RequestParam(value = "pageSize") Integer pageSize,@RequestParam(value = "lastIdx") Integer lastIdx){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            List<NoticeListDto> data = noticeService.listNotice();
+            List<NoticeListDto> data = noticeService.listNotice(pageSize,lastIdx);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -102,20 +100,20 @@ public class NoticeController {
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
     }
-    @DeleteMapping("/notice")
+    @DeleteMapping("/notice") // 공지사항 삭제
     public ResponseEntity<?> deleteNotice(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            if(userId.equals("admin")){ // 작성자인지 확인
-                boolean is = noticeService.deleteNotice(idx);
-                result.put("result",is);
+            if(userId.equals(admin)){ // 작성자인지 확인
+                noticeService.deleteNotice(idx);
+                result.put("message",okay);
                 status = HttpStatus.OK;
             }
             else{
@@ -123,20 +121,20 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
     }
-    @PutMapping("/notice")
+    @PutMapping("/notice") // 공지사항 수정
     public ResponseEntity<?> updateNotice(HttpServletRequest request, @RequestBody NoticeUpdateDto noticeUpdateDto){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            if(userId.equals("admin")){ // 작성자인지 확인
+            if(userId.equals(admin)){ // 작성자인지 확인
                 boolean is = noticeService.updateNotice(noticeUpdateDto);
-                result.put("result",is);
+                result.put("message",okay);
                 status = HttpStatus.OK;
             }
             else{
@@ -144,7 +142,7 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message",fail);
+            result.put("message","서버에러");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
