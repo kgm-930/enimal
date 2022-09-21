@@ -30,6 +30,7 @@ import java.util.Optional;
 class BackendApplicationTests {
 	JwtService jwtService;
 	UserRepository userRepository;
+	PuzzleRepository puzzleRepository;
 	AttendenceRepository attendenceRepository;
 	BoardRepository boardRepository;
 	CommentRepository commentRepository;
@@ -38,8 +39,9 @@ class BackendApplicationTests {
 	CollectionRepository collectionRepository;
 	BadgeRepository badgeRepository;
 	@Autowired
-	public BackendApplicationTests(BadgeRepository badgeRepository,CollectionRepository collectionRepository,MoneyRepository moneyRepository,NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+	public BackendApplicationTests(PuzzleRepository puzzleRepository,BadgeRepository badgeRepository,CollectionRepository collectionRepository,MoneyRepository moneyRepository,NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
 		this.noticeRepository = noticeRepository;
+		this.puzzleRepository = puzzleRepository;
 		this.badgeRepository = badgeRepository;
 		this.collectionRepository = collectionRepository;
 		this.moneyRepository = moneyRepository;
@@ -186,6 +188,7 @@ class BackendApplicationTests {
 	@Test
 	void 유저프로필조회_수집중인컬렉션(){
 		String userId = "test";
-//		userRepository.findByIdAndColletion(userId);
+		List<Puzzle> puzzles = puzzleRepository.findByUserId(userId);
+
 	}
 }

@@ -18,5 +18,7 @@ public interface UserService {
 
     UserProfileDto profileUser(String userId);
 
-    List<Map<String,Object>> colletionUser(String profileId);
+    List<Map<String,Object>> completionUser(String profileId);
+
+    List<UserCollectionDto> collectionUser(String userId);
 }

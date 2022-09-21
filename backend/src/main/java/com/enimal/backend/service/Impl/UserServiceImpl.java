@@ -20,18 +20,20 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private AttendenceRepository attendenceRepository;
     private BoardRepository boardRepository;
+    private PuzzleRepository puzzleRepository;
     private CommentRepository commentRepository;
     private MoneyRepository moneyRepository;
     private CollectionRepository collectionRepository;
     private BadgeRepository badgeRepository;
     @Autowired
-    UserServiceImpl(CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+    UserServiceImpl(PuzzleRepository puzzleRepository,CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
         this.userRepository = userRepository;
         this.collectionRepository = collectionRepository;
         this.badgeRepository = badgeRepository;
         this.attendenceRepository = attendenceRepository;
         this.boardRepository = boardRepository;
         this.commentRepository = commentRepository;
+        this.puzzleRepository = puzzleRepository;
     }
 
     @Override
@@ -142,14 +144,14 @@ public class UserServiceImpl implements UserService {
         UserProfileDto userProfileDto = new UserProfileDto();
         User user = userRepository.findById(userId).get();
         Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
-        Integer colletionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션 수
-        Integer colletionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
-        if(colletionRank == null) colletionRank = Math.toIntExact(userRepository.count());
+        Integer collectionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션 수
+        Integer collectionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
+        if(collectionRank == null) collectionRank = Math.toIntExact(userRepository.count());
         List<Badge> badges = badgeRepository.findByUserId(userId);
 
         userProfileDto.setNickname(user.getNickname());
-        userProfileDto.setColletionCount(colletionCount);
-        userProfileDto.setColletionRank(colletionRank);
+        userProfileDto.setCollectionCount(collectionCount);
+        userProfileDto.setCollectionRank(collectionRank);
         userProfileDto.setDonationRank(donationRank);
         userProfileDto.setUsedCount(user.getUsedcount());
         userProfileDto.setUsedCredit(user.getUsedcredit());
@@ -158,7 +160,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Map<String,Object>> colletionUser(String profileId) {
+    public List<Map<String,Object>> completionUser(String profileId) {
         List<Map<String,Object>> result = new ArrayList<>();
         List<Collection> collections = collectionRepository.findByUserId(profileId);
         for(Collection collection : collections){
@@ -169,5 +171,21 @@ public class UserServiceImpl implements UserService {
             result.add(data);
         }
         return result;
+    }
+
+    @Override
+    public List<UserCollectionDto> collectionUser(String userId) {
+        List<UserCollectionDto> userCollectionDtos = new ArrayList<>();
+        List<Puzzle> puzzles = puzzleRepository.findByUserIdOrderByAnimal(userId);
+        for(Puzzle puzzle : puzzles){
+            UserCollectionDto userCollectionDto = new UserCollectionDto();
+            userCollectionDto.setAnimal(puzzle.getAnimal());
+            userCollectionDto.setPiece(puzzle.getPiece());
+            userCollectionDto.setCount(puzzle.getCount());
+            userCollectionDto.setCreateDate(puzzle.getCreatedate());
+
+            userCollectionDtos.add(userCollectionDto);
+        }
+        return userCollectionDtos;
     }
 }

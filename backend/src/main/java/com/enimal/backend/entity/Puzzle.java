@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -16,10 +17,10 @@ public class Puzzle {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idx;
-
-    private String user_id;
+    @Column(name = "user_id")
+    private String userId;
     private String animal;
     private int piece;
-    private Date createdate;
+    private LocalDateTime createdate;
     private int count;
 }

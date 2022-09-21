@@ -18,8 +18,8 @@ public class UserProfileDto {
     private String nickname;
     private Integer usedCount;
     private Integer usedCredit;
-    private Integer colletionCount;
-    private Integer colletionRank;
+    private Integer collectionCount;
+    private Integer collectionRank;
     private Integer donationRank;
     private List<Badge> badges;
 }
