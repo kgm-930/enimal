@@ -62,8 +62,8 @@ public class NoticeController {
         }
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/notice") // 공지사항 세부 조회
-    public ResponseEntity<?> detailNotice(HttpServletRequest request, @RequestParam(value = "idx") Integer idx){
+    @GetMapping("/noticeList/{idx}") // 공지사항 세부 조회
+    public ResponseEntity<?> detailNotice(@PathVariable(value = "idx") Integer idx){
         Map<String,Object> result = new HashMap<>() ;
         HttpStatus status;
 //        Boolean hitadd = false;

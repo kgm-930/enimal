@@ -23,4 +23,5 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
             "order by t.idx DESC")
     Slice<Comment> findByUserIdOrderByIdxDesc(String userId, Integer lastIdx, Pageable pageable);
 
+    List<Comment> findByBoard_Idx(Integer idx);
 }
