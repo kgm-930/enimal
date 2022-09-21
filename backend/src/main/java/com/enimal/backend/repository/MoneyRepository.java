@@ -16,8 +16,9 @@ public interface MoneyRepository extends JpaRepository<Money,Integer> {
     List<Money> findByUserId(String userId);
 
     Optional<Money> findTop1ByOrderByIdxDesc();
-    @Query("SELECT t FROM Money t " +
-            "WHERE t.userId = :userId AND t.idx < :lastIdx " +
-            "order by t.idx DESC")
-    Slice<Money> findByUserIdOrderByIdxDesc(String userId, Integer lastIdx, Pageable pageable);
+//    @Query("SELECT t FROM Money t " +
+//            "WHERE t.userId = :userId AND t.idx < :lastIdx " +
+//            "order by t.idx DESC")
+//    Slice<Money> findByUserIdOrderByIdxDesc(String userId, Integer lastIdx, Pageable pageable);
+
 }

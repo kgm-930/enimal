@@ -14,7 +14,7 @@ public interface UserService {
     List<UserPostListDto> boardList(String userId,Integer pageSize,Integer lastIdx);
     List<UserCommentListDto> listCommentUser(String userId,Integer pageSize,Integer lastIdx);
 
-    List<UserAttendenceListDto> listAttendenceUser(String userId);
+    List<UserMoneyListDto> listMoneyUser(String userId);
 
     UserProfileDto profileUser(String userId);
 

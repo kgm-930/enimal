@@ -9,9 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserAttendenceListDto {
-    private Integer attendenceIdx;
-    private LocalDateTime attenddate;
-    private Integer convertdate;
+public class UserMoneyListDto {
+    private Integer useCredit;
+    private LocalDateTime createDate;
 
 }

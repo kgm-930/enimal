@@ -1,6 +1,5 @@
 package com.enimal.backend.controller;
 
-import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.User.*;
 import com.enimal.backend.service.JwtService;
 import com.enimal.backend.service.NoticeService;
@@ -142,13 +141,13 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/attendenceList") //출석 조회
-    public ResponseEntity<?> listAttendenceUser(HttpServletRequest request){
+    @GetMapping("/user/money") //재화 내역 조회
+    public ResponseEntity<?> listMoneyUser(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            List<UserAttendenceListDto> data = userService.listAttendenceUser(userId);
+            List<UserMoneyListDto> data = userService.listMoneyUser(userId);
             result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;

@@ -1,6 +1,5 @@
 package com.enimal.backend.service.Impl;
 
-import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.User.*;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.entity.Collection;
@@ -28,6 +27,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserServiceImpl(PuzzleRepository puzzleRepository,CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
         this.userRepository = userRepository;
+        this.moneyRepository = moneyRepository;
         this.collectionRepository = collectionRepository;
         this.badgeRepository = badgeRepository;
         this.attendenceRepository = attendenceRepository;
@@ -124,19 +124,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserAttendenceListDto> listAttendenceUser(String userId) {
-        List<UserAttendenceListDto> userAttendenceListDtos = new ArrayList<>();
-        Integer convertDate = LocalDateTime.now().getDayOfYear();
-        List<Attendence> attendences = attendenceRepository.findByUserIdLessThan(userId,convertDate);
-        for(Attendence attendence : attendences){
-            UserAttendenceListDto userAttendenceListDto = new UserAttendenceListDto();
-            userAttendenceListDto.setAttendenceIdx(attendence.getIdx());
-            userAttendenceListDto.setAttenddate(attendence.getAttenddate());
-            userAttendenceListDto.setConvertdate(attendence.getConvertdate());
-            userAttendenceListDtos.add(userAttendenceListDto);
+    public List<UserMoneyListDto> listMoneyUser(String userId) {
+        List<UserMoneyListDto> userMoneyListDtos = new ArrayList<>();
+        List<Money> monies = moneyRepository.findByUserId("test");
+        for(Money money : monies){
+            UserMoneyListDto userMoneyListDto = new UserMoneyListDto();
+            userMoneyListDto.setUseCredit(money.getCredit());
+            userMoneyListDto.setCreateDate(money.getCreatedate());
+            userMoneyListDtos.add(userMoneyListDto);
         }
 
-        return userAttendenceListDtos;
+        return userMoneyListDtos;
     }
 
     @Override
