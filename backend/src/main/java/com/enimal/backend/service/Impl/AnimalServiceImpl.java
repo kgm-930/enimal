@@ -20,14 +20,14 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public AnimalShowDto detailAnimal() {
         AnimalShowDto animalShowDto = new AnimalShowDto();
-        Integer animal = LocalDateTime.now().getDayOfYear();
-        animal = animal % 24 + 1;
-        Optional<Animal> a = animalRepository.findById(animal);
-        animalShowDto.setAnimal(a.get().getAnimal());
-        animalShowDto.setContent(a.get().getContent());
-        animalShowDto.setPicture(a.get().getPicture());
-        animalShowDto.setGrade(a.get().getGrade());
-        animalShowDto.setCount(a.get().getCount());
+        Integer todayIdx = LocalDateTime.now().getDayOfYear();
+        todayIdx = todayIdx % 24 + 1;
+        Optional<Animal> animal = animalRepository.findById(todayIdx);
+        animalShowDto.setAnimal(animal.get().getAnimal());
+        animalShowDto.setContent(animal.get().getContent());
+        animalShowDto.setPicture(animal.get().getPicture());
+        animalShowDto.setGrade(animal.get().getGrade());
+        animalShowDto.setCount(animal.get().getCount());
         return animalShowDto;
     }
 }
