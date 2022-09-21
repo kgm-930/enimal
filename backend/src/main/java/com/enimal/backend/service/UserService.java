@@ -16,5 +16,7 @@ public interface UserService {
 
     List<UserAttendenceListDto> listAttendenceUser(String userId);
 
-    UserProfileDto myProfile(String userId);
+    UserProfileDto profileUser(String userId);
+
+    List<Map<String,Object>> colletionUser(String profileId);
 }

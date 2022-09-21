@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileDto myProfile(String userId) {
+    public UserProfileDto profileUser(String userId) {
         UserProfileDto userProfileDto = new UserProfileDto();
         User user = userRepository.findById(userId).get();
         Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
@@ -155,5 +155,19 @@ public class UserServiceImpl implements UserService {
         userProfileDto.setUsedCredit(user.getUsedcredit());
         userProfileDto.setBadges(badges);
         return userProfileDto;
+    }
+
+    @Override
+    public List<Map<String,Object>> colletionUser(String profileId) {
+        List<Map<String,Object>> result = new ArrayList<>();
+        List<Collection> collections = collectionRepository.findByUserId(profileId);
+        for(Collection collection : collections){
+            Map<String,Object> data = new HashMap<>();
+            data.put("animal",collection.getAnimal());
+            data.put("info",collection.getInfo());
+            data.put("createDate",collection.getCreatedate());
+            result.add(data);
+        }
+        return result;
     }
 }
