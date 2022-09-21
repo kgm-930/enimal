@@ -16,8 +16,8 @@ public class Collection {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idx;
-
-    private String user_id;
+    @Column(name = "user_id")
+    private String userId;
     private String animal;
     private Date createdate;
     private String info;

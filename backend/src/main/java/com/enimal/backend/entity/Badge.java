@@ -15,8 +15,8 @@ public class Badge {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idx;
-
-    private String user_id;
+    @Column(name = "user_id")
+    private String userId;
     private String badge;
     private int percentage;
 }

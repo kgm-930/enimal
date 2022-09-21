@@ -1,20 +1,26 @@
 package com.enimal.backend.dto.User;
 
+import com.enimal.backend.entity.Badge;
+import com.enimal.backend.entity.Collection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class UserProfileDto {
     private String nickname;
-    private String wallet;
-    // 랭킹?
-    // 보유 업적 - 타인도 가능
-    // 보유 컬렉션 - 타인도 가능
-    // 재화 내역
-    // 출석 현황
-    // 작성 게시글
-    // 작성 댓글
+    private Integer usedCount;
+    private Integer usedCredit;
+    private Integer colletionCount;
+    private Integer colletionRank;
+    private Integer donationRank;
+    private List<Badge> badges;
+    private List<Collection> collections;
 }
