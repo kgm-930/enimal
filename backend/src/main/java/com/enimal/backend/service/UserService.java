@@ -1,9 +1,6 @@
 package com.enimal.backend.service;
 
-import com.enimal.backend.dto.User.UserAttendenceListDto;
-import com.enimal.backend.dto.User.UserCommentListDto;
-import com.enimal.backend.dto.User.UserLoginDto;
-import com.enimal.backend.dto.User.UserPostListDto;
+import com.enimal.backend.dto.User.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,4 +15,6 @@ public interface UserService {
     List<UserCommentListDto> listCommentUser(String userId,Integer pageSize,Integer lastIdx);
 
     List<UserAttendenceListDto> listAttendenceUser(String userId);
+
+    UserProfileDto myProfile(String userId);
 }

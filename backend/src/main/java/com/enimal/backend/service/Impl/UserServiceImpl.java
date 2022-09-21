@@ -1,11 +1,9 @@
 package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
-import com.enimal.backend.dto.User.UserAttendenceListDto;
-import com.enimal.backend.dto.User.UserCommentListDto;
-import com.enimal.backend.dto.User.UserLoginDto;
-import com.enimal.backend.dto.User.UserPostListDto;
+import com.enimal.backend.dto.User.*;
 import com.enimal.backend.entity.*;
+import com.enimal.backend.entity.Collection;
 import com.enimal.backend.repository.*;
 import com.enimal.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +22,13 @@ public class UserServiceImpl implements UserService {
     private BoardRepository boardRepository;
     private CommentRepository commentRepository;
     private MoneyRepository moneyRepository;
+    private CollectionRepository collectionRepository;
+    private BadgeRepository badgeRepository;
     @Autowired
-    UserServiceImpl(UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+    UserServiceImpl(CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
         this.userRepository = userRepository;
+        this.collectionRepository = collectionRepository;
+        this.badgeRepository = badgeRepository;
         this.attendenceRepository = attendenceRepository;
         this.boardRepository = boardRepository;
         this.commentRepository = commentRepository;
@@ -133,5 +135,27 @@ public class UserServiceImpl implements UserService {
         }
 
         return userAttendenceListDtos;
+    }
+
+    @Override
+    public UserProfileDto myProfile(String userId) {
+        UserProfileDto userProfileDto = new UserProfileDto();
+        User user = userRepository.findById(userId).get();
+        Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
+        Integer colletionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션 수
+        Integer colletionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
+        if(colletionRank == null) colletionRank = Math.toIntExact(userRepository.count());
+        List<Badge> badges = badgeRepository.findByUserId(userId);
+        List<Collection> collections = collectionRepository.findByUserId(userId);
+
+        userProfileDto.setNickname(user.getNickname());
+        userProfileDto.setColletionCount(colletionCount);
+        userProfileDto.setColletionRank(colletionRank);
+        userProfileDto.setDonationRank(donationRank);
+        userProfileDto.setUsedCount(user.getUsedcount());
+        userProfileDto.setUsedCredit(user.getUsedcredit());
+        userProfileDto.setBadges(badges);
+        userProfileDto.setCollections(collections);
+        return userProfileDto;
     }
 }

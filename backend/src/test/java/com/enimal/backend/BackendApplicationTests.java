@@ -36,9 +36,11 @@ class BackendApplicationTests {
 	NoticeRepository noticeRepository;
 	MoneyRepository moneyRepository;
 	CollectionRepository collectionRepository;
+	BadgeRepository badgeRepository;
 	@Autowired
-	public BackendApplicationTests(CollectionRepository collectionRepository,MoneyRepository moneyRepository,NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+	public BackendApplicationTests(BadgeRepository badgeRepository,CollectionRepository collectionRepository,MoneyRepository moneyRepository,NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
 		this.noticeRepository = noticeRepository;
+		this.badgeRepository = badgeRepository;
 		this.collectionRepository = collectionRepository;
 		this.moneyRepository = moneyRepository;
 		this.jwtService = jwtService;
@@ -166,13 +168,18 @@ class BackendApplicationTests {
 		String userId = "test";
 		User user = userRepository.findById(userId).get();
 		Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
-		Integer colletionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션
+		Integer colletionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션 수
 		Integer colletionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
+		List<Badge> badges = badgeRepository.findByUserId(userId);
 		List<Collection> collections = collectionRepository.findByUserId(userId);
 		System.out.println("기부 순위 : " + donationRank);
 		System.out.println("컬렉션 순위 : " + colletionRank);
 		for(Collection collection : collections){
 			System.out.println(collection.getAnimal());
+		}
+		System.out.println("==========");
+		for(Badge badge : badges){
+			System.out.println(badge.getBadge());
 		}
 
 	}
