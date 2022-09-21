@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileDto myProfile(String userId) {
+    public UserProfileDto profileUser(String userId) {
         UserProfileDto userProfileDto = new UserProfileDto();
         User user = userRepository.findById(userId).get();
         Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
@@ -146,7 +146,6 @@ public class UserServiceImpl implements UserService {
         Integer colletionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
         if(colletionRank == null) colletionRank = Math.toIntExact(userRepository.count());
         List<Badge> badges = badgeRepository.findByUserId(userId);
-        List<Collection> collections = collectionRepository.findByUserId(userId);
 
         userProfileDto.setNickname(user.getNickname());
         userProfileDto.setColletionCount(colletionCount);
@@ -155,7 +154,20 @@ public class UserServiceImpl implements UserService {
         userProfileDto.setUsedCount(user.getUsedcount());
         userProfileDto.setUsedCredit(user.getUsedcredit());
         userProfileDto.setBadges(badges);
-        userProfileDto.setCollections(collections);
         return userProfileDto;
+    }
+
+    @Override
+    public List<Map<String,Object>> colletionUser(String profileId) {
+        List<Map<String,Object>> result = new ArrayList<>();
+        List<Collection> collections = collectionRepository.findByUserId(profileId);
+        for(Collection collection : collections){
+            Map<String,Object> data = new HashMap<>();
+            data.put("animal",collection.getAnimal());
+            data.put("info",collection.getInfo());
+            data.put("createDate",collection.getCreatedate());
+            result.add(data);
+        }
+        return result;
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
     public List loginEssential = Arrays.asList("/**"); //적용할 URL 패턴
-    public List loginInessential = Arrays.asList("/user/login","/user/profile/**"); //제외할 URL 패턴
+    public List loginInessential = Arrays.asList("/user/login","/user/profile/**","/user/completion/**"); //제외할 URL 패턴
     @Bean
     public Intercepter intercepter(){
         return new Intercepter();

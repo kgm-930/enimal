@@ -158,7 +158,7 @@ public class UserController {
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            UserProfileDto userProfileDto = userService.myProfile(profileId);
+            UserProfileDto userProfileDto = userService.profileUser(profileId);
             result.put("data",userProfileDto);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -168,6 +168,20 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
+    @GetMapping("/user/completion/{userId}") //프로필 조회 - 보유중인 컬렉션
+    public ResponseEntity<?> colletionUser(HttpServletRequest request, @PathVariable("userId") String profileId){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        try{
+            List<Map<String,Object>> data = userService.colletionUser(profileId);
+            result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
 
+        return new ResponseEntity<>(result,status);
+    }
 
 }
