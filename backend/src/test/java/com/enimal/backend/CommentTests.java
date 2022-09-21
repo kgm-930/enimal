@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.swing.plaf.IconUIResource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
