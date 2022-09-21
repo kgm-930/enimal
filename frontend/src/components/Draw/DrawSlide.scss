@@ -1,0 +1,31 @@
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+
+}
+
+.slider-list {
+  width: 210px;
+  top: 400px;
+  border: 5px blue solid;
+  z-index: 100;
+  margin-top: 20px;
+  white-space: nowrap;
+}
+
+.slider-track {
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  margin-left: -440px;
+}
+
+.slider-item {
+  width: 200px;
+  float: left;
+  text-align: center;
+  line-height: 200px;
+  margin-right: 20px;
+}

@@ -1,14 +1,45 @@
-import React from "react";
+import React,{ useState } from "react";
 import "./SelectDraw.scss";
 
+
 import TEST from "@images/test.png";
+import DrawModal from "./DrawModal";
 
 function SelectDraw() {
+  const [selectImg,setSelectImg] = useState(null)
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  function drawButton(e){
+    e.preventDefault();
+    console.log(1234)
+    openModal()
+  }
+
   function select(e) {
+    e.preventDefault();
+    if (selectImg) {
+      document.getElementById(selectImg).parentElement.className="drawCard2";
+    }
+    setSelectImg(e.currentTarget.id)
+
+  }
+
+  function mouseover(e) {
     document.getElementById(e.currentTarget.id).parentElement.className="selectedCard";
   }
   function unSelect(e){
-    document.getElementById(e.currentTarget.id).parentElement.className="drawCard2";
+    if (selectImg !== e.currentTarget.id){
+      document.getElementById(e.currentTarget.id).parentElement.className="drawCard2";
+    }
+ 
   }
   return (
     <div className="SelectDraw">
@@ -19,9 +50,10 @@ function SelectDraw() {
             type="button"
             id="1"
             onFocus={() => 1}
-            onMouseOver={e => select(e)}
+            onMouseOver={e => mouseover(e)}
             onBlur={()=>1}
             onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -33,9 +65,10 @@ function SelectDraw() {
             type="button"
             id="2"
             onFocus={() => 1}
-            onMouseOver={e => select(e)}
+            onMouseOver={e => mouseover(e)}
             onBlur={()=>1}
             onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -47,9 +80,10 @@ function SelectDraw() {
             type="button"
             id="3"
             onFocus={() => 1}
-            onMouseOver={e => select(e)}
+            onMouseOver={e => mouseover(e)}
             onBlur={()=>1}
             onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -59,9 +93,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="4"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -71,9 +108,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="5"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -83,9 +123,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="6"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -95,9 +138,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="7"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -107,9 +153,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="8"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -119,9 +168,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="9"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -131,9 +183,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="10"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -143,9 +198,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="11"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -155,9 +213,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="12"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -167,9 +228,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="13"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -179,9 +243,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="14"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -191,9 +258,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="15"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -203,9 +273,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="16"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -215,9 +288,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="17"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -227,9 +303,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="18"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -239,9 +318,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="19"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -251,9 +333,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="20"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -263,9 +348,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="21"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -275,9 +363,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="22"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -287,9 +378,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="23"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -299,9 +393,12 @@ function SelectDraw() {
           <button
             className="selectbutton"
             type="button"
-            onClick={e => {
-              select(e);
-            }}
+            id="24"
+            onFocus={() => 1}
+            onMouseOver={e => mouseover(e)}
+            onBlur={()=>1}
+            onMouseLeave={e =>unSelect(e)}
+            onClick={e=>select(e)}
           >
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
@@ -312,6 +409,7 @@ function SelectDraw() {
         className="drawButton fs-28 notoBold"
         id="collection"
         type="button"
+        onClick={e=>drawButton(e)}
       >
         선택 뽑기 (가격)
       </button>
@@ -326,6 +424,7 @@ function SelectDraw() {
           보유중인 업적에 따라 미보유중인 조각이 등장할 확률이 상승합니다.
         </h3>
       </div>
+      <DrawModal open={modalOpen} close={closeModal} header={selectImg} />
     </div>
   );
 }
