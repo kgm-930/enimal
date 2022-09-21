@@ -31,6 +31,7 @@ public class EtcController {
         HttpStatus status;
         try{
             AnimalShowDto data = animalService.detailAnimal();
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){

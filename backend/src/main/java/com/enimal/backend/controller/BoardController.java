@@ -38,9 +38,10 @@ public class BoardController {
         try{
             boardRegistDto.setUserId(userId);
             boardService.registBoard(boardRegistDto);
+            result.put("message",okay);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -56,7 +57,7 @@ public class BoardController {
             else result.put("message",fail);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -67,10 +68,11 @@ public class BoardController {
         HttpStatus status;
         try{
             List<BoardListDto> data = boardService.listBoard(pageSize,lastIdx);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -81,10 +83,11 @@ public class BoardController {
         HttpStatus status;
         try{
             BoardShowDto data = boardService.detailBoard(idx);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -105,7 +108,7 @@ public class BoardController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);

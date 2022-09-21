@@ -43,7 +43,7 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -54,6 +54,7 @@ public class NoticeController {
         HttpStatus status;
         try{
             List<NoticeListDto> data = noticeService.listNotice(pageSize,lastIdx);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -97,10 +98,11 @@ public class NoticeController {
 //        System.out.println(hitadd);
         try{
             NoticeShowDto data = noticeService.detailNotice(idx);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -121,7 +123,7 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -142,7 +144,7 @@ public class NoticeController {
                 status = HttpStatus.OK;
             }
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);

@@ -66,6 +66,7 @@ public class UserController {
         String userId = request.getHeader("userId");
         try{
             userService.deleteUser(userId);
+            result.put("message",okay);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
@@ -81,6 +82,7 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             userService.updateUser(userId,updateNickname.get("nickname"));
+            result.put("message",okay);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
@@ -96,6 +98,7 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             Map<Integer, LocalDateTime> data = userService.attendUser(userId);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -112,6 +115,7 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             List<UserPostListDto> data = userService.boardList(userId,pageSize,lastIdx);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -128,6 +132,7 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             List<UserCommentListDto> data = userService.listCommentUser(userId,pageSize,lastIdx);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -144,6 +149,7 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             List<UserAttendenceListDto> data = userService.listAttendenceUser(userId);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -159,6 +165,7 @@ public class UserController {
         HttpStatus status;
         try{
             UserProfileDto userProfileDto = userService.profileUser(profileId);
+            result.put("message",okay);
             result.put("data",userProfileDto);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -174,6 +181,7 @@ public class UserController {
         HttpStatus status;
         try{
             List<Map<String,Object>> data = userService.completionUser(profileId);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -191,6 +199,7 @@ public class UserController {
         String userId = (String) request.getAttribute("userId");
         try{
             List<UserCollectionDto> data = userService.collectionUser(userId);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){

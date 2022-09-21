@@ -36,9 +36,10 @@ public class CommentController {
             commentRegistDto.setIdx(idx);
             commentRegistDto.setUser_id(userId);
             commentService.registComment(commentRegistDto);
+            result.put("message",okay);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
@@ -49,6 +50,7 @@ public class CommentController {
         HttpStatus status;
         try{
             List<CommentShowDto> data = commentService.listComment(idx);
+            result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
@@ -68,7 +70,7 @@ public class CommentController {
             else result.put("message",fail);
             status = HttpStatus.OK;
         }catch (Exception e){
-            result.put("message","서버에러");
+            result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
