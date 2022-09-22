@@ -1,12 +1,7 @@
 const axios = require('axios').default;
-const { printTable } = require('console-table-printer');
 const Authentication = require('./auth');
 
 const API_URL = "https://paint.api.wombo.ai/api/tasks/"
-const GALLERY_URL = "https://app.wombo.art/api/gallery/"
-const STYLE_URL = "https://app.wombo.art/api/style/"
-const SHOP_URL = "https://app.wombo.art/api/shop/"
-const MEDIA_URL = "https://mediastore.api.wombo.ai/io/"
 
 function defineHeaders(token, type = "text/plain;charset=UTF-8") {
     return {
@@ -17,31 +12,6 @@ function defineHeaders(token, type = "text/plain;charset=UTF-8") {
         'service': 'Dream'
     };
 }
-
-const getStyles = () => {
-    return new Promise(function(resolve, reject) {
-        axios.get(STYLE_URL)
-            .then(function(response) {
-                resolve(response.data);
-            })
-            .catch(function(error) {
-                resolve(error);
-            });
-    });
-}
-
-const printStyles = async() => {
-    let styles = await getStyles();
-    styles.forEach(style => {
-        delete style.is_visible;
-        delete style.created_at;
-        delete style.updated_at;
-        delete style.deleted_at;
-    });
-    styles.sort((a, b) => (a.id > b.id) ? 1 : -1)
-    printTable(styles);
-}
-
 const getTaskID = (token) => {
     return new Promise(function(resolve, reject) {
         axios.post(API_URL, '{ "premium": false }', {
@@ -49,64 +19,6 @@ const getTaskID = (token) => {
             })
             .then(function(response) {
                 resolve(response.data.id);
-            })
-            .catch(function(error) {
-                resolve(error);
-            });
-    });
-}
-
-const getTaskShopURL = (token, taskID) => {
-    return new Promise(function(resolve, reject) {
-        axios.get(SHOP_URL + taskID, {
-                headers: defineHeaders(token)
-            })
-            .then(function(response) {
-                resolve(response.data);
-            })
-            .catch(function(error) {
-                resolve(error);
-            });
-    });
-}
-
-const getUploadURL = async(token = null) => {
-    if (token == null) {
-        token = await Authentication.signUp();
-        token = token.idToken;
-    }
-    return new Promise(function(resolve, reject) {
-        axios.post(MEDIA_URL, {
-                "media_expiry": "HOURS_72",
-                "media_suffix": "jpeg",
-                "num_uploads": 1
-            }, {
-                headers: defineHeaders(token, "application/json")
-            })
-            .then(function(response) {
-                resolve(response.data[0]);
-            })
-            .catch(function(error) {
-                resolve(error);
-            });
-    });
-}
-
-const uploadPhoto = async(imageBuffer, token = null) => {
-    if (token == null) {
-        token = await Authentication.signUp();
-        token = token.idToken;
-    }
-    let URL = await getUploadURL(token);
-    return new Promise(function(resolve, reject) {
-        axios.put(URL.media_url, imageBuffer, {
-                headers: {
-                    'Content-Type': 'image/jpeg',
-                    'Content-Length': imageBuffer.length,
-                },
-            })
-            .then(function(response) {
-                resolve(URL.id);
             })
             .catch(function(error) {
                 resolve(error);
@@ -197,43 +109,6 @@ const checkStatus = async(token, taskID, interval = null, callback = null) => {
     });
 }
 
-// User account must have username set in order to save
-const saveToGallery = async(token, taskID, settings = { "name": "", "public": false, "visible": true }) => {
-    if (settings == null) {
-        settings = { "name": "", "public": false, "visible": true };
-    }
-    return new Promise(function(resolve, reject) {
-        axios.post(GALLERY_URL, {
-                "task_id": taskID,
-                "name": settings.name,
-                "is_public": settings.public,
-                "is_prompt_visible": settings.visible
-            }, {
-                headers: defineHeaders(token)
-            })
-            .then(function(response) {
-                resolve(response.data);
-            })
-            .catch(function(error) {
-                resolve(error);
-            });
-    });
-}
-
-const getGallery = (token) => {
-    return new Promise(function(resolve, reject) {
-        axios.get(GALLERY_URL, {
-                headers: defineHeaders(token)
-            })
-            .then(function(response) {
-                resolve(response.data);
-            })
-            .catch(function(error) {
-                resolve(error);
-            });
-    });
-}
-
 const generateImage = async(style, promptValue, token = null, image = null, weight = "MEDIUM", save = false, saveSettings = { "name": "", "public": false, "visible": true }, callback = null, interval = 1000, freq = 10) => {
     if (token == null) {
         token = await Authentication.signUp();
@@ -268,14 +143,7 @@ const generateImage = async(style, promptValue, token = null, image = null, weig
     return result
 }
 
-exports.getStyles = getStyles;
-exports.printStyles = printStyles;
 exports.getTaskID = getTaskID;
-exports.getUploadURL = getUploadURL;
-exports.uploadPhoto = uploadPhoto;
 exports.createTask = createTask;
 exports.checkStatus = checkStatus;
 exports.generateImage = generateImage;
-exports.getTaskShopURL = getTaskShopURL;
-exports.saveToGallery = saveToGallery;
-exports.getGallery = getGallery;
