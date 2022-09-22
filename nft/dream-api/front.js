@@ -1,70 +1,65 @@
 const WomboDream = require('./dist/app');
-const fs = require('fs');
-const axios = require('axios');
+const ipfsAPI = require('ipfs-api');
+const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
 
-// style과 prompt -> 완성된 사진 url 반환
-async function completedImage(style, prompt) {
-  let image = await WomboDream.generateImage(style, prompt)
-  return image.result.final
+const typeToStyle = {
+    Paint: 50, HDR : 52, Polygon : 49, gouache : 48, Comic : 45, 'Line-Art' : 47
 }
 
-
-// Wrapper so we can use async/await
-async function makeNft(prompt, style) {
-
-    ////////////////////////////////
-    //////// AUTHENTICATION ////////
-    ////////////////////////////////
-
-    // Existing User Account Token
-    let token = await WomboDream.signIn("test@test.com", "test");
-    ////////////////////////////////
-    /////// IMAGE UPLOADING ////////
-    ////////////////////////////////
-
-    // Create image buffer
-    let buffer = fs.readFileSync('./test.jpg');
-
-    // Get upload URL and PUT manually
-    let upload1 = await WomboDream.getUploadURL();
-    axios.put(upload1.media_url, buffer, {
-        headers: {
-            'Content-Type': 'image/jpeg',
-            'Content-Length': buffer.length,
-        },
-    });
-
-    /// Upload an image automatically
-    let upload2 = await WomboDream.uploadPhoto(buffer);
-
-    ////////////////////////////////
-    /////// IMAGE GENERATION ///////
-    ////////////////////////////////
-
-    const idToken = token.idToken;
-    let taskID = await WomboDream.getTaskID(idToken);
-    let weight = null
-    // generateImage(style, prompt [, token] [, imageBuffer [, weight]] [, save [, saveSettings]] [, callback] [, interval], [, frequency])
-    // image 받을 건지, 이미지 해상도()
-    WomboDream.generateImage(style, prompt, idToken, buffer ,weight, )
-
-    // Generate image from prompt only
-    let image = await WomboDream.generateImage(style, prompt, idToken);
-
-    // Generate image manually from prompt and input image
-    let result = await WomboDream.createTask(token.idToken, idToken, "dog", 1, upload2);
-    result = await WomboDream.checkStatus(token.idToken, idToken, 1000);
-
-    ////////////////////////////////
-    /////// OTHER FUNCTIONS ////////
-    ////////////////////////////////
-
-    // Get purchase URL from auto-generated image
-    let purchaseURL1 = await WomboDream.getTaskShopURL(idToken, image.id);
-
-    // Get purchase URL from manually generated image
-    let purchaseURL2 = await WomboDream.getTaskShopURL(idToken, taskID);
-
+// ai 이미지 생성
+async function makeImg(type, prompt) {
+  // 오류가 가끔씩 나는 편 - 인자 조정 필요
+    const style = typeToStyle[type]
+    let image = await WomboDream.generateImage(style, prompt, null, null, null, null, null, null)
+    return image.result.final
 }
 
-makeNft()
+// ipfs에 이미지 업로드
+async function imgUpload(type, prompt) {
+    const url = await makeImg(type, prompt)
+    let cid;
+    ipfs.util.addFromURL(url, (err, result) => {
+        if (err) {
+        throw err
+        }
+        console.log(result)
+        cid = result[0]?.hash
+        return cid
+        // console.log({url:`https://ipfs.io/ipfs/${cid}`})
+    })
+}
+
+// cid로 이미지 정보 조회
+async function getImgInfo(cid) {
+    let result = await ipfs.get(`ipfs/${cid}`)
+    console.log(result)
+}
+
+// ipfs에 메타데이터 업로드
+async function metaUpload(cid, name, owner, type) {
+    const json = {
+        fileName: `${cid}.json`,
+        name,
+        owner,
+        image : `https://ipfs.io/ipfs/${cid}`,
+        date: Date.now(),
+        type,
+    }
+    const data = {
+        path: 'meta.json',
+        content : JSON.stringify(json)
+    }
+    ipfs.add(data, (err, result) => {
+        if (err) {
+        throw err
+        }
+        console.log(result)
+        cid = result[0]?.hash
+        return cid
+    })
+}
+
+exports.makeImg = makeImg
+exports.imgUpload = imgUpload
+exports.getImgInfo = getImgInfo
+exports.metaUpload = metaUpload

@@ -20,20 +20,110 @@ async function download(url, name) {
 async function test() {
   // 오류가 가끔씩 나는 편 - 인자 조정 필요 & 오류 처리 필요
   // 프론트에 오류 처리 문의
-  let style = 50;
-  let prompt = 'tiger';
+  let style = 52;
+  let prompt = 'dugong';
   let token = await WomboDream.signIn("ilwoldeveloper@gmail.com", "enimal*24");
   let image = await WomboDream.generateImage(style, prompt, token.idToken, null, null, null, null, null)
   let imgUrl = image.result.final
   console.log(image.result)
-  if (imgUrl) {
-    download(imgUrl, `${style}_${prompt}_default`)
-  } else {
-    console.log('error!')
-    // test()
-  }
+  return imgUrl
+  // if (imgUrl) {
+  //   download(imgUrl, `${style}_${prompt}_default`)
+  // } else {
+  //   console.log('error!')
+  //   // test()
+  // }
 }
-test()
+
+
+
+const ipfsAPI = require('ipfs-api')
+const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
+
+async function test2() {
+  const url = await test()
+  let cid;
+  ipfs.util.addFromURL(url, (err, result) => {
+    if (err) {
+      throw err
+    }
+    console.log(result)
+    cid = result[0]?.hash
+    console.log({url:`https://ipfs.io/ipfs/${cid}`})
+  })
+  // cid = 'QmVV2AnMxeXDKt15mpLen9sEH9zk9NbXj5n1cDmpbN1uaS'
+  // let result = await ipfs.get(`/ipfs/${cid}`)
+  // console.log(result)
+}
+
+
+async function test3() {
+  // ipfs에 메타데이터 업로드
+  const name = 'test'
+  const owner = 'owner'
+  const cid = 'QmWXQtmRAh7rkXqB9wkveLho7Kgdrg9uPbfmmpwwHQUzaT'
+  const type = 'unknown'
+  const json = {
+      fileName: `${cid}.json`,
+      name,
+      owner,
+      image : `https://ipfs.io/ipfs/${cid}`,
+      date: Date.now(),
+      type,
+  }
+  console.log(json)
+  const data = {
+      path: 'meta.json',
+      content : JSON.stringify(json)
+  }
+  console.log(data)
+  let metaCid
+  ipfs.add(data, (err, result) => {
+      if (err) {
+      console.log(err)
+      }
+      // console.log(result)
+      // metaCid = result[0]?.hash
+      return metaCid
+  })
+}
+test3()
+
+/*
+https://images.wombo.art/generated/e73fab84-d9b6-429d-bfac-a29229bb527b/final.jpg?Expires=1670928846&Signature=MDcy9NJbVgW~WIr0uL8jqTRDVayLiGbAKiftS1Q1CoUe19IaEYabvd2QIOgFbHwSQ8eqsEyc4wHcZV~-q8LdY6nPXBFi2mEL557j6fKOtmD8fIhOLC30dxsWJXzvnnM3LyigrXbGela1RdOixkrSnm1s5OURGyQTOo72k22UN9H0jxiGgFL0EVVHpomXP~kHxNHuP~4gCVy2uu~enkEGdbJVPy~0YKQBK-LEqq8ct3pq7eLU9bRd3s6QYNDwtxQHtDVbezr6FzbC~Q7fKuto~hsFt9FzMFqlGbZ-Gsh4CvOIJFcHziuYSi-2i4vaGoHBkdBbrKZiHzKq13YSlYKtWw__&Key-Pair-Id=K1ZXCNMC55M2IL
+
+*/
+
+/* metadata - json 형식
+{
+  fileName: {CID}.json
+  name : NFT 이름,
+  owner :  지갑 주소
+  image : ipfs url
+  date: 생성 일자,
+  type : Paint
+}
+*/
+
+
+// ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"http://example.com\"]"
+// Blob, file Object로 넘겨주는 게 나을까
+// const files = [{
+//   path: 'test.txt',
+//   content: 'test'
+// }]
+
+
+// async function test() {
+//   const file = {path:'/test.txt', content:'test'}
+//   let result = await ipfs.add(file)
+//   console.log(result)
+// }
+// test()
+
+
+
+// ipfs.add(data)
 
 // async function makeImg(type, prompt) {
 //   // 오류가 가끔씩 나는 편 - 인자 조정 필요
