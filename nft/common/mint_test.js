@@ -75,10 +75,10 @@ let transactionHash
 // const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
 
 
-// const ABI = require('./ABI')
-// const Web3 = require('web3')
-// const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
-// const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
+const ABI = require('./ABI')
+const Web3 = require('web3')
+const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
+const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
 
 mint.makeNft(type, prompt, name)
 
@@ -86,14 +86,15 @@ mint.makeNft(type, prompt, name)
 
 // enimalContract.methods.balanceOf(userAddress).call({from : userAddress})
 //   .then(console.log)
+
 // let rawTransaction
 // web3.eth.accounts.signTransaction({
-//   gas: 2000000
+//   gas: 2000000,
+//   to: userAddress,
 // }, privateKey)
 //   .then(res => {
 //     rawTransaction = res.rawTransaction
-//     // web3.eth.sendSignedTransaction(rawTransaction)
-//     //   .on('receipt', console.log)
+//     enimalContract.methods.create(userAddress, to)
 //   })
 
 // web3.eth.sign('안녕안녕', userAddress).then(console.log)

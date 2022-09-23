@@ -2,8 +2,14 @@ const { axios } = require('axios')
 const api = require('./api')
 const ABI = require('./ABI')
 const Web3 = require('web3')
+
 const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
-const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
+// const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
+
+const Contract = require('web3-eth-contract')
+Contract.setProvider('ws://20.196.209.2:6174')
+
+const enimalContract = new Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
 
 
 // 로그인 되었다고 가정 (이미 userAddress 존재)
@@ -18,25 +24,66 @@ Use eth_sendRawTransaction to send a signed transaction to Besu.
 */
 
 
+
+
 // 민팅
+// function mint(tokenURI) {
+//   // console.log(tokenURI)
+//   const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
+//   let rawTransaction
+//   let tokenId
+//   web3.eth.accounts.signTransaction({
+//     gas: 2000000,
+//     to: userAddress,
+//   }, privateKey)
+//     .then(res => {
+//       rawTransaction = res.rawTransaction
+//       tokenId = enimalContract.methods.create(userAddress, tokenURI).sendTransaction({from : userAddress, data: rawTransaction})
+//         .on('transactionHash', (hash) => {
+//           console.log('hash :', hash)
+//           transactionHash = hash
+//         }).on('error', (error, receipt) => {
+//           console.log(error)
+//           console.log(receipt)
+//         })
+//     })
+//     return tokenId
+//   }
+
+
+// 규민님 방법
+
+
 function mint(tokenURI) {
-  console.log(tokenURI)
-  let tokenId = enimalContract.methods.create(userAddress, tokenURI).send({from : userAddress})
+  // console.log(tokenURI)
+  // const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
+  let convertedURI = `ipfs://${tokenURI}` 
+  let tokenId = enimalContract.methods.create(userAddress, convertedURI).send({from : userAddress})
     .on('transactionHash', (hash) => {
+      console.log('hash :', hash)
       transactionHash = hash
     }).on('error', (error, receipt) => {
       console.log(error)
       console.log(receipt)
     })
-  
-  // .on('receipt', (receipt) => {
-  //   // 트랜잭션 해시, 블럭 해시, 블럭번호, CA, gas, ...
-  //   if (receipt.status) {
-  //     transactionCA = receipt.CA
-  //   }
-  // })
-  return tokenId
-}
+    return tokenId
+  }
+
+
+
+// contract("NftCreator", (accounts) => {
+
+// const user = "0x6EcEdE1866CBA0aecFaE9ac37839a40E444a4Da3";
+
+// it("Create Enimal NFT", async () => {
+//     const NFT = await enimalContract.deployed();
+//     console.log("Contract deployed to:", NFT.address);
+//     let id = await NFT.create(user, "ipfs://QmSZCPYweTzeGGBzZNAnppT7DKfxgtunFErSVhoJ33sWyk");
+//    // console.log(id.log);
+//   });
+// });
+
+mint('QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD')
 
 
 async function saveInfo(metaData) {
