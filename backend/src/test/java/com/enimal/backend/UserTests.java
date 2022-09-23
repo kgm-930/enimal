@@ -22,13 +22,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 //@Transactional
-class BackendApplicationTests {
+class UserTests {
 	JwtService jwtService;
 	UserRepository userRepository;
 	PuzzleRepository puzzleRepository;
@@ -40,7 +41,7 @@ class BackendApplicationTests {
 	CollectionRepository collectionRepository;
 	BadgeRepository badgeRepository;
 	@Autowired
-	public BackendApplicationTests(PuzzleRepository puzzleRepository,BadgeRepository badgeRepository,CollectionRepository collectionRepository,MoneyRepository moneyRepository,NoticeRepository noticeRepository,JwtService jwtService,UserRepository userRepository,AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+	public UserTests(PuzzleRepository puzzleRepository, BadgeRepository badgeRepository, CollectionRepository collectionRepository, MoneyRepository moneyRepository, NoticeRepository noticeRepository, JwtService jwtService, UserRepository userRepository, AttendenceRepository attendenceRepository, BoardRepository boardRepository, CommentRepository commentRepository){
 		this.noticeRepository = noticeRepository;
 		this.puzzleRepository = puzzleRepository;
 		this.badgeRepository = badgeRepository;
@@ -91,7 +92,34 @@ class BackendApplicationTests {
 			attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
 			attendenceRepository.save(attendence);
 		}
-
+		// 업적 6번 : 일주일 연속 출석체크 한 경우 -> 화면에 로그인시 뱃지 얻었다고 보여주는지
+		List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(userLoginDto.getId());
+		for(int i=0;i<attendences.size();i++){
+			System.out.println(attendences.get(i).getUserId());
+			System.out.println(attendences.get(i).getConvertdate());
+		}
+		// 일주일 연속 : size 7이상
+		int size = attendences.size();
+		if(size >= 7){
+			System.out.println(attendences.get(0).getConvertdate());
+			System.out.println(attendences.get(6).getConvertdate());
+			if((attendences.get(0).getConvertdate() - attendences.get(6).getConvertdate()) == 6) {
+				Optional<Badge> realBadge = badgeRepository.findByUserIdAndBadge(userLoginDto.getId(), "개근상");
+				if(!realBadge.isPresent()){ // 개근상을 안받은 경우
+					Badge badge = new Badge();
+					badge.setBadge("개근상");
+					badge.setCreatedate(LocalDateTime.now());
+					badge.setUser(user.get());
+					badge.setPercentage(2);
+					badgeRepository.save(badge);
+					System.out.println(badge.getBadge());
+					System.out.println(badge.getUser().getId());
+				}
+				System.out.println("연속 출석체크 ok");
+			}
+			else System.out.println("연속 출석체크 no");
+		}
+		else System.out.println("연속 출석체크 해당 없어요");
 	}
 
 	@Test

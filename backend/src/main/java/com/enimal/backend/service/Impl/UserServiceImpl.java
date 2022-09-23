@@ -1,5 +1,6 @@
 package com.enimal.backend.service.Impl;
 
+import com.enimal.backend.dto.Etc.BadgeShowDto;
 import com.enimal.backend.dto.User.*;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.entity.Collection;
@@ -37,10 +38,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginUser(UserLoginDto userLoginDto) {
+    public BadgeShowDto loginUser(UserLoginDto userLoginDto) {
+        BadgeShowDto badgeShowDto = new BadgeShowDto();
         Optional<User> user = userRepository.findByWallet(userLoginDto.getWallet());
         int convertDate = LocalDateTime.now().getDayOfYear();
-
         if(!user.isPresent() && userLoginDto.getId() != null){ // 회원이 아니라면 회원 등록하기
             User userRegist = new User();
             userRegist.setId(userLoginDto.getId());
@@ -48,19 +49,37 @@ public class UserServiceImpl implements UserService {
             userRegist.setWallet(userLoginDto.getWallet());
             userRepository.save(userRegist);
         }else if(!user.isPresent() && userLoginDto.getId() == null){
-            return false;
+            badgeShowDto.setResult(false);
+            return badgeShowDto;
         }
-
         Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
         if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
-
             Attendence attendence = new Attendence();
             attendence.setUserId(userLoginDto.getId());
             attendence.setAttenddate(LocalDateTime.now());
             attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
         }
-        return true;
+        // 업적 6번 : 일주일 연속 출석체크 한 경우 -> 화면에 로그인시 뱃지 얻었다고 보여주는지
+        List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(userLoginDto.getId());
+        // 일주일 연속 : size 7이상
+        int size = attendences.size();
+        if(size >= 7){
+            if((attendences.get(0).getConvertdate() - attendences.get(6).getConvertdate()) == 6) {
+                Optional<Badge> realBadge = badgeRepository.findByUserIdAndBadge(userLoginDto.getId(), "개근상");
+                if(!realBadge.isPresent()){ // 개근상을 안받은 경우
+                    Badge badge = new Badge();
+                    badge.setBadge("개근상");
+                    badge.setCreatedate(LocalDateTime.now());
+                    badge.setUser(user.get());
+                    badge.setPercentage(2);
+                    badgeRepository.save(badge);
+                    badgeShowDto.setModalName("개근상");
+                }
+            }
+        }
+        badgeShowDto.setResult(true);
+        return badgeShowDto;
     }
 
     @Override

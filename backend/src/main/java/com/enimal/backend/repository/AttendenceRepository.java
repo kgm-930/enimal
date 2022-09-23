@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface AttendenceRepository extends JpaRepository<Attendence,Integer> {
     List<Attendence> findByUserId(String userId);
-    
+    List<Attendence> findByUserIdOrderByConvertdateDesc(String userId);
     Optional<Attendence> findTop1ByOrderByIdxDesc();
     @Query("SELECT t FROM Attendence t " +
             "WHERE t.userId = :userId AND t.convertdate > :convertDate - 60 " +

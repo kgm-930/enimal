@@ -5,6 +5,7 @@ import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.dto.Board.BoardShowDto;
 import com.enimal.backend.dto.Board.BoardUpdateDto;
 import com.enimal.backend.dto.Comment.CommentShowDto;
+import com.enimal.backend.dto.Etc.BadgeShowDto;
 import com.enimal.backend.service.BoardService;
 import com.enimal.backend.service.CommentService;
 import com.enimal.backend.service.JwtService;
@@ -39,7 +40,8 @@ public class BoardController {
         String userId = (String) request.getAttribute("userId");
         try{
             boardRegistDto.setUserId(userId);
-            boardService.registBoard(boardRegistDto);
+            BadgeShowDto data = boardService.registBoard(boardRegistDto);
+            result.put("data",data);
             result.put("message",okay);
             status = HttpStatus.OK;
         }catch (Exception e){

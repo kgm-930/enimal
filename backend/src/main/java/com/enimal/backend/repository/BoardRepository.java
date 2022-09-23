@@ -3,6 +3,7 @@ package com.enimal.backend.repository;
 import com.enimal.backend.entity.Attendence;
 import com.enimal.backend.entity.Board;
 import com.enimal.backend.entity.Notice;
+import com.enimal.backend.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +25,5 @@ public interface BoardRepository extends JpaRepository<Board,Integer> {
             "WHERE t.idx < :lastIdx " +
             "order by t.idx DESC")
     Slice<Board> findAllByOrderByIdxDesc(Integer lastIdx, Pageable pageable);
+    List<Board> findByUser(Optional<User> user);
 }

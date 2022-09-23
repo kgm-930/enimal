@@ -1,5 +1,6 @@
 package com.enimal.backend.controller;
 
+import com.enimal.backend.dto.Etc.BadgeShowDto;
 import com.enimal.backend.dto.User.*;
 import com.enimal.backend.service.JwtService;
 import com.enimal.backend.service.NoticeService;
@@ -54,11 +55,14 @@ public class UserController {
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            if(userService.loginUser(userLoginDto)) {
+            // create a cookie
+            BadgeShowDto data = userService.loginUser(userLoginDto);
+            if(data.getResult()) {
                 String accessToken = jwtService.createAccessToken("id", userLoginDto.getId());
                 String refreshToken = jwtService.createRefreshToken("id", userLoginDto.getId());
                 result.put("Authorization", accessToken);
                 result.put("message", okay);
+                result.put("data", data);
                 // create a cookie
 
                 Cookie refreshCookie = new Cookie("refresh-token", refreshToken);
