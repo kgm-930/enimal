@@ -46,8 +46,8 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> commentList = commentRepository.findByBoard_Idx(commentRegistDto.getIdx());
         List<Badge> badgeList = badgeRepository.findByUserId(board.get().getUser().getId());
         Boolean flag = true;
-        for(int i=0; i< badgeList.size(); i++){ // 이미 그 글쓴이가 댓글왕인 경우는 제외하기
-            if((badgeList.get(i).getBadge()).equals("댓글왕")) {
+        for(int i=0; i< badgeList.size(); i++){ // 이미 그 글쓴이가 인플루언서인 경우는 제외하기
+            if((badgeList.get(i).getBadge()).equals("인플루언서")) {
                 flag = false;
                 break;
             }
@@ -60,7 +60,7 @@ public class CommentServiceImpl implements CommentService {
             }
             if(count >= 10){
                 Badge badge = new Badge();
-                badge.setBadge("댓글왕");
+                badge.setBadge("인플루언서");
                 badge.setCreatedate(LocalDateTime.now());
                 badge.setUser(board.get().getUser());
                 badge.setPercentage(2);
