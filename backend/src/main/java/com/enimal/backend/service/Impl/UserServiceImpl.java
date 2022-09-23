@@ -56,6 +56,22 @@ public class UserServiceImpl implements UserService {
             attendenceRepository.save(attendence);
         }
         // 업적 6번 : 일주일 연속 출석체크 한 경우 -> 화면에 로그인시 뱃지 얻었다고 보여주는지
+        List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(userLoginDto.getId());
+        // 일주일 연속 : size 7이상
+        int size = attendences.size();
+        if(size >= 7){
+            if((attendences.get(0).getConvertdate() - attendences.get(6).getConvertdate()) == 6) {
+                Optional<Badge> realBadge = badgeRepository.findByUserIdAndBadge(userLoginDto.getId(), "개근상");
+                if(!realBadge.isPresent()){ // 개근상을 안받은 경우
+                    Badge badge = new Badge();
+                    badge.setBadge("개근상");
+                    badge.setCreatedate(LocalDateTime.now());
+                    badge.setUser(user.get());
+                    badge.setPercentage(2);
+                    badgeRepository.save(badge);
+                }
+            }
+        }
     }
 
     @Override
