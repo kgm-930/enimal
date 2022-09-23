@@ -7,6 +7,9 @@ import DrawSlide from "./DrawSlide";
 function DrawModal(props){
   const { open, close,header } = props;
   console.log(header)
+
+
+
   return (
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (
@@ -22,9 +25,6 @@ function DrawModal(props){
             </div>
           </main>
           <footer>
-            <button type="button" className="fs-18 notoBold drawModalButton" onClick={close}>
-              뽑기 (가격)
-            </button>
             <button type="button" className="fs-18 notoBold drawModalButton" onClick={close}>
               마이페이지로 이동
             </button>
