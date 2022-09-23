@@ -56,10 +56,10 @@ public class UserController {
         HttpStatus status;
         try{
             // create a cookie
-            if(userService.loginUser(userLoginDto)) {
+            BadgeShowDto data = userService.loginUser(userLoginDto);
+            if(data.getResult()) {
                 String accessToken = jwtService.createAccessToken("id", userLoginDto.getId());
                 String refreshToken = jwtService.createRefreshToken("id", userLoginDto.getId());
-                BadgeShowDto data = userService.loginUser(userLoginDto);
                 result.put("Authorization", accessToken);
                 result.put("message", okay);
                 result.put("data", data);

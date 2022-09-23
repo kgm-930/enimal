@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
             userRegist.setWallet(userLoginDto.getWallet());
             userRepository.save(userRegist);
         }else if(!user.isPresent() && userLoginDto.getId() == null){
-            //return false;
+            badgeShowDto.setResult(false);
             return badgeShowDto;
         }
         Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
@@ -78,8 +78,8 @@ public class UserServiceImpl implements UserService {
                 }
             }
         }
+        badgeShowDto.setResult(true);
         return badgeShowDto;
-        //return true;
     }
 
     @Override
