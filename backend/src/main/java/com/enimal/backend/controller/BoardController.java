@@ -7,6 +7,7 @@ import com.enimal.backend.dto.Board.BoardUpdateDto;
 import com.enimal.backend.dto.Comment.CommentShowDto;
 import com.enimal.backend.service.BoardService;
 import com.enimal.backend.service.CommentService;
+import com.enimal.backend.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,11 @@ public class BoardController {
     private static final String fail = "FAIL";
     private final BoardService boardService;
     private final CommentService commentService;
+    private final JwtService jwtService;
     @Autowired
-    BoardController(BoardService boardService,CommentService commentService){
+    BoardController(BoardService boardService,JwtService jwtService , CommentService commentService){
         this.commentService = commentService;
+        this.jwtService = jwtService;
         this.boardService = boardService;
     }
     @PostMapping("/board") // 자유게시판 등록
@@ -77,11 +80,13 @@ public class BoardController {
         return new ResponseEntity<>(result,status);
     }
     @GetMapping("/boardList/{idx}") // 자유게시판 세부 조회
-    public ResponseEntity<?> detailBoard(@PathVariable(value = "idx") Integer idx){
+    public ResponseEntity<?> detailBoard(HttpServletRequest request , @PathVariable(value = "idx") Integer idx){
         Map<String,Object> result = new HashMap<>() ;
         HttpStatus status;
         try{
-            BoardShowDto data = boardService.detailBoard(idx);
+            String accessToken = request.getHeader("Authorization");
+            String decodeId = jwtService.decodeToken(accessToken);
+            BoardShowDto data = boardService.detailBoard(idx,decodeId);
             List<CommentShowDto> comment = commentService.listComment(idx);
             result.put("message",okay);
             result.put("data",data);

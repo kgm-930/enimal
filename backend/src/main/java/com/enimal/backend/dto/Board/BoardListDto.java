@@ -11,5 +11,5 @@ public class BoardListDto {
     private Byte[] picture;
     private Integer view;
     private Integer idx;
-    private String user_id;
+    private String nickname;
 }

@@ -150,19 +150,23 @@ class BackendApplicationTests {
 	}
 	@Test
 	void 재화내역조회(){
-		String userId = "test";
-		Integer pageSize = 5;
-		Integer lastIdx =0;
-		Slice<Money> monies = null;
-		Pageable pageable = PageRequest.ofSize(pageSize);
-
-		if(lastIdx == 0){
-			lastIdx = moneyRepository.findTop1ByOrderByIdxDesc().get().getIdx() +1;
-		}
-		monies = moneyRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
+		List<Money> monies = moneyRepository.findByUserId("test");
 		for(Money money : monies){
 			System.out.println(money.getCreatedate());
 		}
+//		String userId = "test";
+//		Integer pageSize = 5;
+//		Integer lastIdx =0;
+//		Slice<Money> monies = null;
+//		Pageable pageable = PageRequest.ofSize(pageSize);
+//
+//		if(lastIdx == 0){
+//			lastIdx = moneyRepository.findTop1ByOrderByIdxDesc().get().getIdx() +1;
+//		}
+//		monies = moneyRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
+//		for(Money money : monies){
+//			System.out.println(money.getCreatedate());
+//		}
 	}
 	@Test
 	void 유저프로필조회_기본정보(){ // resultSet이 다르다고함. JPA 서브쿼리 매핑을 어떻게?
@@ -190,5 +194,12 @@ class BackendApplicationTests {
 		String userId = "test";
 		List<Puzzle> puzzles = puzzleRepository.findByUserIdOrderByAnimal(userId);
 
+	}
+	@Test
+	void 랭킹조회_기부(){
+		List<User> users = userRepository.findTop10ByOrderByDonation();
+		for(User user : users){
+			System.out.println(user.getNickname());
+		}
 	}
 }

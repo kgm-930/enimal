@@ -1,6 +1,5 @@
 package com.enimal.backend.service.Impl;
 
-import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.User.*;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.entity.Collection;
@@ -28,6 +27,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserServiceImpl(PuzzleRepository puzzleRepository,CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
         this.userRepository = userRepository;
+        this.moneyRepository = moneyRepository;
         this.collectionRepository = collectionRepository;
         this.badgeRepository = badgeRepository;
         this.attendenceRepository = attendenceRepository;
@@ -124,51 +124,65 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserAttendenceListDto> listAttendenceUser(String userId) {
-        List<UserAttendenceListDto> userAttendenceListDtos = new ArrayList<>();
-        Integer convertDate = LocalDateTime.now().getDayOfYear();
-        List<Attendence> attendences = attendenceRepository.findByUserIdLessThan(userId,convertDate);
-        for(Attendence attendence : attendences){
-            UserAttendenceListDto userAttendenceListDto = new UserAttendenceListDto();
-            userAttendenceListDto.setAttendenceIdx(attendence.getIdx());
-            userAttendenceListDto.setAttenddate(attendence.getAttenddate());
-            userAttendenceListDto.setConvertdate(attendence.getConvertdate());
-            userAttendenceListDtos.add(userAttendenceListDto);
+    public List<UserMoneyListDto> listMoneyUser(String userId) {
+        List<UserMoneyListDto> userMoneyListDtos = new ArrayList<>();
+        List<Money> monies = moneyRepository.findByUserId("test");
+        for(Money money : monies){
+            UserMoneyListDto userMoneyListDto = new UserMoneyListDto();
+            userMoneyListDto.setUseCredit(money.getCredit());
+            userMoneyListDto.setCreateDate(money.getCreatedate());
+            userMoneyListDtos.add(userMoneyListDto);
         }
 
-        return userAttendenceListDtos;
+        return userMoneyListDtos;
     }
 
     @Override
-    public UserProfileDto profileUser(String userId) {
-        UserProfileDto userProfileDto = new UserProfileDto();
-        User user = userRepository.findById(userId).get();
-        Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
-        Integer collectionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션 수
-        Integer collectionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
-        if(collectionRank == null) collectionRank = Math.toIntExact(userRepository.count());
-        List<Badge> badges = badgeRepository.findByUserId(userId);
+    public UserProfileDto profileUser(String nickname) {
 
-        userProfileDto.setNickname(user.getNickname());
-        userProfileDto.setCollectionCount(collectionCount);
-        userProfileDto.setCollectionRank(collectionRank);
-        userProfileDto.setDonationRank(donationRank);
-        userProfileDto.setUsedCount(user.getUsedcount());
-        userProfileDto.setUsedCredit(user.getUsedcredit());
-        userProfileDto.setBadges(badges);
+        UserProfileDto userProfileDto = new UserProfileDto();
+        Optional<User> user = userRepository.findByNickname(nickname);
+        if(user.isPresent()){
+            String userId = user.get().getId();
+            Integer donationRank = userRepository.findByUserIdRank(userId); // 현재 나의 기부 순위
+            Integer collectionCount = collectionRepository.countByUserId(userId); //현재 완성된 컬렉션 수
+            Integer collectionRank = collectionRepository.findByUserIdRank(userId); //현재 나의 컬렉션 순위
+            if(collectionRank == null) collectionRank = Math.toIntExact(userRepository.count());
+            List<Badge> badges = badgeRepository.findByUserId(userId);
+            List<UserBadgeListDto> userBadgeListDtos = new ArrayList<>();
+            for(Badge badge:badges){
+                UserBadgeListDto userBadgeListDto = new UserBadgeListDto();
+                userBadgeListDto.setNickname(badge.getUser().getNickname());
+                userBadgeListDto.setBadge(badge.getBadge());
+                userBadgeListDto.setCreatedate(badge.getCreatedate());
+                userBadgeListDto.setPercentage(badge.getPercentage());
+
+                userBadgeListDtos.add(userBadgeListDto);
+            }
+            userProfileDto.setNickname(user.get().getNickname());
+            userProfileDto.setCollectionCount(collectionCount);
+            userProfileDto.setCollectionRank(collectionRank);
+            userProfileDto.setDonationRank(donationRank);
+            userProfileDto.setUsedCount(user.get().getUsedcount());
+            userProfileDto.setUsedCredit(user.get().getUsedcredit());
+            userProfileDto.setBadges(userBadgeListDtos);
+        }
         return userProfileDto;
     }
 
     @Override
-    public List<Map<String,Object>> completionUser(String profileId) {
+    public List<Map<String,Object>> completionUser(String nickname) {
         List<Map<String,Object>> result = new ArrayList<>();
-        List<Collection> collections = collectionRepository.findByUserId(profileId);
-        for(Collection collection : collections){
-            Map<String,Object> data = new HashMap<>();
-            data.put("animal",collection.getAnimal());
-            data.put("info",collection.getInfo());
-            data.put("createDate",collection.getCreatedate());
-            result.add(data);
+        Optional<User> user = userRepository.findByNickname(nickname);
+        if(user.isPresent()){
+            List<Collection> collections = collectionRepository.findByUserId(user.get().getId());
+            for(Collection collection : collections){
+                Map<String,Object> data = new HashMap<>();
+                data.put("animal",collection.getAnimal());
+                data.put("info",collection.getInfo());
+                data.put("createDate",collection.getCreatedate());
+                result.add(data);
+            }
         }
         return result;
     }

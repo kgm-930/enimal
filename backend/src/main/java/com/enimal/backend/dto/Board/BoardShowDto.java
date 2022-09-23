@@ -10,9 +10,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardShowDto {
     private String title;
+    private String nickname;
+    private Boolean isWriter;
     private LocalDateTime boardTime;
     private String content;
     private Integer view;
-    private String user_id;
     private Byte[] picture;
 }

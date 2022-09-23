@@ -78,7 +78,7 @@ public class BoardTests {
         Optional<Board> board = boardRepository.findById(idx);
         BoardShowDto boardShowDto = new BoardShowDto();
         boardShowDto.setBoardTime(board.get().getModifydate());
-        boardShowDto.setUser_id(board.get().getUser().getId());
+        boardShowDto.setNickname(board.get().getUser().getNickname());
         boardShowDto.setTitle(board.get().getTitle());
         boardShowDto.setContent(board.get().getContent());
         boardShowDto.setPicture(board.get().getPicture());

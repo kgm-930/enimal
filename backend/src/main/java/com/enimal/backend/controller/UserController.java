@@ -1,6 +1,5 @@
 package com.enimal.backend.controller;
 
-import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.User.*;
 import com.enimal.backend.service.JwtService;
 import com.enimal.backend.service.NoticeService;
@@ -142,13 +141,13 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/attendenceList") //출석 조회
-    public ResponseEntity<?> listAttendenceUser(HttpServletRequest request){
+    @GetMapping("/user/money") //재화 내역 조회
+    public ResponseEntity<?> listMoneyUser(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
         try{
-            List<UserAttendenceListDto> data = userService.listAttendenceUser(userId);
+            List<UserMoneyListDto> data = userService.listMoneyUser(userId);
             result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
@@ -159,12 +158,12 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/profile/{userId}") //프로필 조회 - 기본정보
-    public ResponseEntity<?> profileUser(HttpServletRequest request, @PathVariable("userId") String profileId){
+    @GetMapping("/user/profile/{nickname}") //프로필 조회 - 기본정보
+    public ResponseEntity<?> profileUser(HttpServletRequest request, @PathVariable("nickname") String nickname){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            UserProfileDto userProfileDto = userService.profileUser(profileId);
+            UserProfileDto userProfileDto = userService.profileUser(nickname);
             result.put("message",okay);
             result.put("data",userProfileDto);
             status = HttpStatus.OK;
@@ -175,12 +174,12 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
-    @GetMapping("/user/completion/{userId}") //프로필 조회 - 보유중인 컬렉션
-    public ResponseEntity<?> completionUser(HttpServletRequest request, @PathVariable("userId") String profileId){
+    @GetMapping("/user/completion/{nickname}") //프로필 조회 - 보유중인 컬렉션
+    public ResponseEntity<?> completionUser(HttpServletRequest request, @PathVariable("nickname") String nickname){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            List<Map<String,Object>> data = userService.completionUser(profileId);
+            List<Map<String,Object>> data = userService.completionUser(nickname);
             result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;

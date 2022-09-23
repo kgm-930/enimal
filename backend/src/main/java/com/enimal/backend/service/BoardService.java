@@ -14,7 +14,7 @@ public interface BoardService {
 
     List<BoardListDto> listBoard(Integer pageSize, Integer lastIdx);
 
-    BoardShowDto detailBoard(Integer idx);
+    BoardShowDto detailBoard(Integer idx,String userid);
 
     boolean updateBoard(BoardUpdateDto boardUpdateDto);
 }
