@@ -27,6 +27,7 @@ public class CommentController {
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         String userId = (String) request.getAttribute("userId");
+        System.out.println(userId);
         try{
             commentRegistDto.setIdx(idx);
             commentRegistDto.setUser_id(userId);
@@ -35,6 +36,7 @@ public class CommentController {
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
+            System.out.println(e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
