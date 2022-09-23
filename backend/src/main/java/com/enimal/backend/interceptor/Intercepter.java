@@ -23,23 +23,23 @@ public class Intercepter extends HandlerInterceptorAdapter {
     private static final String timeOut = "timeOut";
 
     // 컨트롤러 전 실행
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (HttpMethod.OPTIONS.matches(request.getMethod())) {
-            return true;
-        }
-        // 로그인 해야만 사용할 수 있는 서비스들 체크
-        String accessToken = request.getHeader("Authorization");
-        String decodeId = jwtService.decodeToken(accessToken);
-        if(decodeId.equals(timeOut)){ // 토큰 만료
-            response.setStatus(401);
-            return false;
-        }else{
-            request.setAttribute("userId",decodeId);
-            return true;
-        }
-
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        if (HttpMethod.OPTIONS.matches(request.getMethod())) {
+//            return true;
+//        }
+//        // 로그인 해야만 사용할 수 있는 서비스들 체크
+//        String accessToken = request.getHeader("Authorization");
+//        String decodeId = jwtService.decodeToken(accessToken);
+//        if(decodeId.equals(timeOut)){ // 토큰 만료
+//            response.setStatus(401);
+//            return false;
+//        }else{
+//            request.setAttribute("userId",decodeId);
+//            return true;
+//        }
+//
+//    }
 //    // 컨트롤러 처리 후 실행
 //    @Override
 //    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
