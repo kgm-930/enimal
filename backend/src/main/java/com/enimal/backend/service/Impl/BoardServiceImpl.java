@@ -5,14 +5,8 @@ import com.enimal.backend.dto.Board.BoardRegistDto;
 import com.enimal.backend.dto.Board.BoardShowDto;
 import com.enimal.backend.dto.Board.BoardUpdateDto;
 import com.enimal.backend.dto.Notice.NoticeListDto;
-import com.enimal.backend.entity.Board;
-import com.enimal.backend.entity.Comment;
-import com.enimal.backend.entity.Notice;
-import com.enimal.backend.entity.User;
-import com.enimal.backend.repository.BoardRepository;
-import com.enimal.backend.repository.CommentRepository;
-import com.enimal.backend.repository.NoticeRepository;
-import com.enimal.backend.repository.UserRepository;
+import com.enimal.backend.entity.*;
+import com.enimal.backend.repository.*;
 import com.enimal.backend.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -34,17 +28,29 @@ public class BoardServiceImpl implements BoardService {
     private UserRepository userRepository;
     private BoardRepository boardRepository;
     private CommentRepository commentRepository;
+    private BadgeRepository badgeRepository;
     @Autowired
-    BoardServiceImpl(NoticeRepository noticeRepository,UserRepository userRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+    BoardServiceImpl(NoticeRepository noticeRepository,UserRepository userRepository,BoardRepository boardRepository,CommentRepository commentRepository,BadgeRepository badgeRepository){
         this.noticeRepository = noticeRepository;
         this.userRepository = userRepository;
         this.boardRepository = boardRepository;
         this.commentRepository = commentRepository;
+        this.badgeRepository = badgeRepository;
     }
     @Override
     public void registBoard(BoardRegistDto boardRegistDto) {
         Board board = new Board();
         Optional<User> user = userRepository.findById(boardRegistDto.getUserId());
+        List<Board> boards = boardRepository.findByUser(user);
+        int size = boards.size();
+        if(size == 0) {
+            Badge badge = new Badge();
+            badge.setBadge("업적 냠냠");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+        }
         board.setUser(user.get());
         board.setTitle(boardRegistDto.getTitle());
         board.setContent(boardRegistDto.getContent());
