@@ -1,6 +1,7 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.User.UserLoginDto;
 import com.enimal.backend.dto.User.UserProfileDto;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
@@ -65,26 +66,31 @@ class BackendApplicationTests {
 	@Test
 	void 로그인_테스트(){
 		//프론트로부터 지갑주소, 닉네임을 받아서 회원인지 체크, 회원-로그인, 회원X-회원등록-로그인
-		String address = "asdfjknasdf";
-		String userId = "t2est";
-		Optional<User> user = userRepository.findById(userId);
-		if(!user.isPresent()){ // 회원이 아니라면 회원 등록하기
+		UserLoginDto userLoginDto = new UserLoginDto();
+		userLoginDto.setId("test0");
+		userLoginDto.setWallet("test0");
+		Optional<User> user = userRepository.findByWallet(userLoginDto.getWallet());
+		int convertDate = LocalDateTime.now().getDayOfYear();
+
+		if(!user.isPresent() && userLoginDto.getId() != null){ // 회원이 아니라면 회원 등록하기
 			User userRegist = new User();
-			userRegist.setId(address);
-			userRegist.setNickname(userId);
-			userRegist.setWallet(address);
+			userRegist.setId(userLoginDto.getId());
+			userRegist.setNickname(userLoginDto.getId());
+			userRegist.setWallet(userLoginDto.getWallet());
 			userRepository.save(userRegist);
+		}else if(!user.isPresent() && userLoginDto.getId() == null){
+			System.out.println("실패");
 		}
-		//로그인 시키기
-		String accessToken = jwtService.createAccessToken("id", userId);
-		String refreshToken = jwtService.createRefreshToken("id", userId);
-		Attendence attendence = new Attendence();
-		attendence.setUserId(userId);
-		attendence.setAttenddate(LocalDateTime.now());
-		attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
-        attendenceRepository.save(attendence);
-		System.out.println(accessToken);
-		System.out.println(refreshToken);
+
+		Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
+		if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
+
+			Attendence attendence = new Attendence();
+			attendence.setUserId(userLoginDto.getId());
+			attendence.setAttenddate(LocalDateTime.now());
+			attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
+			attendenceRepository.save(attendence);
+		}
 
 	}
 
