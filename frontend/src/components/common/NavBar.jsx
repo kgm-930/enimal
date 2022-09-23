@@ -1,10 +1,20 @@
-import React from "react";
+import React,{ useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "./NavBar.scss";
 
 import nav from '@images/NAV.png'
+import Login from "./Login/Login";
 
 function NavBar() {
+  const [modalOpen,setModalOpen] = useState(false)
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <header className="fixed-top">
       <Navbar className="mainNav" expand="lg">
@@ -46,7 +56,7 @@ function NavBar() {
                 마이페이지
               </NavDropdown.Item>
               <NavDropdown.Item
-                href="/community"
+                onClick={openModal}
                 className="nav-dropdowm2_acc notoMid fs-16"
               >
                 지갑연결
@@ -55,6 +65,7 @@ function NavBar() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <Login open={modalOpen} close={closeModal} />
     </header>
   );
 }
