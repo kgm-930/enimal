@@ -33,7 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "http://localhost:3001","http://localhost:80","http://j7c106.p.ssafy.io", "http://j7c106.p.ssafy.io:3000", "https://j7c106.p.ssafy.io", "https://j7c106.p.ssafy.io:3000","https://localhost:80",,"https://localhost:8001","https://localhost:3000")
+                .allowedOrigins("http://localhost:3000", "http://localhost:3001","http://localhost:80","http://j7c106.p.ssafy.io", "http://j7c106.p.ssafy.io:3000", "https://j7c106.p.ssafy.io", "https://j7c106.p.ssafy.io:3000","https://localhost:80","https://localhost:8001","https://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH","OPTIONS")
                 .maxAge(6000)
                 .allowCredentials(true);
