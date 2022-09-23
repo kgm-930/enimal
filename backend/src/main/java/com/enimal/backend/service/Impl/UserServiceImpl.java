@@ -1,5 +1,6 @@
 package com.enimal.backend.service.Impl;
 
+import com.enimal.backend.dto.Etc.BadgeShowDto;
 import com.enimal.backend.dto.User.*;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.entity.Collection;
@@ -37,7 +38,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void loginUser(UserLoginDto userLoginDto) {
+    public BadgeShowDto loginUser(UserLoginDto userLoginDto) {
+        BadgeShowDto badgeShowDto = new BadgeShowDto();
         Optional<User> user = userRepository.findById(userLoginDto.getId());
         int convertDate = LocalDateTime.now().getDayOfYear();
         if(!user.isPresent()){ // 회원이 아니라면 회원 등록하기
@@ -69,9 +71,11 @@ public class UserServiceImpl implements UserService {
                     badge.setUser(user.get());
                     badge.setPercentage(2);
                     badgeRepository.save(badge);
+                    badgeShowDto.setModalName("개근상");
                 }
             }
         }
+        return badgeShowDto;
     }
 
     @Override
