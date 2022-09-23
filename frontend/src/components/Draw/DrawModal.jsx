@@ -1,14 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import '@components/common/Modal.scss'
 import './DrawModal.scss'
 
 import DrawSlide from "./DrawSlide";
 
+
 function DrawModal(props){
   const { open, close,header } = props;
+  const navigate = useNavigate();
   console.log(header)
 
-
+  function goMypage(){
+    navigate('/mypage');
+  }
 
   return (
     <div className={open ? 'openModal modal' : 'modal'}>
@@ -25,7 +31,7 @@ function DrawModal(props){
             </div>
           </main>
           <footer>
-            <button type="button" className="fs-18 notoBold drawModalButton" onClick={close}>
+            <button type="button" className="fs-18 notoBold drawModalButton" onClick={goMypage}>
               마이페이지로 이동
             </button>
             <button type="button" className="fs-18 notoBold drawModalButton2" onClick={close}>
