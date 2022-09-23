@@ -25,7 +25,6 @@ function Rank() {
       document.getElementById('collection').className = 'rankTabB'
       document.getElementById('donation').className = 'rankTabA'
     }
-    
   }
 
   
