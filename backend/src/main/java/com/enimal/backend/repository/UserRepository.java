@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<User,String> {
     @Query(value = "SELECT t.ranking from (SELECT id,rank() over (order by donation desc) as ranking from `USER` u) t where id = :userId",nativeQuery = true)
     Integer findByUserIdRank(@Param("userId") String userId);
     List<User> findTop10ByOrderByDonation();
-
+    
     Optional<User> findByNickname(String nickname);
+
+    Optional<User> findByWallet(String wallet);
 }

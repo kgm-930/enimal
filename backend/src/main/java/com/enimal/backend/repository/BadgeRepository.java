@@ -16,5 +16,7 @@ public interface BadgeRepository extends JpaRepository<Badge,Integer> {
 
     List<Badge> findByUserId(String userId);
 
+    Long countByUserId(String userId);
+
     Optional<Badge> findByUserIdAndBadge(String userId, String badge);
 }

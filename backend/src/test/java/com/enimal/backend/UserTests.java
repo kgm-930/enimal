@@ -1,6 +1,8 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
+import com.enimal.backend.dto.User.UserLoginDto;
+import com.enimal.backend.dto.User.UserProfileDto;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.NoticeRepository;
@@ -8,6 +10,7 @@ import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.JwtService;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
+import com.enimal.backend.service.JwtService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -63,28 +67,33 @@ class UserTests {
 	@Test
 	void 로그인_테스트(){
 		//프론트로부터 지갑주소, 닉네임을 받아서 회원인지 체크, 회원-로그인, 회원X-회원등록-로그인
-		String address = "asdfjknasdf";
-		String userId = "test";
-		Optional<User> user = userRepository.findById(userId);
-		if(!user.isPresent()){ // 회원이 아니라면 회원 등록하기
+		UserLoginDto userLoginDto = new UserLoginDto();
+		userLoginDto.setId("test0");
+		userLoginDto.setWallet("test0");
+		Optional<User> user = userRepository.findByWallet(userLoginDto.getWallet());
+		int convertDate = LocalDateTime.now().getDayOfYear();
+
+		if(!user.isPresent() && userLoginDto.getId() != null){ // 회원이 아니라면 회원 등록하기
 			User userRegist = new User();
-			userRegist.setId(address);
-			userRegist.setNickname(userId);
-			userRegist.setWallet(address);
+			userRegist.setId(userLoginDto.getId());
+			userRegist.setNickname(userLoginDto.getId());
+			userRegist.setWallet(userLoginDto.getWallet());
 			userRepository.save(userRegist);
+		}else if(!user.isPresent() && userLoginDto.getId() == null){
+			System.out.println("실패");
 		}
-		//로그인 시키기
-		String accessToken = jwtService.createAccessToken("id", userId);
-		String refreshToken = jwtService.createRefreshToken("id", userId);
-		Attendence attendence = new Attendence();
-		attendence.setUserId(userId);
-		attendence.setAttenddate(LocalDateTime.now());
-		attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
-        attendenceRepository.save(attendence);
-		System.out.println(accessToken);
-		System.out.println(refreshToken);
+
+		Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
+		if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
+
+			Attendence attendence = new Attendence();
+			attendence.setUserId(userLoginDto.getId());
+			attendence.setAttenddate(LocalDateTime.now());
+			attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
+			attendenceRepository.save(attendence);
+		}
 		// 업적 6번 : 일주일 연속 출석체크 한 경우 -> 화면에 로그인시 뱃지 얻었다고 보여주는지
-		List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(userId);
+		List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(userLoginDto.getId());
 		for(int i=0;i<attendences.size();i++){
 			System.out.println(attendences.get(i).getUserId());
 			System.out.println(attendences.get(i).getConvertdate());
@@ -95,7 +104,7 @@ class UserTests {
 			System.out.println(attendences.get(0).getConvertdate());
 			System.out.println(attendences.get(6).getConvertdate());
 			if((attendences.get(0).getConvertdate() - attendences.get(6).getConvertdate()) == 6) {
-				Optional<Badge> realBadge = badgeRepository.findByUserIdAndBadge(userId, "개근상");
+				Optional<Badge> realBadge = badgeRepository.findByUserIdAndBadge(userLoginDto.getId(), "개근상");
 				if(!realBadge.isPresent()){ // 개근상을 안받은 경우
 					Badge badge = new Badge();
 					badge.setBadge("개근상");

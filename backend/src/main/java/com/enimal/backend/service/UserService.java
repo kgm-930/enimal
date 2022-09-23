@@ -22,4 +22,6 @@ public interface UserService {
     List<Map<String,Object>> completionUser(String profileId);
 
     List<UserCollectionDto> collectionUser(String userId);
+
+    boolean checkUser(String nickname);
 }

@@ -1,5 +1,6 @@
 package com.enimal.backend.service.Impl;
 
+import com.enimal.backend.dto.Etc.AnimalAllDrawDto;
 import com.enimal.backend.dto.Etc.AnimalShowDto;
 import com.enimal.backend.entity.Animal;
 import com.enimal.backend.repository.AnimalRepository;
@@ -29,5 +30,10 @@ public class AnimalServiceImpl implements AnimalService {
         animalShowDto.setGrade(animal.get().getGrade());
         animalShowDto.setCount(animal.get().getCount());
         return animalShowDto;
+    }
+
+    @Override
+    public AnimalAllDrawDto drawAllAnimal(String userId) {
+        return null;
     }
 }

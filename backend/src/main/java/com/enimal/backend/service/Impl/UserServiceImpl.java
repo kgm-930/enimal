@@ -40,14 +40,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public BadgeShowDto loginUser(UserLoginDto userLoginDto) {
         BadgeShowDto badgeShowDto = new BadgeShowDto();
-        Optional<User> user = userRepository.findById(userLoginDto.getId());
+        Optional<User> user = userRepository.findByWallet(userLoginDto.getWallet());
         int convertDate = LocalDateTime.now().getDayOfYear();
-        if(!user.isPresent()){ // 회원이 아니라면 회원 등록하기
+        if(!user.isPresent() && userLoginDto.getId() != null){ // 회원이 아니라면 회원 등록하기
             User userRegist = new User();
             userRegist.setId(userLoginDto.getId());
             userRegist.setNickname(userLoginDto.getId());
             userRegist.setWallet(userLoginDto.getWallet());
             userRepository.save(userRegist);
+        }else if(!user.isPresent() && userLoginDto.getId() == null){
+            //return false;
+            return badgeShowDto;
         }
         Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
         if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
@@ -76,6 +79,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         return badgeShowDto;
+        //return true;
     }
 
     @Override
@@ -220,5 +224,15 @@ public class UserServiceImpl implements UserService {
             userCollectionDtos.add(userCollectionDto);
         }
         return userCollectionDtos;
+    }
+
+    @Override
+    public boolean checkUser(String nickname) {
+        Optional<User> user = userRepository.findByNickname(nickname);
+        if(user.isPresent()){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
