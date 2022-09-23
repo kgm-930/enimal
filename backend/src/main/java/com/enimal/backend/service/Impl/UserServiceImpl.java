@@ -47,16 +47,15 @@ public class UserServiceImpl implements UserService {
             userRegist.setWallet(userLoginDto.getWallet());
             userRepository.save(userRegist);
         }
-
         Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
         if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
-
             Attendence attendence = new Attendence();
             attendence.setUserId(userLoginDto.getId());
             attendence.setAttenddate(LocalDateTime.now());
             attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
         }
+        // 업적 6번 : 일주일 연속 출석체크 한 경우 -> 화면에 로그인시 뱃지 얻었다고 보여주는지
     }
 
     @Override
