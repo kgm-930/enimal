@@ -31,27 +31,48 @@ public class UserController {
         this.userService = userService;
         this.jwtService = jwtService;
     }
+    @GetMapping("/user/nickname/{nickname}") // 닉네임 중복검사
+    public ResponseEntity<?> checkUser(@PathVariable("nickname") String nickname){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        try{
+            if(userService.checkUser(nickname)){
+                result.put("message", okay);
+            }else{
+                result.put("message",fail);
 
+            }
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
     @PostMapping("/user/login") // 지갑연결
     public ResponseEntity<?> loginUser(@RequestBody UserLoginDto userLoginDto, HttpServletResponse response){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
         try{
-            userService.loginUser(userLoginDto);
-            String accessToken = jwtService.createAccessToken("id", userLoginDto.getId());
-            String refreshToken = jwtService.createRefreshToken("id", userLoginDto.getId());
-            result.put("Authorization", accessToken);
-            result.put("message", okay);
-            // create a cookie
+            if(userService.loginUser(userLoginDto)) {
+                String accessToken = jwtService.createAccessToken("id", userLoginDto.getId());
+                String refreshToken = jwtService.createRefreshToken("id", userLoginDto.getId());
+                result.put("Authorization", accessToken);
+                result.put("message", okay);
+                // create a cookie
 
-            Cookie refreshCookie = new Cookie("refresh-token",refreshToken);
-            refreshCookie.setMaxAge(1*60*60);
-            refreshCookie.setPath("/");
-            refreshCookie.setHttpOnly(true);
-            refreshCookie.setSecure(true);
+                Cookie refreshCookie = new Cookie("refresh-token", refreshToken);
+                refreshCookie.setMaxAge(1 * 60 * 60);
+                refreshCookie.setPath("/");
+                refreshCookie.setHttpOnly(true);
+                refreshCookie.setSecure(true);
 
-            response.addCookie(refreshCookie);
-            status = HttpStatus.OK;
+                response.addCookie(refreshCookie);
+                status = HttpStatus.OK;
+            }else{
+                result.put("message", fail);
+                status = HttpStatus.OK;
+            }
         }catch (Exception e){
             result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;

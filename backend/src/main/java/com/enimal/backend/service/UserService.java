@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    void loginUser(UserLoginDto userLoginDto);
+    boolean loginUser(UserLoginDto userLoginDto);
     void deleteUser(String userId);
     void updateUser(String userId, String userNickname);
     Map<Integer, LocalDateTime>  attendUser(String userId);
@@ -21,4 +21,6 @@ public interface UserService {
     List<Map<String,Object>> completionUser(String profileId);
 
     List<UserCollectionDto> collectionUser(String userId);
+
+    boolean checkUser(String nickname);
 }
