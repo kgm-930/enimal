@@ -17,7 +17,6 @@ function AllDraw() {
 
   function drawButton(e){
     e.preventDefault();
-    console.log(1234)
     openModal()
   }
 

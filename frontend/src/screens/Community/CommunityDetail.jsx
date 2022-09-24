@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import "./CommunityDetail.scss";
 
 import profiledummy from "@assets/images/person.png";
 import picdummy from "@assets/images/coco.jpeg";
-
+import axios from "axios";
 import CommunityComment from "@components/Community/CommunityComment"
+import { useParams } from "react-router-dom";
+
+import { getArticleDetail } from "@apis/community"
 
 function CommunityRegist() {
+  const articleId = useParams().index;
+  const [data,setData] = useState(null);
+
+  useEffect(()=>{
+    getArticleDetail(articleId).then(res=>{
+      console.log(res)
+      setData(res)
+    })
+    axios({
+      url:`/board/${articleId}` ,
+      method: 'get',
+      headers: { Authorization:localStorage.token}
+    })
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },[])
+  console.log(data)
   return (
     <div className="container flex">
       <div className="commudetail">

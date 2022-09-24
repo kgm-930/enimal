@@ -1,7 +1,6 @@
 import React from "react";
 import './MyArticles.scss'
 
-import CommunityCard from "../../Community/CommunityCard";
 
 function MyComment() {
   return (
@@ -9,10 +8,7 @@ function MyComment() {
       <h1 className="fs-40 notoBold">내 댓글</h1>
       <hr />
       <div className="MyArticles flex">
-        <CommunityCard />
-        <CommunityCard />
-        <CommunityCard />
-        <CommunityCard />
+          gg
       </div>
 
     </div>
