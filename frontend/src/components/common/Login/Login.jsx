@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './Login.scss'
+import { getLogin } from '@apis/account'
 
 const Web3 = require("web3");
 
@@ -7,13 +8,17 @@ function Login(props) {
   const { open, close } = props;
   const [myKey, setMyKey] = useState(null);
   const [newbie, setNewbie] = useState(false);
-
+  const [nick, setNick] = useState(null);
 
   function inputKey(e) {
     console.log(e.target.value)
     setMyKey(e.target.value)
   }
 
+  function inputNick(e) {
+    console.log(e.target.value)
+    setNick(e.target.value)
+  }
 
 
   function goLogin(e) {
@@ -21,31 +26,34 @@ function Login(props) {
     if (myKey) {
       // 싸피 네트워크 주소
       const web3 = new Web3(new Web3.providers.HttpProvider("http://20.196.209.2:8545/"));
-      const token = '0x0c54E456CE9E4501D2c43C38796ce3F06846C966';
       // 개인키
       const pubKey = web3.eth.accounts.privateKeyToAccount(myKey);
       console.log(pubKey.address);
-
-      const minABI = [
-        {
-          constant: true,
-          inputs: [{ name: "_owner", type: "address" }],
-          name: "balanceOf",
-          outputs: [{ name: "balance", type: "uint256" }],
-          type: "function",
-        },
-      ];
-      const contract = new web3.eth.Contract(minABI, token);
-      const getBalance = async () => {
-        const res = await contract.methods.balanceOf(pubKey.address).call();
-        // const format = web3.utils.fromWei(res);
-        console.log(res);
+      if (newbie && (nick === '' || nick === null)) {
+        alert("닉네임을 입력해 주세요")
       }
-      getBalance();
+      else {
+        let DATA = { wallet: pubKey.address }
+        if (nick) {
+          DATA = {
+            id: nick,
+            wallet: pubKey.address
+          }
+        }
+        console.log(DATA)
+        getLogin(DATA).then((res) => {
+          if (res.message === 'FALE') {
+            setNewbie(true)
+          }
+          else {
+            localStorage.setItem('token', res.Authorization)
+            close()
+          }
+        })
 
+      }
 
     }
-    setNewbie(true)
   }
 
   return (
@@ -75,7 +83,7 @@ function Login(props) {
 
                 <div className="keyInputBox">
                   <h1 className="fs-20 notoBold" style={{ color: "#274662" }}>닉네임</h1>
-                  <input type="text" className="nickInput" />
+                  <input type="text" className="nickInput" onChange={e => inputNick(e)} />
                 </div>
               </>
               : null

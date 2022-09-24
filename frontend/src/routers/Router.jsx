@@ -59,7 +59,7 @@ function Router() {
         {/* community */}
         <Route path="/community" element={<Community />} />
         <Route path="/community/regist" element={<CommunityRegist />} />
-        <Route path="/community/detail" element={<CommunityDetail />} />
+        <Route path="/community/detail/:index" element={<CommunityDetail />} />
 
         {/* NotFound */}
         <Route path="/*" element={<NotFound />} />

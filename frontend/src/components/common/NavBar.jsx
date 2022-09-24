@@ -1,12 +1,17 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./NavBar.scss";
+
 
 import nav from '@images/NAV.png'
 import Login from "./Login/Login";
 
+
 function NavBar() {
-  const [modalOpen,setModalOpen] = useState(false)
+
+  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false)
 
   const openModal = () => {
     setModalOpen(true);
@@ -15,6 +20,12 @@ function NavBar() {
     setModalOpen(false);
   };
 
+  function Logout(e){
+    e.preventDefault();
+    localStorage.removeItem('token')
+    navigate('/')
+  }
+ 
   return (
     <header className="fixed-top">
       <Navbar className="mainNav" expand="lg">
@@ -24,7 +35,11 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+            {localStorage.token ? 
             <Nav.Link className="save notoMid fs-20">save : 1000</Nav.Link>
+            :
+            null
+            }
             <Nav.Link href="/draw" className="drawBtn notoMid fs-20">
               Draw
             </Nav.Link>
@@ -49,18 +64,32 @@ function NavBar() {
               title="Account"
               className="nav-dropdown2 notoMid fs-20"
             >
-              <NavDropdown.Item
-                href="/mypage"
-                className="nav-dropdowm2_mypage notoMid fs-16"
-              >
-                마이페이지
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                onClick={openModal}
-                className="nav-dropdowm2_acc notoMid fs-16"
-              >
-                지갑연결
-              </NavDropdown.Item>
+              {localStorage.token ?
+
+                <>
+                  <NavDropdown.Item
+                    href="/mypage"
+                    className="nav-dropdowm2_mypage notoMid fs-16"
+                  >
+                    마이페이지
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={e=>Logout(e)}
+                    className="nav-dropdowm2_acc notoMid fs-16"
+                  >
+                    로그아웃
+                  </NavDropdown.Item>
+                </>
+                :
+                <NavDropdown.Item
+                  onClick={openModal}
+                  className="nav-dropdowm2_acc notoMid fs-16"
+                >
+                  지갑연결
+                </NavDropdown.Item>
+              }
+
+
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
