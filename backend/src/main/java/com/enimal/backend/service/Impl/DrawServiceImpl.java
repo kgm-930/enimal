@@ -1,45 +1,61 @@
-package com.enimal.backend;
+package com.enimal.backend.service.Impl;
 
+import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.entity.Animal;
 import com.enimal.backend.entity.Puzzle;
+import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.AnimalRepository;
 import com.enimal.backend.repository.BadgeRepository;
 import com.enimal.backend.repository.PuzzleRepository;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.enimal.backend.repository.UserRepository;
+import com.enimal.backend.service.DrawService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-public class EtcTests {
-    AnimalRepository animalRepository;
-    BadgeRepository badgeRepository;
-    PuzzleRepository puzzleRepository;
-    @Autowired
-    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository){
-        this.animalRepository = animalRepository;
-        this.badgeRepository = badgeRepository;
-        this.puzzleRepository = puzzleRepository;
 
+@Service
+public class DrawServiceImpl implements DrawService {
+    char [] grade = {'E','E','E','E','E','E','D','D','D','D','D','C','C','C','C','B','B','B','A','A',};
+
+
+    BadgeRepository badgeRepository;
+    AnimalRepository animalRepository;
+    PuzzleRepository puzzleRepository;
+    UserRepository userRepository;
+    @Autowired
+    DrawServiceImpl(BadgeRepository badgeRepository, UserRepository userRepository, AnimalRepository animalRepository, PuzzleRepository puzzleRepository){
+        this.badgeRepository = badgeRepository;
+        this.animalRepository = animalRepository;
+        this.userRepository = userRepository;
+        this.puzzleRepository = puzzleRepository;
     }
-    @Test
-    void 오늘의_동물_조회(){
-        Integer animal = LocalDateTime.now().getDayOfYear();
-        System.out.println(animal);
-        animal = animal % 24 + 1;
-        Optional<Animal> a = animalRepository.findById(animal);
-        System.out.println(a.get().getAnimal());
+    private boolean drawCredit(int type, String userId){
+        try{
+            Optional<User> user = userRepository.findById(userId);
+            int userCredit = user.get().getCredit();
+            if(type == 0){ // 전체 뽑기
+                userCredit -= 100;
+            } else if (type == 1) { //개별 뽑기
+                userCredit -= 1000;
+            }
+            if(userCredit < 0){
+                return false;
+            }
+            user.get().setCredit(userCredit);
+            userRepository.save(user.get());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
-    @Test
-    void 전체뽑기(){
-        char [] grade = {'E','E','E','E','E','E','D','D','D','D','D','C','C','C','C','B','B','B','A','A',};
+    @Override
+    public AnimalAllDrawDto drawAllAnimal(String userId) {
+        AnimalAllDrawDto animalAllDrawDto = new AnimalAllDrawDto();
         HashMap<Character,String> gradeDic = new HashMap<>();
         gradeDic.put('E',"위급");
         gradeDic.put('D',"위기");
@@ -47,7 +63,6 @@ public class EtcTests {
         gradeDic.put('B',"준위협");
         gradeDic.put('A',"최소관심");
 
-        String userId = "test";
         Long hap = badgeRepository.countByUserId(userId); // 내가 가진 업적 확인하기
         int drawType = 0; //0일때는 전체 뽑기, 1일때는 미보유 뽑기
         int randombox = 0;
@@ -90,15 +105,18 @@ public class EtcTests {
             }
 
         }
-        System.out.println(drawGradeDic); // 선택된 등급
-        System.out.println(drawEnimal); // 선택된 동물
-        System.out.println(drawPuzzle); // 선택된 조각
+
         Optional<Puzzle> userPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId,drawEnimal,drawPuzzle);
         if(userPuzzle.isPresent()){ //존재한다면
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
-
-            puzzleRepository.save(userPuzzle.get());
+            if(drawCredit(0,userId)){
+                puzzleRepository.save(userPuzzle.get());
+                animalAllDrawDto.setCount(getCount+1);
+                animalAllDrawDto.setBadge(false);
+            }else{
+                return null;
+            }
         }else{
             Puzzle puzzle = new Puzzle();
             puzzle.setAnimal(drawEnimal);
@@ -106,14 +124,26 @@ public class EtcTests {
             puzzle.setPiece(drawPuzzle);
             puzzle.setCount(1);
             puzzle.setCreatedate(LocalDateTime.now());
+            animalAllDrawDto.setCount(1);
+            if(drawCredit(0,userId)){
+                puzzleRepository.save(puzzle);
+                animalAllDrawDto.setBadge(true);
+            }else{
+                return null;
+            }
 
-            puzzleRepository.save(puzzle);
         }
+        animalAllDrawDto.setAnimal(drawEnimal);
+        animalAllDrawDto.setPiece(drawPuzzle);
+        ////////////////////////////////////////////////////////////////
+        // 완성했는지 체크하기
+        ////////////////////////////////////////////////////////////////
 
-
+        return animalAllDrawDto;
     }
-    @Test
-    void 전체뽑기_컬렉션완성(){
 
+    @Override
+    public AnimalAllDrawDto drawSelectAnimal(String userId, String animal) {
+        return null;
     }
 }
