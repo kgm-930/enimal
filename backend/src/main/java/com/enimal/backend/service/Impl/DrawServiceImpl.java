@@ -3,9 +3,11 @@ package com.enimal.backend.service.Impl;
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.entity.Animal;
 import com.enimal.backend.entity.Puzzle;
+import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.AnimalRepository;
 import com.enimal.backend.repository.BadgeRepository;
 import com.enimal.backend.repository.PuzzleRepository;
+import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.DrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +26,32 @@ public class DrawServiceImpl implements DrawService {
     BadgeRepository badgeRepository;
     AnimalRepository animalRepository;
     PuzzleRepository puzzleRepository;
+    UserRepository userRepository;
     @Autowired
-    DrawServiceImpl(BadgeRepository badgeRepository, AnimalRepository animalRepository, PuzzleRepository puzzleRepository){
+    DrawServiceImpl(BadgeRepository badgeRepository, UserRepository userRepository, AnimalRepository animalRepository, PuzzleRepository puzzleRepository){
         this.badgeRepository = badgeRepository;
         this.animalRepository = animalRepository;
+        this.userRepository = userRepository;
         this.puzzleRepository = puzzleRepository;
+    }
+    private boolean drawCredit(int type, String userId){
+        try{
+            Optional<User> user = userRepository.findById(userId);
+            int userCredit = user.get().getCredit();
+            if(type == 0){ // 전체 뽑기
+                userCredit -= 100;
+            } else if (type == 1) { //개별 뽑기
+                userCredit -= 1000;
+            }
+            if(userCredit < 0){
+                return false;
+            }
+            user.get().setCredit(userCredit);
+            userRepository.save(user.get());
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
     @Override
     public AnimalAllDrawDto drawAllAnimal(String userId) {
@@ -82,17 +105,18 @@ public class DrawServiceImpl implements DrawService {
             }
 
         }
-        System.out.println(drawGradeDic); // 선택된 등급
-        System.out.println(drawEnimal); // 선택된 동물
-        System.out.println(drawPuzzle); // 선택된 조각
+
         Optional<Puzzle> userPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId,drawEnimal,drawPuzzle);
         if(userPuzzle.isPresent()){ //존재한다면
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
-
-            puzzleRepository.save(userPuzzle.get());
-            animalAllDrawDto.setCount(getCount+1);
-            animalAllDrawDto.setBadge(false);
+            if(drawCredit(0,userId)){
+                puzzleRepository.save(userPuzzle.get());
+                animalAllDrawDto.setCount(getCount+1);
+                animalAllDrawDto.setBadge(false);
+            }else{
+                return null;
+            }
         }else{
             Puzzle puzzle = new Puzzle();
             puzzle.setAnimal(drawEnimal);
@@ -101,8 +125,13 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setCount(1);
             puzzle.setCreatedate(LocalDateTime.now());
             animalAllDrawDto.setCount(1);
-            puzzleRepository.save(puzzle);
-            animalAllDrawDto.setBadge(true);
+            if(drawCredit(0,userId)){
+                puzzleRepository.save(puzzle);
+                animalAllDrawDto.setBadge(true);
+            }else{
+                return null;
+            }
+
         }
         animalAllDrawDto.setAnimal(drawEnimal);
         animalAllDrawDto.setPiece(drawPuzzle);

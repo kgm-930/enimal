@@ -19,6 +19,7 @@ import java.util.Map;
 public class DrawController {
     private static final String okay = "SUCCESS";
     private static final String fail = "FAIL";
+    private static final String noCredit = "noCredit";
     AnimalService animalService;
     DrawService drawService;
     @Autowired
@@ -34,6 +35,9 @@ public class DrawController {
         try{
             AnimalAllDrawDto data = drawService.drawAllAnimal(userId);
             result.put("message",okay);
+            if(data == null)
+                result.put("message",noCredit);
+
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
