@@ -16,8 +16,8 @@ pipeline {
             steps {
                     dir('frontend'){
                         sh 'ls -al'
-                        sh "yarn install"
-                        sh "CI=false yarn build"
+                        sh "npm install"
+                        sh "CI=false npm run build"
                 }
             }
         }
