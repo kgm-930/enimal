@@ -112,4 +112,8 @@ public class EtcTests {
 
 
     }
+    @Test
+    void 전체뽑기_컬렉션완성(){
+
+    }
 }

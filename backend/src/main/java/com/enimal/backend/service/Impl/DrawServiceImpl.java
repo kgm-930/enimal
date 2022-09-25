@@ -135,8 +135,15 @@ public class DrawServiceImpl implements DrawService {
         }
         animalAllDrawDto.setAnimal(drawEnimal);
         animalAllDrawDto.setPiece(drawPuzzle);
-
+        ////////////////////////////////////////////////////////////////
+        // 완성했는지 체크하기
+        ////////////////////////////////////////////////////////////////
 
         return animalAllDrawDto;
+    }
+
+    @Override
+    public AnimalAllDrawDto drawSelectAnimal(String userId, String animal) {
+        return null;
     }
 }
