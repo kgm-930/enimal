@@ -15,8 +15,6 @@ pipeline {
         stage('build') {
             steps {
                 sh 'ls -al'
-                sh "docker stop frontend"
-                sh "docker rm frontend"
                 sh 'docker build -t ./frontend'
                 sh 'docker run -d -p 3000:3000 —name frontend ./frontend'
 
