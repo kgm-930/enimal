@@ -14,10 +14,12 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'ls -al'
-                sh 'docker build -t ./frontend'
-                sh 'docker run -d -p 3000:3000 —name frontend ./frontend'
+                    dir('frontend'){
+                        sh 'ls -al'
+                        sh 'docker build .'
+                        sh 'docker run -d -p 3000:3000 —name frontend .'
 
+                }
             }
         }
         stage('deploy') {
