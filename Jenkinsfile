@@ -16,8 +16,8 @@ pipeline {
             steps {
                     dir('frontend'){
                         sh 'ls -al'
-                        sh 'docker build .'
-                        sh 'docker run -d -p 3000:3000 —name frontend frontend'
+                        sh 'docker build -t frontend .'
+                        sh 'docker run -d -p 3000:3000 frontend'
 
                 }
             }
