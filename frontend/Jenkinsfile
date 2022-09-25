@@ -1,22 +1,30 @@
 pipeline {
     agent any
+    tools {
+        nodejs "node14"
+        git "git"
+    }
     stages {
-        stage("build"){
+        stage('prepare') {
             steps {
-                script{
-                    try {
-                        sh 'docker stop frontend'
-                        sh 'docker rm frontend'
-                        sh 'docker rmi frontend'
-                    } catch (e) {
-                        sh 'echo "fail to stop and remove container"'
-                    }
+                echo 'prepare'
+                 git branch: "front", credentialsId: "haengsong", url: 'https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C106.git'
+                 sh  'ls -al'
+            }
+        }
+        stage('build') {
+            steps {
+                    dir('frontend'){
+                        sh 'ls -al'
+                        sh "yarn install"
+                        sh "CI=false yarn build"
                 }
-                sh 'docker build -t frontend ./frontend —build-arg KAKAO_MAP=${KAKAO_MAP} —build-arg AWS_ACCESS_KEY=${AWS_ACCESS_KEY} —build-arg AWS_SECRET_KEY=${AWS_SECRET_KEY}  —build-arg KAKAO_ID=${KAKAO_ID} —build-arg NAVER_ID=${NAVER_ID} —build-arg GOOGLE_ID=${GOOGLE_ID} '
-                sh 'echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" —password-stdin'
-                echo 'Build image…'
-                sh "docker push frontend"
-                sh "docker run -d -p 3000:3000 —name frontend frontend"
+            }
+        }
+        stage('deploy') {
+            steps {
+                sh "ls -al"
+                echo 'deploy'   
             }
         }
     }
