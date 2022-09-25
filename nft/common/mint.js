@@ -4,12 +4,15 @@ const ABI = require('./ABI')
 const Web3 = require('web3')
 
 const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
-// const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
+const CA = '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A'
+const {ENIMAL_ABI} = ABI.ABI.CONTRACT_ABI
+const enimalContract = new web3.eth.Contract(ENIMAL_ABI, CA)
+// console.log(enimalContract)
 
-const Contract = require('web3-eth-contract')
-Contract.setProvider('ws://20.196.209.2:6174')
+// enimalContract.setProvider('ws://20.196.209.2:6174')
+// console.log(enimalContract)
 
-const enimalContract = new Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
+// const enimalContract = new Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
 
 
 // 로그인 되었다고 가정 (이미 userAddress 존재)
@@ -58,16 +61,148 @@ function mint(tokenURI) {
   // console.log(tokenURI)
   // const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
   let convertedURI = `ipfs://${tokenURI}` 
-  let tokenId = enimalContract.methods.create(userAddress, convertedURI).send({from : userAddress})
-    .on('transactionHash', (hash) => {
-      console.log('hash :', hash)
-      transactionHash = hash
-    }).on('error', (error, receipt) => {
-      console.log(error)
-      console.log(receipt)
-    })
-    return tokenId
+  // let tokenId = enimalContract.deploy.create(userAddress, convertedURI).send({from : userAddress})
+  //   .on('transactionHash', (hash) => {
+  //     console.log('hash :', hash)
+  //     transactionHash = hash
+  //   }).on('error', (error, receipt) => {
+  //     console.log(error)
+  //     console.log(receipt)
+  //   })
+  //   return tokenId
   }
+
+
+  // front
+  async function sendTx(value, data){ 
+    const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
+    // const result = await enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD').encodeABI()
+    // const result = await enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD')
+    // console.log(result)
+
+    web3.extend({
+      methods: [{
+        name: 'sendForBesu',
+        call: 'eth_sendRawTransaction',
+        params: 1,
+      }]
+    })
+    // console.log(web3.extend.formatters)
+    console.log(web3.sendForBesu)
+
+
+    // const result = enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD').sendForBesu(userAddress)
+    // console.log(result)
+    // console.log(web3.eth.Contract)
+    // console.log(web3)
+
+    // console.log(web3.eth.abi.decodeParameter('uint', result))
+      // .then(console.log)
+    // const adminKey = '0x5d45d001c03e63a1af780053a19de13630f4c960132f9d3952ceed2f95c7b2c6'
+    // const adminAddress = web3.eth.accounts.privateKeyToAccount(adminKey).address
+    // const tx = {
+    //   to: CA,
+    //   from: userAddress,
+    //   value: web3.utils.toHex(value),
+    //   data: web3.utils.toHex(data),
+    //   // gasPrice: web3.utils.toHex(0),
+    //   gas: web3.utils.toHex(22888),
+    //   nonce: await web3.eth.getTransactionCount(userAddress, 'pending'),
+    //   common: {
+    //     customChain: {
+    //       name: 'SSAFY',
+    //       chainId: 31221,
+    //       networkId: 202112031219
+    //       // networkId: await web3.eth.net.getId()
+    //     }
+    //   }
+    // }
+
+
+
+    // const Tx = require('@ethereumjs/tx').Transaction
+    // const rawTx = {
+    //   to: CA,
+    //   from: userAddress,
+    //   value: web3.utils.toHex(value),
+    //   data: web3.utils.toHex(data),
+    //   // gasPrice: web3.utils.toHex(0),
+    //   gas: web3.utils.toHex(22888),
+    //   nonce: await web3.eth.getTransactionCount(userAddress, 'pending'),
+    //   common: {
+    //     customChain: {
+    //       name: 'SSAFY',
+    //       chainId: 31221,
+    //       networkId: 202112031219
+    //       // networkId: await web3.eth.net.getId()
+    //     }
+    //   }
+    // }
+    // const convertedKey = Buffer.from('600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001', 'hex')
+    // const tx = new Tx(rawTx)
+    // tx.sign(convertedKey)
+    // const serializedTx = tx.serialize()
+    
+    // web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+    //   .on('receipt', console.log)
+
+
+    // web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+    //   .then(console.log)
+      // .on('receipt', console.log)
+      // .on('error', console.log)
+    
+    // const result = await web3.eth.abi.encodeFunctionCall({
+    //   type: 'function',
+    //   name: 'create',
+    //   inputs: [{
+    //     type: 'address',
+    //     name: 'to'
+    //   }, {
+    //     type: 'string',
+    //     name: 'tokenURI'
+    //   }]
+    // }, [userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD'])
+    
+    
+    // const result = await web3.eth.abi.encodeFunctionSignature('create(address, string)')
+    // const converted = web3.eth.abi.decodeParameter('Object', result)
+    // console.log(converted)
+
+    /*
+    https://stackoverflow.com/questions/64619318/web3-error-transaction-has-been-reverted-by-the-evm
+    Transaction has been reverted by the EVM:
+{
+  "blockHash": "0x90ed4674b2e4aaac44459587150e7bd5ae4f21e75c6b8b3f73eaf101a1f56b31",
+  "blockNumber": 5149849,
+  "contractAddress": null,
+  "cumulativeGasUsed": 22888,
+  "from": "0x7edc38f3511f13100adcc4c16ba14ec475c00776",
+  "gasUsed": 22888,
+  "effectiveGasPrice": 0,
+  "logs": [],
+  "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "status": false,
+  "to": "0xdc2935c9dbbeccfddafe54098dea09d2f92bc48a",
+  "transactionHash": "0x97413cde5f536f088b66d67ee285e93ef260143278e8c6847c0306198d57833d",        
+  "transactionIndex": 0
+
+    */
+
+    // web3.eth.accounts.signTransaction(tx, privateKey)
+    //   .then(res => {
+    //     web3.eth.sendSignedTransaction(res.rawTransaction)
+    //       .on('transactionHash', console.log)
+    //       // .on('error', console.log)
+    //   })
+
+    // web3.eth.sendSignedTransaction(signed.rawTransaction)
+    // .on('transactionHash', (txHash) => res.json({txHash}))
+    // .on('error', console.log)
+  }
+sendTx(0, {to: userAddress, tokenURI : 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD'})
+// sendTx(0, {owner: userAddress})
+
 
 
 
@@ -83,7 +218,7 @@ function mint(tokenURI) {
 //   });
 // });
 
-mint('QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD')
+// mint('QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD')
 
 
 async function saveInfo(metaData) {
