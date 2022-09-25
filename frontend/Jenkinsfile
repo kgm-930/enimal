@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         nodejs "node14"
-        git "git"
+        git "Default"
     }
     stages {
         stage('prepare') {
