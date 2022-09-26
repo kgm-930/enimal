@@ -8,10 +8,31 @@
   min-height: 1000px;
 }
 
+.container{
+  width: vw(1150px);
+}
 .MainPage2{
   height: 94vh;
   margin-top: 55px;
   min-height: 1000px;
+}
+
+.animal{
+  margin-top: vw(150px);
+  &_pic {
+    width: vw(630px);
+    height: vw(700px);
+    img{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  &_explain {
+    flex-direction: column;
+    
+  }
 }
 
 .MainPage3{

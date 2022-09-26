@@ -1,8 +1,9 @@
 import React from "react";
 import './Home.scss'
 import { Link } from "react-router-dom";
+import Fade from "react-reveal/Fade";
 
-import todayAnimal from '../assets/images/todayAnimal.jpg'
+import todayAnimal from '@assets/images/polarbear.jpg'
 
 
 function Home() {
@@ -45,21 +46,39 @@ function Home() {
         </div>
       </div>
 
-
-      <div className="MainPage2">
-        <div className="container d-flex flex-column justify-content-center align-items-center Page2Height">
-          <h1 className="fs-60 notoBold text-center my-3 page2FontColor">오늘의 동물</h1>
-          <div className="AnimalCard">
-            <img className="TodayAnimalImg" src={todayAnimal} alt="#" />
-            <div className="AnimalDescription">
-              <h3 className="fs-40 notoBold text-center my-3 page2FontColor">북극곰</h3>
-              <article className="fs-32 notoReg AnialContent page2FontColor"> 백곰이라고도 한다.   암컷은 수컷보다 몸이 작다. 다른 곰보다 머리가 작고 목이 길며 귀는 작고 둥글다. 발바닥에는 털이 있으며 척구(蹠球)는 작아서 얼음 위를 걸어 다니기에 알맞다. 몸빛은 털갈이 직후에는 흰색이나 차츰 황백색으로 변한다.
-              </article>
-              <button className="Button fs-15 notoMid" type="button">영상 시청하고 포인트 받기</button>
+      <Fade bottom>
+        <div className="MainPage2">
+          {/* <div className="container d-flex flex-column justify-content-center align-items-center Page2Height">
+            <h1 className="fs-60 notoBold text-center my-3 page2FontColor">오늘의 동물</h1>
+            <div className="AnimalCard">
+              <img className="TodayAnimalImg" src={todayAnimal} alt="#" />
+              <div className="AnimalDescription">
+                <h3 className="fs-40 notoBold text-center my-3 page2FontColor">북극곰</h3>
+                <article className="fs-32 notoReg AnialContent page2FontColor"> 백곰이라고도 한다.   암컷은 수컷보다 몸이 작다. 다른 곰보다 머리가 작고 목이 길며 귀는 작고 둥글다. 발바닥에는 털이 있으며 척구(蹠球)는 작아서 얼음 위를 걸어 다니기에 알맞다. 몸빛은 털갈이 직후에는 흰색이나 차츰 황백색으로 변한다.
+                </article>
+                <button className="Button fs-15 notoMid" type="button">영상 시청하고 포인트 받기</button>
+              </div>
+            </div>
+          </div> */}
+          <div className="container flex">
+            <div className="animal flex">
+              <div className="animal_pic">
+                <img src={todayAnimal} alt="오늘의 동물" />
+              </div>
+              <div className="animal_explain flex justify-center">
+                <div className="animal_explain_title notoBold fs-50">오늘의 동물</div>
+                <div className="animal_explain_name">
+                  북극곰
+                </div>
+                <div className="animal_explain_content">
+                백곰이라고도 한다.   암컷은 수컷보다 몸이 작다. 다른 곰보다 머리가 작고 목이 길며 귀는 작고 둥글다. 발바닥에는 털이 있으며 척구(蹠球)는 작아서 얼음 위를 걸어 다니기에 알맞다. 몸빛은 털갈이 직후에는 흰색이나 차츰 황백색으로 변한다.
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+
+      </Fade>
 
       <hr className="Line" />
       <div className="MainPage3">

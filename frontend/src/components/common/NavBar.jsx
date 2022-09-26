@@ -50,16 +50,16 @@ function NavBar() {
   }
   return (
     <header className="fixed-top">
-      <Navbar className="mainNav" expand="lg">
+      <Navbar className="mainNav flex" expand="lg">
         <Navbar.Brand href="/" className="mainlogo notoBold fs-24">
           <img className="logoimg" src={nav} alt="#" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+        <Navbar.Collapse className="basic-navbar-nav">
+          <Nav>
             {localStorage.token ?
               <>
-                <Nav.Link className="save notoMid fs-20">ssf : {SSF}코인</Nav.Link>
+                <Nav.Link className="save notoMid fs-20">ssf : {SSF}ssf</Nav.Link>
                 <Nav.Link className="save notoMid fs-20">save : 0</Nav.Link>
               </>
               :

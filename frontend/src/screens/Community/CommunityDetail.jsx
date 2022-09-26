@@ -52,6 +52,10 @@ function CommunityRegist() {
                 {time}
               </p>
             </div>
+            <div className="commudetail_all_profile_btn flex">
+              <button type="button" className="commudetail_all_profile_btn_modi notoBold">수정하기</button>
+              <button type="button" className="commudetail_all_profile_btn_del notoBold">삭제하기</button>
+            </div>
           </div>
           {/* 내용 */}
           <div className="commudetail_all_content">
