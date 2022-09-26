@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
             userRegist.setId(userLoginDto.getId());
             userRegist.setNickname(userLoginDto.getId());
             userRegist.setWallet(userLoginDto.getWallet());
+            userRegist.setLastPuzzle("lastPuzzle");
             userRepository.save(userRegist);
             badgeShowDto.setUserId(userLoginDto.getId());
         }else if(!user.isPresent() && userLoginDto.getId() == null){

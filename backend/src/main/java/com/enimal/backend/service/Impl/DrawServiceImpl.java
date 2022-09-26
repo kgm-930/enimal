@@ -74,6 +74,28 @@ public class DrawServiceImpl implements DrawService {
         }
         return null;
     }
+    private String manyDraw(String userId){ // 업적 10번 : 뽑기 횟수 100번 이상
+        String result = null;
+        Optional<User> user = userRepository.findById(userId);
+        List<Badge> list = badgeRepository.findByUserId(userId);
+        Boolean flag = true;
+        for(int i=0; i< list.size(); i++){
+            if((list.get(i).getBadge()).equals("뽑기 중독")) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag && user.get().getUsedcount()==100) {
+            Badge badge = new Badge();
+            badge.setBadge("뽑기 중독");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            result = "뽑기 중독";
+        }
+        return result;
+    }
     private List<Object> collectDraw(String userId,String drawEnimal){ // 컬렉션 완성여부, 업적13번, 업적5번
         List<Object> list = new ArrayList<>();
         // 1종의 컬렉션을 모았는지 확인
@@ -143,25 +165,33 @@ public class DrawServiceImpl implements DrawService {
         }
         return list;
     }
-    private String manyDraw(String userId){ // 업적 10번 : 뽑기 횟수 100번 이상
+    private String twiceDraw(String userId,String animal,int drawPuzzle){
         String result = null;
         Optional<User> user = userRepository.findById(userId);
-        List<Badge> list = badgeRepository.findByUserId(userId);
-        Boolean flag = true;
-        for(int i=0; i< list.size(); i++){
-            if((list.get(i).getBadge()).equals("뽑기 중독")) {
-                flag = false;
-                break;
+        String lastPuzzle = user.get().getLastPuzzle();
+        animal += Integer.toString(drawPuzzle);
+        if(lastPuzzle.equals(animal)){
+            List<Badge> list = badgeRepository.findByUserId(userId);
+            Boolean isBadge = true;
+            for(int i=0;i<list.size();i++){ // 뱃지 있는지 확인
+                if((list.get(i).getBadge()).equals("똥손")){
+                    isBadge = false;
+                    break;
+                }
+            }
+            if(isBadge){
+                Badge badge = new Badge();
+                badge.setBadge("똥손");
+                badge.setCreatedate(LocalDateTime.now());
+                badge.setUser(user.get());
+                badge.setPercentage(2);
+                badgeRepository.save(badge);
+                result = badge.getBadge();
             }
         }
-        if(flag && user.get().getUsedcount()==100) {
-            Badge badge = new Badge();
-            badge.setBadge("뽑기 중독");
-            badge.setCreatedate(LocalDateTime.now());
-            badge.setUser(user.get());
-            badge.setPercentage(2);
-            badgeRepository.save(badge);
-            result = "뽑기 중독";
+        else {
+            user.get().setLastPuzzle(animal);
+            userRepository.save(user.get());
         }
         return result;
     }
@@ -203,7 +233,6 @@ public class DrawServiceImpl implements DrawService {
             int puzzleListSize = puzzleList.size();
             drawPuzzle = (int) (Math.random() * (8 - puzzleListSize + 1)); // 0~8 까지인 9개중 보유한 갯수를 제외한 최대수
             int cnt = 0;
-
             for (int i = 0; i < pices.length; i++) {
                 if (pices[i] == 0) {
                     cnt++;
@@ -240,7 +269,9 @@ public class DrawServiceImpl implements DrawService {
                 return null;
             }
         }
-
+        // 같은 조각 연속으로 뽑았는지 체크
+        String isTwiceDraw = twiceDraw(userId,drawEnimal,drawPuzzle);
+        if(isTwiceDraw!=null) modal.add(isTwiceDraw);
         animalAllDrawDto.setUseBadge(drawType);
         String isFirstBadge = firstDraw(userId);
         if(isFirstBadge!=null) modal.add(isFirstBadge);

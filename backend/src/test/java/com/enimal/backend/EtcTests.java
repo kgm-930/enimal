@@ -283,4 +283,17 @@ public class EtcTests {
         System.out.println(user.get().getUsedcount());
         System.out.println(result);
     }
+    @Test
+    void 연속으로_같은_조각(){
+        String userId = "test2333";
+        String animal = "수달";
+        int puzzle = 1;
+        Optional<User> user = userRepository.findById(userId);
+        String lastPuzzle = user.get().getLastPuzzle();
+        animal += Integer.toString(puzzle);
+        System.out.println(animal);
+        if(lastPuzzle.equals(animal)){
+            System.out.println("연속");
+        }
+    }
 }
