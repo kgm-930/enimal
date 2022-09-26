@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BadgeShowDto {
+    private String userId;
     private String modalName;
     private Boolean result;
 }

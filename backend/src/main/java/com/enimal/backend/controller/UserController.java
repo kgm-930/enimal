@@ -58,8 +58,8 @@ public class UserController {
             // create a cookie
             BadgeShowDto data = userService.loginUser(userLoginDto);
             if(data.getResult()) {
-                String accessToken = jwtService.createAccessToken("id", userLoginDto.getId());
-                String refreshToken = jwtService.createRefreshToken("id", userLoginDto.getId());
+                String accessToken = jwtService.createAccessToken("id", data.getUserId());
+                String refreshToken = jwtService.createRefreshToken("id", data.getUserId());
                 result.put("Authorization", accessToken);
                 result.put("message", okay);
                 result.put("data", data);

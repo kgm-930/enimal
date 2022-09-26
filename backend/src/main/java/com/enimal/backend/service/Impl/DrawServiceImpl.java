@@ -123,12 +123,9 @@ public class DrawServiceImpl implements DrawService {
         if(userPuzzle.isPresent()){ //존재한다면
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
+            animalAllDrawDto.setCount(getCount+1);
             if(drawCredit(0,userId)){
                 puzzleRepository.save(userPuzzle.get());
-                animalAllDrawDto.setCount(getCount+1);
-                animalAllDrawDto.setUseBadge(drawType);
-                isFirstBadge = firstDraw(userId);
-                animalAllDrawDto.setBadge(isFirstBadge);
             }else{
                 return null;
             }
@@ -137,19 +134,19 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setAnimal(drawEnimal);
             puzzle.setUserId(userId);
             puzzle.setPiece(drawPuzzle);
-            puzzle.setCount(1);
             puzzle.setCreatedate(LocalDateTime.now());
+            puzzle.setCount(1);
             animalAllDrawDto.setCount(1);
             if(drawCredit(0,userId)){
                 puzzleRepository.save(puzzle);
-                animalAllDrawDto.setUseBadge(drawType);
-                isFirstBadge = firstDraw(userId);
-                animalAllDrawDto.setBadge(isFirstBadge);
             }else{
                 return null;
             }
-
         }
+
+        animalAllDrawDto.setUseBadge(drawType);
+        isFirstBadge = firstDraw(userId);
+        animalAllDrawDto.setBadge(isFirstBadge);
         animalAllDrawDto.setAnimal(drawEnimal);
         animalAllDrawDto.setPiece(drawPuzzle);
         ////////////////////////////////////////////////////////////////
@@ -202,7 +199,12 @@ public class DrawServiceImpl implements DrawService {
         if(userPuzzle.isPresent()){ //존재한다면
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
-            puzzleRepository.save(userPuzzle.get());
+            if(drawCredit(1,userId)){
+                puzzleRepository.save(userPuzzle.get());
+            }else{
+                return null;
+            }
+
         }else{ //퍼즐이 처음이라면
             Puzzle puzzle = new Puzzle();
             puzzle.setAnimal(choiceEnimal);
@@ -210,9 +212,14 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setPiece(drawPuzzle);
             puzzle.setCount(1);
             puzzle.setCreatedate(LocalDateTime.now());
-
-            puzzleRepository.save(puzzle);
+            if(drawCredit(1,userId)){
+                puzzleRepository.save(puzzle);
+            }else{
+                return null;
+            }
         }
+        String isFirstBadge = firstDraw(userId);
+        animalSelectDrawDto.setBadge(isFirstBadge);
         animalSelectDrawDto.setAnimal(choiceEnimal);
         animalSelectDrawDto.setPiece(drawPuzzle);
         return animalSelectDrawDto;

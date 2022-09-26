@@ -52,6 +52,8 @@ public class DrawController {
     public ResponseEntity<?> drawSelectAnimal(@PathVariable("Animal")String animal, HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
         String userId = (String) request.getAttribute("userId");
+        System.out.println(request.getAttribute("userId"));
+        System.out.println(userId);
         HttpStatus status;
         try{
             AnimalSelectDrawDto data = drawService.drawSelectAnimal(userId,animal);
