@@ -244,7 +244,7 @@ public class DrawServiceImpl implements DrawService {
 
     @Override
     public AnimalSelectDrawDto drawSelectAnimal(String userId, String animal) {
-        String[] arr = new String[2];
+        List<String> modal = new ArrayList<>();
         String choiceEnimal = animal;
         Long hap = badgeRepository.countByUserId(userId); // 내가 가진 업적 확인하기
         boolean drawType = false; //0일때는 전체 뽑기, 1일때는 미보유 뽑기
@@ -278,7 +278,6 @@ public class DrawServiceImpl implements DrawService {
                     drawPuzzle = i;
                     break;
                 }
-
             }
         }
 
@@ -306,9 +305,25 @@ public class DrawServiceImpl implements DrawService {
             }
         }
         String isFirstBadge = firstDraw(userId);
-        animalSelectDrawDto.setModalName(arr);
+        if(isFirstBadge!=null) modal.add(isFirstBadge);
         animalSelectDrawDto.setAnimal(choiceEnimal);
         animalSelectDrawDto.setPiece(drawPuzzle);
+
+        // 완성했는지 체크하기
+        List<Object> list = collectDraw(userId,choiceEnimal);
+        animalSelectDrawDto.setComplete((Boolean)list.get(0)); // 뱃지 얻지 못하거나 얻어도 앞의 값은 무조건 있으니까
+        if(list.size()>1){ // 뱃지 있는 경우
+            for(int i=1; i<list.size(); i++){
+                modal.add((String)list.get(i));
+            }
+        }
+
+        // 뱃지 여러개 일수있으니까
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        animalSelectDrawDto.setModalName(arr);
         return animalSelectDrawDto;
     }
 }
