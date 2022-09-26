@@ -5,7 +5,7 @@
 
 > **:anchor: 항목 바로가기** 
 >
->  [와이어프레임](#와이어프레임)  / [요구사항 명세서](#요구사항-명세서) / [API 명세서](#API-명세서) / [useCase](#useCase) / [ERD TABLE](#ERD-TABLE)
+>  [와이어프레임](#와이어프레임)  / [요구사항 명세서](#요구사항-명세서) / [API 명세서](#API-명세서) / [useCase](#useCase) / [ERD TABLE](#ERD-TABLE) / [업적](#업적)
 >
 > 
 >
@@ -41,7 +41,7 @@
 
 [자세히 보기](https://www.notion.so/API-34f75d27e1f5472083b64a4d0953c459)
 
-![image-20220916132612671](README.assets/image-20220916132612671.png)
+![img](README.assets/Image-20220926- 00-03.png)
 
 ---
 
@@ -74,3 +74,16 @@
 ![image-20220916133512804](README.assets/image-20220916133512804.png)
 
 ![image-20220916133524994](README.assets/image-20220916133524994.png)
+
+---
+
+<br>
+
+<br>
+
+## 업적
+
+[자세히보기](https://www.notion.so/API-34f75d27e1f5472083b64a4d0953c459)
+
+![img](README.assets/Image-20220926- 00-04.png)
+
