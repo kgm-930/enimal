@@ -266,4 +266,34 @@ public class EtcTests {
             }
         }
     }
+    @Test
+    void 뽑기_횟수_100번_이상(){
+        String userId = "test2333";
+        String result = null;
+        Optional<User> user = userRepository.findById(userId);
+        List<Badge> list = badgeRepository.findByUserId(userId);
+        Boolean flag = true;
+        for(int i=0; i< list.size(); i++){
+            if((list.get(i)).equals("뽑기 중독")) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag && user.get().getUsedcount()==100) result = "뽑기 중독";
+        System.out.println(user.get().getUsedcount());
+        System.out.println(result);
+    }
+    @Test
+    void 연속으로_같은_조각(){
+        String userId = "test2333";
+        String animal = "수달";
+        int puzzle = 1;
+        Optional<User> user = userRepository.findById(userId);
+        String lastPuzzle = user.get().getLastPuzzle();
+        animal += Integer.toString(puzzle);
+        System.out.println(animal);
+        if(lastPuzzle.equals(animal)){
+            System.out.println("연속");
+        }
+    }
 }

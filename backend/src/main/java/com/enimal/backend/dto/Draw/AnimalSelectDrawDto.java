@@ -13,5 +13,5 @@ public class AnimalSelectDrawDto {
     private int piece;
     private boolean complete; // 컬렉션 완성여부
     private boolean useBadge; // 미보유뽑기 여부
-    private String badge; // 첫 뽑기
+    private String[] modalName; // 첫 뽑기
 }
