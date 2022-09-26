@@ -76,20 +76,27 @@ function mint(tokenURI) {
   // front
   async function sendTx(value, data){ 
     const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
-    // const result = await enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD').encodeABI()
     // const result = await enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD')
     // console.log(result)
 
-    web3.extend({
-      methods: [{
-        name: 'sendForBesu',
-        call: 'eth_sendRawTransaction',
-        params: 1,
-      }]
-    })
+    // web3.extend({
+    //   methods: [{
+    //     name: 'sendForBesu',
+    //     call: 'eth_sendRawTransaction',
+    //     params: 1,
+    //   }]
+    // })
     // console.log(web3.extend.formatters)
-    console.log(web3.sendForBesu)
-
+    // console.log(web3.sendForBesu)
+    // console.dir(enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD'))
+    // enimalContract.extend.Method.extend({
+    //   methods: [{
+    //         name: 'sendForBesu',
+    //         call: 'eth_sendRawTransaction',
+    //         params: 1,
+    //       }]
+    // })
+    console.log(enimalContract)
 
     // const result = enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD').sendForBesu(userAddress)
     // console.log(result)
