@@ -43,11 +43,13 @@ function Login(props) {
         }
         console.log(DATA)
         getLogin(DATA).then((res) => {
+          console.log(res)
           if (res.message === 'FAIL') {
             setNewbie(true)
           }
           else {
             localStorage.setItem('token', res.Authorization)
+            localStorage.setItem('MyNick', res.data.userId)
             close()
           }
         })
@@ -55,6 +57,12 @@ function Login(props) {
       }
 
     }
+  }
+
+  function cancle(e){
+    e.preventDefault();
+    setNewbie(false)
+    close()
   }
 
   return (
@@ -93,7 +101,7 @@ function Login(props) {
           </main>
           <footer>
             <button type="button" className="submitButton fs-18 notoMid" onClick={e => goLogin(e)}>연결하기</button>
-            <button type="button" className="cancleButton fs-18 notoMid" onClick={close}>
+            <button type="button" className="cancleButton fs-18 notoMid" onClick={e => cancle(e)}>
               취소
             </button>
           </footer>

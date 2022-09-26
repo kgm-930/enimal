@@ -45,7 +45,7 @@ function CommunityRegist() {
               <img src={profiledummy} alt="프로필이미지" />
             </div>
             <div className="commudetail_all_profile_extra flex">
-              <p className="commudetail_all_profile_extra_name notoMid fs-26">
+              <p className="commudetail_all_profile_extra_name notoMid fs-24">
                 {data.nickname}
               </p>
               <p className="commudetail_all_profile_extra_time notoMid fs-16">
@@ -73,7 +73,7 @@ function CommunityRegist() {
             </div>
             <textarea type="textarea" onChange={e=>setMyComment(e.target.value)} className="commudetail_all_comment_input_txt notoReg fs-16" />
             <div className="commudetail_all_comment_enter flex align-center">
-              <button type="button" onClick={e=>createComment(e)} className="commudetail_all_comment_enter_btn">
+              <button type="button" onClick={e=>createComment(e)} className="commudetail_all_comment_enter_btn notoBold fs-18">
                 등록
               </button>
             </div>

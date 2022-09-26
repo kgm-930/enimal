@@ -33,7 +33,6 @@
       &_extra {
         flex-direction: column;
         // justify-content: space-between;
-        align-items: center;
         margin-left: vw(12px);
   
         &_name {
@@ -67,6 +66,7 @@
 
     &_comment {
       margin-bottom: vw(40px);
+      margin-top: vw(50px);
       
 
       &_sub {
@@ -76,6 +76,8 @@
       textarea {
         width: vw(570px);
         margin-right: vw(16px);
+        border: 1px solid rgb(133, 131, 131);
+        border-radius: 5px;
         // 텍스트에어리어 스크롤 막아야 할까?? 글자수 제한 해야할까??
       }
       
