@@ -143,6 +143,28 @@ public class DrawServiceImpl implements DrawService {
         }
         return list;
     }
+    private String manyDraw(String userId){ // 업적 10번 : 뽑기 횟수 100번 이상
+        String result = null;
+        Optional<User> user = userRepository.findById(userId);
+        List<Badge> list = badgeRepository.findByUserId(userId);
+        Boolean flag = true;
+        for(int i=0; i< list.size(); i++){
+            if((list.get(i).getBadge()).equals("뽑기 중독")) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag && user.get().getUsedcount()==100) {
+            Badge badge = new Badge();
+            badge.setBadge("뽑기 중독");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            result = "뽑기 중독";
+        }
+        return result;
+    }
     @Override
     public AnimalAllDrawDto drawAllAnimal(String userId) {
         AnimalAllDrawDto animalAllDrawDto = new AnimalAllDrawDto();
@@ -192,7 +214,7 @@ public class DrawServiceImpl implements DrawService {
                 }
             }
         }
-        String isFirstBadge = null;
+
         Optional<Puzzle> userPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId,drawEnimal,drawPuzzle);
         if(userPuzzle.isPresent()){ //존재한다면
             int getCount = userPuzzle.get().getCount();
@@ -219,8 +241,10 @@ public class DrawServiceImpl implements DrawService {
         }
 
         animalAllDrawDto.setUseBadge(drawType);
-        isFirstBadge = firstDraw(userId);
+        String isFirstBadge = firstDraw(userId);
         if(isFirstBadge!=null) modal.add(isFirstBadge);
+        String isManyDraw = manyDraw(userId);
+        if(isManyDraw!=null) modal.add(isManyDraw);
         animalAllDrawDto.setAnimal(drawEnimal);
         animalAllDrawDto.setPiece(drawPuzzle);
 
@@ -306,6 +330,8 @@ public class DrawServiceImpl implements DrawService {
         }
         String isFirstBadge = firstDraw(userId);
         if(isFirstBadge!=null) modal.add(isFirstBadge);
+        String isManyDraw = manyDraw(userId);
+        if(isManyDraw!=null) modal.add(isManyDraw);
         animalSelectDrawDto.setAnimal(choiceEnimal);
         animalSelectDrawDto.setPiece(drawPuzzle);
 
