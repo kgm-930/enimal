@@ -21,4 +21,5 @@ public interface CollectionRepository extends JpaRepository<Collection,Integer> 
     Integer findByUserIdRank(@Param("userId") String userId);
 
     List<Collection> findByUserId(String userId);
+    List<Collection> findByUserIdAndAnimal(String userId, String drawEnimal);
 }

@@ -173,6 +173,26 @@ public class EtcTests {
                         System.out.println(count-1);
                     }
                 }
+                // 업적 13번 : 같은 종을 3번 모은 경우
+                // 관련 업적이 없는 경우에만 추가해주기
+                Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(userId,"안 질려?");
+                Optional<User> user = userRepository.findById(userId);
+                if(isBadge.isEmpty()){
+                    List<Collection> sameCollection = collectionRepository.findByUserIdAndAnimal(userId,drawEnimal);
+                    int sameCount = sameCollection.size();
+                    if(sameCount==3) {
+                        Badge badge = new Badge();
+                        badge.setBadge("안 질려?");
+                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setUser(user.get());
+                        badge.setPercentage(2);
+                        badgeRepository.save(badge);
+                        System.out.println(badge.getBadge());
+                        System.out.println(badge.getCreatedate());
+                        System.out.println(badge.getUser().getId());
+                    }
+                }
+
             }
         }
         // 24종의 컬렉션을 모두 모은 경우
