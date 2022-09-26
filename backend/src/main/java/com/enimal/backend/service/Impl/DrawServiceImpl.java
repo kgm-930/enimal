@@ -36,16 +36,23 @@ public class DrawServiceImpl implements DrawService {
     private boolean drawCredit(int type, String userId){
         try{
             Optional<User> user = userRepository.findById(userId);
+            int drawCredit = 0; // 사용된 재화
             int userCredit = user.get().getCredit();
             if(type == 0){ // 전체 뽑기
                 userCredit -= 100;
+                drawCredit = 100;
             } else if (type == 1) { //개별 뽑기
                 userCredit -= 1000;
+                drawCredit = 1000;
             }
             if(userCredit < 0){
                 return false;
             }
             user.get().setCredit(userCredit);
+            int usedCount = user.get().getUsedcount();
+            int alreadyCredit = user.get().getUsedcredit();
+            user.get().setUsedcount(usedCount+1); // 사용한 뽑기 개수
+            user.get().setUsedcredit(alreadyCredit+drawCredit); // 사용된 총 재화
             userRepository.save(user.get());
             return true;
         }catch (Exception e){
