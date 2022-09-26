@@ -1,10 +1,13 @@
 package com.enimal.backend;
 
 import com.enimal.backend.entity.Animal;
+import com.enimal.backend.entity.Badge;
 import com.enimal.backend.entity.Puzzle;
+import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.AnimalRepository;
 import com.enimal.backend.repository.BadgeRepository;
 import com.enimal.backend.repository.PuzzleRepository;
+import com.enimal.backend.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +25,13 @@ public class EtcTests {
     AnimalRepository animalRepository;
     BadgeRepository badgeRepository;
     PuzzleRepository puzzleRepository;
+    UserRepository userRepository;
     @Autowired
-    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository){
+    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository, UserRepository userRepository){
         this.animalRepository = animalRepository;
         this.badgeRepository = badgeRepository;
         this.puzzleRepository = puzzleRepository;
+        this.userRepository = userRepository;
 
     }
     @Test
@@ -115,5 +120,23 @@ public class EtcTests {
     @Test
     void 전체뽑기_컬렉션완성(){
 
+    }
+    @Test
+    void 첫_뽑기_확인(){
+        String userId = "test2";
+        // 업적 1번 : 첫 뽑기
+        List<Puzzle> puzzleList = puzzleRepository.findByUserId(userId); // 해당 아이디로 뽑기 전적이 있는지 확인
+        Optional<User> user = userRepository.findById(userId);
+        if(puzzleList.size()==0){
+            Badge badge = new Badge();
+            badge.setBadge("첫 걸음");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            System.out.println(badge.getBadge());
+            System.out.println(badge.getCreatedate());
+            System.out.println(badge.getUser().getId());
+        }
     }
 }
