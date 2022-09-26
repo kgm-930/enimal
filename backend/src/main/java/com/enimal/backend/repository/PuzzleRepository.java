@@ -15,4 +15,6 @@ public interface PuzzleRepository extends JpaRepository<Puzzle,Integer> {
     List<Puzzle> findByUserIdAndAnimal(String userId, String drawEnimal);
 
     Optional<Puzzle> findByUserIdAndAnimalAndPiece(String userId, String drawEnimal, int drawPuzzle);
+
+    List<Puzzle> findByUserId(String userId);
 }
