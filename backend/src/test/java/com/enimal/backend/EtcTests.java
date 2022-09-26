@@ -1,11 +1,16 @@
 package com.enimal.backend;
 
+import com.enimal.backend.dto.Etc.UserRankShowDto;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
@@ -264,6 +269,39 @@ public class EtcTests {
                     }
                 }
             }
+        }
+    }
+//    @Test
+//    void 랭킹조회_컬렉션(){
+//        Integer pageSize = 5;
+//        Integer lastIdx = 0;
+//        Slice<UserRankShowDto> collections = null;
+//        Pageable pageable = PageRequest.ofSize(pageSize);
+//        if (lastIdx == 0) {
+//            lastIdx = collectionRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
+//        }
+//        collections = collectionRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+//        for (UserRankShowDto collection : collections) {
+//            System.out.println(collection.getUserId());
+//        }
+//        List<UserRankShowDto> test = collectionRepository.test();
+//        for (UserRankShowDto userRankShowDto : test){
+//            System.out.println(userRankShowDto.getUserId());
+//            System.out.println(userRankShowDto.getCnt());
+//        }
+//    }
+    @Test
+    void 랭킹조회_기부(){
+        Integer pageSize = 5;
+        Integer lastIdx = 0;
+        Slice<User> users = null;
+        Pageable pageable = PageRequest.ofSize(pageSize);
+        if (lastIdx == 0) {
+            lastIdx = collectionRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
+        }
+        users = collectionRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+        for (User user : users) {
+            System.out.println(user.getId()+ " : " +user.getUsedcredit());
         }
     }
 }
