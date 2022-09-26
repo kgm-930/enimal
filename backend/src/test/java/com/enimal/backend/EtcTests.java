@@ -266,4 +266,21 @@ public class EtcTests {
             }
         }
     }
+    @Test
+    void 뽑기_횟수_100번_이상(){
+        String userId = "test2333";
+        String result = null;
+        Optional<User> user = userRepository.findById(userId);
+        List<Badge> list = badgeRepository.findByUserId(userId);
+        Boolean flag = true;
+        for(int i=0; i< list.size(); i++){
+            if((list.get(i)).equals("뽑기 중독")) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag && user.get().getUsedcount()==100) result = "뽑기 중독";
+        System.out.println(user.get().getUsedcount());
+        System.out.println(result);
+    }
 }
