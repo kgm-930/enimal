@@ -7,8 +7,31 @@ import "./NavBar.scss";
 import nav from '@images/NAV.png'
 import Login from "./Login/Login";
 
+const Web3 = require('web3');
 
 function NavBar() {
+
+  const [SSF, setSSF] = useState(null)
+  const web3 = new Web3(new Web3.providers.HttpProvider("http://20.196.209.2:8545/"));
+  const token = '0x0c54E456CE9E4501D2c43C38796ce3F06846C966';
+  const wallet = localStorage.myAddress;
+  const minABI = [
+    {
+      constant: true,
+      inputs: [{ name: "_owner", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ name: "balance", type: "uint256" }],
+      type: "function",
+    },
+  ];
+  const contract = new web3.eth.Contract(minABI, token);
+  const getBalance = async () => {
+    const res = await contract.methods.balanceOf(wallet).call();
+    // const format = web3.utils.fromWei(res);
+    const ssf = res.toLocaleString("ko-KR");
+    setSSF(ssf)
+  }
+  getBalance();
 
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false)
@@ -20,12 +43,11 @@ function NavBar() {
     setModalOpen(false);
   };
 
-  function Logout(e){
+  function Logout(e) {
     e.preventDefault();
     localStorage.removeItem('token')
     navigate('/')
   }
- 
   return (
     <header className="fixed-top">
       <Navbar className="mainNav" expand="lg">
@@ -35,10 +57,13 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {localStorage.token ? 
-            <Nav.Link className="save notoMid fs-20">save : 1000</Nav.Link>
-            :
-            null
+            {localStorage.token ?
+              <>
+                <Nav.Link className="save notoMid fs-20">ssf : {SSF}코인</Nav.Link>
+                <Nav.Link className="save notoMid fs-20">save : 0</Nav.Link>
+              </>
+              :
+              null
             }
             <Nav.Link href="/draw" className="drawBtn notoMid fs-20">
               Draw
@@ -74,7 +99,7 @@ function NavBar() {
                     마이페이지
                   </NavDropdown.Item>
                   <NavDropdown.Item
-                    onClick={e=>Logout(e)}
+                    onClick={e => Logout(e)}
                     className="nav-dropdowm2_acc notoMid fs-16"
                   >
                     로그아웃

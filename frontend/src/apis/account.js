@@ -21,7 +21,6 @@ export const getProfile = async (DATA) => {
 
 // 내 게시글 조회
 export const getMyArtilce = async (PARAMS) => {
-  console.log(localStorage.token)
   const res = await API_ACCOUNT.get("/user/post",{
     params : PARAMS,
   });

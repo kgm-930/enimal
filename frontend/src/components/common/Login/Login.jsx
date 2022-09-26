@@ -29,6 +29,7 @@ function Login(props) {
       // 개인키
       const pubKey = web3.eth.accounts.privateKeyToAccount(myKey);
       console.log(pubKey.address);
+      localStorage.setItem('myAddress', pubKey.address)
       if (newbie && (nick === '' || nick === null)) {
         alert("닉네임을 입력해 주세요")
       }
@@ -42,7 +43,7 @@ function Login(props) {
         }
         console.log(DATA)
         getLogin(DATA).then((res) => {
-          if (res.message === 'FALE') {
+          if (res.message === 'FAIL') {
             setNewbie(true)
           }
           else {
