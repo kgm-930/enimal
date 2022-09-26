@@ -138,7 +138,7 @@ public class EtcTests {
     @Test
     void 컬렉션_모음_여부(){
         String userId = "test2333";
-        String drawEnimal = "매";
+        String drawEnimal = "수달";
         // 1종의 컬렉션을 모았는지 확인
         List<Puzzle> listForCollection = puzzleRepository.findByUserIdAndAnimal(userId,drawEnimal);
         int[] collect = new int[9];
@@ -192,9 +192,23 @@ public class EtcTests {
                         System.out.println(badge.getUser().getId());
                     }
                 }
-
+                // 업적 5번 : 24종의 컬렉션을 모두 모은 경우
+                Optional<Badge> allBadge = badgeRepository.findByUserIdAndBadge(userId,"뽑기의 달인");
+                if(allBadge.isEmpty()){
+                    List<String> allCollection = collectionRepository.findByUserIdALL(userId);
+                    if(allCollection.size() == 24){
+                        Badge badge = new Badge();
+                        badge.setBadge("뽑기의 달인");
+                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setUser(user.get());
+                        badge.setPercentage(2);
+                        badgeRepository.save(badge);
+                        System.out.println(badge.getBadge());
+                        System.out.println(badge.getCreatedate());
+                        System.out.println(badge.getUser().getId());
+                    }
+                }
             }
         }
-        // 24종의 컬렉션을 모두 모은 경우
     }
 }
