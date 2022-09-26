@@ -220,6 +220,7 @@ public class DrawServiceImpl implements DrawService {
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
             animalAllDrawDto.setCount(getCount+1);
+            userPuzzle.get().setCreatedate(LocalDateTime.now());
             if(drawCredit(0,userId)){
                 puzzleRepository.save(userPuzzle.get());
             }else{
@@ -309,6 +310,8 @@ public class DrawServiceImpl implements DrawService {
         if(userPuzzle.isPresent()){ //존재한다면
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
+            animalSelectDrawDto.setCount(getCount+1);
+            userPuzzle.get().setCreatedate(LocalDateTime.now());
             if(drawCredit(1,userId)){
                 puzzleRepository.save(userPuzzle.get());
             }else{
