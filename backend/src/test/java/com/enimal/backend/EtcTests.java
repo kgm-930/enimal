@@ -118,8 +118,63 @@ public class EtcTests {
 
     }
     @Test
-    void 전체뽑기_컬렉션완성(){
+    void 개별뽑기(){
+        String choiceEnimal = "매";
+        String userId = "test";
+        Long hap = badgeRepository.countByUserId(userId); // 내가 가진 업적 확인하기
+        boolean drawType = false; //0일때는 전체 뽑기, 1일때는 미보유 뽑기
+        int randombox = 0;
+        int drawPuzzle = -1;
+        randombox = (int) (Math.random() * (100 + 1));
+        if ( 0 <= randombox && randombox <=  hap*2 )  // 업적 보유량에 따라 선택
+            drawType = true;
+        if(!drawType) { //그냥 뽑기
+            drawPuzzle = (int) (Math.random() * (8 + 1)); // 0부터 8까지
+        }else{ //미보유 뽑기
+            List<Puzzle> puzzleList = puzzleRepository.findByUserIdAndAnimal(userId, choiceEnimal);
+            int[] pices = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+            int puzzleListSize = puzzleList.size();
+            int cnt = 0;
+            int idx = 0;
+            int maxSize = 0;
+            for (int i = 0; i < puzzleListSize; i++) {
+                idx = puzzleList.get(i).getPiece();
+                pices[idx] = 1;
+            }
 
+            maxSize = (int) (Math.random() * (8 - puzzleListSize + 1)); // 0~8 까지인 9개중 보유한 갯수를 제외한 최대수
+
+            for (int i = 0; i < pices.length; i++) {
+                if (pices[i] == 0) {
+                    cnt++;
+                }
+                if (cnt == maxSize) {
+                    drawPuzzle = i;
+                    break;
+                }
+
+            }
+        }
+
+            Optional<Puzzle> userPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId,choiceEnimal,drawPuzzle);
+            if(userPuzzle.isPresent()){ //존재한다면
+                int getCount = userPuzzle.get().getCount();
+                userPuzzle.get().setCount(getCount+1);
+                puzzleRepository.save(userPuzzle.get());
+            }else{ //퍼즐이 처음이라면
+                Puzzle puzzle = new Puzzle();
+                puzzle.setAnimal(choiceEnimal);
+                puzzle.setUserId(userId);
+                puzzle.setPiece(drawPuzzle);
+                puzzle.setCount(1);
+                puzzle.setCreatedate(LocalDateTime.now());
+
+                puzzleRepository.save(puzzle);
+            }
+
+        System.out.println(drawType);
+        System.out.println(choiceEnimal);
+        System.out.println(drawPuzzle);
     }
     @Test
     void 첫_뽑기_확인(){
