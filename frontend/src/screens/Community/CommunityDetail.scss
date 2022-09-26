@@ -41,6 +41,21 @@
           margin-bottom: vw(12px);
         }
       }
+
+      &_btn {
+        margin-left: vw(250px);
+        align-items: center;
+        &_modi,
+        &_del {
+          color: $WHITE;
+          background-color: $BTN-8B;
+          width: (106px);
+          height: (40px);
+          border-radius: (15px);
+          margin-left: (32px);
+        }
+
+      }
     }
   
     &_content {
@@ -83,7 +98,8 @@
         button {
           width: vw(68px);
           height: vw(40px);
-          background-color: $MAIN;
+          background-color: $BTN-8B;
+          color: $WHITE;
           border-radius: vw(12px);
         }
       }

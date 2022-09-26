@@ -50,6 +50,10 @@ function CommunityRegist() {
                 2022.09.07
               </p>
             </div>
+            <div className="commudetail_all_profile_btn flex">
+              <button type="button" className="commudetail_all_profile_btn_modi notoBold">수정하기</button>
+              <button type="button" className="commudetail_all_profile_btn_del notoBold">삭제하기</button>
+            </div>
           </div>
           {/* 내용 */}
           <div className="commudetail_all_content">
@@ -71,7 +75,7 @@ function CommunityRegist() {
             </div>
             <textarea type="textarea" className="commudetail_all_comment_input_txt notoReg fs-16" />
             <div className="commudetail_all_comment_enter flex align-center">
-              <button type="button" className="commudetail_all_comment_enter_btn">
+              <button type="button" className="commudetail_all_comment_enter_btn notoBold">
                 등록
               </button>
             </div>
