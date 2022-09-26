@@ -3,6 +3,7 @@ package com.enimal.backend.service.Impl;
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
 import com.enimal.backend.entity.Animal;
+import com.enimal.backend.entity.Badge;
 import com.enimal.backend.entity.Puzzle;
 import com.enimal.backend.entity.User;
 import com.enimal.backend.repository.AnimalRepository;
@@ -54,6 +55,21 @@ public class DrawServiceImpl implements DrawService {
             return false;
         }
     }
+    private String firstDraw(String userId){ // 업적 1번 : 첫 뽑기
+        List<Puzzle> puzzleList = puzzleRepository.findByUserId(userId); // 해당 아이디로 뽑기 전적이 있는지 확인
+        Optional<User> user = userRepository.findById(userId);
+
+        if(puzzleList.size()==1){
+            Badge badge = new Badge();
+            badge.setBadge("첫 걸음");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            return badge.getBadge();
+        }
+        return null;
+    }
     @Override
     public AnimalAllDrawDto drawAllAnimal(String userId) {
         AnimalAllDrawDto animalAllDrawDto = new AnimalAllDrawDto();
@@ -65,11 +81,11 @@ public class DrawServiceImpl implements DrawService {
         gradeDic.put('A',"최소관심");
 
         Long hap = badgeRepository.countByUserId(userId); // 내가 가진 업적 확인하기
-        int drawType = 0; //0일때는 전체 뽑기, 1일때는 미보유 뽑기
+        boolean drawType = false; // false일때는 전체 뽑기, true일때는 미보유 뽑기
         int randombox = 0;
         randombox = (int) (Math.random() * (100 + 1));
         if ( 0 <= randombox && randombox <=  hap*2 )  // 업적 보유량에 따라 선택
-            drawType =1;
+            drawType = true;
 
         randombox = (int) (Math.random() * (19 + 1)); // 0부터 19까지
         char drawGrade = grade[randombox];
@@ -79,9 +95,7 @@ public class DrawServiceImpl implements DrawService {
         String drawEnimal = animalList.get(randomEnimal).getAnimal();
         int drawPuzzle = -1;
 
-
-
-        if (drawType == 0) {// 전체 뽑기
+        if (!drawType) {// 전체 뽑기
             drawPuzzle = (int) (Math.random() * (8 + 1)); // 0부터 8까지
         } else {// 미보유 뽑기
             List<Puzzle> puzzleList = puzzleRepository.findByUserIdAndAnimal(userId, drawEnimal);
@@ -102,11 +116,9 @@ public class DrawServiceImpl implements DrawService {
                     drawPuzzle = i;
                     break;
                 }
-
             }
-
         }
-
+        String isFirstBadge = null;
         Optional<Puzzle> userPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId,drawEnimal,drawPuzzle);
         if(userPuzzle.isPresent()){ //존재한다면
             int getCount = userPuzzle.get().getCount();
@@ -114,7 +126,9 @@ public class DrawServiceImpl implements DrawService {
             if(drawCredit(0,userId)){
                 puzzleRepository.save(userPuzzle.get());
                 animalAllDrawDto.setCount(getCount+1);
-                animalAllDrawDto.setBadge(false);
+                animalAllDrawDto.setUseBadge(drawType);
+                isFirstBadge = firstDraw(userId);
+                animalAllDrawDto.setBadge(isFirstBadge);
             }else{
                 return null;
             }
@@ -128,7 +142,9 @@ public class DrawServiceImpl implements DrawService {
             animalAllDrawDto.setCount(1);
             if(drawCredit(0,userId)){
                 puzzleRepository.save(puzzle);
-                animalAllDrawDto.setBadge(true);
+                animalAllDrawDto.setUseBadge(drawType);
+                isFirstBadge = firstDraw(userId);
+                animalAllDrawDto.setBadge(isFirstBadge);
             }else{
                 return null;
             }
