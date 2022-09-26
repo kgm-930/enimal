@@ -57,7 +57,6 @@ public class DrawServiceImpl implements DrawService {
     private String firstDraw(String userId){ // 업적 1번 : 첫 뽑기
         List<Puzzle> puzzleList = puzzleRepository.findByUserId(userId); // 해당 아이디로 뽑기 전적이 있는지 확인
         Optional<User> user = userRepository.findById(userId);
-        System.out.println("size"+puzzleList.size());
 
         if(puzzleList.size()==1){
             Badge badge = new Badge();
@@ -66,7 +65,6 @@ public class DrawServiceImpl implements DrawService {
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
-            System.out.println("++"+badge.getBadge());
             return badge.getBadge();
         }
         return null;
@@ -129,7 +127,6 @@ public class DrawServiceImpl implements DrawService {
                 animalAllDrawDto.setCount(getCount+1);
                 animalAllDrawDto.setUseBadge(drawType);
                 isFirstBadge = firstDraw(userId);
-                System.out.println(isFirstBadge);
                 animalAllDrawDto.setBadge(isFirstBadge);
             }else{
                 return null;
@@ -146,7 +143,6 @@ public class DrawServiceImpl implements DrawService {
                 puzzleRepository.save(puzzle);
                 animalAllDrawDto.setUseBadge(drawType);
                 isFirstBadge = firstDraw(userId);
-                System.out.println("--"+isFirstBadge);
                 animalAllDrawDto.setBadge(isFirstBadge);
             }else{
                 return null;
