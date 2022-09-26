@@ -48,9 +48,13 @@ public class UserServiceImpl implements UserService {
             userRegist.setNickname(userLoginDto.getId());
             userRegist.setWallet(userLoginDto.getWallet());
             userRepository.save(userRegist);
+            badgeShowDto.setUserId(userLoginDto.getId());
         }else if(!user.isPresent() && userLoginDto.getId() == null){
             badgeShowDto.setResult(false);
+            badgeShowDto.setUserId(userLoginDto.getId());
             return badgeShowDto;
+        }else{
+            badgeShowDto.setUserId(user.get().getId());
         }
         Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
         if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
