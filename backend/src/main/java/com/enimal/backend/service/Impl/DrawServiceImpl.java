@@ -2,19 +2,14 @@ package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
-import com.enimal.backend.entity.Animal;
-import com.enimal.backend.entity.Badge;
-import com.enimal.backend.entity.Puzzle;
-import com.enimal.backend.entity.User;
-import com.enimal.backend.repository.AnimalRepository;
-import com.enimal.backend.repository.BadgeRepository;
-import com.enimal.backend.repository.PuzzleRepository;
-import com.enimal.backend.repository.UserRepository;
+import com.enimal.backend.entity.*;
+import com.enimal.backend.repository.*;
 import com.enimal.backend.service.DrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -29,12 +24,14 @@ public class DrawServiceImpl implements DrawService {
     AnimalRepository animalRepository;
     PuzzleRepository puzzleRepository;
     UserRepository userRepository;
+    CollectionRepository collectionRepository;
     @Autowired
-    DrawServiceImpl(BadgeRepository badgeRepository, UserRepository userRepository, AnimalRepository animalRepository, PuzzleRepository puzzleRepository){
+    DrawServiceImpl(BadgeRepository badgeRepository, UserRepository userRepository, AnimalRepository animalRepository, PuzzleRepository puzzleRepository, CollectionRepository collectionRepository){
         this.badgeRepository = badgeRepository;
         this.animalRepository = animalRepository;
         this.userRepository = userRepository;
         this.puzzleRepository = puzzleRepository;
+        this.collectionRepository = collectionRepository;
     }
     private boolean drawCredit(int type, String userId){
         try{
@@ -70,10 +67,80 @@ public class DrawServiceImpl implements DrawService {
         }
         return null;
     }
+    private List<Object> collectDraw(String userId,String drawEnimal){ // 컬렉션 완성여부, 업적13번, 업적5번
+        List<Object> list = new ArrayList<>();
+        // 1종의 컬렉션을 모았는지 확인
+        List<Puzzle> listForCollection = puzzleRepository.findByUserIdAndAnimal(userId,drawEnimal);
+        int[] collect = new int[9];
+        boolean flag = false;
+        for(int i=0; i<listForCollection.size(); i++){
+            collect[listForCollection.get(i).getPiece()] = listForCollection.get(i).getCount();
+        }
+        for(int i=0; i<collect.length; i++){
+            if(collect[i]>0) flag = true;
+            else flag = false; // 한조각이라도 없는 경우 컬렉션 완성 불가능
+            if(!flag) {
+                list.add(false); // 컬렉션 완성여부
+                break;
+            }
+            if(flag && i==collect.length-1){ // 모은 경우 조각 감소 및 삭제
+                list.add(true); // 컬렉션 완성여부
+                Collection collection = new Collection(); // 컬렉션 추가
+                collection.setAnimal(drawEnimal);
+                collection.setCreatedate(LocalDateTime.now());
+                collection.setUserId(userId);
+                collectionRepository.save(collection);
+                for(int j=0; j<collect.length; j++){ // 컬렉션을 모은 경우 조각 개수 감소 또는 삭제
+                    Optional<Puzzle> collectPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId, drawEnimal, j);
+                    int count = collectPuzzle.get().getCount();
+                    if(count>1) {
+                        collectPuzzle.get().setCount(count-1);
+                        puzzleRepository.save(collectPuzzle.get());
+                    }
+                    else {
+                        puzzleRepository.delete(collectPuzzle.get());
+                    }
+                }
+                // 업적 13번 : 같은 종을 3번 모은 경우
+                // 관련 업적이 없는 경우에만 추가해주기
+                Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(userId,"안 질려?");
+                Optional<User> user = userRepository.findById(userId);
+                if(isBadge.isEmpty()){
+                    List<Collection> sameCollection = collectionRepository.findByUserIdAndAnimal(userId,drawEnimal);
+                    int sameCount = sameCollection.size();
+                    if(sameCount==3) {
+                        Badge badge = new Badge();
+                        badge.setBadge("안 질려?");
+                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setUser(user.get());
+                        badge.setPercentage(2);
+                        badgeRepository.save(badge);
+                        list.add(badge.getBadge());
+                    }
+                }
+                // 업적 5번 : 24종의 컬렉션을 모두 모은 경우
+                Optional<Badge> allBadge = badgeRepository.findByUserIdAndBadge(userId,"뽑기의 달인");
+                if(allBadge.isEmpty()){
+                    List<String> allCollection = collectionRepository.findByUserIdALL(userId);
+                    if(allCollection.size() == 24){
+                        Badge badge = new Badge();
+                        badge.setBadge("뽑기의 달인");
+                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setUser(user.get());
+                        badge.setPercentage(2);
+                        badgeRepository.save(badge);
+                        list.add(badge.getBadge());
+                    }
+                }
+            }
+        }
+        return list;
+    }
     @Override
     public AnimalAllDrawDto drawAllAnimal(String userId) {
         AnimalAllDrawDto animalAllDrawDto = new AnimalAllDrawDto();
         HashMap<Character,String> gradeDic = new HashMap<>();
+        List<String> modal = new ArrayList<>();
         gradeDic.put('E',"위급");
         gradeDic.put('D',"위기");
         gradeDic.put('C',"취약");
@@ -146,18 +213,31 @@ public class DrawServiceImpl implements DrawService {
 
         animalAllDrawDto.setUseBadge(drawType);
         isFirstBadge = firstDraw(userId);
-        animalAllDrawDto.setBadge(isFirstBadge);
+        if(isFirstBadge!=null) modal.add(isFirstBadge);
         animalAllDrawDto.setAnimal(drawEnimal);
         animalAllDrawDto.setPiece(drawPuzzle);
-        ////////////////////////////////////////////////////////////////
-        // 완성했는지 체크하기
-        ////////////////////////////////////////////////////////////////
 
+        // 완성했는지 체크하기
+        List<Object> list = collectDraw(userId,drawEnimal);
+        animalAllDrawDto.setComplete((Boolean)list.get(0)); // 뱃지 얻지 못하거나 얻어도 앞의 값은 무조건 있으니까
+        if(list.size()>1){ // 뱃지 있는 경우
+            for(int i=1; i<list.size(); i++){
+                modal.add((String)list.get(i));
+            }
+        }
+
+        // 뱃지 여러개 일수있으니까
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        animalAllDrawDto.setModalName(arr);
         return animalAllDrawDto;
     }
 
     @Override
     public AnimalSelectDrawDto drawSelectAnimal(String userId, String animal) {
+        String[] arr = new String[2];
         String choiceEnimal = animal;
         Long hap = badgeRepository.countByUserId(userId); // 내가 가진 업적 확인하기
         boolean drawType = false; //0일때는 전체 뽑기, 1일때는 미보유 뽑기
@@ -219,7 +299,7 @@ public class DrawServiceImpl implements DrawService {
             }
         }
         String isFirstBadge = firstDraw(userId);
-        animalSelectDrawDto.setBadge(isFirstBadge);
+        animalSelectDrawDto.setModalName(arr);
         animalSelectDrawDto.setAnimal(choiceEnimal);
         animalSelectDrawDto.setPiece(drawPuzzle);
         return animalSelectDrawDto;
