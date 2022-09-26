@@ -70,17 +70,15 @@ userAddress = '0x7edc38F3511F13100AdcC4c16Ba14eC475C00776'
 
 
 // 5. 위에서 구한 userAddress 값을 이용해 nft 생성 (최종)
-let transactionHash
+// -> 아직 컨트랙트와 연결 안 됨 -> 연결 전까지 완료
+
+// let transactionHash
+// const ABI = require('./ABI')
+// const Web3 = require('web3')
 // const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
 // const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
 
-
-const ABI = require('./ABI')
-const Web3 = require('web3')
-const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
-const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
-
-mint.makeNft(type, prompt, name)
+mint.beforeMint(type, prompt, name)
 
 
 
