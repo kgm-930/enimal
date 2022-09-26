@@ -1,39 +1,41 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./CommunityDetail.scss";
 
 import profiledummy from "@assets/images/person.png";
 import picdummy from "@assets/images/coco.jpeg";
-import axios from "axios";
 import CommunityComment from "@components/Community/CommunityComment"
 import { useParams } from "react-router-dom";
 
-import { getArticleDetail } from "@apis/community"
+import { getArticleDetail, getCreateComment } from "@apis/community"
 
 function CommunityRegist() {
   const articleId = useParams().index;
-  const [data,setData] = useState(null);
+  const [data, setData] = useState(null);
+  const [time, setTime] = useState(null);
+  const [comment, setComment] = useState(null);
+  const [myComment, setMyComment] = useState(null);
 
-  useEffect(()=>{
-    getArticleDetail(articleId).then(res=>{
+  useEffect(() => {
+    getArticleDetail(articleId).then(res => {
       console.log(res)
-      setData(res)
+      setData(res.data)
+      setComment(res.comment)
+
+      const date = new Date(res.data.boardTime);
+      const articleTime = `${date.getFullYear()}년${(date.getMonth() + 1)}월${date.getDate()}일 ${date.getHours()}시${date.getMinutes()}분`;
+      setTime(articleTime)
     })
-    axios({
-      url:`/board/${articleId}` ,
-      method: 'get',
-      headers: { Authorization:localStorage.token}
-    })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },[])
-  console.log(data)
+  }, [])
+
+  function createComment(e){
+    e.preventDefault();
+    const params = {idx : articleId}
+    const body = {content : myComment}
+    getCreateComment(params,body)
+  }
   return (
     <div className="container flex">
-      <div className="commudetail">
+      {data ? <div className="commudetail">
         <div className="commudetail_title notoBold fs-36">자랑게시판</div>
         <div className="divide" />
         <div className="commudetail_all">
@@ -44,10 +46,10 @@ function CommunityRegist() {
             </div>
             <div className="commudetail_all_profile_extra flex">
               <p className="commudetail_all_profile_extra_name notoMid fs-26">
-                dongdong
+                {data.nickname}
               </p>
               <p className="commudetail_all_profile_extra_time notoMid fs-16">
-                2022.09.07
+                {time}
               </p>
             </div>
           </div>
@@ -57,11 +59,11 @@ function CommunityRegist() {
               <img src={picdummy} alt="이미지" />
             </div>
             <div className="commudetail_all_content_title notoMid fs-32">
-              내가 모은 첫번째 컬렉션!!
+              {data.title}
             </div>
             <div className="divide" />
             <div className="commudetail_all_content_txt notoReg fs-24">
-              북극곰 기념품입니다.
+              {data.content}
             </div>
           </div>
           {/* 댓글입력 */}
@@ -69,19 +71,20 @@ function CommunityRegist() {
             <div className="commudetail_all_comment_sub notoBold fs-24 flex align-center">
               댓글
             </div>
-            <textarea type="textarea" className="commudetail_all_comment_input_txt notoReg fs-16" />
+            <textarea type="textarea" onChange={e=>setMyComment(e.target.value)} className="commudetail_all_comment_input_txt notoReg fs-16" />
             <div className="commudetail_all_comment_enter flex align-center">
-              <button type="button" className="commudetail_all_comment_enter_btn">
+              <button type="button" onClick={e=>createComment(e)} className="commudetail_all_comment_enter_btn">
                 등록
               </button>
             </div>
           </div>
           <div className="commudetail_all_colist">
-            <CommunityComment />
+            <CommunityComment comment={comment} />
           </div>
 
         </div>
       </div>
+        : null}
     </div>
   );
 }
