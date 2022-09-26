@@ -2,6 +2,7 @@ import React,{ useState } from "react";
 import './AllDraw.scss'
 
 
+import { enimalList } from "@apis/treatImg";
 import TEST from '@images/test.png'
 import DrawModal from "./DrawModal";
 
@@ -23,102 +24,12 @@ function AllDraw() {
   return (
     <div className="AllDraw">
       <div className="CardList flex raw">
-        <div className="drawCard col-2">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard col-2">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard col-2">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard col-2">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard col-2">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard col-2">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
-        <div className="drawCard">
-          <img className="drawImg" src={TEST} alt="#" />
-          <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
-        </div>
+        {enimalList.map((enimal, index) => (
+          <div className="drawCard col-2" key={enimal}>
+            <img className="drawImg" src={TEST} alt="#" />
+            <h1 className="fs-20 notoBold drawTitle">{enimal}</h1>
+          </div>
+        ))}
       </div>
       <button className="drawButton fs-28 notoBold" onClick={e=>drawButton(e)} id="collection" type="button">전체 뽑기 (가격)</button>
       <div>
