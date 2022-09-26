@@ -21,4 +21,9 @@ public interface CollectionRepository extends JpaRepository<Collection,Integer> 
     Integer findByUserIdRank(@Param("userId") String userId);
 
     List<Collection> findByUserId(String userId);
+    List<Collection> findByUserIdAndAnimal(String userId, String drawEnimal);
+    @Query("SELECT t.animal FROM Collection t " +
+            "WHERE t.userId = :userId " +
+            "group by t.animal")
+    List<String> findByUserIdALL(String userId);
 }

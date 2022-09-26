@@ -1,13 +1,7 @@
 package com.enimal.backend;
 
-import com.enimal.backend.entity.Animal;
-import com.enimal.backend.entity.Badge;
-import com.enimal.backend.entity.Puzzle;
-import com.enimal.backend.entity.User;
-import com.enimal.backend.repository.AnimalRepository;
-import com.enimal.backend.repository.BadgeRepository;
-import com.enimal.backend.repository.PuzzleRepository;
-import com.enimal.backend.repository.UserRepository;
+import com.enimal.backend.entity.*;
+import com.enimal.backend.repository.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +20,14 @@ public class EtcTests {
     BadgeRepository badgeRepository;
     PuzzleRepository puzzleRepository;
     UserRepository userRepository;
+    CollectionRepository collectionRepository;
     @Autowired
-    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository, UserRepository userRepository){
+    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository, UserRepository userRepository,CollectionRepository collectionRepository){
         this.animalRepository = animalRepository;
         this.badgeRepository = badgeRepository;
         this.puzzleRepository = puzzleRepository;
         this.userRepository = userRepository;
+        this.collectionRepository = collectionRepository;
 
     }
     @Test
@@ -192,6 +188,82 @@ public class EtcTests {
             System.out.println(badge.getBadge());
             System.out.println(badge.getCreatedate());
             System.out.println(badge.getUser().getId());
+        }
+    }
+    @Test
+    void 컬렉션_모음_여부(){
+        String userId = "test2333";
+        String drawEnimal = "수달";
+        // 1종의 컬렉션을 모았는지 확인
+        List<Puzzle> listForCollection = puzzleRepository.findByUserIdAndAnimal(userId,drawEnimal);
+        int[] collect = new int[9];
+        boolean flag = false;
+        for(int i=0; i<listForCollection.size(); i++){
+            collect[listForCollection.get(i).getPiece()] = listForCollection.get(i).getCount();
+        }
+        for(int i=0; i<collect.length; i++){
+            if(collect[i]>0) flag = true;
+            else flag = false; // 한조각이라도 없는 경우 컬렉션 완성 불가능
+            if(!flag) break;
+            if(flag && i==collect.length-1){ // 모은 경우 조각 감소 및 삭제
+                Collection collection = new Collection(); // 컬렉션 추가
+                collection.setAnimal(drawEnimal);
+                collection.setCreatedate(LocalDateTime.now());
+                collection.setUserId(userId);
+                collectionRepository.save(collection);
+                System.out.println(collection.getAnimal());
+                System.out.println(collection.getUserId());
+                for(int j=0; j<collect.length; j++){ // 컬렉션을 모은 경우 조각 개수 감소 또는 삭제
+                    Optional<Puzzle> collectPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId, drawEnimal, j);
+                    int count = collectPuzzle.get().getCount();
+                    if(count>1) {
+                        collectPuzzle.get().setCount(count-1);
+                        puzzleRepository.save(collectPuzzle.get());
+                        System.out.println("조각 개수 감소");
+                        System.out.println(count-1);
+                    }
+                    else {
+                        puzzleRepository.delete(collectPuzzle.get());
+                        System.out.println("조각 삭제");
+                        System.out.println(count-1);
+                    }
+                }
+                // 업적 13번 : 같은 종을 3번 모은 경우
+                // 관련 업적이 없는 경우에만 추가해주기
+                Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(userId,"안 질려?");
+                Optional<User> user = userRepository.findById(userId);
+                if(isBadge.isEmpty()){
+                    List<Collection> sameCollection = collectionRepository.findByUserIdAndAnimal(userId,drawEnimal);
+                    int sameCount = sameCollection.size();
+                    if(sameCount==3) {
+                        Badge badge = new Badge();
+                        badge.setBadge("안 질려?");
+                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setUser(user.get());
+                        badge.setPercentage(2);
+                        badgeRepository.save(badge);
+                        System.out.println(badge.getBadge());
+                        System.out.println(badge.getCreatedate());
+                        System.out.println(badge.getUser().getId());
+                    }
+                }
+                // 업적 5번 : 24종의 컬렉션을 모두 모은 경우
+                Optional<Badge> allBadge = badgeRepository.findByUserIdAndBadge(userId,"뽑기의 달인");
+                if(allBadge.isEmpty()){
+                    List<String> allCollection = collectionRepository.findByUserIdALL(userId);
+                    if(allCollection.size() == 24){
+                        Badge badge = new Badge();
+                        badge.setBadge("뽑기의 달인");
+                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setUser(user.get());
+                        badge.setPercentage(2);
+                        badgeRepository.save(badge);
+                        System.out.println(badge.getBadge());
+                        System.out.println(badge.getCreatedate());
+                        System.out.println(badge.getUser().getId());
+                    }
+                }
+            }
         }
     }
 }
