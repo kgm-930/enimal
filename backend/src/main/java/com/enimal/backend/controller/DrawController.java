@@ -1,6 +1,7 @@
 package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
+import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
 import com.enimal.backend.service.AnimalService;
 import com.enimal.backend.service.DrawService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class DrawController {
         String userId = (String) request.getAttribute("userId");
         HttpStatus status;
         try{
-            AnimalAllDrawDto data = drawService.drawSelectAnimal(userId,animal);
+            AnimalSelectDrawDto data = drawService.drawSelectAnimal(userId,animal);
             result.put("message",okay);
             if(data == null)
                 result.put("message",noCredit);
