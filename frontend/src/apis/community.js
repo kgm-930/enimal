@@ -14,9 +14,23 @@ export const getCommunityList = async (PARAMS) => {
 // 커뮤니티 게시글 작성
 export const getCreateArticle = async (DATA) => {
    
-  const res = await API_COMMUNITY.post("/board",
-  {
-    data : DATA
+  const res = await API_COMMUNITY.post("/board", DATA)
+  console.log(res)
+  return res.data;
+};
+
+// 커뮤니티 게시글 수정
+export const getUpdateArticle = async (DATA) => {
+   
+  const res = await API_COMMUNITY.put("/board", DATA)
+  console.log(res)
+  return res.data;
+};
+
+// 커뮤니티 게시글 삭제
+export const getDeleteArticle = async (index) => {
+  const res = await API_COMMUNITY.delete("/board", {
+    params : {idx:index}
   })
   return res.data;
 };
@@ -30,10 +44,17 @@ export const getArticleDetail = async (index) => {
 // 댓글 생성
 export const getCreateComment = async (PARAMS,comment) => {
   console.log(comment)
-  const res = await API_COMMUNITY.post("/comment",
-  {
-    params : PARAMS,
-    data : comment
+  const res = await API_COMMUNITY.post("/comment",comment,{
+    params:PARAMS
+  });
+  console.log(res)
+  return res.data;
+};
+
+// 댓글 삭제
+export const getDeleteComment = async (idx) => {
+  const res = await API_COMMUNITY.delete("/comment",{
+    params:{comment_idx:idx}
   });
   console.log(res)
   return res.data;

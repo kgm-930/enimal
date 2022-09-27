@@ -42,16 +42,18 @@
       }
 
       &_btn {
-        margin-left: vw(250px);
         align-items: center;
         &_modi,
         &_del {
+          display: flex;
           color: $WHITE;
           background-color: $BTN-8B;
           width: (106px);
           height: (40px);
           border-radius: (15px);
           margin-left: (32px);
+          justify-content: center;
+          align-items: center;
         }
 
       }
