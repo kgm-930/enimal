@@ -51,6 +51,7 @@ function Login(props) {
             localStorage.setItem('token', res.Authorization)
             localStorage.setItem('MyNick', res.data.userId)
             close()
+            alert("로그인 되었습니다!")
           }
         })
 

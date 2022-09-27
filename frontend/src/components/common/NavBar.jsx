@@ -97,7 +97,7 @@ function NavBar() {
 
                 <>
                   <NavDropdown.Item
-                    href="/mypage"
+                    href={`/mypage/${localStorage.MyNick}`}
                     className="nav-dropdowm2_mypage notoMid fs-16"
                   >
                     마이페이지
