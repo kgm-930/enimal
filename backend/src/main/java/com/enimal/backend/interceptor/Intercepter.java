@@ -31,8 +31,6 @@ public class Intercepter extends HandlerInterceptorAdapter {
         // 로그인 해야만 사용할 수 있는 서비스들 체크
         String accessToken = request.getHeader("Authorization");
         String decodeId = jwtService.decodeToken(accessToken);
-        System.out.println(decodeId);
-        System.out.println(accessToken);
         if(decodeId.equals(timeOut)){ // 토큰 만료
             response.setStatus(401);
             return false;

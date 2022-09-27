@@ -87,7 +87,7 @@ public class UserController {
     public ResponseEntity<?> deleteUser(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
         HttpStatus status;
-        String userId = request.getHeader("userId");
+        String userId = (String)request.getAttribute("userId");
         try{
             userService.deleteUser(userId);
             result.put("message",okay);
