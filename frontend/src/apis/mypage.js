@@ -35,3 +35,9 @@ export const getMyPiece = async () => {
   const res = await API_MYPAGE.get('/user/collection/');
   return res.data;
 };
+
+// 재화 전환 내역 조회
+export const getMyPointHistory = async () => {
+  const res = await API_MYPAGE.get('/user/money/');
+  return res.data;
+};

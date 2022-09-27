@@ -13,7 +13,7 @@ function DrawModal(props){
   console.log(header)
 
   function goMypage(){
-    navigate('/mypage');
+    navigate(`/mypage/${localStorage.MyNick}`);
   }
 
   return (

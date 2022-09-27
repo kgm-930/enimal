@@ -50,6 +50,7 @@ function NavBar() {
     localStorage.removeItem('token')
     localStorage.removeItem('MyNick')
     localStorage.removeItem('myAddress')
+    alert("로그아웃 되었습니다!")
     navigate('/')
   }
   return (

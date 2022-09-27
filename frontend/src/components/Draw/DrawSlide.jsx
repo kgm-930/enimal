@@ -36,8 +36,8 @@ function DrawSlide() {
     }, 5);
     const timer3 = setInterval(() => {
       setCount(0);
-      if (speed >= 5) {
-        setSpeed(prev => prev - 5)
+      if (speed >= 3) {
+        setSpeed(prev => prev - 3)
       }
     }, 7700 / speed);
     return () => {
@@ -48,7 +48,7 @@ function DrawSlide() {
 
   function goDraw(e){
     e.preventDefault();
-    setSpeed(20)
+    setSpeed(21)
   }
 
 
