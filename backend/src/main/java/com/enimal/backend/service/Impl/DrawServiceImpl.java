@@ -96,7 +96,7 @@ public class DrawServiceImpl implements DrawService {
         }
         return result;
     }
-    private List<Object> collectDraw(String userId,String drawEnimal){ // 컬렉션 완성여부, 업적13번, 업적5번
+    private List<Object> collectDraw(String userId,String drawEnimal){ // 컬렉션 완성여부, 업적13번, 업적5번, 업적 3번
         List<Object> list = new ArrayList<>();
         // 1종의 컬렉션을 모았는지 확인
         List<Puzzle> listForCollection = puzzleRepository.findByUserIdAndAnimal(userId,drawEnimal);
@@ -119,6 +119,19 @@ public class DrawServiceImpl implements DrawService {
                 collection.setCreatedate(LocalDateTime.now());
                 collection.setUserId(userId);
                 collectionRepository.save(collection);
+                // 업적 3번 : 첫 NFT발급
+                Optional<Badge> firstNft = badgeRepository.findByUserIdAndBadge(userId,"마음에 드시나요");
+                Optional<User> user = userRepository.findById(userId);
+                List<Collection> collectionList = collectionRepository.findByUserId(userId);
+                if(collectionList.size()==1 && firstNft.isEmpty()){ // 뱃지 내역 없고, 처음 컬렉션 만든 경우
+                    Badge badge = new Badge();
+                    badge.setBadge("마음에 드시나요");
+                    badge.setCreatedate(LocalDateTime.now());
+                    badge.setUser(user.get());
+                    badge.setPercentage(2);
+                    badgeRepository.save(badge);
+                    list.add(badge.getBadge());
+                }
                 for(int j=0; j<collect.length; j++){ // 컬렉션을 모은 경우 조각 개수 감소 또는 삭제
                     Optional<Puzzle> collectPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId, drawEnimal, j);
                     int count = collectPuzzle.get().getCount();
@@ -133,7 +146,6 @@ public class DrawServiceImpl implements DrawService {
                 // 업적 13번 : 같은 종을 3번 모은 경우
                 // 관련 업적이 없는 경우에만 추가해주기
                 Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(userId,"안 질려?");
-                Optional<User> user = userRepository.findById(userId);
                 if(isBadge.isEmpty()){
                     List<Collection> sameCollection = collectionRepository.findByUserIdAndAnimal(userId,drawEnimal);
                     int sameCount = sameCollection.size();
