@@ -1,9 +1,6 @@
 package com.enimal.backend.controller;
 
-import com.enimal.backend.dto.Board.BoardListDto;
-import com.enimal.backend.dto.Board.BoardRegistDto;
-import com.enimal.backend.dto.Board.BoardShowDto;
-import com.enimal.backend.dto.Board.BoardUpdateDto;
+import com.enimal.backend.dto.Board.*;
 import com.enimal.backend.dto.Comment.CommentShowDto;
 import com.enimal.backend.dto.Etc.BadgeShowDto;
 import com.enimal.backend.service.BoardService;
@@ -40,7 +37,7 @@ public class BoardController {
         String userId = (String) request.getAttribute("userId");
         try{
             boardRegistDto.setUserId(userId);
-            BadgeShowDto data = boardService.registBoard(boardRegistDto);
+            BoardRegistShowDto data = boardService.registBoard(boardRegistDto);
             result.put("data",data);
             result.put("message",okay);
             status = HttpStatus.OK;

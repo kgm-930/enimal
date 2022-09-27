@@ -1,9 +1,6 @@
 package com.enimal.backend.service.Impl;
 
-import com.enimal.backend.dto.Board.BoardListDto;
-import com.enimal.backend.dto.Board.BoardRegistDto;
-import com.enimal.backend.dto.Board.BoardShowDto;
-import com.enimal.backend.dto.Board.BoardUpdateDto;
+import com.enimal.backend.dto.Board.*;
 import com.enimal.backend.dto.Etc.BadgeShowDto;
 import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.entity.*;
@@ -39,8 +36,8 @@ public class BoardServiceImpl implements BoardService {
         this.badgeRepository = badgeRepository;
     }
     @Override
-    public BadgeShowDto registBoard(BoardRegistDto boardRegistDto) {
-        BadgeShowDto badgeShowDto = new BadgeShowDto();
+    public BoardRegistShowDto registBoard(BoardRegistDto boardRegistDto) {
+        BoardRegistShowDto boardRegistShowDto = new BoardRegistShowDto();
         Board board = new Board();
         Optional<User> user = userRepository.findById(boardRegistDto.getUserId());
         List<Board> boards = boardRepository.findByUser(user);
@@ -52,7 +49,7 @@ public class BoardServiceImpl implements BoardService {
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
-            badgeShowDto.setModalName("업적 냠냠");
+            boardRegistShowDto.setModalName("업적 냠냠");
         }
         board.setUser(user.get());
         board.setTitle(boardRegistDto.getTitle());
@@ -62,7 +59,8 @@ public class BoardServiceImpl implements BoardService {
         board.setModifydate(LocalDateTime.now());
         board.setView(0);
         boardRepository.save(board);
-        return badgeShowDto;
+        boardRegistShowDto.setIdx(board.getIdx());
+        return boardRegistShowDto;
     }
 
     @Override
