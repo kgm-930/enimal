@@ -103,9 +103,9 @@ function CommunityRegist() {
             <div className="commudetail_all_comment_sub notoBold fs-24 flex align-center">
               댓글
             </div>
-            <textarea type="textarea" onChange={e => setMyComment(e.target.value)} className="commudetail_all_comment_input_txt notoReg fs-16" />
+            <input type="text" onChange={e => setMyComment(e.target.value)} className="commudetail_all_comment_input_txt notoReg fs-16 commentInput" />
             <div className="commudetail_all_comment_enter flex align-center">
-              <button type="button" onClick={e => createComment(e)} className="commudetail_all_comment_enter_btn notoBold fs-18">
+              <button type="button" onClick={e => createComment(e)} className="commudetail_all_comment_enter_btn notoBold fs-18 mx-3">
                 등록
               </button>
             </div>

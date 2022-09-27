@@ -49,7 +49,7 @@ function NoticeDetail() {
             {data.content}
           </div>
           <div className="flex justify-end">
-            <Link to={`/notice/edit/${noticeID}`} className="noticeButton fs-20 notoBold" type="button" style={{ backgroundColor:"$MAIN"}}>수정하기</Link>
+            <Link to={`/notice/edit/${noticeID}`} className="noticeButton fs-20 notoBold" type="button" style={{ backgroundColor:"#CBDFF1"}}>수정하기</Link>
             <button type="button" className="noticeButton fs-20 notoBold" onClick={e=>deleteNotice(e)} style={{ backgroundColor:"#E8E8E8" }}>삭제하기</button>
           </div>
 

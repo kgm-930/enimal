@@ -25,5 +25,13 @@ export const API_NOTICE = axios.create({
   }
 });
 
+export const API_MYPAGE = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Authorization": localStorage.token,
+    "Access-Control-Allow-Origin" : '*',
+  }
+});
+
 
 export const ex = () => {};

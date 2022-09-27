@@ -6,20 +6,26 @@ import Achievements from "./UserInfo/Achievements";
 import CollectionPiece from "./UserInfo/CollectionPiece";
 import MyNFT from "./UserInfo/MyNFT";
 
-function UserInfo() {
 
+
+function UserInfo(props) {
+  const { userId } = props;
 
   return (
     <>
       <div className="userInfo flex">
-        <InfoTable />
-        <Achievements />
+        <InfoTable userId={userId} />
+        <Achievements userId={userId} />
       </div>
+      {userId === localStorage.MyNick ?
+        <>
+          <hr />
+          <CollectionPiece userId={userId} />
+        </>
+        : null}
 
       <hr />
-      <CollectionPiece />
-      <hr />
-      <MyNFT />
+      <MyNFT userId={userId} />
 
 
     </>

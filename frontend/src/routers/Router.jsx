@@ -50,7 +50,7 @@ function Router() {
         <Route path="/rank" element={<Rank />} />
 
         {/* mypage */}
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/:userid" element={<MyPage />} />
 
         {/* draw */}
         <Route path="/draw" element={<Draw />} />
