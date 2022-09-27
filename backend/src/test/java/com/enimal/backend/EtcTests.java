@@ -191,8 +191,8 @@ public class EtcTests {
         }
     }
     @Test
-    void 컬렉션_모음_여부(){
-        String userId = "test2333";
+    void 컬렉션_모음_여부_컬렉션_관련_업적(){
+        String userId = "test2";
         String drawEnimal = "수달";
         // 1종의 컬렉션을 모았는지 확인
         List<Puzzle> listForCollection = puzzleRepository.findByUserIdAndAnimal(userId,drawEnimal);
@@ -213,6 +213,22 @@ public class EtcTests {
                 collectionRepository.save(collection);
                 System.out.println(collection.getAnimal());
                 System.out.println(collection.getUserId());
+                // 업적 3번 : 첫 NFT발급
+                Optional<Badge> firstNft = badgeRepository.findByUserIdAndBadge(userId,"마음에 드시나요");
+                Optional<User> user = userRepository.findById(userId);
+                List<Collection> collectionList = collectionRepository.findByUserId(userId);
+                System.out.println(collectionList.size());
+                if(collectionList.size()==1 && firstNft.isEmpty()){ // 뱃지 내역 없고, 처음 컬렉션 만든 경우
+                    Badge badge = new Badge();
+                    badge.setBadge("마음에 드시나요");
+                    badge.setCreatedate(LocalDateTime.now());
+                    badge.setUser(user.get());
+                    badge.setPercentage(2);
+                    badgeRepository.save(badge);
+                    System.out.println(badge.getBadge());
+                    System.out.println(badge.getCreatedate());
+                    System.out.println(badge.getUser().getId());
+                }
                 for(int j=0; j<collect.length; j++){ // 컬렉션을 모은 경우 조각 개수 감소 또는 삭제
                     Optional<Puzzle> collectPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId, drawEnimal, j);
                     int count = collectPuzzle.get().getCount();
@@ -231,7 +247,6 @@ public class EtcTests {
                 // 업적 13번 : 같은 종을 3번 모은 경우
                 // 관련 업적이 없는 경우에만 추가해주기
                 Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(userId,"안 질려?");
-                Optional<User> user = userRepository.findById(userId);
                 if(isBadge.isEmpty()){
                     List<Collection> sameCollection = collectionRepository.findByUserIdAndAnimal(userId,drawEnimal);
                     int sameCount = sameCollection.size();
