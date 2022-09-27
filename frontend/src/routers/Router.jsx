@@ -22,6 +22,8 @@ import Draw from "@screens/Draw";
 // notice
 import Notice from "@screens/Notice/Notice";
 import NoticeRegist from "@screens/Notice/NoticeRegist";
+import NoticeDetail from "@screens/Notice/NoticeDetail";
+import NoticeEdit from "@screens/Notice/NoticeEdit";
 
 // community
 import Community from "@screens/Community/CommunityMain";
@@ -56,6 +58,8 @@ function Router() {
         {/* notice */}
         <Route path="/notice" element={<Notice />} />
         <Route path="/notice/regist" element={<NoticeRegist />} />
+        <Route path="/notice/:index" element={<NoticeDetail />} />
+        <Route path="/notice/edit/:index" element={<NoticeEdit />} />
 
         {/* community */}
         <Route path="/community" element={<Community />} />
