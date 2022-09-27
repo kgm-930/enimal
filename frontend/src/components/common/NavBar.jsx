@@ -28,7 +28,9 @@ function NavBar() {
   const getBalance = async () => {
     const res = await contract.methods.balanceOf(wallet).call();
     // const format = web3.utils.fromWei(res);
-    const ssf = res.toLocaleString("ko-KR");
+    const coin = parseInt(res, 10);
+    const ssf = coin.toLocaleString('ko-KR');
+    console.log(typeof res,ssf)
     setSSF(ssf)
   }
   getBalance();
@@ -46,6 +48,8 @@ function NavBar() {
   function Logout(e) {
     e.preventDefault();
     localStorage.removeItem('token')
+    localStorage.removeItem('MyNick')
+    localStorage.removeItem('myAddress')
     navigate('/')
   }
   return (
@@ -93,7 +97,7 @@ function NavBar() {
 
                 <>
                   <NavDropdown.Item
-                    href="/mypage"
+                    href={`/mypage/${localStorage.MyNick}`}
                     className="nav-dropdowm2_mypage notoMid fs-16"
                   >
                     마이페이지

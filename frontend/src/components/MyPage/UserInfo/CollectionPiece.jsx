@@ -1,8 +1,10 @@
-import React from "react";
+import React,{ useEffect} from "react";
 import "./CollectionPiece.scss";
 
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { getMyPiece } from "@apis/mypage";
 
 import piece1 from "@images/PieceImg/test/1.png";
 import piece2 from "@images/PieceImg/test/2.png";
@@ -15,6 +17,14 @@ import piece8 from "@images/PieceImg/test/8.png";
 import piece9 from "@images/PieceImg/test/9.png";
 
 function CollectionPiece() {
+
+  useEffect(()=>{
+    getMyPiece().then(res=>{
+      console.log(res)
+    })
+  },[])
+
+
   return (
     <div className="CollectionPiece">
       <h1 className="MyCollection notoBold fs-40">수집중인 컬렉션</h1>

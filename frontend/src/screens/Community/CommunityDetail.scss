@@ -4,7 +4,7 @@
 
 .commudetail {
   width: vw(1100px);
-  margin-top: vw(66px);
+  margin-top: vw(100px);
   &_title {
     margin-bottom: vw(40px);
   }
@@ -33,7 +33,6 @@
       &_extra {
         flex-direction: column;
         // justify-content: space-between;
-        align-items: center;
         margin-left: vw(12px);
   
         &_name {
@@ -43,16 +42,18 @@
       }
 
       &_btn {
-        margin-left: vw(250px);
         align-items: center;
         &_modi,
         &_del {
+          display: flex;
           color: $WHITE;
           background-color: $BTN-8B;
           width: (106px);
           height: (40px);
           border-radius: (15px);
           margin-left: (32px);
+          justify-content: center;
+          align-items: center;
         }
 
       }
@@ -82,6 +83,7 @@
 
     &_comment {
       margin-bottom: vw(40px);
+      margin-top: vw(50px);
       
 
       &_sub {
@@ -91,6 +93,8 @@
       textarea {
         width: vw(570px);
         margin-right: vw(16px);
+        border: 1px solid rgb(133, 131, 131);
+        border-radius: 5px;
         // 텍스트에어리어 스크롤 막아야 할까?? 글자수 제한 해야할까??
       }
       
@@ -105,4 +109,19 @@
       }
     }
   }
+}
+
+.commuNav{
+  width: vw(720px);
+  margin-inline: vw(225px);
+}
+
+.backIcon{
+  height: 40px;
+}
+.commentInput{
+  border: 1px solid black;
+  border-radius: 5px;
+  width: vw(550px);
+  padding-inline: 20px;
 }

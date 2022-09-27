@@ -2,6 +2,7 @@ import React from "react";
 import "./Notice.scss";
 
 import NoticeList from "@components/Notice/NoticeList";
+import { Link } from "react-router-dom";
 
 function Notice() {
   return (
@@ -9,9 +10,9 @@ function Notice() {
       <div className="notice">
         <div className="notice_pagetitle notoBold fs-36">공지사항</div>
         <div className="notice_regi flex justify-center align-center">
-          <button type="button" className="notoBold fs-24">
+          <Link to="/notice/regist" type="button" className="notoBold fs-24">
             등록하기
-          </button>
+          </Link>
         </div>
         <div className="divide" />
         <div className="notice_table flex">
