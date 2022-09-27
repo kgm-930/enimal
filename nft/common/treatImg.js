@@ -1,15 +1,15 @@
-import {NFTStorage} from 'nft.storage'
 // const ipfsAPI = require('ipfs-api')
 // import ipfsAPI from 'ipfs-api'
 // const Buffer = require('buffer')
-import axios from 'axios'
-
 const WomboDream = require('./dream-api/dist/app')
 // const WomboDream = require('dream-api')
+const NFTStorage = require('nft.storage')
 // import mime from 'mime'
 // import fs from 'fs'
 // import path from 'path'
-const API_KEY = process.env.REACT_APP_NFT_STORAGE_KEY
+const axios = require('axios')
+// const API_KEY = process.env.REACT_APP_NFT_STORAGE_KEY
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk3MGFENGFGNDliYzA3ODg5NEM5NzM3QzBDRWVENkUxODJCOEFhMDIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2NDI4NTE2NzM1MSwibmFtZSI6ImVuaW1hbCJ9.pa-Qnsx2llaA4DKjlHG9R6aaLoSm29FIsDfS_LqLoe8"
 
 // 배포 시 이 부분 수정 필요
 // 터미널 창 - ipfs config Addresses.API
@@ -52,7 +52,7 @@ const convert = {
 const client = new NFTStorage({token: API_KEY})
 
 // ai 이미지 생성
-export async function makeImg(type, enimal) {
+async function makeImg(type, enimal) {
 	let prompt
 	if (enimal in convert) {
 		prompt = convert[enimal]
@@ -66,25 +66,18 @@ export async function makeImg(type, enimal) {
 }
 
 // 이미지 데이터를 Blob화
-export async function getBlob(type, prompt) {
-	console.log(type, prompt)
+async function getBlob(type, prompt) {
 	// const url = await makeImg(type, prompt)
-	const url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fnamu.wiki%2Fw%2F%25EC%2582%25AC%25EC%25A7%2584&psig=AOvVaw2HCXTldz9OQVYbw8-tfVwT&ust=1664373232633000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjW4MuPtfoCFQAAAAAdAAAAABAO"
-	axios.get(url)
-	.then((res) => {
-		console.log(res)
-		console.log(res.blob())
+	return new Promise((resolve) => {
+		makeImg(type, prompt)
+			.then((url) => {
+				axios.get(url)
+				.then((res) => {
+					console.log(res)
+					resolve(res.blob())
+				})
+		})
 	})
-	// return new Promise(() => {
-	// 	makeImg(type, prompt)
-	// 		.then((url) => {
-	// 			axios.get(url)
-	// 			.then((res) => {
-	// 				console.log(res)
-	// 				resolve(res.blob())
-	// 			})
-	// 	})
-	// })
 }
 
 // cid로 메타데이터 정보 조회
@@ -96,7 +89,7 @@ export async function getBlob(type, prompt) {
 // }
 
 // ipfs에 메타데이터 업로드
-export async function upload(image, name, owner, type) {
+async function upload(image, name, owner, type) {
 	const json = {
 		name,
 		owner,
@@ -109,8 +102,9 @@ export async function upload(image, name, owner, type) {
 	return metadata
 }
 
-// exports.makeImg = makeImg
-// exports.getBlob = getBlob
+exports.makeImg = makeImg
+exports.resultImg = resultImg
+// exports.imgUpload = imgUpload
 // exports.getMetaInfo = getMetaInfo
 // exports.metaUpload = metaUpload
 

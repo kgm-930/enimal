@@ -13,7 +13,7 @@ function defineHeaders(token, type = "text/plain;charset=UTF-8") {
 	};
 }
 const getTaskID = (token) => {
-	new Promise((resolve) => {
+	return new Promise((resolve) => {
 		axios.post(API_URL, '{ "premium": false }', {
 			headers: defineHeaders(token)
 			})
@@ -57,7 +57,7 @@ const createTask = (token, taskID, prompt, style, imageId = null, weight = "MEDI
 
 const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 	// task의 상태를 체크
-	new Promise((resolve) => {
+	return (new Promise((resolve) => {
 		if (interval === null) {
 			axios.get(API_URL + taskID, {
 				headers: defineHeaders(token)
@@ -100,7 +100,7 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 					resolve(error);
 				});
 			}
-	});
+	}));
 }
 
 const generateImage = async(style, promptValue, image = null, weight = "MEDIUM", callback = null, interval = 1000, freq = 10) => {

@@ -2,7 +2,7 @@ import React,{ useState } from "react";
 import './AllDraw.scss'
 
 
-import { enimalList } from "@apis/treatImg";
+import { enimalList } from "@apis/list";
 import TEST from '@images/test.png'
 import DrawModal from "./DrawModal";
 
@@ -20,11 +20,11 @@ function AllDraw() {
     e.preventDefault();
     openModal()
   }
-
+  // index -> file img 경로 list 쓸 때 사용
   return (
     <div className="AllDraw">
       <div className="CardList flex raw">
-        {enimalList.map((enimal, index) => (
+        {enimalList.map((enimal) => (
           <div className="drawCard col-2" key={enimal}>
             <img className="drawImg" src={TEST} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">{enimal}</h1>

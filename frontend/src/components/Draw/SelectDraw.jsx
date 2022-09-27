@@ -1,7 +1,7 @@
 import React,{ useState } from "react";
 import "./SelectDraw.scss";
 
-import { enimalList } from "@apis/treatImg";
+import { enimalList } from "@apis/list";
 import TEST from "@images/test.png";
 import DrawModal from "./DrawModal";
 
