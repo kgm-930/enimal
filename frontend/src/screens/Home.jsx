@@ -8,7 +8,7 @@ import todayAnimall from "@assets/images/polarbear.jpg";
 import { getTodayAnimal } from "@apis/home";
 
 function Home() {
-  const [todayAnimal, setTodayAnimal] = useState(null);
+  
 
   // useEffect(() => {
   //   async function getAndSetTodayAnimal() {
@@ -22,8 +22,8 @@ function Home() {
   // console.log(todayAnimal)
   // // console.log(todayAnimal.animal)
 
+  const [todayAnimal, setTodayAnimal] = useState(null);
   useEffect(() => {
-    
     getTodayAnimal().then(res => {
       console.log(res);
       setTodayAnimal(res.data);
@@ -102,7 +102,7 @@ function Home() {
                   오늘의 동물
                 </div>
                 <div className="animal_explain_name flex justify-center notoBold fs-32">
-                  {/* {todayAnimal.animal} */} 왜 안되는거야
+                  {/* {todayAnimal.animal} */}ㅇ
                 </div>
                 <div className="animal_explain_content notoMid fs-28">
                   백곰이라고도 한다. 암컷은 수컷보다 몸이 작다. 다른 곰보다
