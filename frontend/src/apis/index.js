@@ -23,5 +23,9 @@ export const API_NOTICE = axios.create({
   }
 });
 
+export const API_HOME = axios.create({
+  baseURL: BASE_URL,
+  headers: {}             
+})
 
 export const ex = () => {};
