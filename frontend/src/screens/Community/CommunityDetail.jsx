@@ -5,6 +5,8 @@ import profiledummy from "@assets/images/person.png";
 import picdummy from "@assets/images/coco.jpeg";
 import CommunityComment from "@components/Community/CommunityComment"
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { getArticleDetail, getCreateComment,getDeleteArticle } from "@apis/community"
 
@@ -46,12 +48,20 @@ function CommunityRegist() {
     }
     
   }
+  function back(e) {
+    e.preventDefault();
+    navigate('/community')
+  }
 
   
   return (
-    <div className="container flex">
+    <div className="container flex aline-center">
       {data ? <div className="commudetail">
-        <div className="commudetail_title notoBold fs-36">자랑게시판</div>
+        <div className="flex justify-space-between aline-center commuNav">
+        <FontAwesomeIcon className="backIcon" onClick={e => back(e)} icon={faArrowLeft} />
+          <div className="commudetail_title notoBold fs-36">자랑게시판</div>
+          <div className="emptyBox" />
+        </div>
         <div className="divide" />
         <div className="commudetail_all">
           {/* 프로필 */}

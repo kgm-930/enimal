@@ -4,7 +4,7 @@
 
 .commudetail {
   width: vw(1100px);
-  margin-top: vw(66px);
+  margin-top: vw(100px);
   &_title {
     margin-bottom: vw(40px);
   }
@@ -109,4 +109,13 @@
       }
     }
   }
+}
+
+.commuNav{
+  width: vw(720px);
+  margin-inline: vw(225px);
+}
+
+.backIcon{
+  height: 40px;
 }

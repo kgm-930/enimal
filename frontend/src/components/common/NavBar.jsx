@@ -48,6 +48,8 @@ function NavBar() {
   function Logout(e) {
     e.preventDefault();
     localStorage.removeItem('token')
+    localStorage.removeItem('MyNick')
+    localStorage.removeItem('myAddress')
     navigate('/')
   }
   return (
