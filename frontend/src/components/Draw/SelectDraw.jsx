@@ -2,7 +2,32 @@ import React,{ useState } from "react";
 import "./SelectDraw.scss";
 
 
-import TEST from "@images/test.png";
+
+import egg1 from '@images/eggs/egg1.png'
+import egg2 from '@images/eggs/egg2.png'
+import egg3 from '@images/eggs/egg3.png'
+import egg4 from '@images/eggs/egg4.png'
+import egg5 from '@images/eggs/egg5.png'
+import egg6 from '@images/eggs/egg6.png'
+import egg7 from '@images/eggs/egg7.png'
+import egg8 from '@images/eggs/egg8.png'
+import egg9 from '@images/eggs/egg9.png'
+import egg10 from '@images/eggs/egg10.png'
+import egg11 from '@images/eggs/egg11.png'
+import egg12 from '@images/eggs/egg12.png'
+import egg13 from '@images/eggs/egg13.png'
+import egg14 from '@images/eggs/egg14.png'
+import egg15 from '@images/eggs/egg15.png'
+import egg16 from '@images/eggs/egg16.png'
+import egg17 from '@images/eggs/egg17.png'
+import egg18 from '@images/eggs/egg18.png'
+import egg19 from '@images/eggs/egg19.png'
+import egg20 from '@images/eggs/egg20.png'
+import egg21 from '@images/eggs/egg21.png'
+import egg22 from '@images/eggs/egg22.png'
+import egg23 from '@images/eggs/egg23.png'
+import egg24 from '@images/eggs/egg24.png'
+
 import DrawModal from "./DrawModal";
 
 function SelectDraw() {
@@ -55,8 +80,8 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
-            <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
+            <img className="drawImg" src={egg1} alt="#" />
+            <h1 className="fs-20 notoBold drawTitle">북극곰</h1>
           </button>
         </div>
         <div className="drawCard2">
@@ -70,7 +95,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg2} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -85,7 +110,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg3} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -100,7 +125,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg4} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -115,7 +140,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg5} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -130,7 +155,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg6} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -145,7 +170,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg7} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -160,7 +185,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg8} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -175,7 +200,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg9} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -190,7 +215,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg10} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -205,7 +230,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg11} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -220,7 +245,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg12} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -235,7 +260,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg13} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -250,7 +275,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg14} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -265,7 +290,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg15} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -280,7 +305,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg16} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -295,7 +320,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg17} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -310,7 +335,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg18} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -325,7 +350,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg19} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -340,7 +365,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg20} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -355,7 +380,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg21} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -370,7 +395,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg22} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -385,7 +410,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg23} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
@@ -400,7 +425,7 @@ function SelectDraw() {
             onMouseLeave={e =>unSelect(e)}
             onClick={e=>select(e)}
           >
-            <img className="drawImg" src={TEST} alt="#" />
+            <img className="drawImg" src={egg24} alt="#" />
             <h1 className="fs-20 notoBold drawTitle">동물 이름</h1>
           </button>
         </div>
