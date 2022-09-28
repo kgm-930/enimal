@@ -74,6 +74,28 @@ public class EtcServiceImpl implements EtcService {
         money.setUserId(userId);
         money.setCredit((firstCredit/100)*(100-percent));
         moneyRepository.save(money);
+        // 업적 7번 : 환전 10000이상 - Enimal 홀릭
+        Optional<Badge> isExchange = badgeRepository.findByUserIdAndBadge(userId, "Enimal 홀릭");
+        if(user.get().getDonation() >= 10000 && !isExchange.isPresent()){
+            Badge badge = new Badge();
+            badge.setBadge("Enimal 홀릭");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            modal.add(badge.getBadge());
+        }
+        // 업적 8번 : 기부 1000이상 - 기부 천사
+        Optional<Badge> isDonate = badgeRepository.findByUserIdAndBadge(userId, "기부 천사");
+        if(user.get().getDonation() >= 10000 && !isDonate.isPresent()){
+            Badge badge = new Badge();
+            badge.setBadge("기부 천사");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            modal.add(badge.getBadge());
+        }
         // 뱃지 모달
         String[] arr = new String[modal.size()];
         for(int i=0; i< modal.size(); i++){
