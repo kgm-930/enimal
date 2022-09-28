@@ -1,4 +1,4 @@
-FROM node:14.12.0 as build-stage
+FROM node:14.12.0 as builder
 WORKDIR /var/jenkins/workspace/front/frontend
 COPY package*.json ./
 RUN npm install
