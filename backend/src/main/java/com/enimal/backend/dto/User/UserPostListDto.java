@@ -19,5 +19,4 @@ public class UserPostListDto {
     private String content;
     private Integer view;
     private Byte[] picture;
-
 }

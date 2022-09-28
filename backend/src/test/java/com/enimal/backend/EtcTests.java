@@ -28,8 +28,9 @@ public class EtcTests {
     CollectionRepository collectionRepository;
     NoticeAttendenceRepository noticeAttendenceRepository;
     NoticeRepository noticeRepository;
+    MoneyRepository moneyRepository;
     @Autowired
-    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository, UserRepository userRepository,CollectionRepository collectionRepository,NoticeAttendenceRepository noticeAttendenceRepository,NoticeRepository noticeRepository){
+    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository, UserRepository userRepository,CollectionRepository collectionRepository,NoticeAttendenceRepository noticeAttendenceRepository,NoticeRepository noticeRepository,MoneyRepository moneyRepository){
         this.animalRepository = animalRepository;
         this.badgeRepository = badgeRepository;
         this.puzzleRepository = puzzleRepository;
@@ -37,6 +38,7 @@ public class EtcTests {
         this.collectionRepository = collectionRepository;
         this.noticeAttendenceRepository = noticeAttendenceRepository;
         this.noticeRepository = noticeRepository;
+        this.moneyRepository = moneyRepository;
     }
     @Test
     void 오늘의_동물_조회(){
@@ -363,5 +365,33 @@ public class EtcTests {
             System.out.println("모두 확인");
         }
         else System.out.println("더 보세요");
+    }
+    @Test
+    void 재화_전환(){
+        int percent = 20;
+        int firstCredit = 1000;
+        String userId = "test233";
+        Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(userId, "연금술사");
+        Optional<User> user = userRepository.findById(userId);
+        if(!isBadge.isPresent()){ // 업적 2번
+            Badge badge = new Badge();
+            badge.setBadge("연금술사");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+        }
+        int userCredit = user.get().getCredit();
+        int userDonation = user.get().getDonation();
+        userDonation += (firstCredit/100)*percent; // 기부금
+        userCredit += (firstCredit/100)*(100-percent);
+        user.get().setDonation(userDonation);
+        user.get().setCredit(userCredit);
+        userRepository.save(user.get());
+        Money money = new Money(); // 재화 충전내역을 위해 저장
+        money.setCreatedate(LocalDateTime.now());
+        money.setUserId(userId);
+        money.setCredit((firstCredit/100)*(100-percent));
+        moneyRepository.save(money);
     }
 }

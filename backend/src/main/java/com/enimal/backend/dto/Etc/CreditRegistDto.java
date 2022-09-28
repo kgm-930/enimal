@@ -1,4 +1,5 @@
-package com.enimal.backend.dto.Board;
+package com.enimal.backend.dto.Etc;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -6,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BoardRegistShowDto {
-    private int idx;
+public class CreditRegistDto {
     private String[] modalName;
 }
