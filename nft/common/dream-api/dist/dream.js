@@ -12,6 +12,7 @@ function defineHeaders(token, type = "text/plain;charset=UTF-8") {
 		'service': 'Dream'
 	};
 }
+
 const getTaskID = (token) => {
 	return new Promise((resolve) => {
 		axios.post(API_URL, '{ "premium": false }', {
@@ -42,22 +43,21 @@ const createTask = (token, taskID, prompt, style, imageId = null, weight = "MEDI
 		}
 	}
 
-	return new Promise((resolve) => {
+	return new Promise(function(resolve, reject) {
 		axios.put(API_URL + taskID, jsonData, {
-			headers: defineHeaders(token)
+						headers: defineHeaders(token)
+				})
+				.then(function(response) {
+						resolve(response.data);
+				})
+				.catch(function(error) {
+						resolve(error.response.data);
+				});
 			})
-			.then((response) => {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				resolve(error.response.data);
-			});
-	});
 }
-
 const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 	// task의 상태를 체크
-	return (new Promise((resolve) => {
+	return (new Promise((resolve, reject) => {
 		if (interval === null) {
 			axios.get(API_URL + taskID, {
 				headers: defineHeaders(token)
@@ -73,6 +73,9 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 					resolve(error);
 				});
 		} else {
+			if (typeof interval !== 'number') {
+				interval = 1000;
+			}
 			axios.get(API_URL + taskID, {
 				headers: defineHeaders(token)
 			})
@@ -83,7 +86,7 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 					}
 					while (result.state !== "completed" && result.state !== "failed") {
 						try {
-							result = Promise.all(axios.get(API_URL + taskID, { headers: defineHeaders(token) })).data
+							result = (await axios.get(API_URL + taskID, { headers: defineHeaders(token) })).data;
 						} catch (error) {
 							resolve(error);
 						}
@@ -92,7 +95,7 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 								callback(result);
 							}
 						}
-						Promise.all(res => setTimeout(res, interval));
+						await new Promise(resolve => setTimeout(resolve, interval));
 					}
 					resolve(result);
 				})
@@ -103,25 +106,36 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 	}));
 }
 
-const generateImage = async(style, promptValue, image = null, weight = "MEDIUM", callback = null, interval = 1000, freq = 10) => {
-    let token = await Authentication.signUp();
+
+
+
+
+const generateImage = async(style, promptValue, token = null, image = null, weight = "MEDIUM", save = false, saveSettings = { "name": "", "public": false, "visible": true }, callback = null, interval = 1000, freq = 10) => {
+    token = await Authentication.signUp();
 		token = token.idToken;
     const taskID = await getTaskID(token); // Get the task ID
-		let result = await createTask(token, taskID, promptValue, style, image, weight, freq); // Create the task
-    if (callback && typeof callback === 'function') {
+    if (image != null) {
+			let imageId = await uploadPhoto(image, token);
+			var result = await createTask(token, taskID, promptValue, style, imageId, weight, freq);
+		} else {
+				var result = await createTask(token, taskID, promptValue, style, image, weight, freq);
+		}
+		
+		if (callback && typeof callback === 'function') {
         callback(result);
     } else {
 			console.log("creating task...");
     }
-    result = await checkStatus(token, taskID, interval, (res) => {
+    result = await checkStatus(token, taskID, interval, (result) => {
         if (callback && typeof callback === 'function') {
-            callback(res);
+            callback(result);
         } else {
 					console.log("generating...");
         }
     });
     return result
 }
+
 
 exports.getTaskID = getTaskID;
 exports.createTask = createTask;

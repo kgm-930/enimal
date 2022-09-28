@@ -4,6 +4,7 @@ import "./CollectionPiece.scss";
 
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import https from 'https'
 
 import piece1 from "@images/PieceImg/test/1.png";
 import piece2 from "@images/PieceImg/test/2.png";
@@ -16,37 +17,16 @@ import piece8 from "@images/PieceImg/test/8.png";
 import piece9 from "@images/PieceImg/test/9.png";
 
 // import ipfsAPI from "ipfs-api";
-import {getBlob} from "@apis/treatImg"
+// import {getBlob} from "@apis/treatImg"
 // import {makeImg} from "@apis/treatImg"
+// import {upload} from "@apis/treatImg"
 // import { test } from "../../../apis/treatImg";
 
-
-// const ipfsAPI = require("ipfs-api")
-// const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
-// import {resultImg} from './treatImg'
-// import axios from "axios";
-
-// const client = create(new URL('/ip4/127.0.0.1/tcp/5001/http'))
-
-
-// const typeDetail = {
-// 	Paint: "",
-// 	HDR : "실제 사진과 비슷하게 표현된 그림이에요",
-// 	Polygon : "도형을 이어붙여 만든 느낌이 드는 그림이에요",
-// 	gouache : "수채화 물감으로 그린 그림이에요",
-// 	Comic : "",
-// 	"Line-Art" : "선만으로 표현된 그림이에요"
-// }
-
-/*
-그림(2D) < --------- > 사진(3D)
-Gouache	Line-Art Paint	Poligon	Comic	HDR
-수채화 선 물감	?	도형 물감 3D
-*/
-
 async function makeNFT() {
+  // const url="https://images.wombo.art/generated/e73fab84-d9b6-429d-bfac-a29229bb527b/final.jpg?Expires=1670928846&Signature=MDcy9NJbVgW~WIr0uL8jqTRDVayLiGbAKiftS1Q1CoUe19IaEYabvd2QIOgFbHwSQ8eqsEyc4wHcZV~-q8LdY6nPXBFi2mEL557j6fKOtmD8fIhOLC30dxsWJXzvnnM3LyigrXbGela1RdOixkrSnm1s5OURGyQTOo72k22UN9H0jxiGgFL0EVVHpomXP~kHxNHuP~4gCVy2uu~enkEGdbJVPy~0YKQBK-LEqq8ct3pq7eLU9bRd3s6QYNDwtxQHtDVbezr6FzbC~Q7fKuto~hsFt9FzMFqlGbZ-Gsh4CvOIJFcHziuYSi-2i4vaGoHBkdBbrKZiHzKq13YSlYKtWw__&Key-Pair-Id=K1ZXCNMC55M2IL"
   // getMetaInfo('QmWFsM7gBWxBsn8WYH4q7ngYgQqqEJ425BCeC8GzoBTpDz')
-  getBlob("type", "prompt")
+  // getBlob("type", "prompt")
+  // upload(url, "name", "owner", "type")
   // makeImg("type", "prompt")
 }
 
@@ -73,6 +53,7 @@ function CollectionPiece() {
         <div className="collectionName fs-32 notoBold">대왕 판다</div>
         <FontAwesomeIcon className="Angle" icon={faAngleRight} />
         <button type="button" onClick={makeNFT}>NFT 생성</button>
+        {/* <img src="https://images.wombo.art/generated/e73fab84-d9b6-429d-bfac-a29229bb527b/final.jpg?Expires=1670928846&Signature=MDcy9NJbVgW~WIr0uL8jqTRDVayLiGbAKiftS1Q1CoUe19IaEYabvd2QIOgFbHwSQ8eqsEyc4wHcZV~-q8LdY6nPXBFi2mEL557j6fKOtmD8fIhOLC30dxsWJXzvnnM3LyigrXbGela1RdOixkrSnm1s5OURGyQTOo72k22UN9H0jxiGgFL0EVVHpomXP~kHxNHuP~4gCVy2uu~enkEGdbJVPy~0YKQBK-LEqq8ct3pq7eLU9bRd3s6QYNDwtxQHtDVbezr6FzbC~Q7fKuto~hsFt9FzMFqlGbZ-Gsh4CvOIJFcHziuYSi-2i4vaGoHBkdBbrKZiHzKq13YSlYKtWw__&Key-Pair-Id=K1ZXCNMC55M2IL" alt="ai" /> */}
       </div>
     </div>
   );

@@ -2,10 +2,10 @@ const api = require('./treatImg')
 // const ABI = require('./ABI')
 // 로그인 되었다고 가정 (이미 userAddress 존재)
 // 임시로 하드코딩
-let userAddress = '0x7edc38F3511F13100AdcC4c16Ba14eC475C00776'
+// let userAddress = '0x7edc38F3511F13100AdcC4c16Ba14eC475C00776'
 
 // 민팅 전까지
-async function beforeMint(type, prompt, name) {
+async function beforeMint(type, prompt, name, userAddress='0x7edc38F3511F13100AdcC4c16Ba14eC475C00776') {
   // 이미지 생성 후 업로드
   api.imgUpload(type, prompt)
     .then((imgCid) => {
@@ -27,4 +27,5 @@ async function beforeMint(type, prompt, name) {
     })
   }
 
+beforeMint()
 exports.beforeMint = beforeMint

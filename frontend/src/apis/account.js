@@ -26,3 +26,11 @@ export const getMyArtilce = async (PARAMS) => {
   });
   return res.data;
 };
+
+// 재화 전환(충전)
+export const SsfToSave = async (PARAMS) => {
+  const res = await API_ACCOUNT.post("/credit",{
+    params : PARAMS,
+  });
+  return res.data;
+};
