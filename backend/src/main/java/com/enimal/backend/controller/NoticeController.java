@@ -21,7 +21,7 @@ import java.util.Map;
 public class NoticeController {
     private static final String okay = "SUCCESS";
     private static final String fail = "FAIL";
-    private static final String admin = "admin";
+    private static final String admin = "Enimal";
     NoticeService noticeService;
     JwtService jwtService;
     @Autowired
