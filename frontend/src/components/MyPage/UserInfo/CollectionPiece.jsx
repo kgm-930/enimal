@@ -6,15 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { getMyPiece } from "@apis/mypage";
 
-import piece1 from "@images/PieceImg/test/1.png";
-import piece2 from "@images/PieceImg/test/2.png";
-import piece3 from "@images/PieceImg/test/3.png";
-import piece4 from "@images/PieceImg/test/4.png";
-import piece5 from "@images/PieceImg/test/5.png";
-import piece6 from "@images/PieceImg/test/6.png";
-import piece7 from "@images/PieceImg/test/7.png";
-import piece8 from "@images/PieceImg/test/8.png";
-import piece9 from "@images/PieceImg/test/9.png";
+import { panda1,panda2,panda3,panda4,panda5,panda6,panda7,panda8,panda9 } from "@images/animal";
+
 
 function CollectionPiece() {
 
@@ -30,15 +23,15 @@ function CollectionPiece() {
       <h1 className="MyCollection notoBold fs-40">수집중인 컬렉션</h1>
       <div className="flex justify-center">
         <div className="puzzle grid">
-          <img className="col-4 PieceImg" src={piece1} alt="#" />
-          <img className="col-4 PieceImg" src={piece2} alt="#" />
-          <img className="col-4 PieceImg" src={piece3} alt="#" />
-          <img className="col-4 PieceImg" src={piece4} alt="#" />
-          <img className="col-4 PieceImg" src={piece5} alt="#" />
-          <img className="col-4 PieceImg" src={piece6} alt="#" />
-          <img className="col-4 PieceImg" src={piece7} alt="#" />
-          <img className="col-4 PieceImg" src={piece8} alt="#" />
-          <img className="col-4 PieceImg" src={piece9} alt="#" />
+          <img className="col-4 PieceImg" src={panda1} alt="#" />
+          <img className="col-4 PieceImg" src={panda2} alt="#" />
+          <img className="col-4 PieceImg" src={panda3} alt="#" />
+          <img className="col-4 PieceImg" src={panda4} alt="#" />
+          <img className="col-4 PieceImg" src={panda5} alt="#" />
+          <img className="col-4 PieceImg" src={panda6} alt="#" />
+          <img className="col-4 PieceImg" src={panda7} alt="#" />
+          <img className="col-4 PieceImg" src={panda8} alt="#" />
+          <img className="col-4 PieceImg" src={panda9} alt="#" />
         </div>
       </div>
       <div className="flex justify-center">

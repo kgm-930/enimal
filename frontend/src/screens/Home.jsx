@@ -22,7 +22,7 @@ function Home() {
   ]
 
   const test2 = [
-    { rank: 1, nick: 'haengsong', donation: 1000000 },
+    { rank: 1, nick: 'haengsong', donation: 100000 },
     { rank: 2, nick: 'DongDong', donation: 9000 },
     { rank: 3, nick: 'brrrr', donation: 7777 },
     { rank: 4, nick: 'yuuuuj', donation: 3333 },
@@ -66,7 +66,7 @@ function Home() {
                 <img src={todayAnimal} alt="오늘의 동물" />
               </div>
               <div className="animal_explain flex justify-center">
-                <div className="animal_explain_title notoBold fs-50">오늘의 동물11</div>
+                <div className="animal_explain_title notoBold fs-50">오늘의 동물</div>
                 <div className="animal_explain_name">
                   북극곰
                 </div>
