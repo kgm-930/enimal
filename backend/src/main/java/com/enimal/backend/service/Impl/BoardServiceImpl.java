@@ -1,8 +1,6 @@
 package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Board.*;
-import com.enimal.backend.dto.Etc.BadgeShowDto;
-import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
 import com.enimal.backend.service.BoardService;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +35,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardRegistShowDto registBoard(BoardRegistDto boardRegistDto) {
         BoardRegistShowDto boardRegistShowDto = new BoardRegistShowDto();
+        List<String> modal = new ArrayList<>();
         Board board = new Board();
         Optional<User> user = userRepository.findById(boardRegistDto.getUserId());
         List<Board> boards = boardRepository.findByUser(user);
@@ -49,7 +47,7 @@ public class BoardServiceImpl implements BoardService {
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
-            boardRegistShowDto.setModalName("업적 냠냠");
+            modal.add(badge.getBadge());
         }
         board.setUser(user.get());
         board.setTitle(boardRegistDto.getTitle());
@@ -60,6 +58,13 @@ public class BoardServiceImpl implements BoardService {
         board.setView(0);
         boardRepository.save(board);
         boardRegistShowDto.setIdx(board.getIdx());
+
+        // 뱃지 모달
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        boardRegistShowDto.setModalName(arr);
         return boardRegistShowDto;
     }
 

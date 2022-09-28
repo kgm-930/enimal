@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreditRegistDto {
-    private String modalName;
+    private String[] modalName;
 }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +49,7 @@ public class EtcServiceImpl implements EtcService {
     @Override
     public CreditRegistDto registCredit(Integer percent, Integer firstCredit, String userId) {
         CreditRegistDto creditRegistDto = new CreditRegistDto();
+        List<String> modal = new ArrayList<>();
         List<Money> moneyList = moneyRepository.findByUserId(userId);
         Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(userId, "연금술사");
         Optional<User> user = userRepository.findById(userId);
@@ -58,7 +60,7 @@ public class EtcServiceImpl implements EtcService {
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
-            creditRegistDto.setModalName(badge.getBadge());
+            modal.add(badge.getBadge());
         }
         int userCredit = user.get().getCredit();
         int userDonation = user.get().getDonation();
@@ -72,6 +74,12 @@ public class EtcServiceImpl implements EtcService {
         money.setUserId(userId);
         money.setCredit((firstCredit/100)*(100-percent));
         moneyRepository.save(money);
+        // 뱃지 모달
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        creditRegistDto.setModalName(arr);
         return creditRegistDto;
     }
 

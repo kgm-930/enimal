@@ -8,5 +8,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardRegistShowDto {
     private int idx;
-    private String modalName;
+    private String[] modalName;
 }

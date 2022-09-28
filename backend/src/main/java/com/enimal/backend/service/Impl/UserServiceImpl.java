@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BadgeShowDto loginUser(UserLoginDto userLoginDto) {
+        List<String> modal = new ArrayList<>();
         BadgeShowDto badgeShowDto = new BadgeShowDto();
         Optional<User> user = userRepository.findByWallet(userLoginDto.getWallet());
         int convertDate = LocalDateTime.now().getDayOfYear();
@@ -79,10 +80,16 @@ public class UserServiceImpl implements UserService {
                     badge.setUser(user.get());
                     badge.setPercentage(2);
                     badgeRepository.save(badge);
-                    badgeShowDto.setModalName("개근상");
+                    modal.add(badge.getBadge());
                 }
             }
         }
+        // 뱃지 모달
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        badgeShowDto.setModalName(arr);
         badgeShowDto.setResult(true);
         return badgeShowDto;
     }
@@ -128,7 +135,6 @@ public class UserServiceImpl implements UserService {
             userPostListDto.setView(board.getView());
             userPostListDtos.add(userPostListDto);
         }
-
         return userPostListDtos;
     }
 
@@ -167,7 +173,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProfileDto profileUser(String nickname) {
-
         UserProfileDto userProfileDto = new UserProfileDto();
         Optional<User> user = userRepository.findByNickname(nickname);
         if(user.isPresent()){
@@ -184,7 +189,6 @@ public class UserServiceImpl implements UserService {
                 userBadgeListDto.setBadge(badge.getBadge());
                 userBadgeListDto.setCreatedate(badge.getCreatedate());
                 userBadgeListDto.setPercentage(badge.getPercentage());
-
                 userBadgeListDtos.add(userBadgeListDto);
             }
             userProfileDto.setNickname(user.get().getNickname());
