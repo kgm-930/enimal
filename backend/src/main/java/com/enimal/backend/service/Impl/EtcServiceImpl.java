@@ -76,7 +76,7 @@ public class EtcServiceImpl implements EtcService {
         moneyRepository.save(money);
         // 업적 7번 : 환전 10000이상 - Enimal 홀릭
         Optional<Badge> isExchange = badgeRepository.findByUserIdAndBadge(userId, "Enimal 홀릭");
-        if(user.get().getDonation() >= 10000 && !isExchange.isPresent()){
+        if(user.get().getCredit() >= 10000 && !isExchange.isPresent()){
             Badge badge = new Badge();
             badge.setBadge("Enimal 홀릭");
             badge.setCreatedate(LocalDateTime.now());
@@ -87,7 +87,7 @@ public class EtcServiceImpl implements EtcService {
         }
         // 업적 8번 : 기부 1000이상 - 기부 천사
         Optional<Badge> isDonate = badgeRepository.findByUserIdAndBadge(userId, "기부 천사");
-        if(user.get().getDonation() >= 10000 && !isDonate.isPresent()){
+        if(user.get().getDonation() >= 1000 && !isDonate.isPresent()){
             Badge badge = new Badge();
             badge.setBadge("기부 천사");
             badge.setCreatedate(LocalDateTime.now());
