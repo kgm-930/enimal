@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.expression.spel.ast.StringLiteral;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,6 +27,7 @@ import java.util.Optional;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
+    private static final String admin = "Enimal";
     private NoticeRepository noticeRepository;
     private NoticeAttendenceRepository noticeAttendenceRepository;
     private UserRepository userRepository;
@@ -46,7 +46,7 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setContent(noticeRegistDto.getContent());
         notice.setCreatedate(LocalDateTime.now());
         notice.setModifydate(LocalDateTime.now());
-        notice.setUser_id("admin");
+        notice.setUser_id(admin);
         notice.setView(0);
         noticeRepository.save(notice);
         return true;
@@ -107,7 +107,9 @@ public class NoticeServiceImpl implements NoticeService {
         noticeShowDto.setTitle(notice.get().getTitle());
         noticeShowDto.setContent(notice.get().getContent());
         noticeShowDto.setNoticedate(notice.get().getModifydate());
-        notice.get().setView(notice.get().getView()+1);
+        int count = notice.get().getView();
+        notice.get().setView(count+1);
+        noticeRepository.save(notice.get());
         noticeShowDto.setView(notice.get().getView());
         return noticeShowDto;
     }
@@ -119,7 +121,10 @@ public class NoticeServiceImpl implements NoticeService {
         noticeShowDto.setTitle(notice.get().getTitle());
         noticeShowDto.setContent(notice.get().getContent());
         noticeShowDto.setNoticedate(notice.get().getModifydate());
-        noticeShowDto.setView(notice.get().getView()+1);
+        int count = notice.get().getView();
+        notice.get().setView(count+1);
+        noticeRepository.save(notice.get());
+        noticeShowDto.setView(notice.get().getView());
         return noticeShowDto;
     }
     @Override
