@@ -142,7 +142,7 @@ function AllDraw() {
         </div>
         <div className="drawCard">
           <img className="drawImg" src={egg24} alt="#" />
-          <h1 className="fs-14 notoBold drawTitle">검은발족제비</h1>
+          <h1 className="fs-14 notoBold drawTitle">저어새</h1>
         </div>
       </div>
       <button className="drawButton fs-28 notoBold" onClick={e=>drawButton(e)} id="collection" type="button">전체 뽑기 (가격)</button>
