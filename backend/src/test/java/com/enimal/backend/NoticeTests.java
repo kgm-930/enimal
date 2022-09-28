@@ -66,7 +66,7 @@ class NoticeTests {
 		Integer idx = 5;
 		Optional<Notice> notice = noticeRepository.findById(idx);
 		NoticeShowDto noticeShowDto = new NoticeShowDto();
-		noticeShowDto.setUser_id(notice.get().getUser_id());
+		noticeShowDto.setUserId(notice.get().getUser_id());
 		noticeShowDto.setTitle(notice.get().getTitle());
 		noticeShowDto.setContent(notice.get().getContent());
 		noticeShowDto.setNoticedate(notice.get().getModifydate());
