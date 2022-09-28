@@ -6,10 +6,8 @@ COPY ./ ./
 RUN npm run build
 FROM nginx
 
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-
+EXPOSE 3000
 
 COPY --from=builder /var/jenkins/workspace/front/frontend/build /usr/share/nginx/html
-#COPY --from=build-stage /var/jenkins_home/workspace/deploytest/testproject_react/deploy_conf/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 3000
+
 CMD ["nginx", "-g","daemon off;"]
