@@ -17,6 +17,8 @@ import piece9 from "@images/PieceImg/test/9.png";
 
 // import ipfsAPI from "ipfs-api";
 import {getBlob} from "@apis/treatImg"
+// import {makeImg} from "@apis/treatImg"
+// import { test } from "../../../apis/treatImg";
 
 
 // const ipfsAPI = require("ipfs-api")
@@ -43,7 +45,9 @@ Gouache	Line-Art Paint	Poligon	Comic	HDR
 */
 
 async function makeNFT() {
-  getBlob("타입", "검색어")
+  // getMetaInfo('QmWFsM7gBWxBsn8WYH4q7ngYgQqqEJ425BCeC8GzoBTpDz')
+  getBlob("type", "prompt")
+  // makeImg("type", "prompt")
 }
 
 function CollectionPiece() {

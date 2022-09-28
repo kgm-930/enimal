@@ -2,6 +2,8 @@ import {NFTStorage} from 'nft.storage'
 // const ipfsAPI = require('ipfs-api')
 // import ipfsAPI from 'ipfs-api'
 // const Buffer = require('buffer')
+
+// import fetchJsonp from 'fetch-jsonp'
 import axios from 'axios'
 
 const WomboDream = require('./dream-api/dist/app')
@@ -9,7 +11,13 @@ const WomboDream = require('./dream-api/dist/app')
 // import mime from 'mime'
 // import fs from 'fs'
 // import path from 'path'
-const API_KEY = process.env.REACT_APP_NFT_STORAGE_KEY
+// const API_KEY = process.env.REACT_APP_NFT_STORAGE_KEY
+// const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk3MGFENGFGNDliYzA3ODg5NEM5NzM3QzBDRWVENkUxODJCOEFhMDIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2NDI4NTE2NzM1MSwibmFtZSI6ImVuaW1hbCJ9.pa-Qnsx2llaA4DKjlHG9R6aaLoSm29FIsDfS_LqLoe8"
+// const client = new NFTStorage({
+// 	token: API_KEY
+// })
+
+
 
 // 배포 시 이 부분 수정 필요
 // 터미널 창 - ipfs config Addresses.API
@@ -49,8 +57,6 @@ const convert = {
 	'상괭이':'finless porpoise', '듀공':'dugong', '매':'hawk'
 }
 
-const client = new NFTStorage({token: API_KEY})
-
 // ai 이미지 생성
 export async function makeImg(type, enimal) {
 	let prompt
@@ -66,15 +72,28 @@ export async function makeImg(type, enimal) {
 }
 
 // 이미지 데이터를 Blob화
+//* cors error!!
 export async function getBlob(type, prompt) {
 	console.log(type, prompt)
 	// const url = await makeImg(type, prompt)
-	const url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fnamu.wiki%2Fw%2F%25EC%2582%25AC%25EC%25A7%2584&psig=AOvVaw2HCXTldz9OQVYbw8-tfVwT&ust=1664373232633000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjW4MuPtfoCFQAAAAAdAAAAABAO"
-	axios.get(url)
-	.then((res) => {
-		console.log(res)
-		console.log(res.blob())
+	const url = "//images.wombo.art/generated/e73fab84-d9b6-429d-bfac-a29229bb527b/final.jpg?Expires=1670928846&Signature=MDcy9NJbVgW~WIr0uL8jqTRDVayLiGbAKiftS1Q1CoUe19IaEYabvd2QIOgFbHwSQ8eqsEyc4wHcZV~-q8LdY6nPXBFi2mEL557j6fKOtmD8fIhOLC30dxsWJXzvnnM3LyigrXbGela1RdOixkrSnm1s5OURGyQTOo72k22UN9H0jxiGgFL0EVVHpomXP~kHxNHuP~4gCVy2uu~enkEGdbJVPy~0YKQBK-LEqq8ct3pq7eLU9bRd3s6QYNDwtxQHtDVbezr6FzbC~Q7fKuto~hsFt9FzMFqlGbZ-Gsh4CvOIJFcHziuYSi-2i4vaGoHBkdBbrKZiHzKq13YSlYKtWw__&Key-Pair-Id=K1ZXCNMC55M2IL"
+	axios({
+		url,
+		method: 'get',
+		headers: {
+			"Access-Control-Allow-Origin" : "*"
+		}
 	})
+	
+	// fetchJsonp(url)
+	// 	.then((res) => {
+	// 		console.log(res)
+	// 		console.log(res.blob())
+	// 	})
+	// 	.catch((err) => {
+	// 		console.log(err)
+	// 	})
+
 	// return new Promise(() => {
 	// 	makeImg(type, prompt)
 	// 		.then((url) => {
@@ -88,12 +107,17 @@ export async function getBlob(type, prompt) {
 }
 
 // cid로 메타데이터 정보 조회
-// async function getMetaInfo(cid) {
-// 	const result = await ipfs.cat(cid)
-// 	const strResult = result.toString('utf-8')
-// 	// console.log(strResult)
-// 	return strResult
-// }
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk3MGFENGFGNDliYzA3ODg5NEM5NzM3QzBDRWVENkUxODJCOEFhMDIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2NDI4NTE2NzM1MSwibmFtZSI6ImVuaW1hbCJ9.pa-Qnsx2llaA4DKjlHG9R6aaLoSm29FIsDfS_LqLoe8"
+const client = new NFTStorage({
+	token: API_KEY,
+	// endpoint: 'https://ipfs.io/ipfs/'
+})
+export async function getMetaInfo(cid) {
+	// cors 에러
+	const result = await client.status(cid)
+	console.log(result)
+	return result
+}
 
 // ipfs에 메타데이터 업로드
 export async function upload(image, name, owner, type) {
@@ -104,13 +128,19 @@ export async function upload(image, name, owner, type) {
 		date: Date.now(),
 		type,
 	}
+	// image: new File(['<DATA>'], 'pinpie.jpg', { type: 'image/jpg' }),
 	const metadata = await client.store(json)
 	console.log(metadata)
 	return metadata
 }
 
-// exports.makeImg = makeImg
-// exports.getBlob = getBlob
-// exports.getMetaInfo = getMetaInfo
-// exports.metaUpload = metaUpload
-
+// For example's sake, we'll fetch an image from an HTTP URL.
+// In most cases, you'll want to use files provided by a user instead.
+export async function getExampleImage() {
+  const imageOriginUrl = "https://user-images.githubusercontent.com/87873179/144324736-3f09a98e-f5aa-4199-a874-13583bf31951.jpg"
+  const r = await fetch(imageOriginUrl)
+  if (!r.ok) {
+    throw new Error(`error fetching image: [${r.statusCode}]: ${r.status}`)
+  }
+  return r.blob()
+}
