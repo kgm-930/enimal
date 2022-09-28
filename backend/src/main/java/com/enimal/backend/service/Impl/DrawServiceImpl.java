@@ -313,7 +313,8 @@ public class DrawServiceImpl implements DrawService {
     @Override
     public AnimalSelectDrawDto drawSelectAnimal(String userId, String animal) {
         List<String> modal = new ArrayList<>();
-        String choiceEnimal = animal;
+        Animal optionalAnimal =  animalRepository.findByAnimal(animal).get();
+        String choiceEnimal = optionalAnimal.getAnimal();
         Long hap = badgeRepository.countByUserId(userId); // 내가 가진 업적 확인하기
         boolean drawType = false; //0일때는 전체 뽑기, 1일때는 미보유 뽑기
         int randombox = 0;

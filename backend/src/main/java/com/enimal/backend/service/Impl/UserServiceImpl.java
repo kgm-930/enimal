@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserMoneyListDto> listMoneyUser(String userId) {
         List<UserMoneyListDto> userMoneyListDtos = new ArrayList<>();
-        List<Money> monies = moneyRepository.findByUserId("test");
+        List<Money> monies = moneyRepository.findByUserId(userId);
         for(Money money : monies){
             UserMoneyListDto userMoneyListDto = new UserMoneyListDto();
             userMoneyListDto.setUseCredit(money.getCredit());
