@@ -22,7 +22,7 @@ function Home() {
   // console.log(todayAnimal)
   // // console.log(todayAnimal.animal)
 
-  const [todayAnimal, setTodayAnimal] = useState(null);
+  const [todayAnimal, setTodayAnimal] = useState([]);
   useEffect(() => {
     getTodayAnimal().then(res => {
       console.log(res);
@@ -102,13 +102,10 @@ function Home() {
                   오늘의 동물
                 </div>
                 <div className="animal_explain_name flex justify-center notoBold fs-32">
-                  {/* {todayAnimal.animal} */}ㅇ
+                  {todayAnimal.animal}
                 </div>
                 <div className="animal_explain_content notoMid fs-28">
-                  백곰이라고도 한다. 암컷은 수컷보다 몸이 작다. 다른 곰보다
-                  머리가 작고 목이 길며 귀는 작고 둥글다. 발바닥에는 털이 있으며
-                  척구(蹠球)는 작아서 얼음 위를 걸어 다니기에 알맞다. 몸빛은
-                  털갈이 직후에는 흰색이나 차츰 황백색으로 변한다.
+                  {todayAnimal.content}
                 </div>
                 <div className="animal_explain_btn flex justify-center">
                   <button
