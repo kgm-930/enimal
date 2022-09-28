@@ -2,7 +2,7 @@ package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
-import com.enimal.backend.service.AnimalService;
+import com.enimal.backend.service.EtcService;
 import com.enimal.backend.service.DrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,11 +22,11 @@ public class DrawController {
     private static final String okay = "SUCCESS";
     private static final String fail = "FAIL";
     private static final String noCredit = "noCredit";
-    AnimalService animalService;
+    EtcService etcService;
     DrawService drawService;
     @Autowired
-    DrawController(AnimalService animalService,DrawService drawService){
-        this.animalService = animalService;
+    DrawController(EtcService etcService, DrawService drawService){
+        this.etcService = etcService;
         this.drawService = drawService;
     }
     @PostMapping("/draw/all") // 전체 뽑기
