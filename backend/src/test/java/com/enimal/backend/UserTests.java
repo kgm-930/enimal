@@ -40,8 +40,9 @@ class UserTests {
 	MoneyRepository moneyRepository;
 	CollectionRepository collectionRepository;
 	BadgeRepository badgeRepository;
+	EventDayRepository eventDayRepository;
 	@Autowired
-	public UserTests(PuzzleRepository puzzleRepository, BadgeRepository badgeRepository, CollectionRepository collectionRepository, MoneyRepository moneyRepository, NoticeRepository noticeRepository, JwtService jwtService, UserRepository userRepository, AttendenceRepository attendenceRepository, BoardRepository boardRepository, CommentRepository commentRepository){
+	public UserTests(PuzzleRepository puzzleRepository, BadgeRepository badgeRepository, CollectionRepository collectionRepository, MoneyRepository moneyRepository, NoticeRepository noticeRepository, JwtService jwtService, UserRepository userRepository, AttendenceRepository attendenceRepository, BoardRepository boardRepository, CommentRepository commentRepository,EventDayRepository eventDayRepository){
 		this.noticeRepository = noticeRepository;
 		this.puzzleRepository = puzzleRepository;
 		this.badgeRepository = badgeRepository;
@@ -52,6 +53,7 @@ class UserTests {
 		this.attendenceRepository = attendenceRepository;
 		this.boardRepository = boardRepository;
 		this.commentRepository = commentRepository;
+		this.eventDayRepository = eventDayRepository;
 	}
 	@Test
 	void 공지사항_등록_테스트() {
@@ -82,6 +84,7 @@ class UserTests {
 		}else if(!user.isPresent() && userLoginDto.getId() == null){
 			System.out.println("실패");
 		}
+		// 업적 12번 : 환경 기념일 방문
 
 		Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
 		if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
