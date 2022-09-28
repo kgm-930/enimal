@@ -4,8 +4,14 @@ import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.Notice.NoticeShowDto;
 import com.enimal.backend.dto.Notice.NoticeUpdateDto;
+import com.enimal.backend.entity.Badge;
 import com.enimal.backend.entity.Notice;
+import com.enimal.backend.entity.NoticeAttendence;
+import com.enimal.backend.entity.User;
+import com.enimal.backend.repository.BadgeRepository;
+import com.enimal.backend.repository.NoticeAttendenceRepository;
 import com.enimal.backend.repository.NoticeRepository;
+import com.enimal.backend.repository.UserRepository;
 import com.enimal.backend.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +29,15 @@ import java.util.Optional;
 @Service
 public class NoticeServiceImpl implements NoticeService {
     private NoticeRepository noticeRepository;
+    private NoticeAttendenceRepository noticeAttendenceRepository;
+    private UserRepository userRepository;
+    private BadgeRepository badgeRepository;
     @Autowired
-    NoticeServiceImpl(NoticeRepository noticeRepository){
+    NoticeServiceImpl(NoticeRepository noticeRepository,NoticeAttendenceRepository noticeAttendenceRepository,UserRepository userRepository,BadgeRepository badgeRepository){
         this.noticeRepository = noticeRepository;
+        this.noticeAttendenceRepository = noticeAttendenceRepository;
+        this.userRepository = userRepository;
+        this.badgeRepository = badgeRepository;
     }
     @Override
     public boolean registNotice(NoticeRegistDto noticeRegistDto) {
@@ -60,10 +72,50 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeListDtos;
     }
     @Override
+    public NoticeShowDto detailNotice(String userId, Integer idx) {
+        Optional<Notice> notice = noticeRepository.findById(idx);
+        Optional<NoticeAttendence> noticeAttendenceList = noticeAttendenceRepository.findByUserIdAndNoticeIdx(userId,idx);
+        List<Notice> notices = noticeRepository.findAll(); // 공지사항 총 개수
+        if(!noticeAttendenceList.isPresent()){
+            NoticeAttendence noticeAttendence = new NoticeAttendence();
+            noticeAttendence.setUserId(userId);
+
+            noticeAttendence.setNoticeIdx(idx);
+            noticeAttendenceRepository.save(noticeAttendence);
+        }
+        List<NoticeAttendence> noticeAttendences = noticeAttendenceRepository.findByUserId(userId);
+        Optional<User> user = userRepository.findById(userId);
+        NoticeShowDto noticeShowDto = new NoticeShowDto();
+        List<Badge> list = badgeRepository.findByUserId(userId);
+        Boolean isBadge = true;
+        for(int i=0;i<list.size();i++){ // 뱃지 있는지 확인
+            if((list.get(i).getBadge()).equals("Enimal 애호가")){
+                isBadge = false;
+                break;
+            }
+        }
+        if(isBadge&&noticeAttendences.size()==notices.size()){
+            Badge badge = new Badge();
+            badge.setBadge("Enimal 애호가");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            noticeShowDto.setModalName(badge.getBadge());
+        }
+        noticeShowDto.setUserId(notice.get().getUser_id());
+        noticeShowDto.setTitle(notice.get().getTitle());
+        noticeShowDto.setContent(notice.get().getContent());
+        noticeShowDto.setNoticedate(notice.get().getModifydate());
+        notice.get().setView(notice.get().getView()+1);
+        noticeShowDto.setView(notice.get().getView());
+        return noticeShowDto;
+    }
+    @Override
     public NoticeShowDto detailNotice(Integer idx) {
         Optional<Notice> notice = noticeRepository.findById(idx);
         NoticeShowDto noticeShowDto = new NoticeShowDto();
-        noticeShowDto.setUser_id(notice.get().getUser_id());
+        noticeShowDto.setUserId(notice.get().getUser_id());
         noticeShowDto.setTitle(notice.get().getTitle());
         noticeShowDto.setContent(notice.get().getContent());
         noticeShowDto.setNoticedate(notice.get().getModifydate());

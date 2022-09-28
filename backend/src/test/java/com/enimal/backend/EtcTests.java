@@ -21,14 +21,17 @@ public class EtcTests {
     PuzzleRepository puzzleRepository;
     UserRepository userRepository;
     CollectionRepository collectionRepository;
+    NoticeAttendenceRepository noticeAttendenceRepository;
+    NoticeRepository noticeRepository;
     @Autowired
-    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository, UserRepository userRepository,CollectionRepository collectionRepository){
+    EtcTests(AnimalRepository animalRepository,BadgeRepository badgeRepository,PuzzleRepository puzzleRepository, UserRepository userRepository,CollectionRepository collectionRepository,NoticeAttendenceRepository noticeAttendenceRepository,NoticeRepository noticeRepository){
         this.animalRepository = animalRepository;
         this.badgeRepository = badgeRepository;
         this.puzzleRepository = puzzleRepository;
         this.userRepository = userRepository;
         this.collectionRepository = collectionRepository;
-
+        this.noticeAttendenceRepository = noticeAttendenceRepository;
+        this.noticeRepository = noticeRepository;
     }
     @Test
     void 오늘의_동물_조회(){
@@ -310,5 +313,17 @@ public class EtcTests {
         if(lastPuzzle.equals(animal)){
             System.out.println("연속");
         }
+    }
+    @Test
+    void 모든_공지사항_확인(){
+        String userId = "test233";
+        List<NoticeAttendence> noticeAttendences = noticeAttendenceRepository.findByUserId(userId);
+        List<Notice> notices = noticeRepository.findAll(); // 공지사항 총 개수
+        System.out.println(notices.size());
+        System.out.println(noticeAttendences.size());
+        if(noticeAttendences.size()==notices.size()){
+            System.out.println("모두 확인");
+        }
+        else System.out.println("더 보세요");
     }
 }
