@@ -85,7 +85,10 @@ class UserTests {
 			System.out.println("실패");
 		}
 		// 업적 12번 : 환경 기념일 방문
-
+		LocalDateTime todayDate = LocalDateTime.now();
+		System.out.println(todayDate.toString());
+		String todayDay = todayDate.toString().substring(5,10);
+		System.out.println(todayDay);
 		Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
 		if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
 
