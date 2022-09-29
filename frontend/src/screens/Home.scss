@@ -21,8 +21,10 @@
   margin-top: vw(150px);
   &_pic {
     width: vw(630px);
-    height: vw(700px);
+    height: vw(680px);
+    margin-right: vw(60px);
     img{
+      border-radius: vw(30px);
       width: 100%;
       height: 100%;
       overflow: hidden;
@@ -30,8 +32,35 @@
   }
 
   &_explain {
-    flex-direction: column;
-    
+    width: vw(500px);
+    &_title {
+      color: $WHITE;
+      background-color: $BTN-8B;
+      height: vw(60px);
+      align-items: center;
+      border-radius: vw(20px);
+      margin-bottom: vw(56px);
+    }
+
+    &_name {
+      color: $GRAY-40;
+      margin-bottom: vw(32px);
+    }
+
+    &_content {
+      color: $GRAY-40;
+      word-spacing: vw(6px);
+      line-height: vw(40px);
+    }
+
+    button {
+      width: vw(200px);
+      height: vw(88px);
+      background-color: $BTN-8B;
+      color: $WHITE;
+      border-radius: vw(20px);
+      margin-top: vw(170px);
+    }
   }
 }
 
