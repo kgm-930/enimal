@@ -25,8 +25,9 @@ public class UserServiceImpl implements UserService {
     private MoneyRepository moneyRepository;
     private CollectionRepository collectionRepository;
     private BadgeRepository badgeRepository;
+    private EventDayRepository eventDayRepository;
     @Autowired
-    UserServiceImpl(PuzzleRepository puzzleRepository,CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+    UserServiceImpl(PuzzleRepository puzzleRepository,CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository,EventDayRepository eventDayRepository){
         this.userRepository = userRepository;
         this.moneyRepository = moneyRepository;
         this.collectionRepository = collectionRepository;
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
         this.boardRepository = boardRepository;
         this.commentRepository = commentRepository;
         this.puzzleRepository = puzzleRepository;
+        this.eventDayRepository = eventDayRepository;
     }
 
     @Override
@@ -65,6 +67,20 @@ public class UserServiceImpl implements UserService {
             attendence.setAttenddate(LocalDateTime.now());
             attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
+            // 업적 12번 : 환경 기념일 방문
+            String todayDay = attendence.getAttenddate().toString().substring(5,10);
+            Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(user.get().getId(),"환경 지킴이");
+            Optional<EventDay> eventDay = eventDayRepository.findByEventDate(todayDay);
+            if(!isBadge.isPresent()&&eventDay.isPresent()){
+                Badge badge = new Badge();
+                badge.setBadge("환경 지킴이");
+                badge.setCreatedate(LocalDateTime.now());
+                badge.setUser(user.get());
+                badge.setPercentage(2);
+                badgeRepository.save(badge);
+                modal.add(badge.getBadge());
+                badgeShowDto.setEventDayName(eventDay.get().getEventName());
+            }
         }
         // 업적 6번 : 일주일 연속 출석체크 한 경우 -> 화면에 로그인시 뱃지 얻었다고 보여주는지
         List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(userLoginDto.getId());
