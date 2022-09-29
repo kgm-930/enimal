@@ -46,7 +46,6 @@ function Home() {
   ];
 
   const test2 = [
-<<<<<<< HEAD
     { rank: 1, nick: "haengsong", donation: 10000 },
     { rank: 2, nick: "DongDong", donation: 9000 },
     { rank: 3, nick: "brrrr", donation: 7777 },
@@ -58,19 +57,6 @@ function Home() {
     { rank: 9, nick: "yong", donation: 150 },
     { rank: 10, nick: "dooo", donation: 100 }
   ];
-=======
-    { rank: 1, nick: 'haengsong', donation: 1000000 },
-    { rank: 2, nick: 'DongDong', donation: 9000 },
-    { rank: 3, nick: 'brrrr', donation: 7777 },
-    { rank: 4, nick: 'yuuuuj', donation: 3333 },
-    { rank: 5, nick: 'SeulSeul', donation: 2600 },
-    { rank: 6, nick: 'won', donation: 700 },
-    { rank: 7, nick: 'hyhy', donation: 400 },
-    { rank: 8, nick: 'hee', donation: 300 },
-    { rank: 9, nick: 'yong', donation: 150 },
-    { rank: 10, nick: 'dooo', donation: 100 }
-  ]
->>>>>>> 2222f9f120794805da5aa9f4ec05577af27ce78a
 
   return (
     <>
@@ -111,16 +97,9 @@ function Home() {
               <div className="animal_pic">
                 <img src={todayAnimall} alt="오늘의 동물" />
               </div>
-<<<<<<< HEAD
               <div className="animal_explain">
                 <div className="animal_explain_title notoBold fs-40 flex justify-center">
                   오늘의 동물
-=======
-              <div className="animal_explain flex justify-center">
-                <div className="animal_explain_title notoBold fs-50">오늘의 동물11</div>
-                <div className="animal_explain_name">
-                  북극곰
->>>>>>> 2222f9f120794805da5aa9f4ec05577af27ce78a
                 </div>
                 <div className="animal_explain_name flex justify-center notoBold fs-32">
                   {todayAnimal.animal}
