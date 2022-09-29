@@ -1,6 +1,6 @@
 import React, { useState, } from "react";
 import './MyPage.scss'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import UserInfo from "@components/MyPage/UserInfo";
 import Check from "@components/MyPage/Check";
@@ -16,7 +16,7 @@ function MyPage() {
   const [Tab, setTab] = useState('info')
   const tabList = ['info', 'check', 'point', 'article']
   const userId = useParams().userid;
-
+  const navigate = useNavigate();
   let MyPageTab = null
   if (Tab === 'info') {
     MyPageTab = <UserInfo userId={userId} />
@@ -40,11 +40,16 @@ function MyPage() {
     }
   }
 
-  function deleteAccount(e){
+  function deleteAccount(e) {
     e.preventDefault();
-    if (window.confirm("정말로 계정을 삭제하시겠습니까?")){
-      getDeleteUser().then(res=>{
+    if (window.confirm("정말로 계정을 삭제하시겠습니까?")) {
+      getDeleteUser().then(res => {
         console.log(res)
+        localStorage.removeItem('token')
+        localStorage.removeItem('MyNick')
+        localStorage.removeItem('myAddress')
+        alert("계정 삭제가 완료되었습니다!")
+        navigate('/')
       })
     }
   }
@@ -55,7 +60,7 @@ function MyPage() {
         <img className="profileImg" src={BaseImg} alt="#" />
         <h1 className="fs-40 roBold userNick">{userId}</h1>
         {userId === localStorage.MyNick ?
-          <button className="deleteButton fs-15 notoReg mx-3" onClick={e=>deleteAccount(e)} type="button">회원 탈퇴</button>
+          <button className="deleteButton fs-15 notoReg mx-3" onClick={e => deleteAccount(e)} type="button">회원 탈퇴</button>
           : null
         }
 

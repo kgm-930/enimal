@@ -8,9 +8,8 @@ import DrawSlide from "./DrawSlide";
 
 
 function DrawModal(props){
-  const { open, close,header } = props;
+  const { open, close,piece } = props;
   const navigate = useNavigate();
-  console.log(header)
 
   function goMypage(){
     navigate(`/mypage/${localStorage.MyNick}`);
@@ -27,7 +26,7 @@ function DrawModal(props){
          
           <main>
             <div className="DrawBox">
-              <DrawSlide />
+              <DrawSlide piece={piece} />
             </div>
           </main>
           <footer>

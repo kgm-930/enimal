@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import "./SelectDraw.scss";
 
 
@@ -30,8 +30,10 @@ import egg24 from '@images/eggs/egg24.png'
 
 import DrawModal from "./DrawModal";
 
+
+
 function SelectDraw() {
-  const [selectImg,setSelectImg] = useState(null)
+  const [selectImg, setSelectImg] = useState(null)
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -42,7 +44,7 @@ function SelectDraw() {
     setModalOpen(false);
   };
 
-  function drawButton(e){
+  function drawButton(e) {
     e.preventDefault();
     console.log(1234)
     openModal()
@@ -51,18 +53,18 @@ function SelectDraw() {
   function select(e) {
     e.preventDefault();
     if (selectImg) {
-      document.getElementById(selectImg).parentElement.className="drawCard2";
+      document.getElementById(selectImg).parentElement.className = "drawCard2";
     }
     setSelectImg(e.currentTarget.id)
 
   }
 
   function mouseover(e) {
-    document.getElementById(e.currentTarget.id).parentElement.className="selectedCard";
+    document.getElementById(e.currentTarget.id).parentElement.className = "selectedCard";
   }
-  function unSelect(e){
-    if (selectImg !== e.currentTarget.id){
-      document.getElementById(e.currentTarget.id).parentElement.className="drawCard2";
+  function unSelect(e) {
+    if (selectImg !== e.currentTarget.id) {
+      document.getElementById(e.currentTarget.id).parentElement.className = "drawCard2";
     }
 
   }
@@ -429,12 +431,17 @@ function SelectDraw() {
             <h1 className="fs-14 notoBold drawTitle">저어새</h1>
           </button>
         </div>
+
+
+
+
+
       </div>
       <button
         className="drawButton fs-28 notoBold"
         id="collection"
         type="button"
-        onClick={e=>drawButton(e)}
+        onClick={e => drawButton(e)}
       >
         선택 뽑기 (가격)
       </button>

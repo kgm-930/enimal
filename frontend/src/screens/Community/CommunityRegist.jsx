@@ -3,13 +3,13 @@ import "./CommunityRegist.scss";
 
 import clickLogo from "@assets/icons/ads_click_black_24dp.svg"
 import { getCreateArticle } from "@apis/community";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CommunityRegist() {
 
   const [Title, setTitle] = useState(null)
   const [Content, setContent] = useState(null)
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function createArticle(e) {
     e.preventDefault();
@@ -20,7 +20,7 @@ function CommunityRegist() {
     }
     getCreateArticle(DATA).then(res => {
       console.log(res)
-      // navigate('/community')
+      navigate(`/community/detail/${res.data.idx}`)
     })
   }
   function chaengtitle(e) {
