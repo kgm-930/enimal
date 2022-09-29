@@ -10,5 +10,6 @@ import lombok.Setter;
 public class BadgeShowDto {
     private String userId;
     private String[] modalName;
+    private String eventDayName;
     private Boolean result;
 }
