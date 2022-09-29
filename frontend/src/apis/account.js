@@ -28,9 +28,9 @@ export const getMyArtilce = async (PARAMS) => {
 };
 
 // 재화 전환(충전)
-export const SsfToSave = async (PARAMS) => {
+export const chargeSave = async (DATA) => {
   const res = await API_ACCOUNT.post("/credit",{
-    params : PARAMS,
+    data : DATA,
   });
   return res.data;
 };

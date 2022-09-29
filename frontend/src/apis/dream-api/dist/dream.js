@@ -1,7 +1,10 @@
 const axios = require('axios').default;
 const Authentication = require('./auth');
 
-const API_URL = "https://paint.api.wombo.ai/api/tasks/"
+const API_URL = "https://cors-anywhere.hreokuapp.com/https://paint.api.wombo.ai/api/tasks/"
+
+axios.defaults.headers['Access-Control-Allow-Origin'] = true
+// axios.defaults.withCredentials = "*"
 
 function defineHeaders(token, type = "text/plain;charset=UTF-8") {
 	return {
@@ -15,7 +18,7 @@ function defineHeaders(token, type = "text/plain;charset=UTF-8") {
 const getTaskID = (token) => {
 	new Promise((resolve) => {
 		axios.post(API_URL, '{ "premium": false }', {
-			headers: defineHeaders(token)
+			headers: {...defineHeaders(token), 'Access-Control-Allow-Origin': '*'}
 			})
 			.then((response) => {
 				resolve(response.data.id);

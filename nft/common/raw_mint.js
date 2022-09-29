@@ -1,9 +1,10 @@
-const { axios } = require('axios')
-const api = require('./api')
+// const { axios } = require('axios')
+// const api = require('./api')
 const ABI = require('./ABI')
 const Web3 = require('web3')
+const Tx = require('ethereumjs-tx').Transaction;
 
-const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
+const web3 = new Web3(new Web3.providers.HttpProvider('http://20.41.85.203:8545'))
 const CA = '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A'
 const {ENIMAL_ABI} = ABI.ABI.CONTRACT_ABI
 const enimalContract = new web3.eth.Contract(ENIMAL_ABI, CA)
@@ -16,6 +17,7 @@ const enimalContract = new web3.eth.Contract(ENIMAL_ABI, CA)
 
 
 // 로그인 되었다고 가정 (이미 userAddress 존재)
+// let userAddress = '0x01E04dfC7240B86D115Ed2C232953B0E71333290'
 let userAddress = '0x7edc38F3511F13100AdcC4c16Ba14eC475C00776'
 
 // 트랜잭션 해시 - etherscan에서 확인 가능한지 모르겠음
@@ -25,7 +27,95 @@ let transactionHash
 Returned error: The method eth_sendTransaction is not supported.
 Use eth_sendRawTransaction to send a signed transaction to Besu.
 */
+function test() {
+  // const val
+  const privateKey = '600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
+  let data = enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD').encodeABI()
+  const nonce = web3.eth.getTransactionCount(userAddress, 'pending')
+  const tx = {
+    to: CA,
+    from: userAddress,
+    data,
+    gas: web3.utils.toHex(100000),
+    nonce: web3.utils.toHex(nonce),
+    value: web3.utils.toHex(0),
+    // chainId: web3.eth.getChainId()
+    // common: {
+    //   customChain: {
+    //     name: 'SSAFY',
+    //     chainId: 31221,
+    //     networkId: 202112031219
+    //   }
+    // }
+  }
+  const newTx = new Tx(tx)
+  const privKey = Buffer.from(privateKey, 'hex')
+  newTx.sign(privKey)
+  const serializedTx = newTx.serialize();
+  const raw = '0x' + serializedTx.toString('hex');
+  
+  web3.eth.sendSignedTransaction(raw)
+    .once('transactionHash', (hash) => {
+      console.info('transactionHash', hash);
+    })
+    .once('receipt', (receipt) => {
+      console.info('receipt', receipt);
+  }).on('error', console.error);
+}
+// test()
 
+
+function test2() {
+  // const val
+  const privateKey = '9633ab4de4f165c90a031af88a8d5608dcadd2ab99599834c94fab3d77db87cf'
+  const nonce = web3.eth.getTransactionCount(userAddress, 'latest')
+  // const privateKey = '600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
+  let data = enimalContract.methods.create(userAddress, "ipfs://QmQ9WiLHHoYRXFM7gbwpp6JgnT8PV3m1EJfKFSQjVMr57F").encodeABI()
+  const tx = {
+    gas: web3.utils.toHex(400000),
+    to: userAddress,
+    nonce: web3.utils.toHex(nonce)
+  }
+  // const tx = {
+  //   to: CA,
+  //   from: userAddress,
+  //   data,
+  //   nonce: web3.utils.toHex(nonce),
+  //   gas: web3.utils.toHex(300000),
+  //   value: web3.utils.toHex(0),
+  // }
+  web3.eth.accounts.signTransaction(tx, '0x' + privateKey)
+  .then(res => {
+    const raw = res.rawTransaction
+    console.log('res', raw)
+    web3.eth.sendSignedTransaction(raw)
+    .once('receipt', (receipt) => {
+      console.info('receipt', receipt)
+    })
+    .once('transactionHash', (hash) => {
+      console.info('transactionHash', hash);
+    }).on('error', console.error);
+  })
+}
+test2()
+// web3.eth.getTransactionCount(userAddress, 'pending')
+// .then(console.log)
+// web3.eth.getTransactionCount(userAddress, 'earliest')
+// .then(console.log)
+// web3.eth.getTransactionCount(userAddress, 'latest')
+// .then(console.log)
+
+// function test3() {
+//   let raw = '0xf90109827b7d808301adb094dc2935c9dbbeccfddafe54098dea09d2f92bc48a80b8a4a15ab08d0000000000000000000000007edc38f3511f13100adcc4c16ba14ec475c007760000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003622697066733a2f2f516d535a4350597765547a654747427a5a4e416e70705437444b66786774756e4645725356686f4a33337357796b0000000000000000000082f40da0315b8dd1f40817e83b718165feea4ee971a6498f3566294dbf1018c091d5a90ca049bc5f1ed346650c713e5d676239a407090da19dbbf92684f5b425b5406176cc'
+//   web3.eth.sendSignedTransaction(raw)
+//     .once('receipt', (receipt) => {
+//       console.info('receipt', receipt);
+//     })
+//     .once('transactionHash', (hash) => {
+//       console.info('transactionHash', hash);
+//     }).on('error', console.error);
+// }
+// test3()
 
 
 
@@ -72,10 +162,10 @@ function mint(tokenURI) {
   //   return tokenId
   }
 
+  
 
   // front
   async function sendTx(value, data){ 
-    const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
     // const result = await enimalContract.methods.create(userAddress, 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD')
     // console.log(result)
 
@@ -219,7 +309,7 @@ function mint(tokenURI) {
     // .on('transactionHash', (txHash) => res.json({txHash}))
     // .on('error', console.log)
   }
-sendTx(0, {to: userAddress, tokenURI : 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD'})
+// sendTx(0, {to: userAddress, tokenURI : 'ipfs://QmYTSMMcFCzesFSk9sK7oL2v9WvjLc75Fp6CbvSDsQ1PnD'})
 // sendTx(0, {owner: userAddress})
 
 
@@ -257,33 +347,33 @@ async function saveInfo(metaData) {
 }
 
 
-async function makeNft(type, prompt, name) {
-  // 이미지 생성 후 업로드
-  api.imgUpload(type, prompt)
-    .then((imgCid) => {
-      // 메타데이터 생성 후 업로드
-      api.metaUpload(imgCid, name, userAddress, type)
-        .then((metaData) => {
-          // 민팅 (스마트 컨트랙트와 상호작용)
-          mint(metaData.metaCid)
-            .then((tokenId) => {
-              // 백에 메타데이터와 tokenId, transactionHash 전달
-              saveInfo({...metaData, tokenId, transactionHash})
-            })
-            .catch((err) => {
-              console.log(err)
-              console.log('민팅 관련 오류')
-            })
-        })
-        .catch((err) => {
-          console.log(err)
-          console.log('메타데이터 관련 오류')
-        })
-    })
-    .catch((err) => {
-      console.log(err)
-      console.log('이미지 생성 관련 오류')
-    })
-  }
+// async function makeNft(type, prompt, name) {
+//   // 이미지 생성 후 업로드
+//   api.imgUpload(type, prompt)
+//     .then((imgCid) => {
+//       // 메타데이터 생성 후 업로드
+//       api.metaUpload(imgCid, name, userAddress, type)
+//         .then((metaData) => {
+//           // 민팅 (스마트 컨트랙트와 상호작용)
+//           mint(metaData.metaCid)
+//             .then((tokenId) => {
+//               // 백에 메타데이터와 tokenId, transactionHash 전달
+//               saveInfo({...metaData, tokenId, transactionHash})
+//             })
+//             .catch((err) => {
+//               console.log(err)
+//               console.log('민팅 관련 오류')
+//             })
+//         })
+//         .catch((err) => {
+//           console.log(err)
+//           console.log('메타데이터 관련 오류')
+//         })
+//     })
+//     .catch((err) => {
+//       console.log(err)
+//       console.log('이미지 생성 관련 오류')
+//     })
+//   }
 
-exports.makeNft = makeNft
+// exports.makeNft = makeNft

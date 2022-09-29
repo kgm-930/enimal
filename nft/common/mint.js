@@ -10,16 +10,17 @@ async function beforeMint(type, prompt, name, userAddress='0x7edc38F3511F13100Ad
   api.imgUpload(type, prompt)
     .then((imgCid) => {
       // 메타데이터 생성 후 업로드
-      api.metaUpload(imgCid, name, userAddress, type)
-        .then((metaData) => {
-          // 민팅 (스마트 컨트랙트와 상호작용)
-          console.log('민팅 전까지 완료')
-          console.log(metaData)
-        })
-        .catch((err) => {
-          console.log(err)
-          console.log('메타데이터 관련 오류')
-        })
+      console.log(imgCid)
+      // api.metaUpload(imgCid, name, userAddress, type)
+      //   .then((metaData) => {
+      //     // 민팅 (스마트 컨트랙트와 상호작용)
+      //     console.log('민팅 전까지 완료')
+      //     console.log(metaData)
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //     console.log('메타데이터 관련 오류')
+      //   })
     })
     .catch((err) => {
       console.log(err)
@@ -27,5 +28,5 @@ async function beforeMint(type, prompt, name, userAddress='0x7edc38F3511F13100Ad
     })
   }
 
-beforeMint()
+beforeMint("Comic", "수달")
 exports.beforeMint = beforeMint

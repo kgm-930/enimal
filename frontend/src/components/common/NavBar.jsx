@@ -6,6 +6,7 @@ import "./NavBar.scss";
 
 import nav from '@images/NAV.png'
 import Login from "./Login/Login";
+import Charge from "./Charge";
 
 const Web3 = require('web3');
 
@@ -35,6 +36,7 @@ function NavBar() {
 
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false)
+  const [modalCharge, setModalCharge] = useState(false)
 
   const openModal = () => {
     setModalOpen(true);
@@ -42,6 +44,10 @@ function NavBar() {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  const chargeModal = () => {
+    setModalCharge(!modalCharge)
+  }
 
   function Logout(e) {
     e.preventDefault();
@@ -59,7 +65,7 @@ function NavBar() {
           <Nav className="mr-auto">
             {localStorage.token ?
               <>
-                <Nav.Link className="save notoMid fs-20">ssf : {SSF}코인</Nav.Link>
+                <Nav.Link className="save notoMid fs-20" onClick={chargeModal}>ssf : {SSF}코인</Nav.Link>
                 <Nav.Link className="save notoMid fs-20">save : 0</Nav.Link>
               </>
               :
@@ -120,6 +126,7 @@ function NavBar() {
         </Navbar.Collapse>
       </Navbar>
       <Login open={modalOpen} close={closeModal} />
+      <Charge open={modalCharge} close={chargeModal} />
     </header>
   );
 }

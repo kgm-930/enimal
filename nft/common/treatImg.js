@@ -1,4 +1,4 @@
-const WomboDream = require('../dream-api/dist/app')
+const WomboDream = require('./dream-api/dist/app')
 const ipfsAPI = require('ipfs-api')
 // 배포 시 이 부분 수정 필요
 const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001')
@@ -14,7 +14,7 @@ const convert = {
 
 // ai 이미지 생성
 async function makeImg(type, prompt) {
-	if (enimal in convert) {
+	if (prompt in convert) {
 		prompt = convert[prompt]
 	}
 	const style = typeToStyle[type]

@@ -5,6 +5,7 @@ import "./CollectionPiece.scss";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import https from 'https'
+// import {sendTx} from 'sendTx'
 
 import piece1 from "@images/PieceImg/test/1.png";
 import piece2 from "@images/PieceImg/test/2.png";
@@ -18,7 +19,7 @@ import piece9 from "@images/PieceImg/test/9.png";
 
 // import ipfsAPI from "ipfs-api";
 // import {getBlob} from "@apis/treatImg"
-// import {makeImg} from "@apis/treatImg"
+import {makeImg} from "@apis/treatImg"
 // import {upload} from "@apis/treatImg"
 // import { test } from "../../../apis/treatImg";
 
@@ -27,7 +28,8 @@ async function makeNFT() {
   // getMetaInfo('QmWFsM7gBWxBsn8WYH4q7ngYgQqqEJ425BCeC8GzoBTpDz')
   // getBlob("type", "prompt")
   // upload(url, "name", "owner", "type")
-  // makeImg("type", "prompt")
+  makeImg("type", "prompt")
+  // sendTx()
 }
 
 function CollectionPiece() {
