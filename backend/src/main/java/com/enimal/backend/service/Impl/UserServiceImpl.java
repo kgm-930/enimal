@@ -260,4 +260,11 @@ public class UserServiceImpl implements UserService {
             return true;
         }
     }
+
+    @Override
+    public int currentCredit(String userId) {
+        Optional<User> user = userRepository.findById(userId);
+        int credit = user.get().getCredit();
+        return credit;
+    }
 }

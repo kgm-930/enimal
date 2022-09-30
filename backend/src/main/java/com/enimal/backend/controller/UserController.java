@@ -233,5 +233,21 @@ public class UserController {
 
         return new ResponseEntity<>(result,status);
     }
+    @GetMapping("/user/credit") // 현재 재화 내역
+    public ResponseEntity<?> currentCredit(HttpServletRequest request){
+        Map<String,Object> result = new HashMap<>();
+        HttpStatus status;
+        String userId = (String) request.getAttribute("userId");
+        try{
+            int data = userService.currentCredit(userId);
+            result.put("message",okay);
+            result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
 
+        return new ResponseEntity<>(result,status);
+    }
 }

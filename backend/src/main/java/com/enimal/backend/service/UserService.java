@@ -24,4 +24,6 @@ public interface UserService {
     List<UserCollectionDto> collectionUser(String userId);
 
     boolean checkUser(String nickname);
+
+    int currentCredit(String userId);
 }

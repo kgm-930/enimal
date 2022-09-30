@@ -84,6 +84,8 @@ class UserTests {
 		}else if(!user.isPresent() && userLoginDto.getId() == null){
 			System.out.println("실패");
 		}
+		// 현재 재화 조회
+		System.out.println(user.get().getCredit());
 		// 업적 12번 : 환경 기념일 방문
 		LocalDateTime todayDate = LocalDateTime.now();
 		System.out.println(todayDate.toString());
