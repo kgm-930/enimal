@@ -16,19 +16,22 @@ async function sendTx(from, to, data, privateKey) {
     from,
     to,
     data,
-  };
-  web3.eth.accounts.signTransaction(txObject, privateKey)
-  .then(res => {
+  }
+  let result
+  await web3.eth.accounts.signTransaction(txObject, privateKey)
+  .then(async res => {
     const raw = res.rawTransaction
-    console.log('res', raw)
-    web3.eth.sendSignedTransaction(raw)
+    await web3.eth.sendSignedTransaction(raw)
     .once('receipt', (receipt) => {
-      console.info('receipt', receipt)
+      console.log(receipt)
+      result = receipt.logs[0]?.address
     })
-    .once('transactionHash', (hash) => {
-      console.info('transactionHash', hash);
-    }).on('error', console.error)
+    // .once('transactionHash', (hash) => {
+    //   result = hash
+    // })
+    .on('error', console.error)
   })
+  return result
 }
 
 export async function create(userAddress, tokenURI) {
@@ -41,14 +44,16 @@ export async function create(userAddress, tokenURI) {
   const privateKey = '0x5d45d001c03e63a1af780053a19de13630f4c960132f9d3952ceed2f95c7b2c6'
   let tokenId
   let transactionHash
-  sendTx(userAddress, ENIMAL_CA, encodedData, privateKey)
+  await sendTx(userAddress, ENIMAL_CA, encodedData, privateKey)
     .then(async (res) => {
-      transactionHash = res.transactionHash
-      tokenId = await data.call({from: ownerAddress})
+      transactionHash = res
+      await data.call({from: ownerAddress})
+      .then(async result => {
+        tokenId = await result
+      })
     })
-  return (tokenId, transactionHash)
+  return [transactionHash, tokenId]
 }
-
 
 export async function charge(userAddress, amount, privateKey) {
   // privateKey 입력 받음? 따로 저장?

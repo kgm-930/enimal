@@ -19,10 +19,10 @@ async function makeImg(type, prompt) {
 	}
 	const style = typeToStyle[type]
 	let image = await WomboDream.generateImage(style, prompt, null, null, null, null, null, null, 1000, 30)
+    console.log(image)
 	return image.result.final
 }
-
-makeImg("Comic", "수달")
+makeImg("Paint", '북극곰')
 
 // ipfs에 이미지 업로드
 async function imgUpload(type, prompt) {
@@ -57,7 +57,6 @@ async function metaUpload(cid, name, owner, type) {
         type,
     }
 
-    // 백에 객체 전달
     let metaCid
     await ipfs.add(Buffer.from(JSON.stringify(json)))
         .then((res)=> {

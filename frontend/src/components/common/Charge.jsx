@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import './Login.scss'
+import './Charge.scss'
 import { chargeSave } from '@apis/account'
-// import {sendTx} from '@apis/sendTx'
+import {charge} from '@apis/sendTx'
 
 const Web3 = require("web3");
 const {ABI} = require('@apis/ABI')
@@ -11,7 +11,7 @@ function Charge(props) {
   const { open, close } = props;
   
   // 공통
-  // 충전할 양
+  // 충전할 SSF
   const [amount, setAmount] = useState(null);
   // 충전되는 save
   const [save, setSave] = useState(null);
@@ -83,8 +83,9 @@ function Charge(props) {
     //* 사용자가 충전 버튼 누르면(onClick) -> 스마트 컨트랙트 호출 -> 성공 시 충전
     ssafyTokenContract.methods.forceToTransfer(userAddress, adminAddress, amount).send({from:userAddress})
       .on(() => {
-        // let privateKey
-        // sendTx(amount, userAddress, adminAddress, privateKey)
+        // 스마트 컨트랙트 호출 함수
+        let privateKey
+        charge(userAddress, amount, privateKey)
         const DATA = {
           donateAmount,
           save

@@ -1,4 +1,10 @@
 const axios = require('axios').default;
+// const URL = 'https://www.googleapis.com/identitytoolkit/v3'
+axios.defaults.headers['Access-Control-Allow-Origin'] = "*"
+axios.defaults.headers['Access-Control-Allow-Methods'] = "*"
+axios.defaults.headers['Access-Control-Allow-Credentials'] = true
+axios.defaults.withCredentials = true
+
 
 const signUp = (email = "", password = "", username = "") => {
 	const jsonData = {}
@@ -8,7 +14,10 @@ const signUp = (email = "", password = "", username = "") => {
 		jsonData.displayName = username;
 	}
 	return new Promise((resolve) => {
-		axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', jsonData)
+		axios.post('/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', jsonData,
+		{headers: {
+			Authorization: `Bearer AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw`
+		}})
 			.then((response) => {
 				resolve(response.data);
 			})
@@ -20,7 +29,7 @@ const signUp = (email = "", password = "", username = "") => {
 
 const signIn = (email, password) => {
 	new Promise((resolve) => {
-		axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', {
+		axios.post('/relyingparty/verifyPassword?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', {
 			"email": email,
 			"password": password,
 			"returnSecureToken": true

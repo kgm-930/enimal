@@ -1,10 +1,13 @@
 const axios = require('axios').default;
 const Authentication = require('./auth');
 
-const API_URL = "https://paint.api.wombo.ai/api/tasks/"
+// const API_URL = "https://paint.api.wombo.ai/api/tasks/"
+const API_URL = "/tasks/"
 
-axios.defaults.headers['Access-Control-Allow-Origin'] = true
-// axios.defaults.withCredentials = "*"
+axios.defaults.headers['Access-Control-Allow-Origin'] = "*"
+axios.defaults.headers['Access-Control-Allow-Methods'] = "*"
+axios.defaults.headers['Access-Control-Allow-Credentials'] = true
+axios.defaults.withCredentials = true
 
 function defineHeaders(token, type = "text/plain;charset=UTF-8") {
 	return {
@@ -108,7 +111,8 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 
 const generateImage = async(style, promptValue, image = null, weight = "MEDIUM", callback = null, interval = 1000, freq = 10) => {
     // let token = await Authentication.signUp();
-    let token = await Authentication.signUp();
+    let token = await Authentication.signUp("ilwoldevloper@gmail.com", "enimal*24");
+		console.log(token)
 		token = token.idToken;
     const taskID = await getTaskID(token); // Get the task ID
 		let result = await createTask(token, taskID, promptValue, style, image, weight, freq); // Create the task

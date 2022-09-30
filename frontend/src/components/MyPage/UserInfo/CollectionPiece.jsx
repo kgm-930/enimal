@@ -5,7 +5,8 @@ import "./CollectionPiece.scss";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import https from 'https'
-import {charge} from '@apis/sendTx'
+// import {charge} from '@apis/sendTx'
+import {create} from '@apis/sendTx'
 
 import piece1 from "@images/PieceImg/test/1.png";
 import piece2 from "@images/PieceImg/test/2.png";
@@ -30,7 +31,9 @@ async function makeNFT() {
   // upload(url, "name", "owner", "type")
   // makeImg("type", "prompt")
   // sendTx()
-  charge("0x7edc38F3511F13100AdcC4c16Ba14eC475C00776", 10, "0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001")
+  // charge("0x7edc38F3511F13100AdcC4c16Ba14eC475C00776", 10, "0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001")
+  create("0x7edc38F3511F13100AdcC4c16Ba14eC475C00776","ipfs://QmYjPMTiQFWCUq3vgFsZXjaRMrgoCbfewcC8ZYnkvT9vXH")
+  // console.log('final', test)
 }
 
 function CollectionPiece() {
