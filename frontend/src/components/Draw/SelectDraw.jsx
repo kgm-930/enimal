@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import "./SelectDraw.scss";
 
 
@@ -30,8 +30,10 @@ import egg24 from '@images/eggs/egg24.png'
 
 import DrawModal from "./DrawModal";
 
+
+
 function SelectDraw() {
-  const [selectImg,setSelectImg] = useState(null)
+  const [selectImg, setSelectImg] = useState(null)
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -42,399 +44,429 @@ function SelectDraw() {
     setModalOpen(false);
   };
 
-  function drawButton(e){
+  function drawButton(e) {
     e.preventDefault();
-    console.log(1234)
     openModal()
   }
 
   function select(e) {
     e.preventDefault();
     if (selectImg) {
-      document.getElementById(selectImg).parentElement.className="drawCard2";
+      document.getElementById(selectImg).parentElement.className = "drawCard2";
     }
     setSelectImg(e.currentTarget.id)
 
   }
 
   function mouseover(e) {
-    document.getElementById(e.currentTarget.id).parentElement.className="selectedCard";
+    document.getElementById(e.currentTarget.id).parentElement.className = "selectedCard";
   }
-  function unSelect(e){
-    if (selectImg !== e.currentTarget.id){
-      document.getElementById(e.currentTarget.id).parentElement.className="drawCard2";
+  function unSelect(e) {
+    if (selectImg !== e.currentTarget.id) {
+      document.getElementById(e.currentTarget.id).parentElement.className = "drawCard2";
     }
 
   }
   return (
     <div className="SelectDraw">
-      <div className="CardList flex raw">
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="1"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg1} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">북극곰</h1>
-          </button>
+      <div className="CardList">
+
+
+        <div className="flex justify-center">
+
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="1"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg1} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">북극곰</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="2"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg2} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">안데스산 고양이</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="3"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg3} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">검은 코뿔소</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="4"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg4} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">산양</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="5"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg5} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">두루미</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="6"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg6} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">자이언트 판다</h1>
+            </button>
+          </div>
         </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="2"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg2} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">안데스산 고양이</h1>
-          </button>
+
+        <div className="flex justify-center">
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="7"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg7} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">강토끼</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="8"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg8} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">수달</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="9"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg9} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">우파루파</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="10"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg10} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">매</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="11"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg11} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">고라니</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="12"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg12} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">듀공</h1>
+            </button>
+          </div>
+
         </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="3"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg3} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">검은 코뿔소</h1>
-          </button>
+
+
+
+
+        <div className="flex justify-center">
+
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="13"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg13} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">오랑우탄</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="14"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg14} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">아시아 코끼리</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="15"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg15} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">상괭이</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="16"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg16} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">바다거북</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="17"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg17} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">래서판다</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="18"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg18} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">검은발족제비</h1>
+            </button>
+          </div>
         </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="4"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg4} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">산양</h1>
-          </button>
+
+
+
+
+
+        <div className="flex justify-center">
+
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="19"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg19} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">하마</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="20"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg20} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">호랑이</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="21"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg21} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">고래상어</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="22"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg22} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">뱀장어</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="23"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg23} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">양쯔강돌고래</h1>
+            </button>
+          </div>
+          <div className="drawCard2">
+            <button
+              className="selectbutton"
+              type="button"
+              id="24"
+              onFocus={() => 1}
+              onMouseOver={e => mouseover(e)}
+              onBlur={() => 1}
+              onMouseLeave={e => unSelect(e)}
+              onClick={e => select(e)}
+            >
+              <img className="drawImg" src={egg24} alt="#" />
+              <h1 className="fs-14 notoBold drawTitle">저어새</h1>
+            </button>
+          </div>
         </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="5"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg5} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">두루미</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="6"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg6} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">자이언트 판다</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="7"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg7} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">강토끼</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="8"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg8} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">수달</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="9"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg9} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">우파루파</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="10"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg10} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">매</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="11"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg11} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">고라니</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="12"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg12} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">듀공</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="13"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg13} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">오랑우탄</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="14"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg14} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">아시아 코끼리</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="15"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg15} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">상괭이</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="16"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg16} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">바다거북</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="17"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg17} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">래서판다</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="18"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg18} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">검은발족제비</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="19"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg19} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">하마</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="20"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg20} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">호랑이</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="21"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg21} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">고래상어</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="22"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg22} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">뱀장어</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="23"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg23} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">양쯔강돌고래</h1>
-          </button>
-        </div>
-        <div className="drawCard2">
-          <button
-            className="selectbutton"
-            type="button"
-            id="24"
-            onFocus={() => 1}
-            onMouseOver={e => mouseover(e)}
-            onBlur={()=>1}
-            onMouseLeave={e =>unSelect(e)}
-            onClick={e=>select(e)}
-          >
-            <img className="drawImg" src={egg24} alt="#" />
-            <h1 className="fs-14 notoBold drawTitle">저어새</h1>
-          </button>
-        </div>
+
+
+
+
+
+
+
       </div>
       <button
         className="drawButton fs-28 notoBold"
         id="collection"
         type="button"
-        onClick={e=>drawButton(e)}
+        onClick={e => drawButton(e)}
       >
         선택 뽑기 (가격)
       </button>
@@ -449,7 +481,7 @@ function SelectDraw() {
           보유중인 업적에 따라 미보유중인 조각이 등장할 확률이 상승합니다.
         </h3>
       </div>
-      <DrawModal open={modalOpen} close={closeModal} header={selectImg} />
+      <DrawModal open={modalOpen} close={closeModal} draw={selectImg} length={9} />
     </div>
   );
 }

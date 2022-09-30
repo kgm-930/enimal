@@ -14,7 +14,7 @@ export const getDeleteUser = async () => {
 
 
 // 재화 조회
-export const getSave = async (DATA) => {
-  const res = await API_ACCOUNT.post("/user/login", DATA);
+export const getMySave = async () => {
+  const res = await API_ACCOUNT.get("/user/credit");
   return res.data;
 };

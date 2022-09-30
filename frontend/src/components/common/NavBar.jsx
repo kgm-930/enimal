@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./NavBar.scss";
 
-
 import nav from '@images/NAV.png'
 import Login from "./Login/Login";
+
+import { getMySave } from "../../apis/account";
+
 
 const Web3 = require('web3');
 
 function NavBar() {
 
-  const [SSF, setSSF] = useState(null)
+  const [SSF, setSSF] = useState(null);
+  const [save,setSave] =useState(0);
+
   const web3 = new Web3(new Web3.providers.HttpProvider("http://20.196.209.2:8545/"));
   const token = '0x0c54E456CE9E4501D2c43C38796ce3F06846C966';
   const wallet = localStorage.myAddress;
@@ -35,6 +39,15 @@ function NavBar() {
   }
   getBalance();
 
+
+  useEffect(()=>{
+    getMySave().then(res=>{
+      setSave(res.data)
+    })
+  },[])
+  
+
+
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -50,8 +63,11 @@ function NavBar() {
     localStorage.removeItem('token')
     localStorage.removeItem('MyNick')
     localStorage.removeItem('myAddress')
+    alert("로그아웃 되었습니다!")
     navigate('/')
   }
+
+  const mySave = save.toLocaleString("ko-KR");
   return (
     <header className="fixed-top">
       <Navbar className="mainNav flex" expand="lg">
@@ -63,8 +79,8 @@ function NavBar() {
           <Nav>
             {localStorage.token ?
               <>
-                <Nav.Link className="save notoMid fs-20">ssf : {SSF}ssf</Nav.Link>
-                <Nav.Link className="save notoMid fs-20">save : 0</Nav.Link>
+                <Nav.Link className="save notoMid fs-20">ssf : {SSF}</Nav.Link>
+                <Nav.Link className="save notoMid fs-20">save : {mySave}</Nav.Link>
               </>
               :
               null
