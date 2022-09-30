@@ -68,5 +68,5 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1"
   },
-  "proxy": "https://cors-anywhere.hreokuapp.com/"
+  "proxy": "http://j7c106.p.ssafy.io:8081"
 }

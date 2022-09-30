@@ -8,6 +8,18 @@ const web3 = new Web3(new Web3.providers.HttpProvider('http://20.41.85.203:8545'
 const CA = '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A'
 const {ENIMAL_ABI} = ABI.ABI.CONTRACT_ABI
 const enimalContract = new web3.eth.Contract(ENIMAL_ABI, CA)
+
+
+const TOKEN_CA = '0xb09d0879D6F9f48FFb09a4B0001c351dF6e1f2Ca'
+const {SSAFY_TOKEN_ABI} = ABI.ABI.CONTRACT_ABI
+const ssafyToken = new web3.eth.Contract(SSAFY_TOKEN_ABI, TOKEN_CA)
+
+const ERC20_CA = '0x0c54E456CE9E4501D2c43C38796ce3F06846C966'
+const {ERC20_ABI} = ABI.ABI.CONTRACT_ABI
+const ERC20_TOKEN = new web3.eth.Contract(ERC20_ABI, ERC20_CA)
+
+
+
 // console.log(enimalContract)
 
 // enimalContract.setProvider('ws://20.196.209.2:6174')
@@ -64,46 +76,105 @@ function test() {
 }
 // test()
 
+// enimalContract.methods.owner().call()
+//   .then(console.log)
+// ssafyToken.methods.owner().call()
+//   .then(console.log)
+
+// enimalContract.methods.ownerOf("ipfs://QmQ9WiLHHoYRXFM7gbwpp6JgnT8PV3m1EJfKFSQjVMr57F").call()
+//   .then(console.log)
+
+
+// enimalContract.methods.create(userAddress, "ipfs://QmQ9WiLHHoYRXFM7gbwpp6JgnT8PV3m1EJfKFSQjVMr57F").call({
+//   from: '0x6EcEdE1866CBA0aecFaE9ac37839a40E444a4Da3'
+// })
+//   .then(console.log)
+
+// ssafyToken.methods.balanceOf(userAddress).call()
+//   .then(console.log)
+// ERC20_TOKEN.methods.balanceOf(userAddress).call()
+//   .then(console.log)
 
 function test2() {
-  // const val
-  const privateKey = '9633ab4de4f165c90a031af88a8d5608dcadd2ab99599834c94fab3d77db87cf'
-  const nonce = web3.eth.getTransactionCount(userAddress, 'latest')
-  // const privateKey = '600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
-  let data = enimalContract.methods.create(userAddress, "ipfs://QmQ9WiLHHoYRXFM7gbwpp6JgnT8PV3m1EJfKFSQjVMr57F").encodeABI()
+  // owner
+  const owner = '0x6EcEdE1866CBA0aecFaE9ac37839a40E444a4Da3'
+  // const privateKey = '0x5d45d001c03e63a1af780053a19de13630f4c960132f9d3952ceed2f95c7b2c6'
+  
+  const privateKey = '0x9633ab4de4f165c90a031af88a8d5608dcadd2ab99599834c94fab3d77db87cf'
+  let nonce
+  web3.eth.getTransactionCount(userAddress, 'pending')
+    .then(res => {
+      nonce = res
+    })
+  const adminAddress = "0x01E04dfC7240B86D115Ed2C232953B0E71333290"
+  
+  ERC20_TOKEN.methods.balanceOf(adminAddress).call()
+  .then(console.log)
+
+  ERC20_TOKEN.methods.balanceOf(owner).call()
+  .then(console.log)
+  // const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
+  // let data = enimalContract.methods.create(userAddress, "ipfs://QmQ9WiLHHoYRXFM7gbwpp6JgnT8PV3m1EJfKFSQjVMr57F").encodeABI()
+  // let data = enimalContract.methods.balanceOf(userAddress).encodeABI()
+  // let data = ssafyToken.methods.forceToTransfer(userAddress, adminAddress, 0).encodeABI()
+  let data = ERC20_TOKEN.methods.transfer(userAddress, 10).encodeABI()
+
+  // const tx = {
+  //   gas: web3.utils.toHex(8000000),
+  //   to: userAddress,
+  //   nonce: web3.utils.toHex(nonce),
+  //   value: web3.utils.toHex(0)
+  // }
+  
   const tx = {
-    gas: web3.utils.toHex(400000),
-    to: userAddress,
-    nonce: web3.utils.toHex(nonce)
+    gas: web3.utils.toHex(80000),
+    from: adminAddress,
+    to: ERC20_CA,
+    data,
+    nonce: web3.utils.toHex(nonce),
   }
+  // const tx = {
+  //   gas: web3.utils.toHex(8000000),
+  //   from: adminAddress,
+  //   to: TOKEN_CA,
+  //   data,
+  //   nonce: web3.utils.toHex(nonce),
+  //   value: web3.utils.toHex(0)
+  // }
+
   // const tx = {
   //   to: CA,
   //   from: userAddress,
   //   data,
   //   nonce: web3.utils.toHex(nonce),
-  //   gas: web3.utils.toHex(300000),
+  //   gas: web3.utils.toHex(1e9),
   //   value: web3.utils.toHex(0),
   // }
-  web3.eth.accounts.signTransaction(tx, '0x' + privateKey)
+  web3.eth.accounts.signTransaction(tx, privateKey)
   .then(res => {
     const raw = res.rawTransaction
-    console.log('res', raw)
+    // console.log('res', raw)
     web3.eth.sendSignedTransaction(raw)
     .once('receipt', (receipt) => {
       console.info('receipt', receipt)
     })
     .once('transactionHash', (hash) => {
       console.info('transactionHash', hash);
-    }).on('error', console.error);
+    }).on('error', console.error)
+    // .then(console.log)
   })
 }
 test2()
 // web3.eth.getTransactionCount(userAddress, 'pending')
-// .then(console.log)
+//   .then(res => {
+//     console.log('pending', res)
+//   })
 // web3.eth.getTransactionCount(userAddress, 'earliest')
 // .then(console.log)
 // web3.eth.getTransactionCount(userAddress, 'latest')
-// .then(console.log)
+// .then(res => {
+//   console.log('latest', res)
+// })
 
 // function test3() {
 //   let raw = '0xf90109827b7d808301adb094dc2935c9dbbeccfddafe54098dea09d2f92bc48a80b8a4a15ab08d0000000000000000000000007edc38f3511f13100adcc4c16ba14ec475c007760000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000003622697066733a2f2f516d535a4350597765547a654747427a5a4e416e70705437444b66786774756e4645725356686f4a33337357796b0000000000000000000082f40da0315b8dd1f40817e83b718165feea4ee971a6498f3566294dbf1018c091d5a90ca049bc5f1ed346650c713e5d676239a407090da19dbbf92684f5b425b5406176cc'

@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 const Authentication = require('./auth');
 
-const API_URL = "https://cors-anywhere.hreokuapp.com/https://paint.api.wombo.ai/api/tasks/"
+const API_URL = "https://paint.api.wombo.ai/api/tasks/"
 
 axios.defaults.headers['Access-Control-Allow-Origin'] = true
 // axios.defaults.withCredentials = "*"
@@ -107,6 +107,7 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 }
 
 const generateImage = async(style, promptValue, image = null, weight = "MEDIUM", callback = null, interval = 1000, freq = 10) => {
+    // let token = await Authentication.signUp();
     let token = await Authentication.signUp();
 		token = token.idToken;
     const taskID = await getTaskID(token); // Get the task ID

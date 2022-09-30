@@ -25,7 +25,7 @@ function Login(props) {
     e.preventDefault();
     if (myKey) {
       // 싸피 네트워크 주소
-      const web3 = new Web3(new Web3.providers.HttpProvider("http://20.41.85.203:8545"));
+      const web3 = new Web3(new Web3.providers.HttpProvider("http://20.196.209.2:8545/"));
       // 개인키
       const pubKey = web3.eth.accounts.privateKeyToAccount(myKey);
       console.log(pubKey.address);
