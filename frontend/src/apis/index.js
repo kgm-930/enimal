@@ -33,6 +33,14 @@ export const API_MYPAGE = axios.create({
   }
 });
 
+export const API_DRAW = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Authorization": localStorage.token,
+    "Access-Control-Allow-Origin" : '*',
+  }
+});
+
 export const API_HOME = axios.create({
   baseURL: BASE_URL,
   headers: {}             

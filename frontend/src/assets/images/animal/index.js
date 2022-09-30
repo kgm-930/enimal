@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 
 // 자이언트 판다
+export const panda = require('./panda/panda.jpg');
 export const panda1 = require('./panda/piece/panda_1.png');
 export const panda2 = require('./panda/piece/panda_2.png');
 export const panda3 = require('./panda/piece/panda_3.png');
@@ -13,6 +14,7 @@ export const panda9 = require('./panda/piece/panda_9.png');
 
 
 // 아시아 코끼리
+export const asianele = require('./asianele/asianele.jpeg');
 export const asianele1 = require('./asianele/piece/asianele_1.jpg');
 export const asianele2 = require('./asianele/piece/asianele_2.jpg');
 export const asianele3 = require('./asianele/piece/asianele_3.jpg');
@@ -23,7 +25,8 @@ export const asianele7 = require('./asianele/piece/asianele_7.jpg');
 export const asianele8 = require('./asianele/piece/asianele_8.jpg');
 export const asianele9 = require('./asianele/piece/asianele_9.jpg');
 
-// 자이언트 판다
+// 안데스산 고양이
+export const cat = require('./cat/cat.jpg');
 export const cat1 = require('./cat/piece/cat_1.jpg');
 export const cat2 = require('./cat/piece/cat_2.jpg');
 export const cat3 = require('./cat/piece/cat_3.jpg');
@@ -34,7 +37,8 @@ export const cat7 = require('./cat/piece/cat_7.jpg');
 export const cat8 = require('./cat/piece/cat_8.jpg');
 export const cat9 = require('./cat/piece/cat_9.jpg');
 
-// 자이언트 판다
+// 두루미
+export const crane = require('./crane/crane.png');
 export const crane1 = require('./crane/piece/crane_1.png');
 export const crane2 = require('./crane/piece/crane_2.png');
 export const crane3 = require('./crane/piece/crane_3.png');
@@ -48,6 +52,7 @@ export const crane9 = require('./crane/piece/crane_9.png');
 
 
 // 양쯔강 돌고래
+export const dolphin = require('./dolphin/dolphin.jpg');
 export const dolphin1 = require('./dolphin/piece/dolphin_1.jpg');
 export const dolphin2 = require('./dolphin/piece/dolphin_2.jpg');
 export const dolphin3 = require('./dolphin/piece/dolphin_3.jpg');
@@ -59,7 +64,8 @@ export const dolphin8 = require('./dolphin/piece/dolphin_8.jpg');
 export const dolphin9 = require('./dolphin/piece/dolphin_9.jpg');
 
 
-// 양쯔강 돌고래
+// 듀공
+export const dugong = require('./dugong/dugong.jpg');
 export const dugong1 = require('./dugong/piece/dugong_1.jpg');
 export const dugong2 = require('./dugong/piece/dugong_2.jpg');
 export const dugong3 = require('./dugong/piece/dugong_3.jpg');
@@ -71,6 +77,7 @@ export const dugong8 = require('./dugong/piece/dugong_8.jpg');
 export const dugong9 = require('./dugong/piece/dugong_9.jpg');
 
 // 뱀장어
+export const eel = require('./eel/eel.png');
 export const eel1 = require('./eel/piece/eel_1.png');
 export const eel2 = require('./eel/piece/eel_2.png');
 export const eel3 = require('./eel/piece/eel_3.png');
@@ -82,6 +89,7 @@ export const eel8 = require('./eel/piece/eel_8.png');
 export const eel9 = require('./eel/piece/eel_9.png');
 
 // 고라니
+export const elk = require('./elk/elk.jpg');
 export const elk1 = require('./elk/piece/elk_1.jpg');
 export const elk2 = require('./elk/piece/elk_2.jpg');
 export const elk3 = require('./elk/piece/elk_3.jpg');
@@ -94,6 +102,7 @@ export const elk9 = require('./elk/piece/elk_9.jpg');
 
 
 // 상괭이
+export const finless = require('./finless/finless.jpg');
 export const finless1 = require('./finless/piece/finless_1.jpg');
 export const finless2 = require('./finless/piece/finless_2.jpg');
 export const finless3 = require('./finless/piece/finless_3.jpg');
@@ -105,6 +114,7 @@ export const finless8 = require('./finless/piece/finless_8.jpg');
 export const finless9 = require('./finless/piece/finless_9.jpg');
 
 // 산양
+export const goat = require('./goat/goat.png');
 export const goat1 = require('./goat/piece/goat_1.png');
 export const goat2 = require('./goat/piece/goat_2.png');
 export const goat3 = require('./goat/piece/goat_3.png');
@@ -116,6 +126,7 @@ export const goat8 = require('./goat/piece/goat_8.png');
 export const goat9 = require('./goat/piece/goat_9.png');
 
 // 매
+export const hawk = require('./hawk/hawk.png');
 export const hawk1 = require('./hawk/piece/hawk_1.png');
 export const hawk2 = require('./hawk/piece/hawk_2.png');
 export const hawk3 = require('./hawk/piece/hawk_3.png');
@@ -127,6 +138,7 @@ export const hawk8 = require('./hawk/piece/hawk_8.png');
 export const hawk9 = require('./hawk/piece/hawk_9.png');
 
 // 하마
+export const hippo = require('./hippo/hippo.jpg');
 export const hippo1 = require('./hippo/piece/hippo_1.jpg');
 export const hippo2 = require('./hippo/piece/hippo_2.jpg');
 export const hippo3 = require('./hippo/piece/hippo_3.jpg');
@@ -138,6 +150,7 @@ export const hippo8 = require('./hippo/piece/hippo_8.jpg');
 export const hippo9 = require('./hippo/piece/hippo_9.jpg');
 
 // 오랑우탄
+export const orangutan = require('./orangutan/orangutan.jpg');
 export const orangutan1 = require('./orangutan/piece/orangutan_1.jpg');
 export const orangutan2 = require('./orangutan/piece/orangutan_2.jpg');
 export const orangutan3 = require('./orangutan/piece/orangutan_3.jpg');
@@ -149,6 +162,7 @@ export const orangutan8 = require('./orangutan/piece/orangutan_8.jpg');
 export const orangutan9 = require('./orangutan/piece/orangutan_9.jpg');
 
 // 수달
+export const otter = require('./otter/otter.jpg');
 export const otter1 = require('./otter/piece/otter_1.jpg');
 export const otter2 = require('./otter/piece/otter_2.jpg');
 export const otter3 = require('./otter/piece/otter_3.jpg');
@@ -160,6 +174,7 @@ export const otter8 = require('./otter/piece/otter_8.jpg');
 export const otter9 = require('./otter/piece/otter_9.jpg');
 
 // 북극곰
+export const polarbear = require('./polarbear/polarbear.jpg');
 export const polarbear1 = require('./polarbear/piece/polarbear_1.jpg');
 export const polarbear2 = require('./polarbear/piece/polarbear_2.jpg');
 export const polarbear3 = require('./polarbear/piece/polarbear_3.jpg');
@@ -172,6 +187,7 @@ export const polarbear9 = require('./polarbear/piece/polarbear_9.jpg');
 
 
 // 강토끼
+export const rabbit = require('./rabbit/rabbit.jpeg');
 export const rabbit1 = require('./rabbit/piece/rabbit_1.jpg');
 export const rabbit2 = require('./rabbit/piece/rabbit_2.jpg');
 export const rabbit3 = require('./rabbit/piece/rabbit_3.jpg');
@@ -183,6 +199,7 @@ export const rabbit8 = require('./rabbit/piece/rabbit_8.jpg');
 export const rabbit9 = require('./rabbit/piece/rabbit_9.jpg');
 
 // 레서판다
+export const redpanda = require('./redpanda/redpanda.jpg');
 export const redpanda1 = require('./redpanda/piece/redpanda_1.jpg');
 export const redpanda2 = require('./redpanda/piece/redpanda_2.jpg');
 export const redpanda3 = require('./redpanda/piece/redpanda_3.jpg');
@@ -194,6 +211,7 @@ export const redpanda8 = require('./redpanda/piece/redpanda_8.jpg');
 export const redpanda9 = require('./redpanda/piece/redpanda_9.jpg');
 
 // 검은 코뿔소
+export const rhinoceros = require('./rhinoceros/rhinoceros.jpg');
 export const rhinoceros1 = require('./rhinoceros/piece/rhinoceros_1.jpg');
 export const rhinoceros2 = require('./rhinoceros/piece/rhinoceros_2.jpg');
 export const rhinoceros3 = require('./rhinoceros/piece/rhinoceros_3.jpg');
@@ -205,6 +223,7 @@ export const rhinoceros8 = require('./rhinoceros/piece/rhinoceros_8.jpg');
 export const rhinoceros9 = require('./rhinoceros/piece/rhinoceros_9.jpg');
 
 // 고래상어
+export const shark = require('./shark/shark.png');
 export const shark1 = require('./shark/piece/shark_1.png');
 export const shark2 = require('./shark/piece/shark_2.png');
 export const shark3 = require('./shark/piece/shark_3.png');
@@ -216,6 +235,7 @@ export const shark8 = require('./shark/piece/shark_8.png');
 export const shark9 = require('./shark/piece/shark_9.png');
 
 // 저어새
+export const spoonbill = require('./spoonbill/spoonbill.jpg');
 export const spoonbill1 = require('./spoonbill/piece/spoonbill_1.jpg');
 export const spoonbill2 = require('./spoonbill/piece/spoonbill_2.jpg');
 export const spoonbill3 = require('./spoonbill/piece/spoonbill_3.jpg');
@@ -227,6 +247,7 @@ export const spoonbill8 = require('./spoonbill/piece/spoonbill_8.jpg');
 export const spoonbill9 = require('./spoonbill/piece/spoonbill_9.jpg');
 
 // 호랑이
+export const tiger = require('./tiger/tiger.png');
 export const tiger1 = require('./tiger/piece/tiger_1.png');
 export const tiger2 = require('./tiger/piece/tiger_2.png');
 export const tiger3 = require('./tiger/piece/tiger_3.png');
@@ -238,6 +259,7 @@ export const tiger8 = require('./tiger/piece/tiger_8.png');
 export const tiger9 = require('./tiger/piece/tiger_9.png');
 
 // 저어새
+export const turtle = require('./turtle/turtle.jpg');
 export const turtle1 = require('./turtle/piece/turtle_1.jpg');
 export const turtle2 = require('./turtle/piece/turtle_2.jpg');
 export const turtle3 = require('./turtle/piece/turtle_3.jpg');
@@ -249,6 +271,7 @@ export const turtle8 = require('./turtle/piece/turtle_8.jpg');
 export const turtle9 = require('./turtle/piece/turtle_9.jpg');
 
 // 우파루파
+export const upalupa = require('./upalupa/upalupa.jpg');
 export const upalupa1 = require('./upalupa/piece/upalupa_1.jpg');
 export const upalupa2 = require('./upalupa/piece/upalupa_2.jpg');
 export const upalupa3 = require('./upalupa/piece/upalupa_3.jpg');
@@ -260,6 +283,7 @@ export const upalupa8 = require('./upalupa/piece/upalupa_8.jpg');
 export const upalupa9 = require('./upalupa/piece/upalupa_9.jpg');
 
 // 검은발족제비
+export const weasel = require('./weasel/weasel.jpg');
 export const weasel1 = require('./weasel/piece/weasel_1.jpg');
 export const weasel2 = require('./weasel/piece/weasel_2.jpg');
 export const weasel3 = require('./weasel/piece/weasel_3.jpg');

@@ -8,7 +8,7 @@ import DrawSlide from "./DrawSlide";
 
 
 function DrawModal(props){
-  const { open, close,piece } = props;
+  const { open, close, draw ,length } = props;
   const navigate = useNavigate();
 
   function goMypage(){
@@ -26,7 +26,7 @@ function DrawModal(props){
          
           <main>
             <div className="DrawBox">
-              <DrawSlide piece={piece} />
+              <DrawSlide draw={draw} length={length} />
             </div>
           </main>
           <footer>

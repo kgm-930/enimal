@@ -46,7 +46,6 @@ function SelectDraw() {
 
   function drawButton(e) {
     e.preventDefault();
-    console.log(1234)
     openModal()
   }
 
@@ -456,7 +455,7 @@ function SelectDraw() {
           보유중인 업적에 따라 미보유중인 조각이 등장할 확률이 상승합니다.
         </h3>
       </div>
-      <DrawModal open={modalOpen} close={closeModal} header={selectImg} />
+      <DrawModal open={modalOpen} close={closeModal} draw={selectImg} length={9} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import "./NoticeDetail.scss";
 import { Link, useNavigate, useParams, } from "react-router-dom";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getDetailNotice,getDeleteNotice } from "@apis/notice";
+import { getDetailNotice, getDeleteNotice } from "@apis/notice";
 
 function NoticeDetail() {
   const navigate = useNavigate();
@@ -21,15 +21,15 @@ function NoticeDetail() {
     navigate('/notice')
   }
 
-  function deleteNotice(e){
+  function deleteNotice(e) {
     e.preventDefault();
-    if (window.confirm("정말로 삭제하시겠습니까?")){
-       getDeleteNotice(noticeID).then(res => {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      getDeleteNotice(noticeID).then(res => {
         console.log(res)
         navigate('/notice')
-    })
+      })
     }
-   
+
 
   }
   return (
@@ -49,8 +49,14 @@ function NoticeDetail() {
             {data.content}
           </div>
           <div className="flex justify-end">
-            <Link to={`/notice/edit/${noticeID}`} className="noticeButton fs-20 notoBold" type="button" style={{ backgroundColor:"#CBDFF1"}}>수정하기</Link>
-            <button type="button" className="noticeButton fs-20 notoBold" onClick={e=>deleteNotice(e)} style={{ backgroundColor:"#E8E8E8" }}>삭제하기</button>
+            {localStorage.MyNick === 'Eniaml' ?
+              <>
+                <Link to={`/notice/edit/${noticeID}`} className="noticeButton fs-20 notoBold" type="button" style={{ backgroundColor: "#CBDFF1" }}>수정하기</Link>
+                <button type="button" className="noticeButton fs-20 notoBold" onClick={e => deleteNotice(e)} style={{ backgroundColor: "#E8E8E8" }}>삭제하기</button>
+              </>
+              : null
+            }
+
           </div>
 
         </div>
