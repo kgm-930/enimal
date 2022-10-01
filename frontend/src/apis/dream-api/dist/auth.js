@@ -14,10 +14,7 @@ const signUp = (email = "", password = "", username = "") => {
 		jsonData.displayName = username;
 	}
 	return new Promise((resolve) => {
-		axios.post('/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', jsonData,
-		{headers: {
-			Authorization: `Bearer AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw`
-		}})
+		axios.post('/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', jsonData)
 			.then((response) => {
 				resolve(response.data);
 			})

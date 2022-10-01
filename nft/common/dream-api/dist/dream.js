@@ -113,6 +113,7 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 const generateImage = async(style, promptValue, token = null, image = null, weight = "MEDIUM", save = false, saveSettings = { "name": "", "public": false, "visible": true }, callback = null, interval = 1000, freq = 10) => {
     token = await Authentication.signUp();
 		token = token.idToken;
+		console.log(token)
     const taskID = await getTaskID(token); // Get the task ID
     if (image != null) {
 			let imageId = await uploadPhoto(image, token);
