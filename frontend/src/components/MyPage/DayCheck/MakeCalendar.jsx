@@ -1,35 +1,60 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
+import './MakeCalendar.scss'
+
+import { getMyDayCheck } from '@apis/mypage';
+
+import stamp from '@images/stamp.png'
 import { transString } from "./CalcDate";
+
+
 
 /*
  * 현재 날짜를 key값 형식으로 변환
  * key ex) 2021.10.11
  */
-const returnIdx = (order, year, month, day) => {
 
+const returnIdx = (order, year, month, day) => {
     if (order === 'PREV') {
         if (month === 0) {
             return transString(year - 1, 12, day)
         }
         return transString(year, month, day)
     }
-    else if (order === 'NEXT') {
+    if (order === 'NEXT') {
         if (month === 11) {
             return transString(year + 1, 1, day)
         }
         return transString(year, month + 2, day)
     }
-
+    
     return transString(year, month + 1, day)
 }
 
 
 
 const MakeCalendar = ({ year, month, firstDay, lastDate }) => {
+    const [myDay,setMyDay] = useState([]);
     const result = []
-
+    useEffect(()=>{
+        getMyDayCheck().then(res=>{
+            const DayList = []
+            const DATA = res.data
+            console.log(res)
+            console.log(DATA)
+            console.log(Object.keys(DATA))
+            const keyList = Object.keys(DATA)
+            for (let i=1; i<=keyList.length; i+=1){
+                console.log(DATA[i]);
+                const DATE = new Date(DATA[i]);
+                const Checkday=`${DATE.getFullYear()}.${(DATE.getMonth()+1)}.${DATE.getDate()}`;
+                DayList.push(Checkday)
+            }
+            setMyDay(DayList)
+        })
+    },[])
+    console.log(myDay)
     const makeDay = (week) => {
-        result.splice(0, result.length)
+        const result2 = []
         // 첫 주 
         if (week === 1) {
             const prevLastDate = parseInt(new Date(year, month, 0).getDate(), 10);
@@ -38,10 +63,12 @@ const MakeCalendar = ({ year, month, firstDay, lastDate }) => {
                 if (i <= firstDay) {
                     const now = prevLastDate - firstDay + i
                     const idx = returnIdx('PREV', year, month, now)
-
-                    result.push(
-                        <td className="diff" key={idx}>
-                            {now}
+                    result2.push(
+                        <td className="diff day" key={idx}>
+                            <h1>{now}</h1>
+                            { myDay.includes(`${year}.${month}.${now}`) ?
+                            <img className='checkStamp' src={stamp} alt='#' /> 
+                        : null}
                         </td>)
                 }
                 // 현재 달 날짜
@@ -49,9 +76,12 @@ const MakeCalendar = ({ year, month, firstDay, lastDate }) => {
                     const now = i - firstDay
                     const idx = returnIdx('', year, month, now)
 
-                    result.push(
-                        <td key={idx}>
-                            {now}
+                    result2.push(
+                        <td className='day' key={idx}>
+                            <h1>{now}</h1>
+                            { myDay.includes(`${year}.${month+1}.${now}`) ?
+                            <img className='checkStamp' src={stamp} alt='#' />
+                        : null}
                         </td>)
                 }
             }
@@ -64,9 +94,12 @@ const MakeCalendar = ({ year, month, firstDay, lastDate }) => {
                     const now = i - firstDay + 1
                     const idx = returnIdx('', year, month, now)
 
-                    result.push(
-                        <td key={idx} >
-                            {now}
+                    result2.push(
+                        <td className='day' key={idx} >
+                            <h1>{now}</h1>
+                            { myDay.includes(`${year}.${month+1}.${now}`) ?
+                            <img className='checkStamp' src={stamp} alt='#' />
+                        : null}
                         </td>)
                 }
                 // 다음 달 날짜
@@ -74,14 +107,17 @@ const MakeCalendar = ({ year, month, firstDay, lastDate }) => {
                     const now = i - lastDate - firstDay + 1
                     const idx = returnIdx('NEXT', year, month, now)
 
-                    result.push(
-                        <td className="diff" key={idx}>
-                            {now}
+                    result2.push(
+                        <td className="diff day" key={idx}>
+                            <h1>{now}</h1>
+                            { myDay.includes(`${year}.${month}.${now}`) ?
+                            <img className='checkStamp' src={stamp} alt='#' />
+                        : null}
                         </td>)
                 }
             }
         }
-        return result
+        return result2
     }
 
     // 주 계산

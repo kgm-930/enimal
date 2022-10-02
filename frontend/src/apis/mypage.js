@@ -41,3 +41,9 @@ export const getMyPointHistory = async () => {
   const res = await API_MYPAGE.get('/user/money/');
   return res.data;
 };
+
+// 나의 출석체크
+export const getMyDayCheck = async () => {
+  const res = await API_MYPAGE.get('/user/attend');
+  return res.data;
+};
