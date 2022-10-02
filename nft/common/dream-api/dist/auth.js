@@ -19,16 +19,18 @@ const signUp = (email = "", password = "", username = "") => {
 };
 
 const signIn = (email, password) => {
-	Promise((resolve) => {
+	new Promise((resolve) => {
 		axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', {
 			"email": email,
 			"password": password,
 			"returnSecureToken": true
 		})
 			.then((response) => {
+				console.log(response.data.idToken)
 				resolve(response.data);
 			})
 			.catch((error) => {
+				console.log(error)
 				resolve(error);
 			});
 	});

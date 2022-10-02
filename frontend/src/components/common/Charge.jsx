@@ -3,9 +3,6 @@ import './Charge.scss'
 import { chargeSave } from '@apis/account'
 import {charge} from '@apis/sendTx'
 
-const Web3 = require("web3");
-const {ABI} = require('@apis/ABI')
-
 function Charge(props) {
   // 충전 모달
   const { open, close } = props;
@@ -24,21 +21,14 @@ function Charge(props) {
   // 기부 비율
   const [donateRatio, setRatio] = useState(0.1);
   // 기부 save (기부 save + 충전 save = 전체 save)
-  // const [donateSave, setDonateSave] = useState(0.1);
+  // const [donateSave, setDonateSave] = useState(0);
   
 
   // 현재 사용자 계좌
   const userAddress = localStorage.getItem('myAddress')
-  // 관리자 계좌
-  const adminAddress = ''
+  // 사용자 개인키
+  const privateKey = ''
 
-
-  const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
-  // const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_ETHEREUM_RPC_URL))
-  const abi = ABI.CONTRACT_ABI.SSAFY_TOKEN_ABI
-  // 임시로 하드코딩
-  const CA = '0xb09d0879D6F9f48FFb09a4B0001c351dF6e1f2Ca'
-  const ssafyTokenContract = new web3.eth.Contract(abi, CA)
   
   // SSF 전환금액 입력 시
   function inputAmount(e) {
@@ -79,25 +69,22 @@ function Charge(props) {
   // 기부금 변화 시 -> save, 기부되는 SSF 변경
   useEffect(changeValue, [amount, donateAmount])
   
-  function ssfToSave() {
-    //* 사용자가 충전 버튼 누르면(onClick) -> 스마트 컨트랙트 호출 -> 성공 시 충전
-    ssafyTokenContract.methods.forceToTransfer(userAddress, adminAddress, amount).send({from:userAddress})
-      .on(() => {
-        // 스마트 컨트랙트 호출 함수
-        let privateKey
-        charge(userAddress, amount, privateKey)
-        const DATA = {
-          donateAmount,
-          save
-        }
-        chargeSave(DATA).then(() => {
-          alert('충전되었습니다')
-          // 충전 금액도 알려주는 게 좋을까
-        // Navbar 충전 금액 변경
-        }).catch(() => {
-          alert('충전에 실패했습니다')
-        })
-      })
+  async function ssfToSave() {
+    //* 사용자가 충전 버튼 누르면(onClick) -> 스마트 컨트랙트 호출(charge) -> 성공 시 충전
+    // 스마트 컨트랙트 호출 -> 성공 여부 필요할까?
+    await charge(userAddress, amount, privateKey)
+    // 백에 데이터 보냄
+    const DATA = {
+      donateAmount,
+      save
+    }
+    chargeSave(DATA).then(() => {
+      alert('충전되었습니다')
+      // 충전 금액도 알려주는 게 좋을까
+    // Navbar 충전 금액 변경
+    }).catch(() => {
+      alert('충전에 실패했습니다')
+    })
   }
 
   return (
