@@ -5,6 +5,7 @@ import "./NavBar.scss";
 
 import nav from '@images/NAV.png'
 import Login from "./Login/Login";
+import ChangeMoney from "./ChangeMoney";
 
 import { getMySave } from "../../apis/account";
 
@@ -50,12 +51,20 @@ function NavBar() {
 
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false)
+  const [modalOpen2, setModalOpen2] = useState(false)
 
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const openModal2 = () => {
+    setModalOpen2(true);
+  };
+  const closeModal2 = () => {
+    setModalOpen2(false);
   };
 
   function Logout(e) {
@@ -119,6 +128,12 @@ function NavBar() {
                     마이페이지
                   </NavDropdown.Item>
                   <NavDropdown.Item
+                    onClick={openModal2}
+                    className="nav-dropdowm2_acc notoMid fs-16"
+                  >
+                    재화 전환
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
                     onClick={e => Logout(e)}
                     className="nav-dropdowm2_acc notoMid fs-16"
                   >
@@ -140,6 +155,7 @@ function NavBar() {
         </Navbar.Collapse>
       </Navbar>
       <Login open={modalOpen} close={closeModal} />
+      <ChangeMoney  open={modalOpen2} close={closeModal2} />
     </header>
   );
 }

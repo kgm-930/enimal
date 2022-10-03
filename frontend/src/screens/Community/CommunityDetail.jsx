@@ -81,8 +81,14 @@ function CommunityRegist() {
             </div>
 
             <div className="commudetail_all_profile_btn flex">
+              {data.nickname === localStorage.MyNick ?
+              <>
               <Link to={`/community/edit/${articleId}`} className="commudetail_all_profile_btn_modi notoBold">수정하기</Link>
               <button type="button" onClick={e=>deleteArticle(e)} className="commudetail_all_profile_btn_del notoBold">삭제하기</button>
+              </>
+              : null
+            }
+              
             </div>
           </div>
           {/* 내용 */}

@@ -1,19 +1,8 @@
-import React,{ useEffect,useState } from "react";
-import { getProfile } from "@apis/mypage";
+import React from "react";
 import './InfoTable.scss'
 
 function InfoTable(props) {
-  const { userId } =props;
-  const [data,setData] = useState(null);
-  useEffect(()=>{
-    getProfile(userId).then(res=>{
-      console.log(res)
-      setData(res.data)
-    })
-  }, [])
-
-  console.log(data)
-
+  const { data } =props;
 
   return (
     <div className="infoTable">

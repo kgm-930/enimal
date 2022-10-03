@@ -29,7 +29,6 @@ function Login(props) {
       // 개인키
       const pubKey = web3.eth.accounts.privateKeyToAccount(myKey);
       console.log(pubKey.address);
-      localStorage.setItem('myAddress', pubKey.address)
       if (newbie && (nick === '' || nick === null)) {
         alert("닉네임을 입력해 주세요")
       }
@@ -50,6 +49,7 @@ function Login(props) {
           else {
             localStorage.setItem('token', res.Authorization)
             localStorage.setItem('MyNick', res.data.userId)
+            localStorage.setItem('myAddress', pubKey.address)
             close()
             alert("로그인 되었습니다!")
           }

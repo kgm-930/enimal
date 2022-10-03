@@ -8,15 +8,12 @@ import NFTtest from '@images/NFTtest.jpg'
 function MyNFT(props) {
   const { userId } = props;
   const [myNFT, setMyNFT] = useState([]);
-  console.log(userId)
 
   useEffect(() => {
     getMyNFT(userId).then(res => {
-      console.log(res)
       setMyNFT(res.data)
     })
   }, [])
-  console.log(myNFT)
   return (
     <div>
       <h1 className="fs-40 notoBold myCollection">보유중인 컬렉션</h1>

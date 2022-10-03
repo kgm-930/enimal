@@ -6,6 +6,7 @@ import picdummy from "@assets/images/coco.jpeg";
 
 function ArticleCard(props) {
   const { data } = props;
+  console.log(data)
   
   return (
     <Link to='/community/detail/' className="mx-5">
