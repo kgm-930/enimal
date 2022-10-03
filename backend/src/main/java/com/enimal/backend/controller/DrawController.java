@@ -62,7 +62,6 @@ public class DrawController {
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
-            System.out.println(e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
