@@ -34,7 +34,7 @@ function Rank() {
         <h1 className="fs-40 notoBold">멸종 위기를 지커준 사람들</h1>
         <hr />
         <button className="rankTabA" onClick={e=> TabChange(e)} id="collection" type="button">컬렉션</button>
-        <button className="rankTabA" onClick={e=> TabChange(e)} id="donation" type="button">기부금</button>
+        <button className="rankTabB" onClick={e=> TabChange(e)} id="donation" type="button">기부금</button>
       </div>
       {RankTab}
       <div>페이지네이션? 무한스크롤?</div>

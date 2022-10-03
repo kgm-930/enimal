@@ -6,27 +6,27 @@ import NoticeCard from "./NoticeCard";
 
 
 
-function NoticeList() {
-  const [page,setPage] = useState(0)
-  const [articles,setArticles] = useState([])
-
+function NoticeList(props) {
+  const { page } = props;
+  const [articles,setArticles] = useState([]);
   useEffect(()=>{
-    const params = {pageSize: 9 , lastIdx: page}
+    const params = {pageSize: 9 , lastIdx: page-1}
     getNoticeList(params).then(res =>{
       setArticles(res.data)
-      setPage(pre => pre+1)
     })
-  },[])
+  }, [page])
 
 
   return (
     <div className="noticeList">
       { articles.map(article => {
-        console.log(article)
+        const A = parseInt((page-1)*5,10)
+        const B = parseInt(articles.indexOf(article)+1,10)
         return (
-          <NoticeCard key={article.idx} data={article} />
+        <NoticeCard idx={A+B} key={article.idx} data={article} />
         )
-      })}
+        })
+      }
 
     </div>
   );

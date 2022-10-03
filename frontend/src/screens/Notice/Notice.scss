@@ -38,3 +38,13 @@
     margin-bottom: vw(100px);
   }
 }
+
+.pagenation_button{
+  width: 30px;
+  height: 25px;
+  margin-inline: 5px;
+}
+
+.selectedNum{
+  background-color: $MAIN;
+}

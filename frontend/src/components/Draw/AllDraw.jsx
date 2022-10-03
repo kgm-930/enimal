@@ -44,7 +44,12 @@ function AllDraw() {
 
   function drawButton(e) {
     e.preventDefault();
-    openModal()
+    if (localStorage.token) {
+      openModal()
+    }
+    else {
+      alert("로그인 해주세요!")
+    }
   }
 
   return (

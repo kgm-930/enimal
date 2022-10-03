@@ -9,6 +9,7 @@ function MyArticles() {
   useEffect(()=>{
     const params = {pageSize: 9 , lastIdx: page}
     getMyArtilce(params).then(res =>{
+      console.log(res)
       setMyArticles(res.data)
       setPage(pre => pre+1)
       console.log(res)
