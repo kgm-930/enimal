@@ -39,7 +39,7 @@ function BadgeModal(props){
             
           </main>
           <footer>
-            <button type="button" className="closeButton" onClick={close}>
+            <button type="button" className="changeButton fs-22 notoBold" onClick={close}>
               확인
             </button>
           </footer>
