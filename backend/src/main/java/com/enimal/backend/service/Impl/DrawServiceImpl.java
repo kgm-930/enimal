@@ -33,17 +33,22 @@ public class DrawServiceImpl implements DrawService {
         this.puzzleRepository = puzzleRepository;
         this.collectionRepository = collectionRepository;
     }
-    private boolean drawCredit(int type, String userId){
+    private boolean drawCredit(int type, String userId,String drawWhat){
         try{
             Optional<User> user = userRepository.findById(userId);
-            int drawCredit = 0; // 사용된 재화
+            System.out.println(drawWhat);
+            int drawCredit = 100; // 사용된 재화
             int userCredit = user.get().getCredit();
             if(type == 0){ // 전체 뽑기
                 userCredit -= 100;
-                drawCredit = 100;
             } else if (type == 1) { //개별 뽑기
-                userCredit -= 1000;
-                drawCredit = 1000;
+                // 등급별 재화 가격 다르게 여기에
+                if(drawWhat.equals("위급")) drawCredit = 1500;
+                else if(drawWhat.equals("위기")) drawCredit = 1200;
+                else if(drawWhat.equals("취약")) drawCredit = 900;
+                else if(drawWhat.equals("준위협")) drawCredit = 600;
+                else if(drawWhat.equals("최소관심")) drawCredit = 300;
+                userCredit -= drawCredit;
             }
             if(userCredit < 0){
                 return false;
@@ -262,7 +267,7 @@ public class DrawServiceImpl implements DrawService {
             userPuzzle.get().setCount(getCount+1);
             animalAllDrawDto.setCount(getCount+1);
             userPuzzle.get().setCreatedate(LocalDateTime.now());
-            if(drawCredit(0,userId)){
+            if(drawCredit(0,userId,gradeDic.get(drawGrade))){
                 puzzleRepository.save(userPuzzle.get());
             }else{
                 return null;
@@ -275,7 +280,7 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setCreatedate(LocalDateTime.now());
             puzzle.setCount(1);
             animalAllDrawDto.setCount(1);
-            if(drawCredit(0,userId)){
+            if(drawCredit(0,userId,gradeDic.get(drawGrade))){
                 puzzleRepository.save(puzzle);
             }else{
                 return null;
@@ -356,7 +361,7 @@ public class DrawServiceImpl implements DrawService {
             userPuzzle.get().setCount(getCount+1);
             animalSelectDrawDto.setCount(getCount+1);
             userPuzzle.get().setCreatedate(LocalDateTime.now());
-            if(drawCredit(1,userId)){
+            if(drawCredit(1,userId, optionalAnimal.getGrade())){
                 puzzleRepository.save(userPuzzle.get());
             }else{
                 return null;
@@ -369,7 +374,7 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setPiece(drawPuzzle);
             puzzle.setCount(1);
             puzzle.setCreatedate(LocalDateTime.now());
-            if(drawCredit(1,userId)){
+            if(drawCredit(1,userId, optionalAnimal.getGrade())){
                 puzzleRepository.save(puzzle);
             }else{
                 return null;
