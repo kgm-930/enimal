@@ -36,7 +36,6 @@ public class DrawServiceImpl implements DrawService {
     private boolean drawCredit(int type, String userId,String drawWhat){
         try{
             Optional<User> user = userRepository.findById(userId);
-            System.out.println(drawWhat);
             int drawCredit = 100; // 사용된 재화
             int userCredit = user.get().getCredit();
             if(type == 0){ // 전체 뽑기
