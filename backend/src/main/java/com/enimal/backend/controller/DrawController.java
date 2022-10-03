@@ -58,6 +58,7 @@ public class DrawController {
             result.put("message",okay);
             if(data == null)
                 result.put("message",noCredit);
+
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){

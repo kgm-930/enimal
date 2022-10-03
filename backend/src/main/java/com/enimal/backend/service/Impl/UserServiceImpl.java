@@ -61,10 +61,10 @@ public class UserServiceImpl implements UserService {
             badgeShowDto.setUserId(user.get().getId());
         }
         user = userRepository.findByWallet(userLoginDto.getWallet());
-        Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
+        Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(user.get().getId(),convertDate);
         if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
             Attendence attendence = new Attendence();
-            attendence.setUserId(userLoginDto.getId());
+            attendence.setUserId(user.get().getId());
             attendence.setAttenddate(LocalDateTime.now());
             attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
@@ -144,6 +144,7 @@ public class UserServiceImpl implements UserService {
         Slice<Board> boards = boardRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
         for(Board board : boards){
             UserPostListDto userPostListDto = new UserPostListDto();
+            userPostListDto.setIdx(board.getIdx());
             userPostListDto.setTitle(board.getTitle());
             userPostListDto.setContent(board.getContent());
             userPostListDto.setPicture(board.getPicture());
