@@ -73,6 +73,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
     @Override
     public NoticeShowDto detailNotice(String userId, Integer idx) {
+        List<String> modal = new ArrayList<>();
         Optional<Notice> notice = noticeRepository.findById(idx);
         Optional<NoticeAttendence> noticeAttendenceList = noticeAttendenceRepository.findByUserIdAndNoticeIdx(userId,idx);
         List<Notice> notices = noticeRepository.findAll(); // 공지사항 총 개수
@@ -101,7 +102,7 @@ public class NoticeServiceImpl implements NoticeService {
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
-            noticeShowDto.setModalName(badge.getBadge());
+            modal.add(badge.getBadge());
         }
         noticeShowDto.setUserId(notice.get().getUser_id());
         noticeShowDto.setTitle(notice.get().getTitle());
@@ -111,6 +112,12 @@ public class NoticeServiceImpl implements NoticeService {
         notice.get().setView(count+1);
         noticeRepository.save(notice.get());
         noticeShowDto.setView(notice.get().getView());
+        // 뱃지 모달
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        noticeShowDto.setModalName(arr);
         return noticeShowDto;
     }
     @Override
@@ -121,10 +128,7 @@ public class NoticeServiceImpl implements NoticeService {
         noticeShowDto.setTitle(notice.get().getTitle());
         noticeShowDto.setContent(notice.get().getContent());
         noticeShowDto.setNoticedate(notice.get().getModifydate());
-        int count = notice.get().getView();
-        notice.get().setView(count+1);
-        noticeRepository.save(notice.get());
-        noticeShowDto.setView(notice.get().getView());
+        noticeShowDto.setView(notice.get().getView()); // 비로그인시 조회수 증가X
         return noticeShowDto;
     }
     @Override
