@@ -1,7 +1,7 @@
 // web3, axios, ipfs-api 패키지 설치 필요
 const mint = require('./mint')
 const login = require('./login')
-const api = require('./api')
+const api = require('./treatImg')
 // const Web3 = require('web3')
 // const ABI = require('./ABI')
 
@@ -78,7 +78,8 @@ userAddress = '0x7edc38F3511F13100AdcC4c16Ba14eC475C00776'
 // const web3 = new Web3(new Web3.providers.HttpProvider('http://20.196.209.2:8545/'))
 // const enimalContract = new web3.eth.Contract(ABI.ABI.CONTRACT_ABI.ENIMAL_ABI, '0xDc2935c9dbbECCFdDAfe54098DeA09d2f92bc48A')
 
-mint.beforeMint(type, prompt, name)
+// mint.beforeMint(type, prompt, name)
+mint.beforeMint("Paint", "오랑우탄", "오랑이")
 
 
 

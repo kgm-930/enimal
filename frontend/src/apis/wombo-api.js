@@ -7,7 +7,6 @@ async function test() {
 			email: 'ilwoldeveloper@gmail.com',
 			password: 'enimal*24',
 		};
-		// signin is automatically done when you interract with the api if you pass credentials
 		const wombo = buildDefaultInstance(credentials);
 
 		const usedStyle = [52, 50, 49, 48, 47, 45]

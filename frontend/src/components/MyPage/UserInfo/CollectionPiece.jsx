@@ -18,14 +18,12 @@ import piece6 from "@images/PieceImg/test/6.png";
 import piece7 from "@images/PieceImg/test/7.png";
 import piece8 from "@images/PieceImg/test/8.png";
 import piece9 from "@images/PieceImg/test/9.png";
+import { useState } from "react";
 
-// import ipfsAPI from "ipfs-api";
 // import {uploadData} from "@apis/treatImg"
-// import {makeImg} from "@apis/treatImg"
-// import {upload} from "@apis/treatImg"
+import {makeImg} from "@apis/treatImg"
 // import { test } from "../../../apis/treatImg";
 // import { test } from "@apis/wombo-api";
-// import axios from 'axios'
 
 // import { NFTStorage } from 'nft.storage'
 // import WomboDream from '@apis/dream-api/dist/app'
@@ -36,32 +34,16 @@ import piece9 from "@images/PieceImg/test/9.png";
 
 // const test = require("@apis/wombo-api")
 
-import {uploadData} from "@apis/treatImg"
-import { create } from "@apis/sendTx";
+// import {uploadData} from "@apis/treatImg"
+// import { create } from "@apis/sendTx";
+// import { ownerOf } from "@apis/sendTx";
+
+
 // NFT 생성 버튼 누르면 동작
 async function makeNFT() {
-  //* type, prompt, name, owner 필요
-  //* 타입은 선택, 동물은 아미 정해져 있음, 이름은 입력받기 (기본값 필요할 듯), 소유자는 현재 사용자 계좌
-  // 백 호출 -> 백에서 dream-api 호출 -> url 받아옴
-  const url = ''
-  // url 받아온 후, type, prompt, name, owner, url 전달 (ipfs로 업로드)
-  const metadata = await uploadData(type, prompt, name, owner, url)
-  const tokenURI = metadata.url
-  // 스마트 컨트랙트에 민팅 요청
-  await create(owner, tokenURI)
-  // 백에 메타데이터 전송 - 정제해서 줄지 그대로 줄지
-  const {data} = metadata
-  const modifiedData = {
-    name: data.name,
-    owner: data.properties.owner,
-    date: data.properties.date,
-    type: data.properties.type,
-    image: `https://ipfs.io/ipfs/${data.image.pathname.replace('/', '')}`
-  }
-  console.log(metadata)
-  // 백에 성공적으로 저장되면 확인 메시지
+  
 
-  //
+  //* nft.store이용
   /*
   ipnft: "bafyreihltkzhux4qonq324oexcuh2o6ntozgvwjdguiiyyjspke6bnqzlm"
   url: "ipfs://bafyreihltkzhux4qonq324oexcuh2o6ntozgvwjdguiiyyjspke6bnqzlm/metadata.json"
@@ -72,14 +54,8 @@ async function makeNFT() {
     properties: {owner: 'userAddress', date: 1664717577782, type: 'Comic'}
   */
 
-  // back에 metadata 전송
-
-
-
-
 
   // const url="https://images.wombo.art/generated/e73fab84-d9b6-429d-bfac-a29229bb527b/final.jpg?Expires=1670928846&Signature=MDcy9NJbVgW~WIr0uL8jqTRDVayLiGbAKiftS1Q1CoUe19IaEYabvd2QIOgFbHwSQ8eqsEyc4wHcZV~-q8LdY6nPXBFi2mEL557j6fKOtmD8fIhOLC30dxsWJXzvnnM3LyigrXbGela1RdOixkrSnm1s5OURGyQTOo72k22UN9H0jxiGgFL0EVVHpomXP~kHxNHuP~4gCVy2uu~enkEGdbJVPy~0YKQBK-LEqq8ct3pq7eLU9bRd3s6QYNDwtxQHtDVbezr6FzbC~Q7fKuto~hsFt9FzMFqlGbZ-Gsh4CvOIJFcHziuYSi-2i4vaGoHBkdBbrKZiHzKq13YSlYKtWw__&Key-Pair-Id=K1ZXCNMC55M2IL"
-  // getMetaInfo('QmWFsM7gBWxBsn8WYH4q7ngYgQqqEJ425BCeC8GzoBTpDz')
   // uploadData("type", "prompt")
   // upload(url, "name", "owner", "type")
   // makeImg("type", "prompt")
@@ -89,27 +65,10 @@ async function makeNFT() {
   // charge("0x7edc38F3511F13100AdcC4c16Ba14eC475C00776", 10, "0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001")
   // create("0x7edc38F3511F13100AdcC4c16Ba14eC475C00776","ipfs://QmYjPMTiQFWCUq3vgFsZXjaRMrgoCbfewcC8ZYnkvT9vXH")
   // console.log('final', test)
-  // makeImg('Paint', '저어새')
 
+  //* 이미지 생성
+  makeImg('Paint', '저어새')
 
-
-  // const img = await fetch('https://images.wombo.art/generated/ba65f5ea-5800-473f-bd42-180b3045d1a5/final.jpg?Expires=1671823592&Signature=KBfh4myH4Tv05RdTS4D-jZqbJ3e9BDuaXfJW0G0sZQL-ikZXYYW8uyq57u02vn~JA2wgLNpcMKDVXVpjyqGZqdP4Wz8Ix4D9x1PpihAOxJsN7Ktf7Bkgv7wQsYyX0YYPE94ej2JRi6OVitKV~Ilwopl2k3nvYXeKJGRB4OJZiuOAh0gnIMkbySd6vzOeaMMh59u~HGi213SnmcdErMW8IbjINtLzQnmXawQS~KvQ-uacE44kCUhP3~yXqQaJH-6RjJJCXIW4S3vyY5Bc4cZ4pdZuLBrOsCweUXKNJOu44KzNqBgTu3x30RhrvGC-YTpdZ5buUmODlQjWqR8tZ1G~wQ__&Key-Pair-Id=K1ZXCNMC55M2IL')
-  // if (!img.ok) {
-  //   console.log(img.ok)
-  // }
-  // const image = await img.blob()
-  // const json = {
-  //   name: 'name',
-  //   description: "",
-  //   image,
-  //   properties: {
-  //     owner: "me",
-  //     date: Date.now(),
-  //     type: "type",
-  //   }
-  // }
-  // const metadata = await client.store(json)
-	// console.log(metadata)
 }
 
 function CollectionPiece() {
