@@ -144,6 +144,7 @@ public class UserServiceImpl implements UserService {
         Slice<Board> boards = boardRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
         for(Board board : boards){
             UserPostListDto userPostListDto = new UserPostListDto();
+            userPostListDto.setIdx(board.getIdx());
             userPostListDto.setTitle(board.getTitle());
             userPostListDto.setContent(board.getContent());
             userPostListDto.setPicture(board.getPicture());
