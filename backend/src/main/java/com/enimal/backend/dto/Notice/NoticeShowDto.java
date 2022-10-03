@@ -14,5 +14,5 @@ public class NoticeShowDto {
     private LocalDateTime noticedate;
     private String content;
     private Integer view;
-    private String modalName;
+    private String[] modalName;
 }
