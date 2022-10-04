@@ -26,4 +26,6 @@ public interface UserService {
     boolean checkUser(String nickname);
 
     int currentCredit(String userId);
+
+    List<UserRankDonationListDto>  rankListDonation(Integer pageSize, Integer lastIdx);
 }

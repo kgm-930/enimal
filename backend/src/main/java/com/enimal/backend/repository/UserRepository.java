@@ -3,6 +3,8 @@ package com.enimal.backend.repository;
 import com.enimal.backend.dto.User.UserProfileDto;
 import com.enimal.backend.entity.Notice;
 import com.enimal.backend.entity.User;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +22,11 @@ public interface UserRepository extends JpaRepository<User,String> {
     Optional<User> findByNickname(String nickname);
 
     Optional<User> findByWallet(String wallet);
+
+    Optional<User> findTop1ByOrderByDonationDesc();
+
+    @Query("SELECT t FROM User t " +
+            "WHERE t.idx < :lastIdx " +
+            "order by t.donation DESC")
+    Slice<User> findAllByOrderByDonationDesc(Integer lastIdx, Pageable pageable);
 }

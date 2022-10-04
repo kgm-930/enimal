@@ -317,9 +317,9 @@ public class EtcTests {
         Slice<User> users = null;
         Pageable pageable = PageRequest.ofSize(pageSize);
         if (lastIdx == 0) {
-            lastIdx = collectionRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
+            lastIdx = userRepository.findTop1ByOrderByDonationDesc().get().getIdx() + 1;
         }
-        users = collectionRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+        users = userRepository.findAllByOrderByDonationDesc(lastIdx, pageable);
         for (User user : users) {
             System.out.println(user.getId()+ " : " +user.getUsedcredit());
         }

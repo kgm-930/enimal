@@ -269,4 +269,22 @@ public class UserServiceImpl implements UserService {
         int credit = user.get().getCredit();
         return credit;
     }
+
+    @Override
+    public List<UserRankDonationListDto>  rankListDonation(Integer pageSize, Integer lastIdx) {
+        Slice<User> users = null;
+        List<UserRankDonationListDto> userRankDonationListDtos = new ArrayList<>();
+        Pageable pageable = PageRequest.ofSize(pageSize);
+        if (lastIdx == 0) {
+            lastIdx = userRepository.findTop1ByOrderByDonationDesc().get().getIdx() + 1;
+        }
+        users = userRepository.findAllByOrderByDonationDesc(lastIdx, pageable);
+        for (User user : users) {
+            UserRankDonationListDto userRankDonationListDto = new UserRankDonationListDto();
+            userRankDonationListDto.setNickname(user.getNickname());
+            userRankDonationListDto.setDoantion(user.getDonation());
+            userRankDonationListDtos.add(userRankDonationListDto);
+        }
+        return userRankDonationListDtos;
+    }
 }
