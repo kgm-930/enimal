@@ -7,26 +7,26 @@ axios.defaults.headers['Access-Control-Allow-Credentials'] = true
 axios.defaults.withCredentials = true
 
 
-// const signUp = (email = "", password = "", username = "") => {
-// 	const jsonData = {}
-// 	if (email !== "" && password !== "" && username !== "") {
-// 		jsonData.email = email;
-// 		jsonData.password = password;
-// 		jsonData.displayName = username;
-// 	}
-// 	return new Promise((resolve) => {
-// 		// fetch('/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', {
-// 		// 	method: 'POST',
-// 		// })
-// 		axios.post('/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', jsonData)
-// 			.then((response) => {
-// 				resolve(response.data);
-// 			})
-// 			.catch((error) => {
-// 				resolve(error);
-// 			});
-// 	});
-// };
+const signUp = (email = "", password = "", username = "") => {
+	const jsonData = {}
+	if (email !== "" && password !== "" && username !== "") {
+		jsonData.email = email;
+		jsonData.password = password;
+		jsonData.displayName = username;
+	}
+	return new Promise((resolve) => {
+		// fetch('/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', {
+		// 	method: 'POST',
+		// })
+		axios.post('/relyingparty/signupNewUser?key=AIzaSyDCvp5MTJLUdtBYEKYWXJrlLzu1zuKM6Xw', jsonData)
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				resolve(error);
+			});
+	});
+};
 
 const signIn = (email, password) => {
 	new Promise((resolve) => {
@@ -69,6 +69,6 @@ const signIn = (email, password) => {
 // 	});
 // }
 
-// exports.signUp = signUp;
+exports.signUp = signUp;
 exports.signIn = signIn;
 // exports.refreshToken = refreshToken;

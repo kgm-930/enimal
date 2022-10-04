@@ -19,14 +19,6 @@ export const getMySave = async () => {
   return res.data;
 };
 
-// 재화 전환(충전)
-export const chargeSave = async (DATA) => {
-  const res = await API_ACCOUNT.post("/credit",{
-    data : DATA,
-  });
-  return res.data;
-};
-
 // AI 이미지 생성
 export const makeImg = async (DATA) => {
   const res = await API_ACCOUNT.post("주소 결정 필요",{

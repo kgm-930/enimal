@@ -112,11 +112,8 @@ const checkStatus = async(token, taskID, interval = 1000, callback = null) => {
 const generateImage = async(style, promptValue, image = null, weight = "MEDIUM", callback = null, interval = 1000, freq = 10) => {
     // const token = 'z8w6OPCOBstepOZXbR7L'
     // const token = 'ryFJpbi7AUWbZJOlgKJcGcXebf93'
-    const token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjU4NWI5MGI1OWM2YjM2ZDNjOTBkZjBlOTEwNDQ1M2U2MmY4ODdmNzciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoibm93b25rIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3BhaW50LXByb2QiLCJhdWQiOiJwYWludC1wcm9kIiwiYXV0aF90aW1lIjoxNjY0NzA4MDM3LCJ1c2VyX2lkIjoicnlGSnBiaTdBVVdiWkpPbGdLSmNHY1hlYmY5MyIsInN1YiI6InJ5RkpwYmk3QVVXYlpKT2xnS0pjR2NYZWJmOTMiLCJpYXQiOjE2NjQ3MDgwMzcsImV4cCI6MTY2NDcxMTYzNywiZW1haWwiOiJpbHdvbGRldmVsb3BlckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiaWx3b2xkZXZlbG9wZXJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.T2r3xOn-U18Tgq2TVY7mt9RdHXSQSmS-n4gjHlyImTsfvp7gy4H2Tbut1RFvO1pADBaVNa_kYryKWPSlpr1Yezk_6eVRZ-lLQ-q084rbw65A39ODjEOnEbeDLaxqrEP-cRIMbSkSkyQYPRRno0-Md3aek99WKvKz4YWd3ExeJ-YVSEdC8y3TmSSsZIdqsBBldRmxM6wF2fWmzFUVwJEFWlOINDOB7HpHCXtH9XO4TKHXnYXnXFIMMl6F8jEpODM61F96_Y6jpD0DSXW0Lga4J9MT27TLwGcZpvhHBxHEjx3hDHjiEihR7WzzBjKeOu7qtzy7fPWYnU9Cgoo8-iYww'
-
-    // let token = await Authentication.signUp("ilwoldevloper@gmail.com", "enimal*24");
-		console.log(token)
-		// token = token.idToken;
+    let token = await Authentication.signUp();
+		token = token.idToken;
     const taskID = await getTaskID(token); // Get the task ID
 		let result = await createTask(token, taskID, promptValue, style, image, weight, freq); // Create the task
     if (callback && typeof callback === 'function') {

@@ -12,18 +12,6 @@ import right from "@assets/icons/south_east_black_24dp.svg"
 import left from "@assets/icons/south_west_black_24dp.svg"
 
 function Intro() {
-  const [modalOpen, setModalOpen] = useState(false)
-
-  const openModal = () => {
-    if (localStorage.token) {
-      alert("이미 지갑이 연결된 상태예요")
-    } else {
-      setModalOpen(true);
-    }
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
   return (
     <>
       <div className="intropg1">

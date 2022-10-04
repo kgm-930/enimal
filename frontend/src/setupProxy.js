@@ -1,36 +1,12 @@
-const {createProxyMiddleware} = require('http-proxy-middleware')
+// const {createProxyMiddleware} = require('http-proxy-middleware')
 
-module.exports = function (app) {
-  app.use(
-    '/accounts',
-    createProxyMiddleware({
-      target: 'https://www.identitytoolkit.googleapis.com/v1',
-      changeOrigin: true,
-    })
-  )
+// module.exports = function (app) {
+//     app.use(
+//       '/',
+//       createProxyMiddleware({
+//         target: 'http://j7c106.p.ssafy.io:8081',
+//         changeOrigin: true,
+//       })
 
-  app.use(
-    '/generated',
-    createProxyMiddleware({
-      target: 'https://images.wombo.art',
-      changeOrigin: true,
-    })
-    )
-
-  app.use(
-    '/tasks',
-    createProxyMiddleware({
-      target: 'https://paint.api.wombo.ai/api',
-      changeOrigin: true,
-    })
-    )
-    
-    // app.use(
-    //   '/',
-    //   createProxyMiddleware({
-    //     target: 'https://app.wombo.art',
-    //     changeOrigin: true,
-    //   })
-
-  // )
-}
+//   )
+// }
