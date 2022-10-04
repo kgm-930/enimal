@@ -51,7 +51,7 @@ function AllDraw() {
       alert("로그인 해주세요!")
     }
   }
-
+  // index -> file img 경로 list 쓸 때 사용
   return (
     <div className="AllDraw">
       <div className="CardList">
