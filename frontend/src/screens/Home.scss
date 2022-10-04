@@ -51,16 +51,22 @@
       color: $GRAY-40;
       word-spacing: vw(6px);
       line-height: vw(40px);
+      height: vw(440px);
+      
     }
 
-    button {
+
+    &_noti {
+      margin-left: vw(140px);
       width: vw(200px);
-      height: vw(88px);
+      height: vw(44px);
       background-color: $BTN-8B;
       color: $WHITE;
-      border-radius: vw(20px);
-      margin-top: vw(170px);
+      border-radius: vw(12px);
+
     }
+
+
   }
 }
 
