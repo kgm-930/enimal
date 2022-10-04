@@ -9,6 +9,7 @@ function Login(props) {
   const [myKey, setMyKey] = useState(null);
   const [newbie, setNewbie] = useState(false);
   const [nick, setNick] = useState(null);
+  
 
   function inputKey(e) {
     console.log(e.target.value)
@@ -50,8 +51,7 @@ function Login(props) {
             localStorage.setItem('token', res.Authorization)
             localStorage.setItem('MyNick', res.data.userId)
             localStorage.setItem('myAddress', pubKey.address)
-            close()
-            alert("로그인 되었습니다!")
+            close(res.data.modalName)
           }
         })
 

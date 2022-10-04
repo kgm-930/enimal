@@ -4,6 +4,8 @@ import './InfoTable.scss'
 function InfoTable(props) {
   const { data } =props;
 
+  const credit = parseInt(data.usedCredit, 10);
+  const SAVE = credit.toLocaleString('ko-KR');
   return (
     <div className="infoTable">
       {data ?
@@ -30,8 +32,8 @@ function InfoTable(props) {
         </div>
         <hr />
         <div className="flex justify-space-between">
-          <h1 className="fs-20 notoBold">기부한 금액</h1>
-          <h2 className="fs-20 notoMid">{data.usedCredit} SSF</h2>
+          <h1 className="fs-20 notoBold">사용한 금액</h1>
+          <h2 className="fs-20 notoMid">{SAVE} SAVE</h2>
         </div>
         <hr />
       </div>:null}

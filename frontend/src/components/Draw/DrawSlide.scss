@@ -12,7 +12,7 @@
   width: 210px;
   height: 300px;
   top: 400px;
-  z-index: 100;
+  z-index: 98;
   white-space: nowrap;
 }
 
@@ -44,6 +44,15 @@
   margin-inline: auto;
   background-color: $MAIN;
   color: $TYPO-27; 
+}
+
+.goDraw2{
+  width: 300px;
+  height: 40px;
+  margin-inline: auto;
+  background-color: $MAIN;
+  color: $TYPO-27;
+  opacity: 50%;
 }
 
 .pieceimg{
