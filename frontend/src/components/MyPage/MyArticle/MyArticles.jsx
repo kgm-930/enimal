@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from "react";
 import './MyArticles.scss'
-import { getMyArtilce } from "@apis/account";
-import CommunityCard from "../../Community/CommunityCard";
+import { getMyArtilce } from "@apis/mypage";
+import ArticleCard from "./ArticleCard";
 
 function MyArticles() {
   const [page,setPage] = useState(0)
@@ -9,8 +9,10 @@ function MyArticles() {
   useEffect(()=>{
     const params = {pageSize: 9 , lastIdx: page}
     getMyArtilce(params).then(res =>{
+      console.log(res)
       setMyArticles(res.data)
       setPage(pre => pre+1)
+      console.log(res)
     })
   },[])
 
@@ -22,7 +24,7 @@ function MyArticles() {
         { myArticles.map(article => {
           console.log(article)
           return (
-            <CommunityCard />
+            <ArticleCard data={article} />
           )
         })}
       </div>

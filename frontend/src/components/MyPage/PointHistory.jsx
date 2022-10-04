@@ -1,10 +1,20 @@
-import React from "react";
+import React,{ useEffect,useState } from "react";
 import './PointHistory.scss'
 
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { getMyPointHistory } from "@apis/mypage";
+
 function PointHistory() {
+  const [data,setData] = useState([]);
+
+  useEffect(()=>{
+    getMyPointHistory().then(res=>{
+      console.log(res)
+      setData(res.data)
+    })
+  },[])
 
   const Test = [
     {id:1, SSF:100, donation:10, date:'2022.09.18 10:30'},
@@ -15,6 +25,7 @@ function PointHistory() {
     {id:6, SSF:500, donation:100, date:'2022.08.01 10:30'},
   ]
 
+  console.log(data)
 
 
 
