@@ -14,4 +14,3 @@ COPY --from=builder /var/jenkins/workspace/front/frontend/build /usr/share/nginx
 
 
 CMD ["nginx", "-g","daemon off;"]
-CMD ["ipfs","daemon"]

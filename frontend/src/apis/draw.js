@@ -11,11 +11,3 @@ export const getSelectDraw = async () => {
   const res = await API_DRAW.get("/draw/select");
   return res.data;
 };
-
-// 재화 전환(충전)
-export const chargeSave = async (PARAMS) => {
-  const res = await API_DRAW.post("/credit",'',{
-    params : PARAMS,
-  });
-  return res.data;
-};

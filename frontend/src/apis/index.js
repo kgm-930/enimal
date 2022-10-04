@@ -1,9 +1,6 @@
 import axios from "axios";
 
 export const BASE_URL = "";
-// 제일 먼저 실행되는 자바스크립트 파일의 최상위에 위치
-// require("dotenv").config({path: '../../.env'})
-// const BASE_URL = process.env.REACT_APP_BACKEND_HOST_URL
 
 export const API_ACCOUNT = axios.create({
   baseURL : BASE_URL,
