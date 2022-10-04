@@ -1,31 +1,34 @@
 pipeline {
     agent any
-    tools {
-        nodejs "node14"
-        git "Default"
-    }
+
     stages {
-        stage('prepare') {
-            steps {
-                echo 'prepare'
-                 git branch: "front", credentialsId: "haengsong", url: 'https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C106.git'
-                 sh  'ls -al'
+        stage("git"){ //git에 브랜치 url, credentialsId는 젠킨스에 등록한 인증으로
+            steps{ // https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C106
+                git branch: 'back', credentialsId: 'cg1735', url: 'https://lab.ssafy.com/s07-blockchain-nft-sub2/S07P22C106.git'
             }
         }
         stage('build') {
-            steps {
-                    dir('frontend'){
-                        sh 'ls -al'
-                        sh 'docker build -t frontend .'
-                        sh 'docker run -d -p 3000:3000 frontend'
-
+            steps{
+                sh "ls -a"
+                dir('backend') { //gradle 권한 설정 후 gradle로 도커 이미지 빌드하는 명령어 실행
+                    script{
+                        try{
+                            sh "chmod +x gradlew"
+                            sh "./gradlew bootBuildImage --imageName=spring"
+                        } catch(e){
+                            echo "fail build"
+                        }
+                    }
+                    script{ //이미 실행 중인 컨테이너가 있으면 중지 후 삭제
+                        try{
+                            sh "docker stop spring"
+                            sh "docker rm spring"
+                        } catch(e){
+                            echo "container none"
+                        }
+                    } //8081 포트에서 spring이라는 이미지를 spring이라는 컨테이너이름으로 설정해서 실행
+                    sh "docker run -d -p 8081:8081 --name spring spring "
                 }
-            }
-        }
-        stage('deploy') {
-            steps {
-                sh "ls -al"
-                echo 'deploy'   
             }
         }
     }
