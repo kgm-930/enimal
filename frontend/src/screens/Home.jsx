@@ -107,14 +107,13 @@ function Home() {
                 <div className="animal_explain_content notoMid fs-28">
                   {todayAnimal.content}
                 </div>
-                <div className="animal_explain_btn flex justify-center">
-                  <button
-                    type="button"
-                    className="animal_explain_noti notoBold fs-32 flex justify-center align-center"
-                  >
-                    영상 시청하기
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className="animal_explain_noti notoBold fs-24 flex justify-center align-center"
+                >
+                  영상 시청하기
+                </button>
+
               </div>
             </div>
           </div>
