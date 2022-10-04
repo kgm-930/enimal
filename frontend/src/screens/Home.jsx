@@ -10,27 +10,45 @@ import { getTodayAnimal } from "@apis/home";
 function Home() {
   
 
-  // useEffect(() => {
-  //   async function getAndSetTodayAnimal() {
-  //     const res = await getTodayAnimal();
-  //     setTodayAnimal(res.data);
-  //   }
-  //   getAndSetTodayAnimal();
-  // }, []);
-
-  // const name = todayAnimal.animal
-  // console.log(todayAnimal)
-  // // console.log(todayAnimal.animal)
-
   const [todayAnimal, setTodayAnimal] = useState([]);
+  // const [animalName, setAnimalName] = useState("");
   useEffect(() => {
     getTodayAnimal().then(res => {
       console.log(res);
       setTodayAnimal(res.data);
     });
   }, []);
-
+  
   console.log(todayAnimal);
+
+  const Route = {
+    "검은코뿔소" : "/notice",
+    "양쯔강돌고래" : "/notice",
+    "저어새" : "/notice",
+    "고라니" : "/notice",
+    "하마" : "/notice",
+    "뱀장어" : "/notice",
+    "렛서판다" : "/notice",
+    "우파루파" : "/notice",
+    "자이언트판다" : "/notice",
+    "북극곰" : "/notice",
+    "수달" : "/notice",
+    "바다거북" : "/notice",
+    "안데스산고양이" : "/notice",
+    "아시아코끼리" : "/notice",
+    "강토끼" : "/notice",
+    "고래상어" : "/notice",
+    "오랑우탄" : "/notice",
+    "상괭이" : "/notice",
+    "검은발족제비" : "/notice",
+    "듀공" : "/notice",
+    "매" : "/notice",
+    "두루미" : "/notice",
+    "산양" : "/notice",
+    "호랑이" : "/notice",
+  }
+
+
 
   const test1 = [
     { rank: 1, nick: "haengsong", collection: 24, drawcnt: 4567 },
@@ -94,27 +112,30 @@ function Home() {
           </div> */}
           <div className="container flex">
             <div className="animal flex">
-              <div className="animal_pic">
-                <img src={todayAnimall} alt="오늘의 동물" />
-              </div>
-              <div className="animal_explain">
-                <div className="animal_explain_title notoBold fs-40 flex justify-center">
-                  오늘의 동물
-                </div>
-                <div className="animal_explain_name flex justify-center notoBold fs-32">
-                  {todayAnimal.animal}
-                </div>
-                <div className="animal_explain_content notoMid fs-28">
-                  {todayAnimal.content}
-                </div>
-                <button
-                  type="button"
-                  className="animal_explain_noti notoBold fs-24 flex justify-center align-center"
-                >
-                  영상 시청하기
-                </button>
-
-              </div>
+              {todayAnimal === true ? (
+                <>
+                  <div className="animal_pic">
+                    <img src={todayAnimall} alt="오늘의 동물" />
+                  </div>
+                  <div className="animal_explain">
+                      <div className="animal_explain_title notoBold fs-40 flex justify-center">
+                        오늘의 동물
+                      </div>
+                      <div className="animal_explain_name flex justify-center notoBold fs-32">
+                        {todayAnimal.animal}
+                      </div>
+                      <div className="animal_explain_content notoMid fs-28">
+                        {todayAnimal.content}
+                      </div>
+                      <Link to={Route[todayAnimal.animal]}
+                        type="button"
+                        className="animal_explain_noti notoBold fs-24 flex justify-center align-center"
+                      >
+                        영상 시청하기
+                      </Link>
+                  </div>
+                </>   
+              ) : 1}
             </div>
           </div>
         </div>
