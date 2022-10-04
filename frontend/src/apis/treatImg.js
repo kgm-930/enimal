@@ -1,4 +1,4 @@
-import WomboDream from '../../../backend/dream-api/dist/app'
+import WomboDream from './dream-api/dist/app'
 
 const typeToStyle = {
   Paint: 50, HDR : 52, Polygon : 49, Gouache : 48, Comic : 45, 'Line-Art' : 47

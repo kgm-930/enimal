@@ -18,7 +18,7 @@ import piece6 from "@images/PieceImg/test/6.png";
 import piece7 from "@images/PieceImg/test/7.png";
 import piece8 from "@images/PieceImg/test/8.png";
 import piece9 from "@images/PieceImg/test/9.png";
-import { useState } from "react";
+// import { useState } from "react";
 
 // import {uploadData} from "@apis/treatImg"
 import {makeImg} from "@apis/treatImg"

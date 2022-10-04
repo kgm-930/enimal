@@ -61,7 +61,7 @@ function final() {
                   owner: data.properties.owner,
                   date: data.properties.date,
                   type: data.properties.type,
-                  image: `https://ipfs.io/ipfs/${data.image.pathname.replace('/', '')}`
+                  image: `https://ipfs.io/ipfs${data.image.pathname.replace('/', '')}`
                 }
                 saveMetadata(modifiedData)
                   .then((response) => {
