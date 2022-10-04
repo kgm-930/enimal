@@ -43,7 +43,7 @@ function Notice() {
 
 
   return (
-    <div className="container">
+    <div className="containerBox">
       <div className="notice">
         <div className="notice_pagetitle notoBold fs-36">공지사항</div>
         <div className=" flex justify-center align-center">

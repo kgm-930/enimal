@@ -30,12 +30,16 @@ import egg24 from '@images/eggs/egg24.png'
 
 import DrawModal from "./DrawModal";
 
-
+const Cost = {
+  1:900,2:1200,3:1500,4:900,5:1200,6:900,7:1500,8:600,9:1500,10:300,11:900,
+  12:900,13:1500,14:1500,15:900,16:1200,17:1200,18:1200,19:900,20:1200,21:1200,22:1200,23:1500,24:1200
+}
 
 function SelectDraw() {
   const [selectImg, setSelectImg] = useState(null)
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [price, setPrice] = useState(null);
 
   const openModal = () => {
     setModalOpen(true);
@@ -47,7 +51,13 @@ function SelectDraw() {
   function drawButton(e) {
     e.preventDefault();
     if (localStorage.token) {
-      openModal()
+      if (selectImg) {
+        openModal()
+      }
+      else{
+        alert("동물을 선택해주세요!")
+      }
+      
     }
     else {
       alert("로그인 해주세요!")
@@ -59,8 +69,14 @@ function SelectDraw() {
     if (selectImg) {
       document.getElementById(selectImg).parentElement.className = "drawCard2";
     }
-    setSelectImg(e.currentTarget.id)
-
+    if (selectImg === e.currentTarget.id){
+      setSelectImg(null)
+      setPrice(null)
+    }
+    else{
+      setSelectImg(e.currentTarget.id)
+      setPrice(Cost[e.currentTarget.id])
+    }
   }
 
   function mouseover(e) {
@@ -473,7 +489,7 @@ function SelectDraw() {
         type="button"
         onClick={e => drawButton(e)}
       >
-        선택 뽑기 (가격)
+        선택 뽑기 {price ? <span>({price}SAVE)</span> :null}
       </button>
       <div>
         <h1 className="fs-24 notoBold drawNotice">
@@ -486,7 +502,7 @@ function SelectDraw() {
           보유중인 업적에 따라 미보유중인 조각이 등장할 확률이 상승합니다.
         </h3>
       </div>
-      <DrawModal open={modalOpen} close={closeModal} draw={selectImg} length={9} />
+      <DrawModal open={modalOpen} close={closeModal} draw={selectImg} length={9} price={price} />
     </div>
   );
 }
