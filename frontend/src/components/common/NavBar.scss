@@ -2,16 +2,20 @@
     background-color: $MAIN;
     padding: 0;
     height: 55px;
+    width: vw(1440px);
+    justify-content: space-between;
+
 }
 
-.mainlogo {
-    margin-left: vw(135px);
-    margin-right: 420px;
+.basic-navbar-nav {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .save {
     // color: $BLACK;
     margin-right: vw(64px);
+    
 
 }
 

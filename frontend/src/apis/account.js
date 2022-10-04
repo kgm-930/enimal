@@ -6,23 +6,15 @@ export const getLogin = async (DATA) => {
   return res.data;
 };
 
+// 아이디 삭제
+export const getDeleteUser = async () => {
+  const res = await API_ACCOUNT.delete("/user");
+  return res.data;
+};
+
+
 // 재화 조회
-export const getSave = async (DATA) => {
-  const res = await API_ACCOUNT.post("/user/login", DATA);
-  return res.data;
-};
-
-// 프로필 조회
-export const getProfile = async (DATA) => {
-  const res = await API_ACCOUNT.post(`/user/profile/${DATA}`);
-  return res.data;
-};
-
-
-// 내 게시글 조회
-export const getMyArtilce = async (PARAMS) => {
-  const res = await API_ACCOUNT.get("/user/post",{
-    params : PARAMS,
-  });
+export const getMySave = async () => {
+  const res = await API_ACCOUNT.get("/user/credit");
   return res.data;
 };

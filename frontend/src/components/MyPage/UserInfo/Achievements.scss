@@ -5,11 +5,27 @@
 
 
 .AchiveNav{
-  display: block;
+  display: flex;
+  align-items: center;
   background-color: $MAIN;
   height: 40px;
   color: $TYPO-27;
-  padding-left: 20px;
-  padding-top: 10px;
+  padding-left: 30px;
+}
 
+.badgeImg{
+  width: vw(150px);
+  height: vw(150px);
+  opacity: 30%;
+}
+.badgeImg2{
+  width: vw(150px);
+  height: vw(150px);
+}
+.AchiveBox{
+  display: flex;
+  justify-content: space-around;
+}
+.badge{
+  margin-block: 40px;
 }

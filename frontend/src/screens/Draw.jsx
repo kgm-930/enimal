@@ -9,11 +9,11 @@ function Draw() {
   const [Tab, setTab] = useState('alldraw')
 
 
-  let RankTab = null
+  let DrawTab = null
   if (Tab === 'alldraw') {
-    RankTab = <AllDraw />
+    DrawTab = <AllDraw />
   } else {
-    RankTab = <SelectDraw />
+    DrawTab = <SelectDraw />
   }
 
 
@@ -38,7 +38,7 @@ function Draw() {
         <button className="drawTabB" onClick={e => TabChange(e)} id="selectdraw" type="button">선택 뽑기</button>
       </div>
       <hr />
-      { RankTab }
+      { DrawTab }
     </div>
 
   )
