@@ -9,6 +9,7 @@ import ChangeMoney from "./ChangeMoney";
 
 import { getMySave } from "../../apis/account";
 
+import GetBadge from "./GetBadge";
 
 const Web3 = require('web3');
 
@@ -16,6 +17,22 @@ function NavBar() {
 
   const [SSF, setSSF] = useState(null);
   const [save,setSave] =useState(0);
+
+
+
+  // 업적획득 세팅
+  const [badge, setBadge] = useState([]);
+  const [badgeModal, setBadgeModal] = useState(false);
+  const openBadgeModal = () => {
+    setBadgeModal(true);
+  };
+  const closeBadgeModal = () => {
+    setBadgeModal(false);
+  };
+
+
+
+
 
   const web3 = new Web3(new Web3.providers.HttpProvider("http://20.196.209.2:8545/"));
   const token = '0x0c54E456CE9E4501D2c43C38796ce3F06846C966';
@@ -56,8 +73,14 @@ function NavBar() {
   const openModal = () => {
     setModalOpen(true);
   };
-  const closeModal = () => {
+  const closeModal = (e) => {
     setModalOpen(false);
+    if (e.length > 0) {
+      console.log('업적획득')
+      setBadge(e)
+      openBadgeModal()
+    }
+
   };
 
   const openModal2 = () => {
@@ -88,17 +111,17 @@ function NavBar() {
           <Nav>
             {localStorage.token ?
               <>
-                <Nav.Link className="save notoMid fs-20">ssf : {SSF}</Nav.Link>
-                <Nav.Link className="save notoMid fs-20">save : {mySave}</Nav.Link>
+                <Nav.Link className="save notoMid fs-20">SSF : {SSF}</Nav.Link>
+                <Nav.Link className="save notoMid fs-20">SAVE : {mySave}</Nav.Link>
               </>
               :
               null
             }
             <Nav.Link href="/draw" className="drawBtn notoMid fs-20">
-              Draw
+              조각 뽑기
             </Nav.Link>
             <NavDropdown
-              title="Community"
+              title="커뮤니티"
               className="nav-dropdown1 notoMid fs-20"
             >
               <NavDropdown.Item
@@ -115,7 +138,7 @@ function NavBar() {
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
-              title="Account"
+              title="계정 관리"
               className="nav-dropdown2 notoMid fs-20"
             >
               {localStorage.token ?
@@ -156,6 +179,7 @@ function NavBar() {
       </Navbar>
       <Login open={modalOpen} close={closeModal} />
       <ChangeMoney  open={modalOpen2} close={closeModal2} />
+      <GetBadge open={badgeModal} close={closeBadgeModal} badge={badge} />
     </header>
   );
 }

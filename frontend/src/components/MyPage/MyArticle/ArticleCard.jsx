@@ -9,7 +9,7 @@ function ArticleCard(props) {
   console.log(data)
   
   return (
-    <Link to='/community/detail/' className="mx-5">
+    <Link to={`/community/detail/${data.idx}`} className="mx-5">
       <div className="card_pic">
         <img src={picdummy} alt="게시글이미지" />
       </div>
