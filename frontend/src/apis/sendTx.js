@@ -1,4 +1,4 @@
-import {ABI} from './ABI'
+import { ABI } from './ABI'
 
 const Web3 = require("web3");
 
@@ -23,9 +23,9 @@ const ssafyToken = new web3.eth.Contract(ERC20_ABI, ERC20_CA)
 async function sendTx(from, to, data, privateKey) {
   let nonce
   web3.eth.getTransactionCount(from, 'pending')
-  .then(res => {
-    nonce = res
-  })
+    .then(res => {
+      nonce = res
+    })
   const txObject = {
     nonce,
     gas: web3.utils.toHex(web3.utils.toWei('1', 'gwei')),
@@ -35,19 +35,19 @@ async function sendTx(from, to, data, privateKey) {
   }
   let result
   await web3.eth.accounts.signTransaction(txObject, privateKey)
-  .then(async res => {
-    const raw = res.rawTransaction
-    await web3.eth.sendSignedTransaction(raw)
-    .once('receipt', async (receipt) => {
-      // console.log(receipt)
-      // result = receipt.logs[0]?.address
-      result = await receipt.status
+    .then(async res => {
+      const raw = res.rawTransaction
+      await web3.eth.sendSignedTransaction(raw)
+        .once('receipt', (receipt) => {
+          console.log(receipt)
+          console.log(parseInt(receipt.logs[0]?.topics[3], 16))
+          result = receipt.logs[0]?.address
+        })
+        // .once('transactionHash', (hash) => {
+        //   result = hash
+        // })
+        .on('error', console.error)
     })
-    // .once('transactionHash', (hash) => {
-    //   result = hash
-    // })
-    // .on('error', console.error)
-  })
   return result
 }
 
@@ -62,16 +62,15 @@ export async function create(userAddress, tokenURI) {
     .then(async () => {
       // hash 필요 없을 것 같음
       // transactionHash = res
-      await data.call({from: ownerAddress})
-      .then(async result => {
-        tokenId = await result
-      })
+      await data.call({ from: ownerAddress })
+        .then(async result => {
+          tokenId = await result
+        })
     })
   return tokenId
 }
 
 export async function ownerOf(tokenId) {
-  
   // enimalContract.methods.balanceOf('0x7edc38F3511F13100AdcC4c16Ba14eC475C00776').call({from: ownerAddress})
   //   .then(console.log)
   enimalContract.methods.ownerOf(tokenId).call()
@@ -80,7 +79,7 @@ export async function ownerOf(tokenId) {
     })
   // enimalContract.methods.tokenURI(1).call()
   //   .then(console.log)
-  
+
 }
 
 export async function charge(userAddress, amount, privateKey) {
