@@ -19,6 +19,7 @@ public class UserRankCollectionListDto {
     private int idx;
     private String nickname;
     private long collectionCount;
+    private int drawCount;
     public UserRankCollectionListDto(int idx, String nickname, long collectionCount){
         this.idx = idx;
         this.nickname = nickname;

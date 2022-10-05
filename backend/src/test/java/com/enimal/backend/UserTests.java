@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-//@Transactional
+@Transactional
 class UserTests {
 	JwtService jwtService;
 	UserRepository userRepository;
@@ -133,7 +133,7 @@ class UserTests {
 	@Test
 	void 회원_탈퇴(){
 		//엑세스 토큰에서 나온 아이디를 회원 삭제
-		String userId = "test12";
+		String userId = "test0";
 		userRepository.deleteById(userId);
 	}
 	@Test
@@ -182,7 +182,7 @@ class UserTests {
 	}
 	@Test
 	void 작성한댓글조회(){
-		String userId = "test";
+		String userId = "test2";
 		List<Comment> comments = null;
 		comments = commentRepository.findByUserId(userId);
 		for(Comment comment : comments){

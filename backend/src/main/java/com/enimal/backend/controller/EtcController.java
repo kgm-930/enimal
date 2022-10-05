@@ -77,6 +77,7 @@ public class EtcController {
             result.put("message",okay);
             status = HttpStatus.OK;
         }catch (Exception e){
+            System.out.println(e);
             result.put("message",fail);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }

@@ -303,12 +303,13 @@ public class UserServiceImpl implements UserService {
         Slice<UserRankCollectionListDto> collections = collectionRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
         for(UserRankCollectionListDto userRankCollectionListDto : collections){
             UserRankCollectionListDto user = new UserRankCollectionListDto();
+            Optional<User> userBadge = userRepository.findById(userRankCollectionListDto.getNickname());
+            Optional<Badge> badges = badgeRepository.findByUserIdAndBadge(userRankCollectionListDto.getNickname(), "명예 한 스푼");
             user.setIdx(userRankCollectionListDto.getIdx());
             user.setNickname(userRankCollectionListDto.getNickname());
             user.setCollectionCount(userRankCollectionListDto.getCollectionCount());
+            user.setDrawCount(userBadge.get().getUsedcount());
             userRankCollectionListDtos.add(user);
-            Optional<User> userBadge = userRepository.findById(user.getNickname());
-            Optional<Badge> badges = badgeRepository.findByUserIdAndBadge(user.getNickname(), "명예 한 스푼");
             if(!badges.isPresent()){
                 Badge badge = new Badge();
                 badge.setBadge("명예 한 스푼");
