@@ -15,7 +15,7 @@
 .save {
     // color: $BLACK;
     margin-right: vw(64px);
-    
+
 
 }
 
@@ -29,12 +29,13 @@
     margin-right: vw(64px);
 }
 
-
-@media (max-width:992px) {
-    .logoimg{
-        height: 50px;
-    }
+.logoimg {
+    height: 50px;
+    margin-left: 20px;
 }
-.Navtext{
+
+@media (max-width:992px) {}
+
+.Navtext {
     text-align: end;
 }

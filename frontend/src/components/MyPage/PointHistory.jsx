@@ -1,29 +1,18 @@
-import React,{ useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import './PointHistory.scss'
-
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { getMyPointHistory } from "@apis/mypage";
 
 function PointHistory() {
-  const [data,setData] = useState([]);
+  const [data, setData] = useState([]);
 
-  useEffect(()=>{
-    getMyPointHistory().then(res=>{
+  useEffect(() => {
+    getMyPointHistory().then(res => {
       console.log(res)
       setData(res.data)
     })
-  },[])
+  }, [])
 
-  const Test = [
-    {id:1, SSF:100, donation:10, date:'2022.09.18 10:30'},
-    {id:2, SSF:300, donation:30, date:'2022.09.17 10:30'},
-    {id:3, SSF:200, donation:20, date:'2022.08.23 10:30'},
-    {id:4, SSF:100, donation:10, date:'2022.08.12 10:30'},
-    {id:5, SSF:100, donation:10, date:'2022.08.12 10:30'},
-    {id:6, SSF:500, donation:100, date:'2022.08.01 10:30'},
-  ]
 
   console.log(data)
 
@@ -37,22 +26,23 @@ function PointHistory() {
         <h1 className="fs-28 notoBold">환전 시간</h1>
       </div>
       <ul className="my-5">
-        {Test.map((list) => {
-          const save = list.SSF - list.donation
+        {data.map((list) => {
+          const date = new Date(list.createDate);
+          const changeTime = `${date.getFullYear()}년${(date.getMonth() + 1)}월${date.getDate()}일 ${date.getHours()}시${date.getMinutes()}분`;
+
+          const coin = parseInt(list.useCredit, 10);
+          const SAVE = coin.toLocaleString('ko-KR');
+
           return (
             <>
-            <li key={list.id} className="flex justify-space-between">
-              <h1 className="fs-20 notoMid number">{list.id}</h1>
-              <div className="flex justify-space-between Change">
-                <h1 className="fs-20 notoMid">{list.SSF} SSF</h1>
-                <FontAwesomeIcon className="mx-3" icon={faArrowRight} />
-                <h1 className="fs-20 notoMid"> {save} SAVE</h1>
-                <h1 className="fs-14 notoMid mx-3 dona">({list.donation} SSF 기부)</h1>
-
-              </div>
-              <h1  className="fs-20 notoMid">{list.date}</h1>
-            </li>
-            <hr />
+              <li key={data.indexOf(list)} className="flex justify-space-between">
+                <h1 className="fs-20 notoMid number">{data.indexOf(list)}</h1>
+                <div className="flex justify-space-between Change">
+                  <h1 className="fs-20 notoMid"> {SAVE} SAVE</h1>
+                </div>
+                <h1 className="fs-20 notoMid">{changeTime}</h1>
+              </li>
+              <hr />
             </>
           )
         })}
