@@ -9,12 +9,11 @@ import NoticeCard from "./NoticeCard";
 function NoticeList(props) {
   const { page } = props;
   const [articles,setArticles] = useState([]);
-  const [LastIdx,setLastIdx] = useState(0);
   useEffect(()=>{
-    const params = {pageSize: 9 , lastIdx: LastIdx}
+    const params = {pageSize: 100 , lastIdx: 0}
     getNoticeList(params).then(res =>{
+      console.log(res)
       setArticles(res.data)
-      setLastIdx(res.data.slice(-1)[0].idx)
     })
   }, [page])
 

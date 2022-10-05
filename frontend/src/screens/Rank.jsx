@@ -37,7 +37,6 @@ function Rank() {
         <button className="rankTabB" onClick={e=> TabChange(e)} id="donation" type="button">기부금</button>
       </div>
       {RankTab}
-      <div>페이지네이션? 무한스크롤?</div>
     </div>
   )
 }
