@@ -20,10 +20,10 @@ function PointHistory() {
 
   return (
     <div className="PointHistory">
-      <div className="flex justify-space-between">
-        <h1 className="fs-28 notoBold">번호</h1>
-        <h1 className="fs-28 notoBold">환전 금액</h1>
-        <h1 className="fs-28 notoBold">환전 시간</h1>
+      <div className="flex justify-space-between text-center">
+        <h1 className="fs-28 notoBold col-3">번호</h1>
+        <h1 className="fs-28 notoBold col-6">환전 금액</h1>
+        <h1 className="fs-28 notoBold col-3">환전 시간</h1>
       </div>
       <ul className="my-5">
         {data.map((list) => {
@@ -33,17 +33,28 @@ function PointHistory() {
           const coin = parseInt(list.useCredit, 10);
           const SAVE = coin.toLocaleString('ko-KR');
 
+          const dona = parseInt(list.donateCredit, 10);
+          const Dona = dona.toLocaleString('ko-KR');
+
           return (
-            <>
-              <li key={data.indexOf(list)} className="flex justify-space-between">
-                <h1 className="fs-20 notoMid number">{data.indexOf(list)}</h1>
-                <div className="flex justify-space-between Change">
-                  <h1 className="fs-20 notoMid"> {SAVE} SAVE</h1>
+            <div className="my-5">
+              <li key={data.indexOf(list)} className="flex justify-space-between text-center align-center">
+                <h1 className="fs-20 notoMid number col-3">{data.indexOf(list)}</h1>
+                <div className="col-6">
+                  <div className="flex justify-center">
+                    <h1 className="fs-20 notoMid">충전된 재화 : </h1>
+                    <h1 className="fs-20 notoMid mx-3">{SAVE} SAVE</h1>
+                  </div>
+                  <div className="flex justify-center">
+                    <h1 className="fs-20 notoMid">기부한 금액 :</h1>
+                    <h1 className="fs-20 notoMid mx-3">{Dona} SAVE</h1>
+                  </div>
+                  
                 </div>
-                <h1 className="fs-20 notoMid">{changeTime}</h1>
+                <h1 className="fs-20 notoMid col-3">{changeTime}</h1>
               </li>
               <hr />
-            </>
+            </div>
           )
         })}
       </ul>
