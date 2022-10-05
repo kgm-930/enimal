@@ -1,4 +1,4 @@
-// 검은코뿔소
+// 안데스산고양이
 import React from "react";
 import "./Animal.scss";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import YouTube from "react-youtube";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Animal1() {
+function Animal13() {
   const navigate = useNavigate();
 
   function back(e) {
@@ -17,8 +17,8 @@ function Animal1() {
 
   return (
     <div className="container flex">
-      <div className="notiRegi">
-        <div className="notiRegi_pgtitle notoBold fs-36 text-center flex justify-space-between">
+      <div className="notiani">
+        <div className="notiani_pgtitle notoBold fs-36 text-center flex justify-space-between">
           <FontAwesomeIcon
             className=""
             onClick={e => back(e)}
@@ -28,28 +28,28 @@ function Animal1() {
           <div className="emptyBox" />
         </div>
 
-        <div className="notiRegi_text">
-          <div type="text" className="notiRegi_text_title notoMid fs-24">
-            검은 코뿔소
+        <div className="notiani_text">
+          <div type="text" className="notiani_text_title notoMid fs-24">
+            안데스산 고양이
           </div>
           <div className="divide_2" />
           <YouTube
-            videoId="HuReYBQJkPg"
+            videoId="jOo3Q3ywga4"
             opts={{
-              width: "900",
-              height: "450",
+              width: "1100",
+              height: "500",
               playerVars: {
-                autoplay: 1, 
+                autoplay: 1,
                 rel: 0,
-                modestbranding: 1 
+                modestbranding: 1
               }
             }}
           />
-          <div className="notiRegi_txt notoReg fs-28">
-            검은 코뿔소
-          </div>
-          <div className="notiRegi_tex notoReg fs-18">
-            검은 코뿔소
+          <div className="notiani_txt notoReg fs-28">안데스산 고양이</div>
+          <div className="notiani_tex notoReg fs-20">
+            안데스 산맥에 사는 야생 고양이로 개체수가 2500여 마리 이하로
+            간주하여 멸종위기종(EN)으로 분류하고 있다. 설치류 같은 소형동물,
+            조류를 주식으로 삼는다.
           </div>
         </div>
       </div>
@@ -57,4 +57,4 @@ function Animal1() {
   );
 }
 
-export default Animal1;
+export default Animal13;
