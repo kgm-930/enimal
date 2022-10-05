@@ -187,6 +187,7 @@ public class UserServiceImpl implements UserService {
             UserMoneyListDto userMoneyListDto = new UserMoneyListDto();
             userMoneyListDto.setUseCredit(money.getCredit());
             userMoneyListDto.setCreateDate(money.getCreatedate());
+            userMoneyListDto.setDonateCredit(money.getDonateCredit());
             userMoneyListDtos.add(userMoneyListDto);
         }
 

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -21,5 +22,5 @@ public class Money {
     private String userId;
     private Integer credit;
     private LocalDateTime createdate;
-
+    private Integer donateCredit;
 }

@@ -73,6 +73,7 @@ public class EtcServiceImpl implements EtcService {
         money.setCreatedate(LocalDateTime.now());
         money.setUserId(userId);
         money.setCredit((firstCredit/100)*(100-percent));
+        money.setDonateCredit((firstCredit/100)*percent);
         moneyRepository.save(money);
         // 업적 7번 : 환전 10000이상 - Enimal 홀릭
         Optional<Badge> isExchange = badgeRepository.findByUserIdAndBadge(userId, "Enimal 홀릭");
