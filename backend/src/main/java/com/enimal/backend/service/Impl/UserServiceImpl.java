@@ -307,6 +307,16 @@ public class UserServiceImpl implements UserService {
             user.setNickname(userRankCollectionListDto.getNickname());
             user.setCollectionCount(userRankCollectionListDto.getCollectionCount());
             userRankCollectionListDtos.add(user);
+            Optional<User> userBadge = userRepository.findById(user.getNickname());
+            Optional<Badge> badges = badgeRepository.findByUserIdAndBadge(user.getNickname(), "명예 한 스푼");
+            if(!badges.isPresent()){
+                Badge badge = new Badge();
+                badge.setBadge("명예 한 스푼");
+                badge.setCreatedate(LocalDateTime.now());
+                badge.setUser(userBadge.get());
+                badge.setPercentage(2);
+                badgeRepository.save(badge);
+            }
         }
         return userRankCollectionListDtos;
     }
