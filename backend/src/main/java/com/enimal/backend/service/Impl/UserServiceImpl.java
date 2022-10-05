@@ -68,6 +68,10 @@ public class UserServiceImpl implements UserService {
             attendence.setAttenddate(LocalDateTime.now());
             attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
+            // 출석시 SAVE재화 주기
+            int save = user.get().getCredit() + 500;
+            user.get().setCredit(save);
+            userRepository.save(user.get());
             // 업적 12번 : 환경 기념일 방문
             String todayDay = attendence.getAttenddate().toString().substring(5,10);
             Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(user.get().getId(),"환경 지킴이");
