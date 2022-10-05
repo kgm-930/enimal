@@ -168,13 +168,13 @@ function AllDraw() {
 
 
       </div>
-      <button className="drawButton fs-28 notoBold" onClick={e => drawButton(e)} id="collection" type="button">전체 뽑기 (가격)</button>
+      <button className="drawButton fs-28 notoBold" onClick={e => drawButton(e)} id="collection" type="button">전체 뽑기 (100SAVE)</button>
       <div>
         <h1 className="fs-24 notoBold drawNotice">뽑기를 통해 컬렉션을 수집해보세요.</h1>
         <h1 className="fs-24 notoBold drawNotice">전체 뽑기는 216종류의 조각이 중 하나의 조각이 일정 확률로 등장합니다.</h1>
         <h3 className="fs-18 notoMid drawNotice drawNotice2">보유중인 업적에 따라 미보유중인 조각이 등장할 확률이 상승합니다.</h3>
       </div>
-      <DrawModal open={modalOpen} close={closeModal} draw="all" length={24} />
+      <DrawModal open={modalOpen} close={closeModal} draw="all" length={24} price={100} />
     </div>
   )
 }

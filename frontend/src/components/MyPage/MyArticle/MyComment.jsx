@@ -8,14 +8,13 @@ import CommentCard from "./CommentCard";
 
 
 function MyComment() {
-  const [page,setPage] = useState(0)
-  const [myComments,setMyComments] = useState([])
+  const [LastIdx,setLastIdx] = useState(0);
+  const [myComments,setMyComments] = useState([]);
   useEffect(()=>{
-    const params = {pageSize: 9 , lastIdx: page}
+    const params = {pageSize: 9 , lastIdx: LastIdx}
     getMyComment(params).then(res=>{
-      console.log(res)
       setMyComments(res.data)
-      setPage(pre => pre+1)
+      setLastIdx(res.data.slice(-1)[0].idx)
     })
   },[])
 

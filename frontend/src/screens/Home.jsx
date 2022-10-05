@@ -5,18 +5,44 @@ import { Link } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
 import todayAnimall from "@assets/images/polarbear.jpg";
-import { getTodayAnimal } from "@apis/home";
+import { getTodayAnimal,getRankc } from "@apis/home";
 
 function Home() {
   
 
+<<<<<<< HEAD
   const [todayAnimal, setTodayAnimal] = useState(null);
   // const [animalName, setAnimalName] = useState("");
+=======
+  // useEffect(() => {
+  //   async function getAndSetTodayAnimal() {
+  //     const res = await getTodayAnimal();
+  //     setTodayAnimal(res.data);
+  //   }
+  //   getAndSetTodayAnimal();
+  // }, []);
+
+  // const name = todayAnimal.animal
+  // console.log(todayAnimal)
+  // // console.log(todayAnimal.animal)
+
+  const [todayAnimal, setTodayAnimal] = useState([]);
+
+  const [rankD, setRankD] = useState([]);
+
+>>>>>>> 8703610ccd83d9dc2288f96126fd09df9b01bf96
   useEffect(() => {
     getTodayAnimal().then(res => {
       console.log(res);
       setTodayAnimal(res.data);
+    const PARAMS = {pageSize:10,lastIdx:0}
+    getRankc(PARAMS).then(res2=>{
+      console.log(res2)
+      setRankD(res2.data)
+    })
     });
+
+
   }, []);
   
   console.log(todayAnimal);
@@ -61,19 +87,6 @@ function Home() {
     { rank: 8, nick: "hee", collection: 3, drawcnt: 1354 },
     { rank: 9, nick: "yong", collection: 1, drawcnt: 314 },
     { rank: 10, nick: "dooo", collection: 0, drawcnt: 4 }
-  ];
-
-  const test2 = [
-    { rank: 1, nick: "haengsong", donation: 10000 },
-    { rank: 2, nick: "DongDong", donation: 9000 },
-    { rank: 3, nick: "brrrr", donation: 7777 },
-    { rank: 4, nick: "yuuuuj", donation: 3333 },
-    { rank: 5, nick: "SeulSeul", donation: 2600 },
-    { rank: 6, nick: "won", donation: 700 },
-    { rank: 7, nick: "hyhy", donation: 400 },
-    { rank: 8, nick: "hee", donation: 300 },
-    { rank: 9, nick: "yong", donation: 150 },
-    { rank: 10, nick: "dooo", donation: 100 }
   ];
 
   return (
@@ -188,14 +201,15 @@ function Home() {
               </li>
               <hr className="Line2" />
               <div className="donationRank">
-                {test2.map(user => {
-                  const dona = user.donation.toLocaleString("ko-KR");
+                {rankD.map(user => {
+                  console.log(user)
+                  const dona = user.doantion.toLocaleString("ko-KR");
                   return (
                     <li key={user.rank} className="RankList grid">
                       <span className="col-3 text-center notoMid">
-                        {user.rank}
+                        {rankD.indexOf(user)+1}
                       </span>
-                      <span className="col-5 notoMid">{user.nick}</span>
+                      <span className="col-5 notoMid">{user.nickname}</span>
                       <span className="col-4 textEnd notoMid">{dona} SSF</span>
                     </li>
                   );

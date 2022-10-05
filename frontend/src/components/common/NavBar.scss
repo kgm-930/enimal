@@ -1,7 +1,7 @@
 .mainNav {
     background-color: $MAIN;
     padding: 0;
-    height: 55px;
+    height: vh(80px);
     width: vw(1440px);
     justify-content: space-between;
 
@@ -29,10 +29,12 @@
     margin-right: vw(64px);
 }
 
-.logoimg{
-    margin-top: 10px;
-}
 
+@media (max-width:992px) {
+    .logoimg{
+        height: 50px;
+    }
+}
 .Navtext{
     text-align: end;
 }

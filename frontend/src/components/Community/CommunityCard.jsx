@@ -7,7 +7,6 @@ import picdummy from "@assets/images/coco.jpeg";
 
 function CommunityCard(props) {
   const { data } = props;
-  console.log(data)
 
   return (
     <Link to={`/community/detail/${data.idx}`} className="card">
