@@ -34,7 +34,7 @@ function Animal8() {
           </div>
           <div className="divide_2" />
           <YouTube
-            videoId="7m1q0qcbbYc"
+            videoId="btfKCHOBBs4"
             opts={{
               width: "1100",
               height: "500",
