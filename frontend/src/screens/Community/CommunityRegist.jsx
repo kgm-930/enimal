@@ -11,6 +11,8 @@ function CommunityRegist() {
   const [Content, setContent] = useState(null)
   const navigate = useNavigate();
 
+
+
   function createArticle(e) {
     e.preventDefault();
     const DATA = {
@@ -20,7 +22,7 @@ function CommunityRegist() {
     }
     getCreateArticle(DATA).then(res => {
       console.log(res)
-      navigate(`/community/detail/${res.data.idx}`)
+      navigate(`/community/detail/${res.data.idx}`,{state:{badge:res.data.modalName}})
     })
   }
   function chaengtitle(e) {
@@ -54,6 +56,7 @@ function CommunityRegist() {
           </button>
         </div>
       </div>
+    
     </div>
   )
 }

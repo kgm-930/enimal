@@ -4,19 +4,36 @@ import "./CommunityDetail.scss";
 import profiledummy from "@assets/images/person.png";
 import picdummy from "@assets/images/coco.jpeg";
 import CommunityComment from "@components/Community/CommunityComment"
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { getArticleDetail, getCreateComment,getDeleteArticle } from "@apis/community"
 
+import GetBadge from "../../components/common/GetBadge";
+
+
 function CommunityRegist() {
+  const location = useLocation();
   const articleId = useParams().index;
   const [data, setData] = useState(null);
   const [time, setTime] = useState(null);
   const [comment, setComment] = useState(null);
   const [myComment, setMyComment] = useState(null);
   const navigate = useNavigate();
+
+
+  // 업적획득 세팅
+  const [badge, setBadge] = useState([]);
+  const [badgeModal, setBadgeModal] = useState(false);
+  const openBadgeModal = () => {
+    setBadgeModal(true);
+  };
+  const closeBadgeModal = () => {
+    setBadgeModal(false);
+  };
+
+
 
   useEffect(() => {
     getArticleDetail(articleId).then(res => {
@@ -28,6 +45,10 @@ function CommunityRegist() {
       const articleTime = `${date.getFullYear()}년${(date.getMonth() + 1)}월${date.getDate()}일 ${date.getHours()}시${date.getMinutes()}분`;
       setTime(articleTime)
     })
+    if (location.state && location.state.badge.length > 0) {
+      setBadge(location.state.badge)
+      openBadgeModal()
+    }
   }, [])
 
   function createComment(e) {
@@ -123,6 +144,7 @@ function CommunityRegist() {
         </div>
       </div>
         : null}
+      <GetBadge open={badgeModal} close={closeBadgeModal} badge={badge} />
     </div>
   );
 }

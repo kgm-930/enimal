@@ -5,7 +5,7 @@
 .intropg1 {
   margin-top: vw(55px);
   height: 97vh;
-  background-image: url(../assets/images/polarpolar.png);
+  background-image: url(../assets/images/intro/polarpolar.png);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
@@ -25,20 +25,20 @@
     color: #444141;
     margin-bottom: vw(20px);
   }
+  &_con5 {
+    margin-bottom: vw(80px);
+  }
 
   &_btn{
-    margin-top: vw(200px);
-    width: vw(600px);
-    justify-content: space-between;
-    margin-left: vw(250px);
-    &_1,
-    &_2 {
-      background-color: $BTN-8B;
-      width: vw(180px);
-      height: vw(64px);
-      border-radius: vw(16px);
-      color: $WHITE;
-    }
+    margin-top: vw(100px);
+    margin-left: vw(450px);
+
+    background-color: $BTN-8B;
+    width: vw(180px);
+    height: vw(64px);
+    border-radius: vw(16px);
+    color: $WHITE;
+
   }
 }
 
@@ -48,7 +48,12 @@
     margin-bottom: vw(48px);
   }
   
-  &_step1 {
+  &_step2 {
+    margin-bottom: vw(80px);
+  }
+
+  &_step1,
+  &_step2 {
     justify-content: space-between;
     align-items: center;
     &_text1 {
@@ -84,11 +89,29 @@
     
     &_text3 {
       width: vw(600px);
-      height: vw(500px);
+      height: vw(450px);
+      margin-bottom: vw(36px);
       background-color: $MAIN;
       box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
-
     }
+
+    &_text4 {
+      width: vw(600px);
+      height: vw(480px);
+      margin-bottom: vw(36px);
+      background-color: $MAIN;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    &_text5 {
+      width: vw(600px);
+      height: vw(320px);
+      margin-bottom: vw(36px);
+      background-color: $MAIN;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    }
+
+
   }
   
 
