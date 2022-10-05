@@ -5,12 +5,45 @@ import "./ChangeMoney.scss";
 import { faDownLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
+import { charge, revertCharge } from "@apis/sendTx"
+import { chargeSave } from "@apis/draw"
+
 function ChangeMoney(props) {
   const { open, close } = props;
   const [donaPer, setDonaPer] = useState(10);
   const [cash, setCash] = useState(0);
-  console.log(donaPer);
-  const SAVE = (cash * (100 - donaPer)) / 100;
+  const SAVE = (cash * (100 - donaPer)) * 10;
+
+  const userAddress = localStorage.getItem('myAddress')
+  const privateKey = '0x600378817757c4d816e1a04cbade8973b9b239e03757b72f227fda07804bd001'
+  async function ssfToSave(e) {
+    e.preventDefault();
+    if (Number(cash) <= Number(localStorage.ssf)) {
+      await charge(userAddress, cash, privateKey)
+        .then(async () => {
+          // 백에 데이터 보냄
+          const PARAMS = {
+            percent: donaPer,
+            firstCredit: cash * 1000,
+          }
+          await chargeSave(PARAMS).then(async () => {
+            await alert('충전되었습니다')
+            setCash(100)
+            close()
+          }).catch(() => {
+            revertCharge(userAddress, cash)
+            alert('충전에 실패했습니다')
+          })
+        })
+    }
+    else {
+      alert("SSF 코인이 부족합니다!")
+    }
+  }
+
+
+
   return (
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
@@ -51,7 +84,7 @@ function ChangeMoney(props) {
             <button
               type="button"
               className="changeButton fs-24 notoBold"
-              onClick={close}
+              onClick={e=>ssfToSave(e)}
             >
               충전하기
             </button>

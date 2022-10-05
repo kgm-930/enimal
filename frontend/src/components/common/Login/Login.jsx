@@ -51,6 +51,7 @@ function Login(props) {
             localStorage.setItem('token', res.Authorization)
             localStorage.setItem('MyNick', res.data.userId)
             localStorage.setItem('myAddress', pubKey.address)
+            localStorage.setItem('ssf', 0)
             close(res.data.modalName)
           }
         })

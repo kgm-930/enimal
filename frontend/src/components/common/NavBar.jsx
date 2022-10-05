@@ -15,10 +15,7 @@ const Web3 = require('web3');
 
 function NavBar() {
 
-  const [SSF, setSSF] = useState(null);
   const [save,setSave] =useState(0);
-
-
 
   // 업적획득 세팅
   const [badge, setBadge] = useState([]);
@@ -50,10 +47,11 @@ function NavBar() {
   const getBalance = async () => {
     const res = await contract.methods.balanceOf(wallet).call();
     // const format = web3.utils.fromWei(res);
+    console.log(res)
     const coin = parseInt(res, 10);
     const ssf = coin.toLocaleString('ko-KR');
     console.log(typeof res,ssf)
-    setSSF(ssf)
+    localStorage.setItem('ssf', ssf)
   }
   getBalance();
 
@@ -95,6 +93,7 @@ function NavBar() {
     localStorage.removeItem('token')
     localStorage.removeItem('MyNick')
     localStorage.removeItem('myAddress')
+    localStorage.removeItem('ssf')
     alert("로그아웃 되었습니다!")
     navigate('/')
   }
@@ -111,7 +110,7 @@ function NavBar() {
           <Nav>
             {localStorage.token ?
               <>
-                <Nav.Link className="save notoMid fs-20">SSF : {SSF}</Nav.Link>
+                <Nav.Link className="save notoMid fs-20">SSF : {localStorage.ssf}</Nav.Link>
                 <Nav.Link className="save notoMid fs-20">SAVE : {mySave}</Nav.Link>
               </>
               :
