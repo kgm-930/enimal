@@ -17,22 +17,18 @@ function Notice() {
   const [now, setNow] = useState(1);
   const [page, setPage] = useState(1);
   const [pagelength, setPagelength] = useState(1);
-
-
-  
-
+  const [articlesView,setArticlesView] = useState([]);
   const [articles, setArticles] = useState([]);
+  
   useEffect(() => {
     const params = { pageSize: 100, lastIdx: 0 }
     getNoticeList(params).then(res => {
       console.log(res)
       setArticles(res.data)
       setPagelength(Math.ceil(res.data.length / 10))
+      setArticlesView(res.data.slice(0,10))
     })
   }, [])
-
-
-
 
   function leftbutton(e) {
     e.preventDefault();
@@ -53,6 +49,7 @@ function Notice() {
     e.preventDefault();
     document.getElementById(now).classList.remove('selectedNum')
     setNow(Number(e.target.id))
+    setArticlesView(articles.slice((e.target.id-1)*10,(e.target.id-1)*10+10))
   }
 
   const NumberList = []
@@ -68,7 +65,7 @@ function Notice() {
       }
     }
 
-
+  console.log(articlesView)
   return (
     <div className="containerBox">
       <div className="notice">
@@ -91,7 +88,7 @@ function Notice() {
         <div className="divide" />
         <div className="notice_list">
           <div className="noticeList">
-            {articles.map(article => {
+            {articlesView.map(article => {
               const A = parseInt((page - 1) * 9, 10)
               const B = parseInt(articles.indexOf(article) + 1, 10)
               return (

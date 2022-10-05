@@ -45,6 +45,7 @@ function Home() {
   }, []);
 
   console.log(todayAnimal);
+  console.log('행송')
 
   const Route = {
     "검은코뿔소": "/notice/animal/1",

@@ -93,19 +93,19 @@ function Slide(props) {
         <div className="flex">
           { Piece[number][0] ? <img className="PieceImg" src={Animal[0]} alt="#" />
           : <img className="PieceImg2" src={Animal[0]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold">{Piece[number][0]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold">{Piece[number][0]/2}개</h1>
         </div>
 
         <div className="flex">
         { Piece[number][1] ? <img className="PieceImg" src={Animal[1]} alt="#" />
           : <img className="PieceImg2" src={Animal[1]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold">{Piece[number][1]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold">{Piece[number][1]/2}개</h1>
         </div>
 
         <div className="flex">
         { Piece[number][2] ? <img className="PieceImg" src={Animal[2]} alt="#" />
           : <img className="PieceImg2" src={Animal[2]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold" >{Piece[number][2]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold" >{Piece[number][2]/2}개</h1>
         </div>
       </div>
 
@@ -113,17 +113,17 @@ function Slide(props) {
         <div className="flex">
         { Piece[number][3] ? <img className="PieceImg" src={Animal[3]} alt="#" />
           : <img className="PieceImg2" src={Animal[3]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold" >{Piece[number][3]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold" >{Piece[number][3]/2}개</h1>
         </div>
         <div className="flex">
         { Piece[number][4] ? <img className="PieceImg" src={Animal[4]} alt="#" />
           : <img className="PieceImg2" src={Animal[4]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold">{Piece[number][4]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold">{Piece[number][4]/2}개</h1>
         </div>
         <div className="flex">
         { Piece[number][5] ? <img className="PieceImg" src={Animal[5]} alt="#" />
           : <img className="PieceImg2" src={Animal[5]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold">{Piece[number][5]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold">{Piece[number][5]/2}개</h1>
         </div>
       </div>
 
@@ -131,17 +131,17 @@ function Slide(props) {
         <div className="flex">
         { Piece[number][6] ? <img className="PieceImg" src={Animal[6]} alt="#" />
           : <img className="PieceImg2" src={Animal[6]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold">{Piece[number][6]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold">{Piece[number][6]/2}개</h1>
         </div>
         <div className="flex">
         { Piece[number][7] ? <img className="PieceImg" src={Animal[7]} alt="#" />
           : <img className="PieceImg2" src={Animal[7]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold">{Piece[number][7]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold">{Piece[number][7]/2}개</h1>
         </div>
         <div className="flex">
         { Piece[number][8] ? <img className="PieceImg" src={Animal[8]} alt="#" />
           : <img className="PieceImg2" src={Animal[8]} alt="#" />}
-          <h1 className="text_in_img fs-20 notoBold">{Piece[number][8]}개</h1>
+          <h1 className="text_in_img fs-20 notoBold">{Piece[number][8]/2}개</h1>
         </div>
       </div>
     </div>
