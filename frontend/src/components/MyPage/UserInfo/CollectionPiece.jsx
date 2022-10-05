@@ -4,6 +4,9 @@ import "./CollectionPiece.scss";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import {uploadData} from "@apis/ipfs"
+import {create} from "@apis/sendTx"
+
 import { getMyPiece } from "@apis/mypage";
 
 import {
@@ -212,6 +215,39 @@ function CollectionPiece() {
     '우파루파','검은발족제비'
     ]
 
+
+
+  async function makeNFT(){
+    const type = "Comic"
+    const prompt = "상괭이"
+    const name = "enimal"
+    const owner = "0x7edc38F3511F13100AdcC4c16Ba14eC475C00776"
+    uploadData(type, prompt, name, owner)
+      .then(async metadata => {
+        const tokenURI = await metadata?.url
+        await create(owner, tokenURI)
+        .then(async (res) => {
+          if (res) {
+            // 4. 백에 메타데이터 전송 (데이터 적절한지 물어보기)
+            const {data} = metadata
+            const modifiedData = {
+              name: data.name,
+              owner: data.properties.owner,
+              date: data.properties.date,
+              type: data.properties.type,
+              image: `https://ipfs.io/ipfs${data.image.pathname.replace('/', '')}`
+            }
+            console.log(modifiedData)
+            // saveMetadata(modifiedData)
+            //   .then((response) => {
+            //     // 프론트에서 어떤 정보 필요할지 물어보기
+            //     console.log(response)
+            //     // NFT 생성됐음을 사용자에게 알림
+            //   })
+          }
+      })
+    })
+  }
   return (
     <div className="CollectionPiece">
       <h1 className="MyCollection notoBold fs-40">수집중인 컬렉션</h1>
@@ -243,12 +279,11 @@ function CollectionPiece() {
           <Slide Animal={Upalupa} number={22} />
           <Slide Animal={Weasel} number={23} />
         </div>
-
-
       </div>
       <div className="flex justify-center">
         <FontAwesomeIcon className="Angle" onClick={PrevSlide} icon={faAngleLeft} />
         <div className="collectionName fs-32 notoBold">{AnimalName[currentSlide]}</div>
+        <button type="button" onClick={makeNFT} className="collectionName fs-32 notoBold">NFT 제작하기</button>
         <FontAwesomeIcon className="Angle" onClick={NextSlide} icon={faAngleRight} />
       </div>
     </div>
