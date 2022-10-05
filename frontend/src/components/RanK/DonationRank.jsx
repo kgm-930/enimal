@@ -1,20 +1,58 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './DonationRank.scss'
 
-function DonationRank() {
+import { getRankd } from "../../apis/home";
 
-  const test2 = [
-    { rank: 1, nick: 'haengsong', donation: 10000 },
-    { rank: 2, nick: 'DongDong', donation: 9000 },
-    { rank: 3, nick: 'brrrr', donation: 7777 },
-    { rank: 4, nick: 'yuuuuj', donation: 3333 },
-    { rank: 5, nick: 'SeulSeul', donation: 2600 },
-    { rank: 6, nick: 'won', donation: 700 },
-    { rank: 7, nick: 'hyhy', donation: 400 },
-    { rank: 8, nick: 'hee', donation: 300 },
-    { rank: 9, nick: 'yong', donation: 150 },
-    { rank: 10, nick: 'dooo', donation: 100 }
-  ]
+function DonationRank() {
+  let IDX = 0
+  const [ranker, setRanker] = useState([]);
+  const [bottom, setBottom] = useState(null);
+  const bottomObserver = useRef(null);
+
+  async function getList() {
+    const params = { pageSize: 10, lastIdx: IDX }
+    await getRankd(params).then(res => {
+      const DATA = res.data;
+      if (DATA.length > 0) {
+        setRanker(pre => [...pre, ...DATA])
+        IDX +=10
+      }
+
+    })
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          getList()
+        }
+      }
+    );
+    bottomObserver.current = observer;
+
+  }, [])
+
+
+  useEffect(() => {
+    const observer = bottomObserver.current;
+    if (bottom && ranker.length % 9 === 0) {
+      observer.observe(bottom);
+    }
+    return () => {
+      if (bottom) {
+        observer.unobserve(bottom);
+      }
+    };
+  }, [bottom]);
+
+
+
+
+
+
+
+  console.log(ranker)
 
   return (
     <div className="DonationRank">
@@ -27,16 +65,18 @@ function DonationRank() {
         </li>
         <hr className="Line2" />
         <div className="dRank">
-          {test2.map(user => {
-            const dona = user.donation.toLocaleString("ko-KR");
+          {ranker.map(user => {
+            console.log(ranker.indexOf(user)+1)
+            const dona = user.doantion.toLocaleString("ko-KR");
             return (
-              <li key={user.rank} className="RankList grid">
-                <span className="col-3 fs-20 text-center notoMid">{user.rank}</span>
-                <span className="col-5 fs-20 notoMid">{user.nick}</span>
+              <li key={ranker.indexOf(user)} className="RankList grid">
+                <span className="col-3 fs-20 text-center notoMid">{ranker.indexOf(user)+1}</span>
+                <span className="col-5 fs-20 notoMid">{user.nickname}</span>
                 <span className="col-4 fs-20 textEnd notoMid">{dona} SSF</span>
               </li>
             );
           })}
+          <div ref={setBottom} />
         </div>
       </div>
     </div>

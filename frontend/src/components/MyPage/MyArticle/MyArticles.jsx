@@ -7,7 +7,7 @@ function MyArticles() {
   const [page,setPage] = useState(0)
   const [myArticles,setMyArticles] = useState([])
   useEffect(()=>{
-    const params = {pageSize: 9 , lastIdx: page}
+    const params = {pageSize: 100 , lastIdx: page}
     getMyArtilce(params).then(res =>{
       console.log(res)
       setMyArticles(res.data)

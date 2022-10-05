@@ -17,7 +17,7 @@ function Community() {
   }
 
   return (
-    <div className="container flex">
+    <div className="containerBox flex">
       <div className="commu">
         <div className="commu_up flex">
           <div className="commu_up_name notoBold fs-36">
