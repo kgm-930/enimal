@@ -120,10 +120,14 @@ public class BoardServiceImpl implements BoardService {
         boardShowDto.setTitle(board.get().getTitle());
         boardShowDto.setContent(board.get().getContent());
         boardShowDto.setPicture(board.get().getPicture());
-        board.get().setView(board.get().getView()+1);
         boardRepository.save(board.get());
         boardShowDto.setView(board.get().getView());
         return boardShowDto;
+    }
+
+    @Override
+    public int updateView(int idx) {
+        return boardRepository.updateView(idx);
     }
 
     @Override
