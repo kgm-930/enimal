@@ -8,7 +8,7 @@ function NoticeCard(props) {
   const noticeTime=`${date.getFullYear()}년${(date.getMonth()+1)}월${date.getDate()}일 ${date.getHours()}시${date.getMinutes()}분`;
 
   return (
-    <Link to={`/notice/${data.idx}`}>
+    <Link to={`/notice/animal/${data.idx}`}>
       <div className="notiCard flex">
         <div className="notiCard_num flex notoMid fs-20">{idx}</div>
         <div className="notiCard_title flex notoMid fs-20">{data.title}</div>
