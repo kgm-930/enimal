@@ -22,7 +22,7 @@ function Home() {
   // console.log(todayAnimal)
   // // console.log(todayAnimal.animal)
 
-  const [todayAnimal, setTodayAnimal] = useState([]);
+  const [todayAnimal, setTodayAnimal] = useState(null);
 
   const [rankD, setRankD] = useState([]);
 
@@ -39,8 +39,37 @@ function Home() {
 
 
   }, []);
-
+  
   console.log(todayAnimal);
+
+  const Route = {
+    "검은코뿔소" : "/notice/animal/1",
+    "양쯔강돌고래" : "/notice/animal/2",
+    "저어새" : "/notice/animal/3",
+    "고라니" : "/notice/animal/4",
+    "하마" : "/notice/animal/5",
+    "뱀장어" : "/notice/animal/6",
+    "렛서판다" : "/notice/animal/7",
+    "우파루파" : "/notice/animal/8",
+    "자이언트판다" : "/notice/animal/9",
+    "북극곰" : "/notice/animal/10",
+    "수달" : "/notice/animal/11",
+    "바다거북" : "/notice/animal/12",
+    "안데스산고양이" : "/notice/animal/13",
+    "아시아코끼리" : "/notice/animal/14",
+    "강토끼" : "/notice/animal/15",
+    "고래상어" : "/notice/animal/16",
+    "오랑우탄" : "/notice/animal/17",
+    "상괭이" : "/notice/animal/18",
+    "검은발족제비" : "/notice/animal/19",
+    "듀공" : "/notice/animal/20",
+    "매" : "/notice/animal/21",
+    "두루미" : "/notice/animal/22",
+    "산양" : "/notice/animal/23",
+    "호랑이" : "/notice/animal/24",
+  }
+
+
 
   const test1 = [
     { rank: 1, nick: "haengsong", collection: 24, drawcnt: 4567 },
@@ -91,27 +120,30 @@ function Home() {
           </div> */}
           <div className="container flex">
             <div className="animal flex">
-              <div className="animal_pic">
-                <img src={todayAnimall} alt="오늘의 동물" />
-              </div>
-              <div className="animal_explain">
-                <div className="animal_explain_title notoBold fs-40 flex justify-center">
-                  오늘의 동물
-                </div>
-                <div className="animal_explain_name flex justify-center notoBold fs-32">
-                  {todayAnimal.animal}
-                </div>
-                <div className="animal_explain_content notoMid fs-28">
-                  {todayAnimal.content}
-                </div>
-                <button
-                  type="button"
-                  className="animal_explain_noti notoBold fs-24 flex justify-center align-center"
-                >
-                  영상 시청하기
-                </button>
-
-              </div>
+              {todayAnimal ? (
+                <>
+                  <div className="animal_pic">
+                    <img src={todayAnimall} alt="오늘의 동물" />
+                  </div>
+                  <div className="animal_explain">
+                      <div className="animal_explain_title notoBold fs-40 flex justify-center">
+                        오늘의 동물
+                      </div>
+                      <div className="animal_explain_name flex justify-center notoBold fs-32">
+                        {todayAnimal.animal}
+                      </div>
+                      <div className="animal_explain_content notoMid fs-28">
+                        {todayAnimal.content}
+                      </div>
+                      <Link to={Route[todayAnimal.animal]}
+                        type="button"
+                        className="animal_explain_noti notoBold fs-24 flex justify-center align-center"
+                      >
+                        영상 시청하기
+                      </Link>
+                  </div>
+                </>   
+              ) : 1}
             </div>
           </div>
         </div>
