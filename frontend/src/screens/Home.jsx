@@ -10,10 +10,6 @@ import { getTodayAnimal,getRankc } from "@apis/home";
 function Home() {
   
 
-<<<<<<< HEAD
-  const [todayAnimal, setTodayAnimal] = useState(null);
-  // const [animalName, setAnimalName] = useState("");
-=======
   // useEffect(() => {
   //   async function getAndSetTodayAnimal() {
   //     const res = await getTodayAnimal();
@@ -26,11 +22,10 @@ function Home() {
   // console.log(todayAnimal)
   // // console.log(todayAnimal.animal)
 
-  const [todayAnimal, setTodayAnimal] = useState([]);
+  const [todayAnimal, setTodayAnimal] = useState(null);
 
   const [rankD, setRankD] = useState([]);
 
->>>>>>> 8703610ccd83d9dc2288f96126fd09df9b01bf96
   useEffect(() => {
     getTodayAnimal().then(res => {
       console.log(res);
