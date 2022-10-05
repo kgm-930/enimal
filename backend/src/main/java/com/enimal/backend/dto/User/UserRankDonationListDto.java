@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserRankDonationListDto {
+    private int idx;
     private String nickname;
     private int doantion;
 }

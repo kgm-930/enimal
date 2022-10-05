@@ -285,10 +285,28 @@ public class UserServiceImpl implements UserService {
         users = userRepository.findAllByOrderByDonationDesc(lastIdx, pageable);
         for (User user : users) {
             UserRankDonationListDto userRankDonationListDto = new UserRankDonationListDto();
+            userRankDonationListDto.setIdx(user.getIdx());
             userRankDonationListDto.setNickname(user.getNickname());
             userRankDonationListDto.setDoantion(user.getDonation());
             userRankDonationListDtos.add(userRankDonationListDto);
         }
         return userRankDonationListDtos;
+    }
+    @Override
+    public List<UserRankCollectionListDto>  rankListCollection(Integer pageSize, Integer lastIdx) {
+        List<UserRankCollectionListDto> userRankCollectionListDtos = new ArrayList<>();
+        Pageable pageable = PageRequest.ofSize(pageSize);
+        if (lastIdx == 0) {
+            lastIdx = collectionRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
+        }
+        Slice<UserRankCollectionListDto> collections = collectionRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+        for(UserRankCollectionListDto userRankCollectionListDto : collections){
+            UserRankCollectionListDto user = new UserRankCollectionListDto();
+            user.setIdx(userRankCollectionListDto.getIdx());
+            user.setNickname(userRankCollectionListDto.getNickname());
+            user.setCollectionCount(userRankCollectionListDto.getCollectionCount());
+            userRankCollectionListDtos.add(user);
+        }
+        return userRankCollectionListDtos;
     }
 }

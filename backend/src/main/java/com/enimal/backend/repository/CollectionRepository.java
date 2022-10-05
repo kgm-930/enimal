@@ -1,10 +1,7 @@
 package com.enimal.backend.repository;
 
-import com.enimal.backend.dto.Etc.UserRankShowDto;
-import com.enimal.backend.entity.Board;
+import com.enimal.backend.dto.User.UserRankCollectionListDto;
 import com.enimal.backend.entity.Collection;
-import com.enimal.backend.entity.Comment;
-import com.enimal.backend.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,14 +29,12 @@ public interface CollectionRepository extends JpaRepository<Collection,Integer> 
 
     Optional<Collection> findTop1ByOrderByIdxDesc();
 
-    @Query("SELECT t FROM User t " +
-            "WHERE t.idx < :lastIdx " +
-            "order by t.usedcredit DESC")
-    Slice<User> findAllByOrderByIdxDesc(Integer lastIdx, Pageable pageable);
+    @Query("SELECT new UserRankCollectionListDto(t.idx,t.userId,count(t.userId)) FROM Collection t where t.idx < :lastIdx group by t.userId order by count (t.userId) desc")
+    Slice<UserRankCollectionListDto> findAllByOrderByIdxDesc(Integer lastIdx, Pageable pageable);
 
 
 
     @Query("SELECT  t.userId as UserId,count(t.userId) as Cnt FROM Collection t " +
             "group by t.animal order by cnt desc")
-    List<UserRankShowDto> test();
+    List<UserRankCollectionListDto> test();
 }

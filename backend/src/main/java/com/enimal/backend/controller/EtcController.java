@@ -2,10 +2,12 @@ package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Etc.AnimalShowDto;
 import com.enimal.backend.dto.Etc.CreditRegistDto;
+import com.enimal.backend.dto.User.UserRankCollectionListDto;
 import com.enimal.backend.dto.User.UserRankDonationListDto;
 import com.enimal.backend.service.EtcService;
 import com.enimal.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +71,7 @@ public class EtcController {
                 List<UserRankDonationListDto> data = userService.rankListDonation(pageSize,lastIdx);
                 result.put("data",data);
             } else if (type.equals("collection")) {
-                List<UserRankDonationListDto>  data = userService.rankListDonation(pageSize,lastIdx);
+                List<UserRankCollectionListDto> data = userService.rankListCollection(pageSize,lastIdx);
                 result.put("data",data);
             }
             result.put("message",okay);
