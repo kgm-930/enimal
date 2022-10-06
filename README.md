@@ -68,16 +68,8 @@
 ### **마이페이지**
 
 ![기본정보](/uploads/92204f09f3949061d96ec6c69e88eb76/image.png)
+
 현재 나의 랭킹, 업적별 획득 현황 등 사용자 기본정보
-![수집중인 컬렉션](/uploads/b5146d66dd935ef94eecf89d67ebba00/image.png)
-
-![보유중인 컬렉션](/uploads/a0f1ff8c38ff99673de75c0298e38960/image.png)
-
-![NFT발행로딩](/uploads/a81e2be2a2a1348b7a8fa2c55d1f4163/image.png)
-
-![출석현황](/uploads/ef53ad22508210a6a1728b21b5fc6037/image.png)
-![환전내역](/uploads/b0a9ef1ec2928e9f3c2dcec729c5b3e3/image.png)
-![내가작성한글](/uploads/846e952b07f072cebf1c9d858b80e0f1/image.png)
 
 ### NFT 발급 ( Dream api 사용 )
 
