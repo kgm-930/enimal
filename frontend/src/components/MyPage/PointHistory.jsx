@@ -22,7 +22,7 @@ function PointHistory() {
     <div className="PointHistory">
       <div className="flex justify-space-between text-center">
         <h1 className="fs-28 notoBold col-3">번호</h1>
-        <h1 className="fs-28 notoBold col-6">환전 금액</h1>
+        <h1 className="fs-28 notoBold col-6">환전 내역</h1>
         <h1 className="fs-28 notoBold col-3">환전 시간</h1>
       </div>
       <ul className="my-5">

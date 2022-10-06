@@ -1,19 +1,52 @@
-import React from "react";
+import React,{useState,useEffect,useRef} from "react";
 import "./CollectionRank.scss";
 
+import { getRankc } from "../../apis/home";
+
+
 function CollectionRank() {
-  const test1 = [
-    { rank: 1, nick: "haengsong", collection: 24, drawcnt: 4567 },
-    { rank: 2, nick: "DongDong", collection: 23, drawcnt: 4833 },
-    { rank: 3, nick: "brrrr", collection: 20, drawcnt: 4215 },
-    { rank: 4, nick: "yuuuuj", collection: 19, drawcnt: 3812 },
-    { rank: 5, nick: "SeulSeul", collection: 17, drawcnt: 3768 },
-    { rank: 6, nick: "won", collection: 10, drawcnt: 2912 },
-    { rank: 7, nick: "hyhy", collection: 6, drawcnt: 1601 },
-    { rank: 8, nick: "hee", collection: 3, drawcnt: 1354 },
-    { rank: 9, nick: "yong", collection: 1, drawcnt: 314 },
-    { rank: 10, nick: "dooo", collection: 0, drawcnt: 4 }
-  ];
+  let IDX = 0
+  const [ranker, setRanker] = useState([]);
+  const [bottom, setBottom] = useState(null);
+  const bottomObserver = useRef(null);
+
+  async function getList() {
+    const params = { pageSize: 10, lastIdx: IDX }
+    await getRankc(params).then(res => {
+      const DATA = res.data;
+      if (DATA.length > 0) {
+        setRanker(pre => [...pre, ...DATA])
+        IDX = DATA.slice(-1)[0].idx
+      }
+
+    })
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          getList()
+        }
+      }
+    );
+    bottomObserver.current = observer;
+
+  }, [])
+
+
+  useEffect(() => {
+    const observer = bottomObserver.current;
+    if (bottom && ranker.length % 9 === 0) {
+      observer.observe(bottom);
+    }
+    return () => {
+      if (bottom) {
+        observer.unobserve(bottom);
+      }
+    };
+  }, [bottom]);
+
 
   return (
     <div className="CollectionRank">
@@ -27,19 +60,21 @@ function CollectionRank() {
         </li>
         <hr className="Line2" />
         <div className="cRank">
-          {test1.map(user => {
-            const cnt = user.drawcnt.toLocaleString("ko-KR");
+          {ranker.map(user => {
+            console.log(user)
+            const cnt = user.drawCount.toLocaleString("ko-KR");
             return (
               <li key={user.rank} className="RankList grid">
-                <span className="col-2 fs-20 text-center notoMid">{user.rank}</span>
-                <span className="col-4 fs-20 notoMid">{user.nick}</span>
+                <span className="col-2 fs-20 text-center notoMid">{ranker.indexOf(user)+1}</span>
+                <span className="col-4 fs-20 notoMid">{user.nickname}</span>
                 <span className="col-3 fs-20 textEnd notoMid">
-                  {user.collection}장
+                  {user.collectionCount}장
                 </span>
                 <span className="col-3 fs-20 textEnd notoMid">{cnt}회</span>
               </li>
             );
           })}
+          <div ref={setBottom} />
         </div>
       </div>
     </div>

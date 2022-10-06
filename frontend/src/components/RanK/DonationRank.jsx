@@ -15,7 +15,7 @@ function DonationRank() {
       const DATA = res.data;
       if (DATA.length > 0) {
         setRanker(pre => [...pre, ...DATA])
-        IDX +=10
+        IDX = DATA.slice(-1)[0].idx
       }
 
     })
