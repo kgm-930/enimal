@@ -47,10 +47,8 @@ function NavBar() {
   const getBalance = async () => {
     const res = await contract.methods.balanceOf(wallet).call();
     // const format = web3.utils.fromWei(res);
-    console.log(res)
     const coin = parseInt(res, 10);
     const ssf = coin.toLocaleString('ko-KR');
-    console.log(typeof res,ssf)
     localStorage.setItem('ssf', ssf)
   }
   getBalance();
@@ -125,39 +123,42 @@ function NavBar() {
             >
               <NavDropdown.Item
                 href="/notice"
-                className="nav-dropdowm1_notice notoMid fs-16"
+                className="nav-dropdowm1_notice notoMid fs-18"
               >
                 공지사항
               </NavDropdown.Item>
+              <hr />
               <NavDropdown.Item
                 href="/community"
-                className="nav-dropdowm1_free notoMid fs-16"
+                className="nav-dropdowm1_free notoMid fs-18"
               >
-                자유게시판
+                자랑게시판
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="계정 관리"
-              className="nav-dropdown2 notoMid fs-20"
+              className="nav-dropdown2 notoMid fs-18"
             >
               {localStorage.token ?
 
                 <>
                   <NavDropdown.Item
                     href={`/mypage/${localStorage.MyNick}`}
-                    className="nav-dropdowm2_mypage notoMid fs-16"
+                    className="nav-dropdowm2_mypage notoMid fs-18"
                   >
                     마이페이지
                   </NavDropdown.Item>
+                  <hr />
                   <NavDropdown.Item
                     onClick={openModal2}
-                    className="nav-dropdowm2_acc notoMid fs-16"
+                    className="nav-dropdowm2_acc notoMid fs-18"
                   >
                     재화 전환
                   </NavDropdown.Item>
+                  <hr />
                   <NavDropdown.Item
                     onClick={e => Logout(e)}
-                    className="nav-dropdowm2_acc notoMid fs-16"
+                    className="nav-dropdowm2_acc notoMid fs-18"
                   >
                     로그아웃
                   </NavDropdown.Item>
@@ -165,7 +166,7 @@ function NavBar() {
                 :
                 <NavDropdown.Item
                   onClick={openModal}
-                  className="nav-dropdowm2_acc notoMid fs-16"
+                  className="nav-dropdowm2_acc notoMid fs-18"
                 >
                   지갑연결
                 </NavDropdown.Item>

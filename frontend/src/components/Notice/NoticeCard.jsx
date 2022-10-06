@@ -5,7 +5,7 @@ import "./NoticeCard.scss";
 function NoticeCard(props) {
   const { idx,data } = props;
   const date = new Date(data.noticeTime);
-  const noticeTime=`${date.getFullYear()}년${(date.getMonth()+1)}월${date.getDate()}일 ${date.getHours()}시${date.getMinutes()}분`;
+  const noticeTime=`${date.getFullYear()}.${(date.getMonth()+1)}.${date.getDate()}`;
 
   return (
     <Link to={`/notice/${data.idx}`}>

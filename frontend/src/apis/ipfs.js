@@ -15,8 +15,10 @@ export async function uploadData(type, prompt, name, owner) {
   const DATA = {type, prompt}
   await axios.post(API_URL, DATA)
 		.then(async (res) => {
-			console.log(res.data.substr(24))
-			const img = await fetch(res.data.substr(24))
+			console.log(res.data)
+			console.log('fetch 전')
+			const img = await fetch(res.data)
+			console.log('fetch 다음')
 			if (!img.ok) {
 				alert("실패했습니다")
 			}
@@ -31,7 +33,9 @@ export async function uploadData(type, prompt, name, owner) {
 					type,
 				}
 			}
+		console.log('client 전')
 		metadata = await client.store(json)
+		console.log('client 다음')
 	})
   return metadata
 }

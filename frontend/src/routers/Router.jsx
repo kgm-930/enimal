@@ -112,7 +112,7 @@ function Router() {
         <Route path="/notice/animal/21" element={<Animal21 />} />
         <Route path="/notice/animal/22" element={<Animal22 />} />
         <Route path="/notice/animal/23" element={<Animal23 />} />
-        <Route path="/notice/animal/24" element={<Animal24 />} />
+        <Route path="/notice/24" element={<Animal24 />} />
 
 
         {/* community */}

@@ -8,6 +8,8 @@
   overflow-x: auto;
   padding-inline: 60px;
   margin-block: 80px;
+  display: flex;
+  position: relative;
 }
 
 .NFTcard{
@@ -15,8 +17,6 @@
   background-color: $MAIN;
   width: vw(300px);
   height: vw(450px);
-  margin-inline: 50px;
-  margin-block: 30px;
   text-align: center;
   box-shadow: 3px 3px 5px 0;
 }
@@ -36,4 +36,21 @@
 
 .NFTList::-webkit-scrollbar-track {
   background: rgba(196, 217, 248, 0.1);
+}
+
+.MakeNFT{
+  background-color: $MAIN;
+  border-radius: 10px;
+  height: 60px;
+  position: absolute;
+  width: 80%;
+  margin-left: -90%;
+  margin-top: 50%;
+  text-align: center;
+}
+
+.NoNFT{
+  position: relative;
+  width: vw(300px);
+  height: vw(450px);
 }
