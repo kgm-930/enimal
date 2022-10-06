@@ -3,7 +3,6 @@ import "./CommunityCard.scss";
 
 import { Link } from "react-router-dom";
 import profiledummy from "@assets/images/person.png";
-import picdummy from "@assets/images/coco.jpeg";
 
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,7 +30,7 @@ function CommunityCard(props) {
         
       </div>
       <div className="card_pic">
-        <img src={picdummy} alt="게시글이미지" />
+        <img src={data.picture} alt="게시글이미지" />
       </div>
       <div className="card_txt notoMid fs-16">
         {data.title}

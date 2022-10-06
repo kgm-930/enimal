@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./CommunityDetail.scss";
 
 import profiledummy from "@assets/images/person.png";
-import picdummy from "@assets/images/coco.jpeg";
 import CommunityComment from "@components/Community/CommunityComment"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -115,7 +114,7 @@ function CommunityRegist() {
           {/* 내용 */}
           <div className="commudetail_all_content">
             <div className="commudetail_all_content_photo">
-              <img src={picdummy} alt="이미지" />
+              <img src={data.picture} alt="이미지" />
             </div>
             <div className="commudetail_all_content_title notoMid fs-32">
               {data.title}

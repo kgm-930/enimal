@@ -28,11 +28,12 @@ function NavBar() {
     setBadgeModal(false);
   };
 
+	
 
 
 
 
-  const web3 = new Web3(new Web3.providers.HttpProvider("http://20.196.209.2:8545/"));
+  const web3 = new Web3(new Web3.providers.HttpProvider("http://52.141.42.92:8545/"));
   const token = '0x0c54E456CE9E4501D2c43C38796ce3F06846C966';
   const wallet = localStorage.myAddress;
   const minABI = [

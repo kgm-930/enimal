@@ -20,7 +20,7 @@ function MyNFT(props) {
   useEffect(() => {
     getMyNFT(userId).then(res => {
       console.log(res)
-      setMyNFT(res.data)
+      setMyNFT(res.data.reverse())
     })
   }, [])
 
@@ -57,8 +57,8 @@ function MyNFT(props) {
 
                   :
                   <li className="NFTcard">
-                    <img className="NFTImg" src={NFTtest} alt="#" />
-                    <h1 className="fs-32 notoBold my-3">{nft.nftName}</h1>
+                    <img className="NFTImg" src={nft.nftURL} alt="#" />
+                    <h1 className="fs-28 notoBold my-3">{nft.nftName}</h1>
                     <div className="flex justify-center">
                       <h1 className="fs-18 roThin">Made by</h1>
                       <h1 className="fs-18 mx-2 roMid">{nft.nftIdByWallet}</h1>

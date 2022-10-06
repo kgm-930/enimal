@@ -4,8 +4,6 @@ import "./CommunityRegist.scss";
 import { getCreateArticle } from "@apis/community";
 import { useNavigate } from "react-router-dom";
 
-import NFTtest from '@images/NFTtest.jpg'
-
 import { getMyNFT } from "@apis/mypage";
 
 function CommunityRegist() {
@@ -13,7 +11,7 @@ function CommunityRegist() {
   const [Content, setContent] = useState(null)
   const [myNFT, setMyNFT] = useState([]);
   const [myNFTtrue,setMyNFTtrue] = useState([]);
-  const [selectedNFT, setSelectedNFT] = useState([]);
+  const [selectedNFT, setSelectedNFT] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,15 +31,18 @@ function CommunityRegist() {
 
   function createArticle(e) {
     e.preventDefault();
-    const DATA = {
+    if (selectedNFT) {const DATA = {
       title: Title,
       content: Content,
-      picture: "asdf"
+      picture: myNFTtrue[selectedNFT].nftURL
     }
     getCreateArticle(DATA).then(res => {
       console.log(res)
       navigate(`/community/detail/${res.data.idx}`, { state: { badge: res.data.modalName } })
-    })
+    })}
+    else{
+      alert("NFT를 선택해야 게시글을 작성할 수 있습니다!")
+    }
   }
   function chaengtitle(e) {
     setTitle(e.target.value)
@@ -53,12 +54,27 @@ function CommunityRegist() {
 
   function selectNFTimg(e){
     e.preventDefault();
-    console.log(myNFT[e.target.id])
-    setSelectedNFT(myNFT[e.target.id])
+    console.log(e.currentTarget.id)
+    console.log(myNFT[e.currentTarget.id])
+    if (selectedNFT) {
+      if (selectedNFT === e.currentTarget.id) {
+        document.getElementById(selectedNFT).className = 'NFTcardCommuS'
+        setSelectedNFT(null)
+      } else{
+        document.getElementById(selectedNFT).className = 'NFTcardCommuS'
+        document.getElementById(e.currentTarget.id).className = 'NFTcardCommuN'
+        setSelectedNFT(e.currentTarget.id)
+      }
+    }
+    else {
+      document.getElementById(e.currentTarget.id).className = 'NFTcardCommuN'
+      setSelectedNFT(e.currentTarget.id)
+    }
   }
 
   console.log(selectedNFT)
-  
+  console.log(myNFTtrue)
+  console.log(myNFT)
   return (
     <div className="container flex">
       <div className="regi">
@@ -73,9 +89,9 @@ function CommunityRegist() {
                 console.log(nft)
                 return (
                   <div className="flex mx-5">
-                      <button type="button" onClick={e=>selectNFTimg(e)} id={myNFT.indexOf(nft)} className="NFTcard">
-                        <img className="NFTImg" src={NFTtest} alt="#" />
-                        <h1 className="fs-32 notoBold my-3">{nft.nftName}</h1>
+                      <button type="button" onClick={e=>selectNFTimg(e)} id={myNFTtrue.indexOf(nft)} className="NFTcardCommuS">
+                        <img className="NFTImg2" src={nft.nftURL} alt="#" />
+                        <h1 className="fs-28 notoBold my-3">{nft.nftName}</h1>
                         <div className="flex justify-center">
                           <h1 className="fs-18 roThin">Made by</h1>
                           <h1 className="fs-18 mx-2 roMid">{nft.nftIdByWallet}</h1>
