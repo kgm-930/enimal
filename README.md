@@ -5,9 +5,9 @@
 :arrow_right: [자세한 Git 규칙](https://www.notion.so/Git-daa26a36a7dd429ca056e9869a5b8dff)
 # 🍯 팀원 소개
 
-|Front-End|Front-End|Front-End|Back-End|Back-End|Back-End|
+|Back-End|Back-End|Front-End|Front-End|NFT|NFT|
 |-----|---|---|---|---|---|
-|<img src="" width="150" height="150"/>|<img src="" width="150" height="150"/>|<img src="" width="150" height="150"/>|<img src="" width="150" height="150"/>|<img src="" width="150" height="150"/>|<img src="" width="150" height="150"/>|
+|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|
 |최 강(팀장)|김유완(팀원)|오행송(팀원)|이동명(팀원)|나원경(팀원)|김규민(팀원)|
 <br/>
 
