@@ -2,6 +2,8 @@ package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
+import com.enimal.backend.dto.Draw.NftBadgeShowDto;
+import com.enimal.backend.dto.Draw.NftCollectionDto;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
 import com.enimal.backend.service.DrawService;
@@ -70,7 +72,7 @@ public class DrawServiceImpl implements DrawService {
         if(puzzleList.size()==1){
             Badge badge = new Badge();
             badge.setBadge("첫 걸음");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -92,7 +94,7 @@ public class DrawServiceImpl implements DrawService {
         if(flag && user.get().getUsedcount()==100) {
             Badge badge = new Badge();
             badge.setBadge("뽑기 중독");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -120,22 +122,9 @@ public class DrawServiceImpl implements DrawService {
                 list.add(true); // 컬렉션 완성여부
                 Collection collection = new Collection(); // 컬렉션 추가
                 collection.setAnimal(drawEnimal);
-                collection.setCreatedate(LocalDateTime.now());
                 collection.setUserId(userId);
                 collectionRepository.save(collection);
-                // 업적 3번 : 첫 NFT발급
-                Optional<Badge> firstNft = badgeRepository.findByUserIdAndBadge(userId,"마음에 드시나요");
                 Optional<User> user = userRepository.findById(userId);
-                List<Collection> collectionList = collectionRepository.findByUserId(userId);
-                if(collectionList.size()==1 && firstNft.isEmpty()){ // 뱃지 내역 없고, 처음 컬렉션 만든 경우
-                    Badge badge = new Badge();
-                    badge.setBadge("마음에 드시나요");
-                    badge.setCreatedate(LocalDateTime.now());
-                    badge.setUser(user.get());
-                    badge.setPercentage(2);
-                    badgeRepository.save(badge);
-                    list.add(badge.getBadge());
-                }
                 for(int j=0; j<collect.length; j++){ // 컬렉션을 모은 경우 조각 개수 감소 또는 삭제
                     Optional<Puzzle> collectPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId, drawEnimal, j);
                     int count = collectPuzzle.get().getCount();
@@ -156,7 +145,7 @@ public class DrawServiceImpl implements DrawService {
                     if(sameCount==3) {
                         Badge badge = new Badge();
                         badge.setBadge("안 질려?");
-                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setCreatedate(LocalDateTime.now().plusHours(9));
                         badge.setUser(user.get());
                         badge.setPercentage(2);
                         badgeRepository.save(badge);
@@ -170,7 +159,7 @@ public class DrawServiceImpl implements DrawService {
                     if(allCollection.size() == 24){
                         Badge badge = new Badge();
                         badge.setBadge("뽑기의 달인");
-                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setCreatedate(LocalDateTime.now().plusHours(9));
                         badge.setUser(user.get());
                         badge.setPercentage(2);
                         badgeRepository.save(badge);
@@ -198,7 +187,7 @@ public class DrawServiceImpl implements DrawService {
             if(isBadge){
                 Badge badge = new Badge();
                 badge.setBadge("똥손");
-                badge.setCreatedate(LocalDateTime.now());
+                badge.setCreatedate(LocalDateTime.now().plusHours(9));
                 badge.setUser(user.get());
                 badge.setPercentage(2);
                 badgeRepository.save(badge);
@@ -265,7 +254,7 @@ public class DrawServiceImpl implements DrawService {
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
             animalAllDrawDto.setCount(getCount+1);
-            userPuzzle.get().setCreatedate(LocalDateTime.now());
+            userPuzzle.get().setCreatedate(LocalDateTime.now().plusHours(9));
             if(drawCredit(0,userId,gradeDic.get(drawGrade))){
                 puzzleRepository.save(userPuzzle.get());
             }else{
@@ -276,7 +265,7 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setAnimal(drawEnimal);
             puzzle.setUserId(userId);
             puzzle.setPiece(drawPuzzle);
-            puzzle.setCreatedate(LocalDateTime.now());
+            puzzle.setCreatedate(LocalDateTime.now().plusHours(9));
             puzzle.setCount(1);
             animalAllDrawDto.setCount(1);
             if(drawCredit(0,userId,gradeDic.get(drawGrade))){
@@ -359,7 +348,7 @@ public class DrawServiceImpl implements DrawService {
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
             animalSelectDrawDto.setCount(getCount+1);
-            userPuzzle.get().setCreatedate(LocalDateTime.now());
+            userPuzzle.get().setCreatedate(LocalDateTime.now().plusHours(9));
             if(drawCredit(1,userId, optionalAnimal.getGrade())){
                 puzzleRepository.save(userPuzzle.get());
             }else{
@@ -372,7 +361,7 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setUserId(userId);
             puzzle.setPiece(drawPuzzle);
             puzzle.setCount(1);
-            puzzle.setCreatedate(LocalDateTime.now());
+            puzzle.setCreatedate(LocalDateTime.now().plusHours(9));
             if(drawCredit(1,userId, optionalAnimal.getGrade())){
                 puzzleRepository.save(puzzle);
             }else{
@@ -402,5 +391,45 @@ public class DrawServiceImpl implements DrawService {
         }
         animalSelectDrawDto.setModalName(arr);
         return animalSelectDrawDto;
+    }
+
+    @Override
+    public NftBadgeShowDto nftCollection(NftCollectionDto nftCollectionDto, String userId) {
+        NftBadgeShowDto nftBadgeShowDto = new NftBadgeShowDto();
+        List<String> modal = new ArrayList<>();
+        int idx = nftCollectionDto.getIdx();
+        Optional<Collection> collection = collectionRepository.findByIdxAndUserId(idx,userId);
+        collection.get().setCreatedate(LocalDateTime.now().plusHours(9));
+        collection.get().setNftName(nftCollectionDto.getName());
+        collection.get().setNftType(nftCollectionDto.getType());
+        collection.get().setNftURL(nftCollectionDto.getImage());
+        collection.get().setNftWallet(nftCollectionDto.getOwner());
+        collection.get().setTokenIdInfo(nftCollectionDto.getTokenId());
+        collection.get().setInfo(true);
+        collectionRepository.save(collection.get());
+        // 업적 3번 : 첫 NFT발급
+        Optional<Badge> firstNft = badgeRepository.findByUserIdAndBadge(userId,"마음에 드시나요");
+        Optional<User> user = userRepository.findById(userId);
+        List<Collection> collectionList = collectionRepository.findByUserId(userId);
+        int count = 0; // nft발급된 컬렉션 개수
+        for(int i=0;i<collectionList.size();i++){
+            if(collectionList.get(i).isInfo()) count++;
+        }
+        if(count==1 && firstNft.isEmpty()){ // 뱃지 내역 없고, 처음 컬렉션 만든 경우
+            Badge badge = new Badge();
+            badge.setBadge("마음에 드시나요");
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            modal.add(badge.getBadge());
+        }
+        // 뱃지 여러개 일수있으니까
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        nftBadgeShowDto.setModalName(arr);
+        return nftBadgeShowDto;
     }
 }

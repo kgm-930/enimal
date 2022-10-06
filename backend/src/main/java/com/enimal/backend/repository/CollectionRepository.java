@@ -37,4 +37,5 @@ public interface CollectionRepository extends JpaRepository<Collection,Integer> 
     @Query("SELECT  t.userId as UserId,count(t.userId) as Cnt FROM Collection t " +
             "group by t.animal order by cnt desc")
     List<UserRankCollectionListDto> test();
+    Optional<Collection> findByIdxAndUserId(int idx, String userId);
 }

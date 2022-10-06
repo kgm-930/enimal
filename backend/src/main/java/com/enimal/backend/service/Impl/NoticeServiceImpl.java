@@ -44,8 +44,8 @@ public class NoticeServiceImpl implements NoticeService {
         Notice notice = new Notice();
         notice.setTitle(noticeRegistDto.getTitle());
         notice.setContent(noticeRegistDto.getContent());
-        notice.setCreatedate(LocalDateTime.now());
-        notice.setModifydate(LocalDateTime.now());
+        notice.setCreatedate(LocalDateTime.now().plusHours(9));
+        notice.setModifydate(LocalDateTime.now().plusHours(9));
         notice.setUser_id(admin);
         notice.setView(0);
         noticeRepository.save(notice);
@@ -98,7 +98,7 @@ public class NoticeServiceImpl implements NoticeService {
         if(isBadge&&noticeAttendences.size()==notices.size()){
             Badge badge = new Badge();
             badge.setBadge("Enimal 애호가");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -143,7 +143,7 @@ public class NoticeServiceImpl implements NoticeService {
         if(notice.isPresent()){
             notice.get().setTitle(noticeUpdateDto.getTitle());
             notice.get().setContent(noticeUpdateDto.getContent());
-            notice.get().setModifydate(LocalDateTime.now());
+            notice.get().setModifydate(LocalDateTime.now().plusHours(9));
         }
         noticeRepository.save(notice.get());
         return true;

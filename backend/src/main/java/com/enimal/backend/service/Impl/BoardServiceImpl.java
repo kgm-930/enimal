@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
         if(size == 0) { // 첫 게시물인 경우
             Badge badge = new Badge();
             badge.setBadge("업적 냠냠");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -53,8 +53,8 @@ public class BoardServiceImpl implements BoardService {
         board.setTitle(boardRegistDto.getTitle());
         board.setContent(boardRegistDto.getContent());
         board.setPicture(boardRegistDto.getPicture());
-        board.setCreatedate(LocalDateTime.now());
-        board.setModifydate(LocalDateTime.now());
+        board.setCreatedate(LocalDateTime.now().plusHours(9));
+        board.setModifydate(LocalDateTime.now().plusHours(9));
         board.setView(0);
         boardRepository.save(board);
         boardRegistShowDto.setIdx(board.getIdx());
@@ -137,7 +137,7 @@ public class BoardServiceImpl implements BoardService {
             board.get().setTitle(boardUpdateDto.getTitle());
             board.get().setContent(boardUpdateDto.getContent());
             board.get().setPicture(boardUpdateDto.getPicture());
-            board.get().setModifydate(LocalDateTime.now());
+            board.get().setModifydate(LocalDateTime.now().plusHours(9));
         }
         boardRepository.save(board.get());
         return true;

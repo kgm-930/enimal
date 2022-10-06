@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
         Optional<User> user = userRepository.findById(commentRegistDto.getUser_id());
         comment.setContent(commentRegistDto.getContent());
         comment.setBoard(board.get());
-        comment.setCreatedate(LocalDateTime.now());
+        comment.setCreatedate(LocalDateTime.now().plusHours(9));
         comment.setUser(user.get());
         commentRepository.save(comment);
         // 업적 14번 : 게시글에 댓글이 10개 이상 달린 경우
@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
             if(count >= 10){
                 Badge badge = new Badge();
                 badge.setBadge("인플루언서");
-                badge.setCreatedate(LocalDateTime.now());
+                badge.setCreatedate(LocalDateTime.now().plusHours(9));
                 badge.setUser(board.get().getUser());
                 badge.setPercentage(2);
                 badgeRepository.save(badge);

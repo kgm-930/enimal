@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
             Attendence attendence = new Attendence();
             attendence.setUserId(user.get().getId());
-            attendence.setAttenddate(LocalDateTime.now());
+            attendence.setAttenddate(LocalDateTime.now().plusHours(9));
             attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
             // 출석시 SAVE재화 주기
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
             if(!isBadge.isPresent()&&eventDay.isPresent()){
                 Badge badge = new Badge();
                 badge.setBadge("환경 지킴이");
-                badge.setCreatedate(LocalDateTime.now());
+                badge.setCreatedate(LocalDateTime.now().plusHours(9));
                 badge.setUser(user.get());
                 badge.setPercentage(2);
                 badgeRepository.save(badge);
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
                 if(!realBadge.isPresent()){ // 개근상을 안받은 경우
                     Badge badge = new Badge();
                     badge.setBadge("개근상");
-                    badge.setCreatedate(LocalDateTime.now());
+                    badge.setCreatedate(LocalDateTime.now().plusHours(9));
                     badge.setUser(user.get());
                     badge.setPercentage(2);
                     badgeRepository.save(badge);
@@ -233,8 +233,14 @@ public class UserServiceImpl implements UserService {
             List<Collection> collections = collectionRepository.findByUserId(user.get().getId());
             for(Collection collection : collections){
                 Map<String,Object> data = new HashMap<>();
+                data.put("idx",collection.getIdx());
+                data.put("info",collection.isInfo());
                 data.put("animal",collection.getAnimal());
-                data.put("info",collection.getInfo());
+                data.put("tokenIdInfo",collection.getTokenIdInfo());
+                data.put("nftIdByWallet",nickname);
+                data.put("nftType",collection.getNftType());
+                data.put("nftURL",collection.getNftURL());
+                data.put("nftName",collection.getNftName());
                 data.put("createDate",collection.getCreatedate());
                 result.add(data);
             }
@@ -252,7 +258,6 @@ public class UserServiceImpl implements UserService {
             userCollectionDto.setPiece(puzzle.getPiece());
             userCollectionDto.setCount(puzzle.getCount());
             userCollectionDto.setCreateDate(puzzle.getCreatedate());
-
             userCollectionDtos.add(userCollectionDto);
         }
         return userCollectionDtos;
@@ -313,7 +318,7 @@ public class UserServiceImpl implements UserService {
             if(!badges.isPresent()){
                 Badge badge = new Badge();
                 badge.setBadge("명예 한 스푼");
-                badge.setCreatedate(LocalDateTime.now());
+                badge.setCreatedate(LocalDateTime.now().plusHours(9));
                 badge.setUser(userBadge.get());
                 badge.setPercentage(2);
                 badgeRepository.save(badge);

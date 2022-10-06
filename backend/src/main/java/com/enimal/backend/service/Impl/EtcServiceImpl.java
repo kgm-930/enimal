@@ -56,7 +56,7 @@ public class EtcServiceImpl implements EtcService {
         if(!isBadge.isPresent() && moneyList.size()==0){ // 업적 2번
             Badge badge = new Badge();
             badge.setBadge("연금술사");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -70,7 +70,7 @@ public class EtcServiceImpl implements EtcService {
         user.get().setCredit(userCredit);
         userRepository.save(user.get());
         Money money = new Money(); // 재화 충전내역을 위해 저장
-        money.setCreatedate(LocalDateTime.now());
+        money.setCreatedate(LocalDateTime.now().plusHours(9));
         money.setUserId(userId);
         money.setCredit((firstCredit/100)*(100-percent));
         money.setDonateCredit((firstCredit/100)*percent);
@@ -80,7 +80,7 @@ public class EtcServiceImpl implements EtcService {
         if(user.get().getCredit() >= 10000 && !isExchange.isPresent()){
             Badge badge = new Badge();
             badge.setBadge("Enimal 홀릭");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -91,7 +91,7 @@ public class EtcServiceImpl implements EtcService {
         if(user.get().getDonation() >= 1000 && !isDonate.isPresent()){
             Badge badge = new Badge();
             badge.setBadge("기부 천사");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
