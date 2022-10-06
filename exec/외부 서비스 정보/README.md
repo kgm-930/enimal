@@ -1,6 +1,6 @@
 ## dream-api
 
-용도 : AI 이미지 생성 / [dream-api 깃허브](https://github.com/cdgco/dream-api)
+AI 이미지 생성 / [dream-api 깃허브](https://github.com/cdgco/dream-api)
 <br><br>
 
 ### :exclamation: 참고 사항
@@ -12,9 +12,9 @@
 
 ---
 
-## nft.store (IP)
+## nft.store
 
-용도 : IPFS 업로드 / [홈페이지](https://nft.storage/)
+IPFS 업로드 / [홈페이지](https://nft.storage/)
 <br><br>
 
 ### :exclamation: 참고 사항
