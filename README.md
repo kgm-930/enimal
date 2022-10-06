@@ -83,15 +83,15 @@
 
 ![기술_스택](/uploads/1cc364edc8b752cb7969fbfa8289d710/기술_스택.jpg)
 
-- 프론트
+### 프론트
     - React.js / Node.js / Sass
-- 백
+### 백
     - Spring Boot / JPA / MySQL / JWT
-- NFT
+### NFT
     - Solidity / Besu / Dream-api
-- 인프라
+### 인프라
     - Nginx / AWS / Jenkins
-- 협업툴
+### 협업툴
     - Notion / Gitlab / Figma / Jira
 
 
