@@ -90,7 +90,7 @@
 ### NFT
     - Solidity / Besu / Dream-api
 ### 인프라
-    - Nginx / AWS / Jenkins
+    - Nginx / AWS / Jenkins  / Docker
 ### 협업툴
     - Notion / Gitlab / Figma / Jira
 
