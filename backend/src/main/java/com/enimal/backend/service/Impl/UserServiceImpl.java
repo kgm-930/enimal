@@ -298,11 +298,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserRankCollectionListDto>  rankListCollection(Integer pageSize, Integer lastIdx) {
         List<UserRankCollectionListDto> userRankCollectionListDtos = new ArrayList<>();
-        Pageable pageable = PageRequest.ofSize(pageSize);
-        if (lastIdx == 0) {
-            lastIdx = collectionRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
-        }
-        Slice<UserRankCollectionListDto> collections = collectionRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+        PageRequest pageRequest = PageRequest.of(lastIdx, pageSize);
+        Slice<UserRankCollectionListDto> collections = collectionRepository.findAllByOrderByIdxDesc( pageRequest);
         for(UserRankCollectionListDto userRankCollectionListDto : collections){
             UserRankCollectionListDto user = new UserRankCollectionListDto();
             Optional<User> userBadge = userRepository.findById(userRankCollectionListDto.getNickname());

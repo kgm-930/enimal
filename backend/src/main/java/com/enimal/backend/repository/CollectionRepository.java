@@ -29,13 +29,9 @@ public interface CollectionRepository extends JpaRepository<Collection,Integer> 
 
     Optional<Collection> findTop1ByOrderByIdxDesc();
 
-    @Query("SELECT new UserRankCollectionListDto(t.idx,t.userId,count(t.userId)) FROM Collection t where t.idx < :lastIdx group by t.userId order by count (t.userId) desc")
-    Slice<UserRankCollectionListDto> findAllByOrderByIdxDesc(Integer lastIdx, Pageable pageable);
+    @Query("SELECT new UserRankCollectionListDto(t.idx,t.userId,count(t.userId)) FROM Collection t  group by t.userId order by count (t.userId) desc")
+    Slice<UserRankCollectionListDto> findAllByOrderByIdxDesc(Pageable pageable);
 
 
-
-    @Query("SELECT  t.userId as UserId,count(t.userId) as Cnt FROM Collection t " +
-            "group by t.animal order by cnt desc")
-    List<UserRankCollectionListDto> test();
     Optional<Collection> findByIdxAndUserId(int idx, String userId);
 }

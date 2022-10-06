@@ -295,14 +295,11 @@ public class EtcTests {
     }
     @Test
     void 랭킹조회_컬렉션(){
+
         Integer pageSize = 2;
-        Integer lastIdx = 0;
-        Slice<UserRankCollectionListDto> collections = null;
-        Pageable pageable = PageRequest.ofSize(pageSize);
-        if (lastIdx == 0) {
-            lastIdx = collectionRepository.findTop1ByOrderByIdxDesc().get().getIdx() + 1;
-        }
-        collections = collectionRepository.findAllByOrderByIdxDesc(lastIdx, pageable);
+        Integer lastIdx = 1;
+        PageRequest pageRequest = PageRequest.of(lastIdx, pageSize);
+        Slice<UserRankCollectionListDto> collections = collectionRepository.findAllByOrderByIdxDesc( pageRequest);
         for (UserRankCollectionListDto collection : collections) {
             System.out.println(collection.getNickname());
         }
