@@ -1,7 +1,9 @@
 import React,{useState,useEffect,useRef} from "react";
 import "./CollectionRank.scss";
 
+import { Link } from "react-router-dom";
 import { getRankc } from "../../apis/home";
+
 
 
 function CollectionRank() {
@@ -11,12 +13,12 @@ function CollectionRank() {
   const bottomObserver = useRef(null);
 
   async function getList() {
-    const params = { pageSize: 10, lastIdx: IDX }
+    const params = { pageSize:3, lastIdx: IDX }
     await getRankc(params).then(res => {
       const DATA = res.data;
       if (DATA.length > 0) {
         setRanker(pre => [...pre, ...DATA])
-        IDX = DATA.slice(-1)[0].idx
+        IDX += 1
       }
 
     })
@@ -64,14 +66,14 @@ function CollectionRank() {
             console.log(user)
             const cnt = user.drawCount.toLocaleString("ko-KR");
             return (
-              <li key={user.rank} className="RankList grid">
+              <Link to={`/mypage/${user.nickname}`} key={user.rank} className="RankList grid">
                 <span className="col-2 fs-20 text-center notoMid">{ranker.indexOf(user)+1}</span>
-                <span className="col-4 fs-20 notoMid">{user.nickname}</span>
+                <span className="col-4 fs-20 notoBold">{user.nickname}</span>
                 <span className="col-3 fs-20 textEnd notoMid">
                   {user.collectionCount}장
                 </span>
                 <span className="col-3 fs-20 textEnd notoMid">{cnt}회</span>
-              </li>
+              </Link>
             );
           })}
           <div ref={setBottom} />

@@ -9,7 +9,7 @@ function PointHistory() {
   useEffect(() => {
     getMyPointHistory().then(res => {
       console.log(res)
-      setData(res.data)
+      setData(res.data.reverse())
     })
   }, [])
 
@@ -25,6 +25,7 @@ function PointHistory() {
         <h1 className="fs-28 notoBold col-6">환전 내역</h1>
         <h1 className="fs-28 notoBold col-3">환전 시간</h1>
       </div>
+      {data.length >0 ?
       <ul className="my-5">
         {data.map((list) => {
           const date = new Date(list.createDate);
@@ -39,7 +40,7 @@ function PointHistory() {
           return (
             <div className="my-5">
               <li key={data.indexOf(list)} className="flex justify-space-between text-center align-center">
-                <h1 className="fs-20 notoMid number col-3">{data.indexOf(list)}</h1>
+                <h1 className="fs-20 notoMid number col-3">{data.indexOf(list)+1}</h1>
                 <div className="col-6">
                   <div className="flex justify-center">
                     <h1 className="fs-20 notoMid">충전된 재화 : </h1>
@@ -58,6 +59,11 @@ function PointHistory() {
           )
         })}
       </ul>
+      :
+      <div className="my-5">
+        <h1 className="fs-28 notoBold text-center my-5">환전한 기록이 없습니다.</h1>
+      </div>
+      }
     </div>
   )
 }

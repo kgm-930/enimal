@@ -89,29 +89,29 @@ function Router() {
         <Route path="/notice/edit/:index" element={<NoticeEdit />} />
 
         {/* animal notice */}
-        <Route path="/notice/animal/1" element={<Animal1 />} />
-        <Route path="/notice/animal/2" element={<Animal2 />} />
-        <Route path="/notice/animal/3" element={<Animal3 />} />
-        <Route path="/notice/animal/4" element={<Animal4 />} />
-        <Route path="/notice/animal/5" element={<Animal5 />} />
-        <Route path="/notice/animal/6" element={<Animal6 />} />
-        <Route path="/notice/animal/7" element={<Animal7 />} />
-        <Route path="/notice/animal/8" element={<Animal8 />} />
-        <Route path="/notice/animal/9" element={<Animal9 />} />
-        <Route path="/notice/animal/10" element={<Animal10 />} />
-        <Route path="/notice/animal/11" element={<Animal11 />} />
-        <Route path="/notice/animal/12" element={<Animal12 />} />
-        <Route path="/notice/animal/13" element={<Animal13 />} />
-        <Route path="/notice/animal/14" element={<Animal14 />} />
-        <Route path="/notice/animal/15" element={<Animal15 />} />
-        <Route path="/notice/animal/16" element={<Animal16 />} />
-        <Route path="/notice/animal/17" element={<Animal17 />} />
-        <Route path="/notice/animal/18" element={<Animal18 />} />
-        <Route path="/notice/animal/19" element={<Animal19 />} />
-        <Route path="/notice/animal/20" element={<Animal20 />} />
-        <Route path="/notice/animal/21" element={<Animal21 />} />
-        <Route path="/notice/animal/22" element={<Animal22 />} />
-        <Route path="/notice/animal/23" element={<Animal23 />} />
+        <Route path="/notice/1" element={<Animal1 />} />
+        <Route path="/notice/2" element={<Animal2 />} />
+        <Route path="/notice/3" element={<Animal3 />} />
+        <Route path="/notice/4" element={<Animal4 />} />
+        <Route path="/notice/5" element={<Animal5 />} />
+        <Route path="/notice/6" element={<Animal6 />} />
+        <Route path="/notice/7" element={<Animal7 />} />
+        <Route path="/notice/8" element={<Animal8 />} />
+        <Route path="/notice/9" element={<Animal9 />} />
+        <Route path="/notice/10" element={<Animal10 />} />
+        <Route path="/notice/11" element={<Animal11 />} />
+        <Route path="/notice/12" element={<Animal12 />} />
+        <Route path="/notice/13" element={<Animal13 />} />
+        <Route path="/notice/14" element={<Animal14 />} />
+        <Route path="/notice/15" element={<Animal15 />} />
+        <Route path="/notice/16" element={<Animal16 />} />
+        <Route path="/notice/17" element={<Animal17 />} />
+        <Route path="/notice/18" element={<Animal18 />} />
+        <Route path="/notice/19" element={<Animal19 />} />
+        <Route path="/notice/20" element={<Animal20 />} />
+        <Route path="/notice/21" element={<Animal21 />} />
+        <Route path="/notice/22" element={<Animal22 />} />
+        <Route path="/notice/23" element={<Animal23 />} />
         <Route path="/notice/24" element={<Animal24 />} />
 
 

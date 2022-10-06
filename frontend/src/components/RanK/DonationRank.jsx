@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import './DonationRank.scss'
 
+import { Link } from "react-router-dom";
 import { getRankd } from "../../apis/home";
+
 
 function DonationRank() {
   let IDX = 0
@@ -15,7 +17,7 @@ function DonationRank() {
       const DATA = res.data;
       if (DATA.length > 0) {
         setRanker(pre => [...pre, ...DATA])
-        IDX = DATA.slice(-1)[0].idx
+        IDX += 1
       }
 
     })
@@ -69,11 +71,11 @@ function DonationRank() {
             console.log(ranker.indexOf(user)+1)
             const dona = user.doantion.toLocaleString("ko-KR");
             return (
-              <li key={ranker.indexOf(user)} className="RankList grid">
+              <Link to={`/mypage/${user.nickname}`} key={ranker.indexOf(user)} className="RankList grid">
                 <span className="col-3 fs-20 text-center notoMid">{ranker.indexOf(user)+1}</span>
-                <span className="col-5 fs-20 notoMid">{user.nickname}</span>
+                <span className="col-5 fs-20 notoBold">{user.nickname}</span>
                 <span className="col-4 fs-20 textEnd notoMid">{dona} SSF</span>
-              </li>
+              </Link>
             );
           })}
           <div ref={setBottom} />

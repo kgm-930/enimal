@@ -13,12 +13,15 @@
 
   &_regi {
     width: vw(150px);
-    height: vw(64px);
+    height: vw(30px);
     border-radius: vw(15px);
     background-color: $MAIN;
     color: $WHITE;
     margin-bottom: vw(32px);
     margin-left: vw(940px);
+    text-align: center;
+    vertical-align: center;
+
   }
 
   .divide {

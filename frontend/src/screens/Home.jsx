@@ -189,15 +189,15 @@ function Home() {
                   console.log(user);
                   return (
                     <Zoom left>
-                      <li key={rankC.indexOf(user)} className="RankList grid">
+                      <Link to={`/mypage/${user.nickname}`} key={rankC.indexOf(user)} className="RankList grid">
                         <span className="col-2 text-center notoMid">
                           {rankC.indexOf(user) + 1}
                         </span>
-                        <span className="col-4 notoMid">{user.nickname}</span>
+                        <span className="col-4 notoBold">{user.nickname}</span>
                         <span className="col-2 textEnd notoMid">
                           {user.collectionCount}개
                         </span>
-                      </li>
+                      </Link>
                     </Zoom>
                   );
                 })}
@@ -218,15 +218,15 @@ function Home() {
                   const dona = user.doantion.toLocaleString("ko-KR");
                   return (
                     <Zoom left>
-                      <li key={user.rank} className="RankList grid">
+                      <Link to={`/mypage/${user.nickname}`} key={user.rank} className="RankList grid">
                         <span className="col-3 text-center notoMid">
                           {rankD.indexOf(user) + 1}
                         </span>
-                        <span className="col-5 notoMid">{user.nickname}</span>
+                        <span className="col-5 notoBold">{user.nickname}</span>
                         <span className="col-4 textEnd notoMid">
                           {dona} SSF
                         </span>
-                      </li>
+                      </Link>
                     </Zoom>
                   );
                 })}

@@ -20,6 +20,7 @@ function MyArticles() {
     <div className="MyArticlesBox">
       <h1 className="fs-40 notoBold">내 게시글</h1>
       <hr />
+      {myArticles.length >0 ?
       <div className="MyArticles flex">
         { myArticles.map(article => {
           console.log(article)
@@ -28,6 +29,11 @@ function MyArticles() {
           )
         })}
       </div>
+      : 
+      <div className="flex">
+        <h1 className="fs-22 notoBold">작성하신 글이 없습니다</h1>
+      </div>
+      }
     </div>
   );
 }
