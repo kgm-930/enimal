@@ -1,8 +1,6 @@
 # C106 Enimal
-<aside>
-📢 2022.08.29 ~ 2022.10.07 (7주)
 
-</aside>
+📢 2022.08.29 ~ 2022.10.07 (7주)
 
 :arrow_right: [자세한 Git 규칙](https://www.notion.so/Git-daa26a36a7dd429ca056e9869a5b8dff)
 # 🍯 팀원 소개
