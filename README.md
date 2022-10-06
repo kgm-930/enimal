@@ -49,26 +49,35 @@
 
 싸피네트워크를 통해 SSF 코인 재화를 서비스 내 재화로 변환, 기부 할 비율을 선택 후 충전
 
-### ** 전체뽑기 **
+### ** 전체 뽑기 **
 
 ![전체 뽑기](/uploads/2c8b727fc768d996e73d3c93dda0bac3/image.png)
 
 사용자가 보유중인 업적과 멸종위기 등급을 통해 확률 산정 후 뽑기
 
-### ** 개별뽑기 **
+### ** 개별 뽑기 **
 
 ![개별 뽑기](/uploads/1064d54d83a48439f6c97b342778f079/image.png)
 
 사용자가 보유중인 업적과 멸종위기 등급을 통해 가격 산정 후 뽑기
 
+### ** 뽑기 화면 **
 
-- 전체 뽑기 : 멸종위기 24종을 임의로 선정하여 각 등급에 따라 차등으로 확률 뽑기
-- 개별 뽑기 : 특정 종을 선택하여 등급에 따라 가격 산정
-- 업적 보유시 : 미보유 뽑기 확률 상승
+![뽑기 화면](/uploads/60ad8972db1bf757ddafae14d1cdf01b/image.png)
 
-### 환전
+### **마이페이지**
 
-- nft파트 분들 여기 적어주세요, 사진 추가도 좋아요
+![기본정보](/uploads/92204f09f3949061d96ec6c69e88eb76/image.png)
+현재 나의 랭킹, 업적별 획득 현황 등 사용자 기본정보
+![수집중인 컬렉션](/uploads/b5146d66dd935ef94eecf89d67ebba00/image.png)
+
+![보유중인 컬렉션](/uploads/a0f1ff8c38ff99673de75c0298e38960/image.png)
+
+![NFT발행로딩](/uploads/a81e2be2a2a1348b7a8fa2c55d1f4163/image.png)
+
+![출석현황](/uploads/ef53ad22508210a6a1728b21b5fc6037/image.png)
+![환전내역](/uploads/b0a9ef1ec2928e9f3c2dcec729c5b3e3/image.png)
+![내가작성한글](/uploads/846e952b07f072cebf1c9d858b80e0f1/image.png)
 
 ### NFT 발급 ( Dream api 사용 )
 
