@@ -84,7 +84,9 @@
 ![기술_스택](/uploads/1cc364edc8b752cb7969fbfa8289d710/기술_스택.jpg)
 
 ### 프론트
-    - React.js / Node.js / Sass
+    - React.js : 18.2.0
+    - Node.js : 14.12.0
+    - Sass : 7.0.3
 ### 백
     - JAVA : 11.0.14
     - Spring Boot : 2.7.3
@@ -92,7 +94,10 @@
     - MySQL : 8.0.30-0ubuntu0.20.04.2
     - JWT : 0.9.0
 ### NFT
-    - Solidity / Besu / Dream-api
+    - Solidity : 0.8.4
+    - Truffle : 5.4.24
+    - Besu : 21.10.20
+    - Dream-api : 1.0.8
 ### 인프라
     - Nginx : 1.18.0
     - AWS : Linux/5.4.0-1018-aws
