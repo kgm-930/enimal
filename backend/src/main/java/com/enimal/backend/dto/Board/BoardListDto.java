@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardListDto {
     private String title;
-    private Byte[] picture;
+    private String picture;
     private Integer view;
     private Integer idx;
     private String nickname;

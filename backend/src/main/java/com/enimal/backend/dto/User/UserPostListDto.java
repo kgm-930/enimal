@@ -16,5 +16,5 @@ public class UserPostListDto {
     private LocalDateTime modifyDate;
     private String content;
     private Integer view;
-    private Byte[] picture;
+    private String picture;
 }

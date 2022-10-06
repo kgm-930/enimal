@@ -10,5 +10,5 @@ public class BoardRegistDto {
     private String userId;
     private String title;
     private String content;
-    private Byte[] picture;
+    private String picture;
 }

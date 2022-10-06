@@ -15,5 +15,5 @@ public class BoardShowDto {
     private LocalDateTime boardTime;
     private String content;
     private Integer view;
-    private Byte[] picture;
+    private String picture;
 }
