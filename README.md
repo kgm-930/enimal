@@ -2,7 +2,7 @@
 
 📢 2022.08.29 ~ 2022.10.07 (7주)
 
-:arrow_right: [자세한 Git 규칙](https://www.notion.so/Git-daa26a36a7dd429ca056e9869a5b8dff)
+:arrow_right: [노션](https://selective-spectrum-c0a.notion.site/Enimal-09dba286b744472f8854dcf122d9e313)
 # 🍯 팀원 소개
 
 |Back-End|Back-End|Front-End|Front-End|NFT|NFT|
