@@ -72,7 +72,7 @@ public class DrawServiceImpl implements DrawService {
         if(puzzleList.size()==1){
             Badge badge = new Badge();
             badge.setBadge("첫 걸음");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -94,7 +94,7 @@ public class DrawServiceImpl implements DrawService {
         if(flag && user.get().getUsedcount()==100) {
             Badge badge = new Badge();
             badge.setBadge("뽑기 중독");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
@@ -122,7 +122,6 @@ public class DrawServiceImpl implements DrawService {
                 list.add(true); // 컬렉션 완성여부
                 Collection collection = new Collection(); // 컬렉션 추가
                 collection.setAnimal(drawEnimal);
-                collection.setCreatedate(LocalDateTime.now());
                 collection.setUserId(userId);
                 collectionRepository.save(collection);
                 Optional<User> user = userRepository.findById(userId);
@@ -146,7 +145,7 @@ public class DrawServiceImpl implements DrawService {
                     if(sameCount==3) {
                         Badge badge = new Badge();
                         badge.setBadge("안 질려?");
-                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setCreatedate(LocalDateTime.now().plusHours(9));
                         badge.setUser(user.get());
                         badge.setPercentage(2);
                         badgeRepository.save(badge);
@@ -160,7 +159,7 @@ public class DrawServiceImpl implements DrawService {
                     if(allCollection.size() == 24){
                         Badge badge = new Badge();
                         badge.setBadge("뽑기의 달인");
-                        badge.setCreatedate(LocalDateTime.now());
+                        badge.setCreatedate(LocalDateTime.now().plusHours(9));
                         badge.setUser(user.get());
                         badge.setPercentage(2);
                         badgeRepository.save(badge);
@@ -188,7 +187,7 @@ public class DrawServiceImpl implements DrawService {
             if(isBadge){
                 Badge badge = new Badge();
                 badge.setBadge("똥손");
-                badge.setCreatedate(LocalDateTime.now());
+                badge.setCreatedate(LocalDateTime.now().plusHours(9));
                 badge.setUser(user.get());
                 badge.setPercentage(2);
                 badgeRepository.save(badge);
@@ -255,7 +254,7 @@ public class DrawServiceImpl implements DrawService {
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
             animalAllDrawDto.setCount(getCount+1);
-            userPuzzle.get().setCreatedate(LocalDateTime.now());
+            userPuzzle.get().setCreatedate(LocalDateTime.now().plusHours(9));
             if(drawCredit(0,userId,gradeDic.get(drawGrade))){
                 puzzleRepository.save(userPuzzle.get());
             }else{
@@ -266,7 +265,7 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setAnimal(drawEnimal);
             puzzle.setUserId(userId);
             puzzle.setPiece(drawPuzzle);
-            puzzle.setCreatedate(LocalDateTime.now());
+            puzzle.setCreatedate(LocalDateTime.now().plusHours(9));
             puzzle.setCount(1);
             animalAllDrawDto.setCount(1);
             if(drawCredit(0,userId,gradeDic.get(drawGrade))){
@@ -349,7 +348,7 @@ public class DrawServiceImpl implements DrawService {
             int getCount = userPuzzle.get().getCount();
             userPuzzle.get().setCount(getCount+1);
             animalSelectDrawDto.setCount(getCount+1);
-            userPuzzle.get().setCreatedate(LocalDateTime.now());
+            userPuzzle.get().setCreatedate(LocalDateTime.now().plusHours(9));
             if(drawCredit(1,userId, optionalAnimal.getGrade())){
                 puzzleRepository.save(userPuzzle.get());
             }else{
@@ -362,7 +361,7 @@ public class DrawServiceImpl implements DrawService {
             puzzle.setUserId(userId);
             puzzle.setPiece(drawPuzzle);
             puzzle.setCount(1);
-            puzzle.setCreatedate(LocalDateTime.now());
+            puzzle.setCreatedate(LocalDateTime.now().plusHours(9));
             if(drawCredit(1,userId, optionalAnimal.getGrade())){
                 puzzleRepository.save(puzzle);
             }else{
@@ -419,7 +418,7 @@ public class DrawServiceImpl implements DrawService {
         if(count==1 && firstNft.isEmpty()){ // 뱃지 내역 없고, 처음 컬렉션 만든 경우
             Badge badge = new Badge();
             badge.setBadge("마음에 드시나요");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
