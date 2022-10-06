@@ -7,7 +7,7 @@
 
 |Back-End|Back-End|Front-End|Front-End|NFT|NFT|
 |-----|---|---|---|---|---|
-|<img src="" width="120" height="120"/>|<img src="![image](/uploads/d6cad8116923e4e95178bffdefbb76ff/image.png)" width="150" height="150"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|
+|<img src="" width="120" height="120"/>|<img src="/uploads/d6cad8116923e4e95178bffdefbb76ff/image.png" width="150" height="150"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|<img src="" width="120" height="120"/>|
 |최 강(팀장)|김유완(팀원)|오행송(팀원)|이동명(팀원)|나원경(팀원)|김규민(팀원)|
 <br/>
 
