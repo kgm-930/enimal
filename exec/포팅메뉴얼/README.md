@@ -77,54 +77,7 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 - 엔진엑스 (SSL 적용) - 도커 컨테이너 (프론트) → 컨테이너 내부 (엔진엑스 80포트)
 - 외부 포트 3000  내부 포트 80
 # EC2 Nginx 구성
-server {
-  listen 3001;
-  root /var/front/build;
-  index index.html index.htm;
-  try_files $uri $uri/ /index.html;
-  gzip_static always;
-}
-server {
-  listen 80;
-
-  root /var/front/build;
-  index index.html index.htm;
-  try_files $uri $uri/ /index.html;
-  gzip_static always;
-
-}
-
-server {
-  listen 443 ssl http2;
-  server_name j7c106.p.ssafy.io;
-
-  ssl_certificate /etc/letsencrypt/live/j7c106.p.ssafy.io/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/j7c106.p.ssafy.io/privkey.pem;
-
-  location / {
-    proxy_pass http://j7c106.p.ssafy.io:3001;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
-  location /api {
-    proxy_pass http://j7c106.p.ssafy.io:8081;
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
-}
-server {
-    if ($host = j7c106.p.ssafy.io) {
-        return 301 https://$host$request_uri;
-    }
-  listen 80;
-  server_name example.com;
-   return 404;
-}
-
+![image](/uploads/deca4d90c1fe9395610a27f5bef0a1d7/image.png)
 # EC2 노드 JS
 sudo apt-get install nodejs
 
