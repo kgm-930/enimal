@@ -10,7 +10,7 @@
 - HostName : [ubuntu@j7c106.p.ssafy.io](mailto:ubuntu@j7c106.p.ssafy.io) 입력
 - 좌측 리스트에서 SSH 열기 - Auth 선택 - Browse 클릭 - 발급받은 ppk 파일 선택 - 오픈
 # EC2 DB 설치
-## DB 생성하기
+### DB 생성하기
 
 - DB 설치
 sudo apt-get install mysql-server
@@ -28,7 +28,7 @@ cd /etc/mysql/mysql.conf.d
 sudo nano mysqld.cnf	#bind-address = 127.0.0.1 부분 -> #주석처리#
 sudo service mysql restart
 
-## DBeaver로 접속
+### DBeaver로 접속
 
 - Server Host : j7c106.p.ssafy.io
 - Database : j7c106
