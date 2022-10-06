@@ -12,8 +12,6 @@
 
 # 🐣 기획배경
 
----
-
 <aside>
 👉 최근 환경 문제는 많이 다뤄지고 있습니다.
 
@@ -31,7 +29,6 @@
 
 # 🐑 프로젝트 핵심 기능
 
----
 
 ### 뽑기
 
@@ -49,7 +46,6 @@
 
 # 🐇 기술스택
 
----
 
 ![그림01.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/549f89bf-4882-4b68-9f25-b2b08a9e39c7/%EA%B7%B8%EB%A6%BC01.jpg)
 
