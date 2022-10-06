@@ -2,6 +2,7 @@ package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
+import com.enimal.backend.dto.Draw.NftCollectionDto;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
 import com.enimal.backend.service.DrawService;
@@ -402,5 +403,19 @@ public class DrawServiceImpl implements DrawService {
         }
         animalSelectDrawDto.setModalName(arr);
         return animalSelectDrawDto;
+    }
+
+    @Override
+    public void nftCollection(NftCollectionDto nftCollectionDto, String userId) {
+        int idx = nftCollectionDto.getIdx();
+        System.out.println(nftCollectionDto.getImage());
+        Optional<Collection> collection = collectionRepository.findByIdxAndUserId(idx,userId);
+        collection.get().setCreatedate(LocalDateTime.now().plusHours(9));
+        collection.get().setNftName(nftCollectionDto.getName());
+        collection.get().setNftType(nftCollectionDto.getType());
+        collection.get().setNftURL(nftCollectionDto.getImage());
+        collection.get().setNftWallet(nftCollectionDto.getOwner());
+        collection.get().setTokenIdInfo(nftCollectionDto.getTokenId());
+        collectionRepository.save(collection.get());
     }
 }

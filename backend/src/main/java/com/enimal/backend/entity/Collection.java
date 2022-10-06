@@ -21,5 +21,9 @@ public class Collection {
     private String userId;
     private String animal;
     private LocalDateTime createdate;
-    private String info;
+    private String tokenIdInfo;
+    private String nftType;
+    private String nftURL;
+    private String nftName;
+    private String nftWallet;
 }

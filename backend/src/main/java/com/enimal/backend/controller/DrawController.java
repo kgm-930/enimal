@@ -2,16 +2,15 @@ package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
+import com.enimal.backend.dto.Draw.NftCollectionDto;
 import com.enimal.backend.service.EtcService;
 import com.enimal.backend.service.DrawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +59,22 @@ public class DrawController {
                 result.put("message",noCredit);
 
             result.put("data",data);
+            status = HttpStatus.OK;
+        }catch (Exception e){
+            result.put("message",fail);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result,status);
+    }
+    @PostMapping("/nftCollection/{idx}") // nft 발행 정보 저장
+    public ResponseEntity<?> nftCollection(@PathVariable("idx")int idx, HttpServletRequest request,@RequestBody NftCollectionDto nftCollectionDto){
+        Map<String,Object> result = new HashMap<>();
+        String userId = (String) request.getAttribute("userId");
+        nftCollectionDto.setIdx(idx);
+        HttpStatus status;
+        try{
+            drawService.nftCollection(nftCollectionDto,userId);
+            result.put("message",okay);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);

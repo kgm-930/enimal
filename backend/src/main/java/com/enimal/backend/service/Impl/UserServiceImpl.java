@@ -233,8 +233,13 @@ public class UserServiceImpl implements UserService {
             List<Collection> collections = collectionRepository.findByUserId(user.get().getId());
             for(Collection collection : collections){
                 Map<String,Object> data = new HashMap<>();
+                data.put("idx",collection.getIdx());
                 data.put("animal",collection.getAnimal());
-                data.put("info",collection.getInfo());
+                data.put("tokenIdInfo",collection.getTokenIdInfo());
+                data.put("nftIdByWallet",nickname);
+                data.put("nftType",collection.getNftType());
+                data.put("nftURL",collection.getNftURL());
+                data.put("nftName",collection.getNftName());
                 data.put("createDate",collection.getCreatedate());
                 result.add(data);
             }
