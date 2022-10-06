@@ -35,7 +35,7 @@ public class EtcServiceImpl implements EtcService {
     @Override
     public AnimalShowDto detailAnimal() {
         AnimalShowDto animalShowDto = new AnimalShowDto();
-        Integer todayIdx = LocalDateTime.now().plusHours(9).getDayOfYear();
+        Integer todayIdx = LocalDateTime.now().getDayOfYear();
         todayIdx = todayIdx % 24 + 1;
         Optional<Animal> animal = animalRepository.findById(todayIdx);
         animalShowDto.setAnimal(animal.get().getAnimal());

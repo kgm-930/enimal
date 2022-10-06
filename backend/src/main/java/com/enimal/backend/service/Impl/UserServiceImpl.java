@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         List<String> modal = new ArrayList<>();
         BadgeShowDto badgeShowDto = new BadgeShowDto();
         Optional<User> user = userRepository.findByWallet(userLoginDto.getWallet());
-        int convertDate = LocalDateTime.now().plusHours(9).getDayOfYear();
+        int convertDate = LocalDateTime.now().getDayOfYear();
         if(!user.isPresent() && userLoginDto.getId() != null){ // 회원이 아니라면 회원 등록하기
             User userRegist = new User();
             userRegist.setId(userLoginDto.getId());
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
             Attendence attendence = new Attendence();
             attendence.setUserId(user.get().getId());
             attendence.setAttenddate(LocalDateTime.now().plusHours(9));
-            attendence.setConvertdate(LocalDateTime.now().plusHours(9).getDayOfYear());
+            attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
             // 출석시 SAVE재화 주기
             int save = user.get().getCredit() + 500;
