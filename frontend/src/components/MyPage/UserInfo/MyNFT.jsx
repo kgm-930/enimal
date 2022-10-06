@@ -58,10 +58,10 @@ function MyNFT(props) {
                   :
                   <li className="NFTcard">
                     <img className="NFTImg" src={NFTtest} alt="#" />
-                    <h1 className="fs-32 notoBold my-3">숲속의 사슴</h1>
+                    <h1 className="fs-32 notoBold my-3">{nft.nftName}</h1>
                     <div className="flex justify-center">
                       <h1 className="fs-18 roThin">Made by</h1>
-                      <h1 className="fs-18 mx-2 roMid">{localStorage.MyNick}</h1>
+                      <h1 className="fs-18 mx-2 roMid">{nft.nftIdByWallet}</h1>
                     </div>
                   </li>
                 }
@@ -75,7 +75,7 @@ function MyNFT(props) {
       </ul>
       
       }
-<MakeNFTModal open={openModal} close={closeModal} animal={Animal} index={Animalidx} />
+    <MakeNFTModal open={openModal} close={closeModal} animal={Animal} index={Animalidx} />
     </div >
   )
 }
