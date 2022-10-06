@@ -1,6 +1,7 @@
 package com.enimal.backend;
 
 import com.enimal.backend.dto.User.UserRankCollectionListDto;
+import com.enimal.backend.dto.User.UserRankDonationListDto;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -307,15 +310,17 @@ public class EtcTests {
     @Test
     void 랭킹조회_기부(){
         Integer pageSize = 5;
-        Integer lastIdx = 0;
+        Integer lastIdx = 16;
         Slice<User> users = null;
         Pageable pageable = PageRequest.ofSize(pageSize);
         if (lastIdx == 0) {
             lastIdx = userRepository.findTop1ByOrderByDonationDesc().get().getIdx() + 1;
         }
-        users = userRepository.findAllByOrderByDonationDesc(lastIdx, pageable);
+//        users = userRepository.findAllByOrderByDonationDesc(lastIdx, pageable);
+        PageRequest test = PageRequest.of(0, 10, Sort.by(Sort.Order.desc("donation")));
+        users = userRepository.findAll(test);
         for (User user : users) {
-            System.out.println(user.getId()+ " : " +user.getUsedcredit());
+            System.out.println(user.getIdx()+" : " +user.getId()+ " : " +user.getDonation());
         }
     }
     @Test

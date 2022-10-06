@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -282,13 +283,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserRankDonationListDto>  rankListDonation(Integer pageSize, Integer lastIdx) {
-        Slice<User> users = null;
         List<UserRankDonationListDto> userRankDonationListDtos = new ArrayList<>();
-        Pageable pageable = PageRequest.ofSize(pageSize);
-        if (lastIdx == 0) {
-            lastIdx = userRepository.findTop1ByOrderByDonationDesc().get().getIdx() + 1;
-        }
-        users = userRepository.findAllByOrderByDonationDesc(lastIdx, pageable);
+        PageRequest pageRequest = PageRequest.of(lastIdx, pageSize, Sort.by(Sort.Order.desc("donation")));
+        Slice<User> users = userRepository.findAll(pageRequest);
         for (User user : users) {
             UserRankDonationListDto userRankDonationListDto = new UserRankDonationListDto();
             userRankDonationListDto.setIdx(user.getIdx());
