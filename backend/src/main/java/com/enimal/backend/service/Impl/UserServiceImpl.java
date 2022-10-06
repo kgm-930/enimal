@@ -234,6 +234,7 @@ public class UserServiceImpl implements UserService {
             for(Collection collection : collections){
                 Map<String,Object> data = new HashMap<>();
                 data.put("idx",collection.getIdx());
+                data.put("info",collection.isInfo());
                 data.put("animal",collection.getAnimal());
                 data.put("tokenIdInfo",collection.getTokenIdInfo());
                 data.put("nftIdByWallet",nickname);
@@ -257,7 +258,6 @@ public class UserServiceImpl implements UserService {
             userCollectionDto.setPiece(puzzle.getPiece());
             userCollectionDto.setCount(puzzle.getCount());
             userCollectionDto.setCreateDate(puzzle.getCreatedate());
-
             userCollectionDtos.add(userCollectionDto);
         }
         return userCollectionDtos;
