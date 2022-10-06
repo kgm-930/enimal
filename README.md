@@ -94,7 +94,10 @@
 ### NFT
     - Solidity / Besu / Dream-api
 ### 인프라
-    - Nginx / AWS / Jenkins  / Docker
+    - Nginx : 1.18.0
+    - AWS : Linux/5.4.0-1018-aws
+    - Jenkins : 2.361.1
+    - Docker : 1.2.10
 ### 협업툴
     - Notion / Gitlab / Figma / Jira
 
