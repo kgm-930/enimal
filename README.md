@@ -46,8 +46,7 @@
 
 # 🐇 기술스택
 
-
-![기술스택](/uploads/7740e313f50dc59e8e0252cda35474d4/기술스택.png)
+![기술스택](/uploads/ab7541957af1efd53563167fe4828f3b/image.png)
 
 - 프론트
     - React.js / Node.js / Sass
