@@ -106,3 +106,60 @@ console.log('Express server listening on port ' + server.address().port);
 // pakage.json
 
 "start": "nodemon app.js”
+
+# SSAFY 블록체인
+
+* 블록체인 노드
+
+  * http://20.196.209.2:8545
+  * http://52.141.42.92:8545
+  * http://20.41.85.203:8545
+  * Chain ID : 31221
+
+* ERC-20 (SSF) Contract Address
+
+  * 0x0c54E456CE9E4501D2c43C38796ce3F06846C966
+
+* Truffle
+
+  * Initialization
+
+    * ```
+      > truffle init
+      ```
+
+  * Compile
+
+    * ``` 
+      > truffle compile
+      ```
+
+  * Migrate
+
+    * ```
+      > truffle migrate
+      ```
+
+  * truffle-config.js
+
+    * ```javascript
+      const PrivateKeyProvider = require("truffle-privatekey-provider");
+      const privateKey = "Your Private Key";
+      const privateKeyProvider = new PrivateKeyProvider(privateKey), "SSAFY Block Chain url");
+      
+      module.exports = {
+          networks: {
+              // Default
+              development: {
+                  provider: privateKeyProvider,
+                  network_id: "*"
+              },
+          },
+          
+          compilers: {
+              solc: {
+                  version: "0.8.16"
+              }
+          },
+      };
+      ```
