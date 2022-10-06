@@ -24,6 +24,7 @@ function MyComment() {
     <div className="MyArticlesBox">
       <h1 className="fs-40 notoBold">내 댓글</h1>
       <hr />
+      {myComments.length>0 ?
       <div>
           {myComments.map(comment => {
             console.log(comment)
@@ -32,6 +33,11 @@ function MyComment() {
             )
           })}
       </div>
+      :
+      <div>
+        <h1 className="fs-22 notoBold">작성하신 댓글이 없습니다.</h1>
+      </div>
+      }
 
     </div>
   );

@@ -26,6 +26,7 @@ export const getMyComment = async (PARAMS) => {
 
 // 보유중인 NFT 조회
 export const getMyNFT = async (userid) => {
+  console.log(userid)
   const res = await API_MYPAGE.get(`/user/completion/${userid}`);
   return res.data;
 };
@@ -45,5 +46,12 @@ export const getMyPointHistory = async () => {
 // 나의 출석체크
 export const getMyDayCheck = async () => {
   const res = await API_MYPAGE.get('/user/attend');
+  return res.data;
+};
+
+
+// NFT 데이터 저장
+export const getSaveMyNFT = async (idx,DATA) => {
+  const res = await API_MYPAGE.post(`/nftCollection/${idx}`,DATA);
   return res.data;
 };

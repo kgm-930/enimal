@@ -15,10 +15,8 @@ const Web3 = require('web3');
 
 function NavBar() {
 
-  const [SSF, setSSF] = useState(null);
   const [save,setSave] =useState(0);
-
-
+  const [SSF,setSSF] =useState(0);
 
   // 업적획득 세팅
   const [badge, setBadge] = useState([]);
@@ -30,11 +28,12 @@ function NavBar() {
     setBadgeModal(false);
   };
 
+	
 
 
 
 
-  const web3 = new Web3(new Web3.providers.HttpProvider("http://20.196.209.2:8545/"));
+  const web3 = new Web3(new Web3.providers.HttpProvider("http://52.141.42.92:8545/"));
   const token = '0x0c54E456CE9E4501D2c43C38796ce3F06846C966';
   const wallet = localStorage.myAddress;
   const minABI = [
@@ -50,9 +49,10 @@ function NavBar() {
   const getBalance = async () => {
     const res = await contract.methods.balanceOf(wallet).call();
     // const format = web3.utils.fromWei(res);
+    console.log(res)
     const coin = parseInt(res, 10);
     const ssf = coin.toLocaleString('ko-KR');
-    console.log(typeof res,ssf)
+    localStorage.setItem('ssf', coin)
     setSSF(ssf)
   }
   getBalance();
@@ -95,6 +95,7 @@ function NavBar() {
     localStorage.removeItem('token')
     localStorage.removeItem('MyNick')
     localStorage.removeItem('myAddress')
+    localStorage.removeItem('ssf')
     alert("로그아웃 되었습니다!")
     navigate('/')
   }
@@ -126,39 +127,42 @@ function NavBar() {
             >
               <NavDropdown.Item
                 href="/notice"
-                className="nav-dropdowm1_notice notoMid fs-16"
+                className="nav-dropdowm1_notice notoMid fs-18"
               >
                 공지사항
               </NavDropdown.Item>
+              <hr />
               <NavDropdown.Item
                 href="/community"
-                className="nav-dropdowm1_free notoMid fs-16"
+                className="nav-dropdowm1_free notoMid fs-18"
               >
-                자유게시판
+                자랑게시판
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="계정 관리"
-              className="nav-dropdown2 notoMid fs-20"
+              className="nav-dropdown2 notoMid fs-18"
             >
               {localStorage.token ?
 
                 <>
                   <NavDropdown.Item
                     href={`/mypage/${localStorage.MyNick}`}
-                    className="nav-dropdowm2_mypage notoMid fs-16"
+                    className="nav-dropdowm2_mypage notoMid fs-18"
                   >
                     마이페이지
                   </NavDropdown.Item>
+                  <hr />
                   <NavDropdown.Item
                     onClick={openModal2}
-                    className="nav-dropdowm2_acc notoMid fs-16"
+                    className="nav-dropdowm2_acc notoMid fs-18"
                   >
                     재화 전환
                   </NavDropdown.Item>
+                  <hr />
                   <NavDropdown.Item
                     onClick={e => Logout(e)}
-                    className="nav-dropdowm2_acc notoMid fs-16"
+                    className="nav-dropdowm2_acc notoMid fs-18"
                   >
                     로그아웃
                   </NavDropdown.Item>
@@ -166,7 +170,7 @@ function NavBar() {
                 :
                 <NavDropdown.Item
                   onClick={openModal}
-                  className="nav-dropdowm2_acc notoMid fs-16"
+                  className="nav-dropdowm2_acc notoMid fs-18"
                 >
                   지갑연결
                 </NavDropdown.Item>

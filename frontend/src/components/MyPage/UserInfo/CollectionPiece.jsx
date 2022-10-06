@@ -4,6 +4,7 @@ import "./CollectionPiece.scss";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
 import { getMyPiece } from "@apis/mypage";
 
 import {
@@ -212,6 +213,9 @@ function CollectionPiece() {
     '우파루파','검은발족제비'
     ]
 
+
+
+
   return (
     <div className="CollectionPiece">
       <h1 className="MyCollection notoBold fs-40">수집중인 컬렉션</h1>
@@ -243,8 +247,6 @@ function CollectionPiece() {
           <Slide Animal={Upalupa} number={22} />
           <Slide Animal={Weasel} number={23} />
         </div>
-
-
       </div>
       <div className="flex justify-center">
         <FontAwesomeIcon className="Angle" onClick={PrevSlide} icon={faAngleLeft} />

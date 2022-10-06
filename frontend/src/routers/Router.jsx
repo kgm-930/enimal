@@ -96,8 +96,8 @@ function Router() {
         <Route path="/notice/5" element={<Animal5 />} />
         <Route path="/notice/6" element={<Animal6 />} />
         <Route path="/notice/7" element={<Animal7 />} />
-        <Route path="/notice/9" element={<Animal9 />} />
         <Route path="/notice/8" element={<Animal8 />} />
+        <Route path="/notice/9" element={<Animal9 />} />
         <Route path="/notice/10" element={<Animal10 />} />
         <Route path="/notice/11" element={<Animal11 />} />
         <Route path="/notice/12" element={<Animal12 />} />

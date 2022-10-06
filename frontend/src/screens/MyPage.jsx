@@ -56,7 +56,7 @@ function MyPage() {
 
   return (
     <div className="MyPage">
-      <div className="flex">
+      <div className="flex align-center">
         <img className="profileImg" src={BaseImg} alt="#" />
         <h1 className="fs-40 roBold userNick">{userId}</h1>
         {userId === localStorage.MyNick ?

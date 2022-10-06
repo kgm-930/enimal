@@ -412,7 +412,7 @@ function DrawSlide(props) {
       setAnimal("바다거북")
     } else if (draw === "17") {
       setSlidesItem(Redpanda);
-      setAnimal("레서판다")
+      setAnimal("렛서판다")
     } else if (draw === "18") {
       setSlidesItem(Weasel);
       setAnimal("검은발족제비")
