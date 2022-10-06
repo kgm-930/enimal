@@ -74,7 +74,7 @@ function DonationRank() {
               <Link to={`/mypage/${user.nickname}`} key={ranker.indexOf(user)} className="RankList grid">
                 <span className="col-3 fs-20 text-center notoMid">{ranker.indexOf(user)+1}</span>
                 <span className="col-5 fs-20 notoBold">{user.nickname}</span>
-                <span className="col-4 fs-20 textEnd notoMid">{dona} SSF</span>
+                <span className="col-4 fs-20 textEnd notoMid">{dona} SAVE</span>
               </Link>
             );
           })}

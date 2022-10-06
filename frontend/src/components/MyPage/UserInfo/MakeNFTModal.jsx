@@ -5,8 +5,10 @@ import './MakeNFTModal.scss'
 import { uploadData } from "@apis/ipfs"
 import { create } from "@apis/sendTx"
 
+import { getSaveMyNFT } from "@apis/mypage";
+
 function MakeNFTModal(props) {
-  const { open, close, animal } = props;
+  const { open, close, animal,index } = props;
   const [Type, setType] = useState("Gouache");
   const [Name, setName] = useState(null);
 
@@ -40,7 +42,17 @@ function MakeNFTModal(props) {
                 type: data.properties.type,
                 image: `https://ipfs.io/ipfs${data.image.pathname.replace('/', '')}`
               }
+              const Data = {
+                name:Name,
+                type : Type,
+                image :"이미지 주소", // 이미지주소 뭘입력??
+                tokenId : localStorage.myAddress
+              }
               console.log(modifiedData)
+              
+              getSaveMyNFT(index,Data).then(ress=>{
+                console.log(ress)
+              })
               // saveMetadata(modifiedData)
               //   .then((response) => {
               //     // 프론트에서 어떤 정보 필요할지 물어보기

@@ -224,7 +224,7 @@ function Home() {
                         </span>
                         <span className="col-5 notoBold">{user.nickname}</span>
                         <span className="col-4 textEnd notoMid">
-                          {dona} SSF
+                          {dona} SAVE
                         </span>
                       </Link>
                     </Zoom>

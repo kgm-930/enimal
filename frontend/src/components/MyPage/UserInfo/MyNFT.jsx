@@ -13,6 +13,7 @@ function MyNFT(props) {
   const [myNFT, setMyNFT] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [Animal, setAnimal] = useState(null);
+  const [Animalidx, setAnimalidx] = useState(null);
 
   console.log(userId)
 
@@ -30,7 +31,9 @@ function MyNFT(props) {
 
 
   function makeNFT(e) {
-    setAnimal(e.target.id)
+    console.log(e.target.id)
+    setAnimal(myNFT[e.target.id].animal)
+    setAnimalidx(myNFT[e.target.id].idx)
     setOpenModal(true)
   }
   return (
@@ -49,7 +52,7 @@ function MyNFT(props) {
                       <h1 className="fs-32 notoBold my-3">{nft.animal}</h1>
                     </li>
                     {localStorage.MyNick === userId ?
-                      <button type="button" onClick={e => makeNFT(e)} id={nft.animal} className="fs-32 notoBold MakeNFT">NFT 제작하기</button> : null}
+                      <button type="button" onClick={e => makeNFT(e)} id={myNFT.indexOf(nft)} className="fs-32 notoBold MakeNFT">NFT 제작하기</button> : null}
                   </div>
 
                   :
@@ -72,7 +75,7 @@ function MyNFT(props) {
       </ul>
       
       }
-<MakeNFTModal open={openModal} close={closeModal} animal={Animal} />
+<MakeNFTModal open={openModal} close={closeModal} animal={Animal} index={Animalidx} />
     </div >
   )
 }
