@@ -2,6 +2,7 @@ package com.enimal.backend.controller;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
+import com.enimal.backend.dto.Draw.NftBadgeShowDto;
 import com.enimal.backend.dto.Draw.NftCollectionDto;
 import com.enimal.backend.service.EtcService;
 import com.enimal.backend.service.DrawService;
@@ -73,8 +74,9 @@ public class DrawController {
         nftCollectionDto.setIdx(idx);
         HttpStatus status;
         try{
-            drawService.nftCollection(nftCollectionDto,userId);
+            NftBadgeShowDto data = drawService.nftCollection(nftCollectionDto,userId);
             result.put("message",okay);
+            result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);

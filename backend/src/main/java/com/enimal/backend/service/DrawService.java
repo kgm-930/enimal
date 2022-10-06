@@ -2,6 +2,7 @@ package com.enimal.backend.service;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
+import com.enimal.backend.dto.Draw.NftBadgeShowDto;
 import com.enimal.backend.dto.Draw.NftCollectionDto;
 
 public interface DrawService {
@@ -10,5 +11,5 @@ public interface DrawService {
 
     AnimalSelectDrawDto drawSelectAnimal(String userId, String animal);
 
-    void nftCollection(NftCollectionDto nftCollectionDto, String userId);
+    NftBadgeShowDto nftCollection(NftCollectionDto nftCollectionDto, String userId);
 }

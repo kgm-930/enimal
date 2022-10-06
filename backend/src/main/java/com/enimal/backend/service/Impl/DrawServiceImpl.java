@@ -2,6 +2,7 @@ package com.enimal.backend.service.Impl;
 
 import com.enimal.backend.dto.Draw.AnimalAllDrawDto;
 import com.enimal.backend.dto.Draw.AnimalSelectDrawDto;
+import com.enimal.backend.dto.Draw.NftBadgeShowDto;
 import com.enimal.backend.dto.Draw.NftCollectionDto;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
@@ -124,19 +125,7 @@ public class DrawServiceImpl implements DrawService {
                 collection.setCreatedate(LocalDateTime.now());
                 collection.setUserId(userId);
                 collectionRepository.save(collection);
-                // 업적 3번 : 첫 NFT발급
-                Optional<Badge> firstNft = badgeRepository.findByUserIdAndBadge(userId,"마음에 드시나요");
                 Optional<User> user = userRepository.findById(userId);
-                List<Collection> collectionList = collectionRepository.findByUserId(userId);
-                if(collectionList.size()==1 && firstNft.isEmpty()){ // 뱃지 내역 없고, 처음 컬렉션 만든 경우
-                    Badge badge = new Badge();
-                    badge.setBadge("마음에 드시나요");
-                    badge.setCreatedate(LocalDateTime.now());
-                    badge.setUser(user.get());
-                    badge.setPercentage(2);
-                    badgeRepository.save(badge);
-                    list.add(badge.getBadge());
-                }
                 for(int j=0; j<collect.length; j++){ // 컬렉션을 모은 경우 조각 개수 감소 또는 삭제
                     Optional<Puzzle> collectPuzzle = puzzleRepository.findByUserIdAndAnimalAndPiece(userId, drawEnimal, j);
                     int count = collectPuzzle.get().getCount();
@@ -406,9 +395,10 @@ public class DrawServiceImpl implements DrawService {
     }
 
     @Override
-    public void nftCollection(NftCollectionDto nftCollectionDto, String userId) {
+    public NftBadgeShowDto nftCollection(NftCollectionDto nftCollectionDto, String userId) {
+        NftBadgeShowDto nftBadgeShowDto = new NftBadgeShowDto();
+        List<String> modal = new ArrayList<>();
         int idx = nftCollectionDto.getIdx();
-        System.out.println(nftCollectionDto.getImage());
         Optional<Collection> collection = collectionRepository.findByIdxAndUserId(idx,userId);
         collection.get().setCreatedate(LocalDateTime.now().plusHours(9));
         collection.get().setNftName(nftCollectionDto.getName());
@@ -416,6 +406,31 @@ public class DrawServiceImpl implements DrawService {
         collection.get().setNftURL(nftCollectionDto.getImage());
         collection.get().setNftWallet(nftCollectionDto.getOwner());
         collection.get().setTokenIdInfo(nftCollectionDto.getTokenId());
+        collection.get().setInfo(true);
         collectionRepository.save(collection.get());
+        // 업적 3번 : 첫 NFT발급
+        Optional<Badge> firstNft = badgeRepository.findByUserIdAndBadge(userId,"마음에 드시나요");
+        Optional<User> user = userRepository.findById(userId);
+        List<Collection> collectionList = collectionRepository.findByUserId(userId);
+        int count = 0; // nft발급된 컬렉션 개수
+        for(int i=0;i<collectionList.size();i++){
+            if(collectionList.get(i).isInfo()) count++;
+        }
+        if(count==1 && firstNft.isEmpty()){ // 뱃지 내역 없고, 처음 컬렉션 만든 경우
+            Badge badge = new Badge();
+            badge.setBadge("마음에 드시나요");
+            badge.setCreatedate(LocalDateTime.now());
+            badge.setUser(user.get());
+            badge.setPercentage(2);
+            badgeRepository.save(badge);
+            modal.add(badge.getBadge());
+        }
+        // 뱃지 여러개 일수있으니까
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        nftBadgeShowDto.setModalName(arr);
+        return nftBadgeShowDto;
     }
 }

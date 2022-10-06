@@ -26,4 +26,5 @@ public class Collection {
     private String nftURL;
     private String nftName;
     private String nftWallet;
+    private boolean info;
 }
