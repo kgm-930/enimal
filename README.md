@@ -86,7 +86,11 @@
 ### 프론트
     - React.js / Node.js / Sass
 ### 백
-    - Spring Boot / JPA / MySQL / JWT
+    - JAVA : 11.0.14
+    - Spring Boot : 2.7.3
+    - JPA : 2.7.2
+    - MySQL : 8.0.30-0ubuntu0.20.04.2
+    - JWT : 0.9.0
 ### NFT
     - Solidity / Besu / Dream-api
 ### 인프라
