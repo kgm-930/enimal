@@ -1,11 +1,12 @@
 // 매
-import React from "react";
+import React,{useEffect} from "react";
 import "./Animal.scss";
 import { useNavigate } from "react-router-dom";
 
 import YouTube from "react-youtube";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getDetailNotice } from "@apis/notice";
 
 function Animal21() {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ function Animal21() {
     e.preventDefault();
     navigate("/notice");
   }
+
+  useEffect(()=>{
+    getDetailNotice(21)
+  })
 
   return (
     <div className="container flex">

@@ -91,9 +91,9 @@ function CommunityRegist() {
                 <img src={profiledummy} alt="프로필이미지" />
               </div>
               <div className="commudetail_all_profile_extra flex">
-                <p className="commudetail_all_profile_extra_name notoMid fs-24">
+                <button type="button" className="commudetail_all_profile_extra_name notoMid fs-24">
                   {data.nickname}
-                </p>
+                </button>
                 <p className="commudetail_all_profile_extra_time notoMid fs-16" style={{ whiteSpace: "nowrap" }}>
                   {time}
                 </p>

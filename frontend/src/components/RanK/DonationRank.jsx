@@ -58,7 +58,6 @@ function DonationRank() {
 
   return (
     <div className="DonationRank">
-      <h1  className="fs-32 notoBold title">기부금 랭킹</h1>
       <div>
         <li className="RankList grid">
           <span className="col-3 fs-24 text-center notoBold">순위</span>
