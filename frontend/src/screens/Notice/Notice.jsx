@@ -18,14 +18,12 @@ function Notice() {
   useEffect(() => {
     const params = { pageSize: 100, lastIdx: 0 }
     getNoticeList(params).then(res => {
-      console.log(res)
       setArticles(res.data)
     })
   }, [])
 
 
   const handlePageChange = (e) => {
-    console.log(e)
     setPage(e);
   };
 
@@ -35,9 +33,6 @@ function Notice() {
       lis.push(articles[(page-1)*10+i])
     }
   }
-
-  console.log(articles)
-  console.log(lis)
 
   return (
     <div className="containerBox">
@@ -68,7 +63,6 @@ function Notice() {
         <div className="notice_list">
           <div className="noticeList">
             {lis.map(article => {
-              console.log(article)
               return (
                 <NoticeCard idx={(page-1)*10+lis.indexOf(article)+1} key={article.idx} data={article} />
               )

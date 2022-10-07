@@ -54,7 +54,6 @@ function DonationRank() {
 
 
 
-  console.log(ranker)
 
   return (
     <div className="DonationRank">

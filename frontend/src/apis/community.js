@@ -2,12 +2,10 @@ import { API_COMMUNITY } from "./index";
 
 // 커뮤니티 게시글 리스트 조회
 export const getCommunityList = async (PARAMS) => {
-  console.log(PARAMS)
   const res = await API_COMMUNITY.get("/boardList",
   {
     params : PARAMS,
   });
-  console.log(res)
   return res.data;
 };
 
@@ -15,7 +13,6 @@ export const getCommunityList = async (PARAMS) => {
 export const getCreateArticle = async (DATA) => {
    
   const res = await API_COMMUNITY.post("/board", DATA)
-  console.log(res)
   return res.data;
 };
 
@@ -23,7 +20,6 @@ export const getCreateArticle = async (DATA) => {
 export const getUpdateArticle = async (DATA) => {
    
   const res = await API_COMMUNITY.put("/board", DATA)
-  console.log(res)
   return res.data;
 };
 
@@ -43,11 +39,9 @@ export const getArticleDetail = async (index) => {
 
 // 댓글 생성
 export const getCreateComment = async (PARAMS,comment) => {
-  console.log(comment)
   const res = await API_COMMUNITY.post("/comment",comment,{
     params:PARAMS
   });
-  console.log(res)
   return res.data;
 };
 
@@ -56,6 +50,5 @@ export const getDeleteComment = async (idx) => {
   const res = await API_COMMUNITY.delete("/comment",{
     params:{comment_idx:idx}
   });
-  console.log(res)
   return res.data;
 };

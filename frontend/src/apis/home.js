@@ -3,7 +3,6 @@ import { API_HOME } from "./index";
 // eslint-disable-next-line import/prefer-default-export
 export const getTodayAnimal = async () => {
   const res = await API_HOME.get("/todayAnimal");
-  // console.log(res.data)
   return res.data;
 };
 
@@ -11,7 +10,6 @@ export const getTodayAnimal = async () => {
 export const getRankc = async (PARAMS) => {
   const res = await API_HOME.get("/rank/collection",
   { params : PARAMS});
-  console.log(res)
   return res.data;
 };
 
@@ -19,7 +17,6 @@ export const getRankc = async (PARAMS) => {
 export const getRankd = async (PARAMS) => {
   const res = await API_HOME.get("/rank/donation",
   { params : PARAMS});
-  console.log(res)
   return res.data;
 };
 

@@ -18,8 +18,6 @@ function MyComment() {
     })
   },[])
 
-  console.log(myComments)
-
   return (
     <div className="MyArticlesBox">
       <h1 className="fs-40 notoBold">내 댓글</h1>
@@ -27,7 +25,6 @@ function MyComment() {
       {myComments.length>0 ?
       <div>
           {myComments.map(comment => {
-            console.log(comment)
             return (
               <CommentCard data={comment} />
             )

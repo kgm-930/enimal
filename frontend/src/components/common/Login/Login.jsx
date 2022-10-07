@@ -10,14 +10,11 @@ function Login(props) {
   const [newbie, setNewbie] = useState(false);
   const [nick, setNick] = useState(null);
   
-
   function inputKey(e) {
-    console.log(e.target.value)
     setMyKey(e.target.value)
   }
 
   function inputNick(e) {
-    console.log(e.target.value)
     setNick(e.target.value)
   }
 
@@ -29,7 +26,6 @@ function Login(props) {
       const web3 = new Web3(new Web3.providers.HttpProvider("http://52.141.42.92:8545/"));
       // 개인키
       const pubKey = web3.eth.accounts.privateKeyToAccount(myKey);
-      console.log(pubKey.address);
       if (newbie && (nick === '' || nick === null)) {
         alert("닉네임을 입력해 주세요")
       }
@@ -41,9 +37,7 @@ function Login(props) {
             wallet: pubKey.address
           }
         }
-        console.log(DATA)
         getLogin(DATA).then((res) => {
-          console.log(res)
           if (res.message === 'FAIL') {
             setNewbie(true)
           }

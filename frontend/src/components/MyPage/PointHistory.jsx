@@ -8,13 +8,11 @@ function PointHistory() {
 
   useEffect(() => {
     getMyPointHistory().then(res => {
-      console.log(res)
       setData(res.data.reverse())
     })
   }, [])
 
 
-  console.log(data)
 
 
 

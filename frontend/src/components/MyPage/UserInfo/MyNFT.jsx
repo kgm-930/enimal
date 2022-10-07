@@ -15,11 +15,8 @@ function MyNFT(props) {
   const [Animal, setAnimal] = useState(null);
   const [Animalidx, setAnimalidx] = useState(null);
 
-  console.log(userId)
-
   useEffect(() => {
     getMyNFT(userId).then(res => {
-      console.log(res)
       setMyNFT(res.data.reverse())
     })
   }, [])
@@ -31,7 +28,6 @@ function MyNFT(props) {
 
 
   function makeNFT(e) {
-    console.log(e.target.id)
     setAnimal(myNFT[e.target.id].animal)
     setAnimalidx(myNFT[e.target.id].idx)
     setOpenModal(true)
@@ -42,7 +38,6 @@ function MyNFT(props) {
       {myNFT.length > 0 ?
         <ul className="NFTList">
           {myNFT.map(nft => {
-            console.log(nft)
             return (
               <div className="flex mx-5">
                 {nft.info === false ?

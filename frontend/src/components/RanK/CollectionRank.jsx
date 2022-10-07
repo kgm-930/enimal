@@ -62,7 +62,6 @@ function CollectionRank() {
         <hr className="Line2" />
         <div className="cRank">
           {ranker.map(user => {
-            console.log(user)
             const cnt = user.drawCount.toLocaleString("ko-KR");
             return (
               <Link to={`/mypage/${user.nickname}`} key={user.rank} className="RankList grid">

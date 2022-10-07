@@ -36,7 +36,6 @@ function CommunityRegist() {
 
   useEffect(() => {
     getArticleDetail(articleId).then(res => {
-      console.log(res)
       setData(res.data)
       setComment(res.comment)
 
@@ -61,8 +60,7 @@ function CommunityRegist() {
   function deleteArticle(e){
     e.preventDefault();
     if (window.confirm("정말로 삭제하시겠습니까?")) {
-      getDeleteArticle(articleId).then(res=>{
-      console.log(res)
+      getDeleteArticle(articleId).then(()=>{
       navigate('/community')
     })
     }

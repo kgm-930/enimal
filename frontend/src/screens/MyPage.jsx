@@ -43,8 +43,7 @@ function MyPage() {
   function deleteAccount(e) {
     e.preventDefault();
     if (window.confirm("정말로 계정을 삭제하시겠습니까?")) {
-      getDeleteUser().then(res => {
-        console.log(res)
+      getDeleteUser().then(() => {
         localStorage.removeItem('token')
         localStorage.removeItem('MyNick')
         localStorage.removeItem('myAddress')

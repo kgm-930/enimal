@@ -6,6 +6,7 @@ import { uploadData } from "@apis/ipfs"
 import { create } from "@apis/sendTx"
 
 import { getSaveMyNFT } from "@apis/mypage";
+import axios from "axios";
 import Loading from "../../common/Loading";
 
 function MakeNFTModal(props) {
@@ -25,29 +26,38 @@ function MakeNFTModal(props) {
     Comic: "입체감 있는 일러스트 느낌이에요",
     "Line-Art": "선만으로 표현된 그림이에요"
   }
+  
+  const API_URL = "http://j7c106.p.ssafy.io:9000/meta"
 
   async function makeNFT() {
     if (Name) {
-      console.log(Name)
-      const type = Type
-      const prompt = animal
-      const name = Name
       const owner = localStorage.myAddress
       setLoading(true)
-      uploadData(type, prompt, name, owner)
+      uploadData(Type, animal, Name, owner)
         .then(async metadata => {
-          const tokenURI = await metadata?.url
+          const tokenURI = await metadata.data?.url
+          const url = `https://ipfs.io/ipfs${tokenURI.substr(6)}`
+          let image
+          await axios.get(API_URL, {params: {url}})
+            .then(async res => {
+              image = await res.data
+              console.log(res)
+            }).catch(() => {
+              alert('오류가 발생했습니다. 다시 시도해주세요')
+              setLoading(false)
+            })
           await create(owner, tokenURI)
             .then(async (res) => {
+              console.log(image, 'image')
               if (res) {
-                // 4. 백에 메타데이터 전송 (데이터 적절한지 물어보기)
-                const { data } = metadata
                 const Data = {
-                  name: data.name,
-                  type: data.properties.type,
-                  image: `https://ipfs.io/ipfs${data.image.pathname.replace('/', '')}`,
+                  name: Name,
+                  type: Type,
+                  image: `https://ipfs.io/ipfs${image.substr(6)}`,
                   tokenId: res,
+                  owner,
                 }
+                console.log(Data)
 
                 getSaveMyNFT(index, Data).then(ress => {
                   console.log(ress)
@@ -55,20 +65,19 @@ function MakeNFTModal(props) {
                   setComplete(true)
                   setCompleteImg(Data)
                 })
-                // saveMetadata(modifiedData)
-                //   .then((response) => {
-                //     // 프론트에서 어떤 정보 필요할지 물어보기
-                //     console.log(response)
-                //     // NFT 생성됐음을 사용자에게 알림
-                //   })
               }
+            }).catch(() => {
+              alert('오류가 발생했습니다. 다시 시도해주세요')
+              setLoading(false)
             })
+        }).catch(() => {
+          alert('오류가 발생했습니다. 다시 시도해주세요')
+          setLoading(false)
         })
     }
     else {
       alert("이름을 입력해주세요!")
     }
-
   }
 
 

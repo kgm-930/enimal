@@ -12,7 +12,6 @@ function NoticeList(props) {
   useEffect(()=>{
     const params = {pageSize: 100 , lastIdx: 0}
     getNoticeList(params).then(res =>{
-      console.log(res)
       setArticles(res.data)
     })
   }, [page])

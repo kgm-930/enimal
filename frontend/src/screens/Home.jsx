@@ -51,9 +51,6 @@ function Home() {
     });
   }, []);
 
-  console.log(todayAnimal);
-  console.log('행송')
-
   const Route = {
     검은코뿔소: "/notice/1",
     양쯔강돌고래: "/notice/2",
@@ -187,7 +184,6 @@ function Home() {
               <hr className="Line2" />
               <div className="collectionRank">
                 {rankC.map(user => {
-                  console.log(user);
                   return (
                     <Zoom left>
                       <Link to={`/mypage/${user.nickname}`} key={rankC.indexOf(user)} className="RankList grid">

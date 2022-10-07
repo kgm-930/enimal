@@ -50,7 +50,6 @@ function CommunityList() {
     };
   }, [bottom]);
 
-  console.log(articles)
   return (
     <div className="cardList flex" id="cardList">
       {articles.map(article =>

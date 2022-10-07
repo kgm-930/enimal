@@ -8,14 +8,12 @@ function CommunityComment(props) {
 
   function deleteComment(e){
     e.preventDefault();
-    console.log(e.target.id)
     getDeleteComment(e.target.id)
     window.location.href = `/community/detail/${articleId}`
   }
   return (
     <div className="comment">
       {comment.map(item => {
-        console.log(item)
         return (
           <div className="flex justify-space-between comment">
             <div className="flex align-center">

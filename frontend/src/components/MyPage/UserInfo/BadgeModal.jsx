@@ -4,7 +4,6 @@ import './BadgeModal.scss'
 
 function BadgeModal(props){
   const { open, close,badge,img } = props;
-  console.log(badge)
   const Route = {
     "연금술사":"SSF코인을 SAVE로 처음 환전 시 획득 가능합니다.",
     "첫 걸음":"처음으로 조각 뽑기를 할 경우 획득 가능합니다.",

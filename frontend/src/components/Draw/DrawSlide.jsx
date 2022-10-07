@@ -358,7 +358,6 @@ function DrawSlide(props) {
 
 
   useEffect(() => {
-    console.log(draw);
     if (draw === "all") {
       setSlidesItem(ALL);
       setDrawType("all");
@@ -492,10 +491,8 @@ function DrawSlide(props) {
 
     if (drawType === "all") {
       getAllDraw().then(res => {
-        console.log(res);
         if (res.message === "SUCCESS") {
           const drawed = res.data.animal;
-          console.log(drawed);
           if (drawed === "북극곰") {
             setSlidesItem(Polarbear);
           } else if (drawed === "안데스산고양이") {
@@ -563,7 +560,6 @@ function DrawSlide(props) {
     else {
       getSelectDraw(animal).then(res => {
         if (res.message === "SUCCESS") {
-          console.log(res.data)
           setArrLength(9);
           setMove(true);
           setSpeed(20);

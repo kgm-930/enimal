@@ -11,7 +11,6 @@ function CommunitiEdit(){
   const navigate = useNavigate();
   useEffect(()=>{
     getArticleDetail(articleId).then(res=>{
-      console.log(res.data)
       document.getElementById('title').value = res.data.title
       setTitle(res.data.title)
       document.getElementById('content').value = res.data.content
@@ -29,9 +28,7 @@ function CommunitiEdit(){
       user_id:localStorage.MyNick,
       picture: Picture
     }
-    console.log(DATA)
-    getUpdateArticle(DATA).then(res=>{
-      console.log(res)
+    getUpdateArticle(DATA).then(()=>{
       navigate(`/community/detail/${articleId}`)
     })
   }

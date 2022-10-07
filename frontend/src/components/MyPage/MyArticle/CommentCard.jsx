@@ -5,7 +5,6 @@ import './CommentCard.scss'
 
 function CommentCard(props) {
   const { data } =props;
-  console.log(data)
   const date = new Date(data.createDate);
   const createTime=`${date.getFullYear()}년${(date.getMonth()+1)}월${date.getDate()}일 ${date.getHours()}시${date.getMinutes()}분`;
   

@@ -11,7 +11,6 @@ function NoticeDetail() {
   const noticeID = useParams().index;
   useEffect(() => {
     getDetailNotice(noticeID).then(res => {
-      console.log(res)
       setData(res.data)
     })
   }, [])
@@ -24,8 +23,7 @@ function NoticeDetail() {
   function deleteNotice(e) {
     e.preventDefault();
     if (window.confirm("정말로 삭제하시겠습니까?")) {
-      getDeleteNotice(noticeID).then(res => {
-        console.log(res)
+      getDeleteNotice(noticeID).then(() => {
         navigate('/notice')
       })
     }

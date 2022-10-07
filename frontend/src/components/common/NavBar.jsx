@@ -28,6 +28,7 @@ function NavBar() {
     setBadgeModal(false);
   };
 
+  const {myAddress} = localStorage
 	
 
 
@@ -49,7 +50,6 @@ function NavBar() {
   const getBalance = async () => {
     const res = await contract.methods.balanceOf(wallet).call();
     // const format = web3.utils.fromWei(res);
-    console.log(res)
     const coin = parseInt(res, 10);
     const ssf = coin.toLocaleString('ko-KR');
     localStorage.setItem('ssf', coin)
@@ -59,9 +59,11 @@ function NavBar() {
 
 
   useEffect(()=>{
-    getMySave().then(res=>{
-      setSave(res.data)
-    })
+    if (myAddress) {
+      getMySave().then(res=>{
+        setSave(res.data)
+      })
+    }
   },[])
   
 
@@ -75,13 +77,14 @@ function NavBar() {
   };
   const closeModal = (e) => {
     setModalOpen(false);
-    getMySave().then(res=>{
-      setSave(res.data)
-    })
-    if (e.length > 0) {
-      console.log('업적획득')
-      setBadge(e)
-      openBadgeModal()
+    if (myAddress) {
+      getMySave().then(res=>{
+        setSave(res.data)
+      })
+      if (e.length > 0) {
+        setBadge(e)
+        openBadgeModal()
+      }
     }
 
   };
@@ -91,9 +94,11 @@ function NavBar() {
   };
   const closeModal2 = () => {
     setModalOpen2(false);
-    getMySave().then(res=>{
-      setSave(res.data)
-    })
+    if (myAddress) {
+      getMySave().then(res=>{
+        setSave(res.data)
+      })
+    }
   };
 
   function Logout(e) {

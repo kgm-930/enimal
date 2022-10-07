@@ -26,7 +26,6 @@ export const getMyComment = async (PARAMS) => {
 
 // 보유중인 NFT 조회
 export const getMyNFT = async (userid) => {
-  console.log(userid)
   const res = await API_MYPAGE.get(`/user/completion/${userid}`);
   return res.data;
 };

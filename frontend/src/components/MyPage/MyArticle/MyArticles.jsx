@@ -9,10 +9,8 @@ function MyArticles() {
   useEffect(()=>{
     const params = {pageSize: 100 , lastIdx: page}
     getMyArtilce(params).then(res =>{
-      console.log(res)
       setMyArticles(res.data)
       setPage(pre => pre+1)
-      console.log(res)
     })
   },[])
 
@@ -23,7 +21,6 @@ function MyArticles() {
       {myArticles.length >0 ?
       <div className="MyArticles flex">
         { myArticles.map(article => {
-          console.log(article)
           return (
             <ArticleCard data={article} />
           )

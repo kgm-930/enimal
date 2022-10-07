@@ -57,7 +57,6 @@ function GetBadge(props){
          
           <main className="text-center">
             { badge.map((item) => {
-              console.log(item)
               return (<div>
                 <img className="badgeModalImg" src={Route[item][0]} alt="#"/>
                 <h1 className="fs-28 notoBold">{Route[item][1]}</h1>

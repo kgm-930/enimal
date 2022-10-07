@@ -6,7 +6,6 @@ import "./DayCheck.scss";
 import "react-calendar/dist/Calendar.css"; // css import
 
 const today = new Date();
-console.log(today);
 // 초기 상태
 const initialState = {
   year: today.getFullYear(),
@@ -31,7 +30,6 @@ function DayCheck() {
   const onIncreases = () => {
     dispatch({ type: "INCREMENT" });
   };
-  console.log(state)
   return (
     <div className="Calendar">
       <div className="header">

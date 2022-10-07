@@ -6,7 +6,6 @@ export const getNoticeList = async (PARAMS) => {
   {
     params : PARAMS,
   });
-  console.log(res)
   return res.data;
 };
 

@@ -16,7 +16,6 @@ function CommunityRegist() {
 
   useEffect(() => {
     getMyNFT(localStorage.MyNick).then(res => {
-      console.log(res)
       const MyNFTlist=[]
       for (let i=0; i<res.data.length; i+=1){
         if (res.data[i].info) {
@@ -37,7 +36,6 @@ function CommunityRegist() {
       picture: myNFTtrue[selectedNFT].nftURL
     }
     getCreateArticle(DATA).then(res => {
-      console.log(res)
       navigate(`/community/detail/${res.data.idx}`, { state: { badge: res.data.modalName } })
     })}
     else{
@@ -54,8 +52,6 @@ function CommunityRegist() {
 
   function selectNFTimg(e){
     e.preventDefault();
-    console.log(e.currentTarget.id)
-    console.log(myNFT[e.currentTarget.id])
     if (selectedNFT) {
       if (selectedNFT === e.currentTarget.id) {
         document.getElementById(selectedNFT).className = 'NFTcardCommuS'
@@ -72,9 +68,6 @@ function CommunityRegist() {
     }
   }
 
-  console.log(selectedNFT)
-  console.log(myNFTtrue)
-  console.log(myNFT)
   return (
     <div className="container flex">
       <div className="regi">
@@ -86,7 +79,6 @@ function CommunityRegist() {
           {myNFTtrue.length > 0 ?
             <ul className="NFTList">
               {myNFTtrue.map(nft => {
-                console.log(nft)
                 return (
                   <div className="flex mx-5">
                       <button type="button" onClick={e=>selectNFTimg(e)} id={myNFTtrue.indexOf(nft)} className="NFTcardCommuS">

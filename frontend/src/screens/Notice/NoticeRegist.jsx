@@ -12,8 +12,7 @@ function NoticeRegist() {
   function createNotice(e){
     e.preventDefault();
     const DATA = { title: Title, content:Content}
-    getCreateNotice(DATA).then(res=>{
-      console.log(res)
+    getCreateNotice(DATA).then(()=>{
       navigate('/notice')
     })
     
