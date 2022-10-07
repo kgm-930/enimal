@@ -1,6 +1,4 @@
-common/node_modules
-common/.env
-dream-api/node_modules
-dream-api/raw
+common
+dream-api
 test-contract
-common/raw
+node_modules
