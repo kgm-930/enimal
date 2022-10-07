@@ -19,7 +19,7 @@ import java.util.List;
 @EnableAspectJAutoProxy
 public class WebMvcConfig implements WebMvcConfigurer {
     public List loginEssential = Arrays.asList("/**"); //적용할 URL 패턴
-    public List loginInessential = Arrays.asList("/user/login","/user/profile/**","/user/completion/**","/todayAnimal","/noticeList/**","/boardList/**","/user/nickname/**"); //제외할 URL 패턴
+    public List loginInessential = Arrays.asList("/user/login","/user/profile/**","/user/completion/**","/todayAnimal","/noticeList/**","/boardList/**","/user/nickname/**","/rank/**"); //제외할 URL 패턴
     @Bean
     public Intercepter intercepter(){
         return new Intercepter();

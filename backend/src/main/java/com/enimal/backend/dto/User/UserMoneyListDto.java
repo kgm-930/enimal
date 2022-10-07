@@ -11,6 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserMoneyListDto {
     private Integer useCredit;
+    private Integer donateCredit;
     private LocalDateTime createDate;
-
 }

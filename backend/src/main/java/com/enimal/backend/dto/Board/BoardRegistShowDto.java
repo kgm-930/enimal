@@ -6,9 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BoardRegistDto {
-    private String userId;
-    private String title;
-    private String content;
-    private String picture;
+public class BoardRegistShowDto {
+    private int idx;
+    private String[] modalName;
 }

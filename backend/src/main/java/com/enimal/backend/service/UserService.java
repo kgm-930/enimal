@@ -2,6 +2,7 @@ package com.enimal.backend.service;
 
 import com.enimal.backend.dto.Etc.BadgeShowDto;
 import com.enimal.backend.dto.User.*;
+import org.springframework.data.domain.Slice;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,4 +25,9 @@ public interface UserService {
     List<UserCollectionDto> collectionUser(String userId);
 
     boolean checkUser(String nickname);
+
+    int currentCredit(String userId);
+
+    List<UserRankDonationListDto>  rankListDonation(Integer pageSize, Integer lastIdx);
+    List<UserRankCollectionListDto> rankListCollection(Integer pageSize, Integer lastIdx);
 }

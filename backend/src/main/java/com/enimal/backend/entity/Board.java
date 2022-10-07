@@ -25,5 +25,5 @@ public class Board {
     private LocalDateTime modifydate;
     private String content;
     private Integer view;
-    private Byte[] picture;
+    private String picture;
 }

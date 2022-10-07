@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class NoticeShowDto {
-    private String user_id;
+    private String userId;
     private String title;
     private LocalDateTime noticedate;
     private String content;
     private Integer view;
+    private String[] modalName;
 }

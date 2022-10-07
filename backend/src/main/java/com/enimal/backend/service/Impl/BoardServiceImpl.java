@@ -1,11 +1,6 @@
 package com.enimal.backend.service.Impl;
 
-import com.enimal.backend.dto.Board.BoardListDto;
-import com.enimal.backend.dto.Board.BoardRegistDto;
-import com.enimal.backend.dto.Board.BoardShowDto;
-import com.enimal.backend.dto.Board.BoardUpdateDto;
-import com.enimal.backend.dto.Etc.BadgeShowDto;
-import com.enimal.backend.dto.Notice.NoticeListDto;
+import com.enimal.backend.dto.Board.*;
 import com.enimal.backend.entity.*;
 import com.enimal.backend.repository.*;
 import com.enimal.backend.service.BoardService;
@@ -15,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,8 +33,9 @@ public class BoardServiceImpl implements BoardService {
         this.badgeRepository = badgeRepository;
     }
     @Override
-    public BadgeShowDto registBoard(BoardRegistDto boardRegistDto) {
-        BadgeShowDto badgeShowDto = new BadgeShowDto();
+    public BoardRegistShowDto registBoard(BoardRegistDto boardRegistDto) {
+        BoardRegistShowDto boardRegistShowDto = new BoardRegistShowDto();
+        List<String> modal = new ArrayList<>();
         Board board = new Board();
         Optional<User> user = userRepository.findById(boardRegistDto.getUserId());
         List<Board> boards = boardRepository.findByUser(user);
@@ -48,21 +43,29 @@ public class BoardServiceImpl implements BoardService {
         if(size == 0) { // 첫 게시물인 경우
             Badge badge = new Badge();
             badge.setBadge("업적 냠냠");
-            badge.setCreatedate(LocalDateTime.now());
+            badge.setCreatedate(LocalDateTime.now().plusHours(9));
             badge.setUser(user.get());
             badge.setPercentage(2);
             badgeRepository.save(badge);
-            badgeShowDto.setModalName("업적 냠냠");
+            modal.add(badge.getBadge());
         }
         board.setUser(user.get());
         board.setTitle(boardRegistDto.getTitle());
         board.setContent(boardRegistDto.getContent());
         board.setPicture(boardRegistDto.getPicture());
-        board.setCreatedate(LocalDateTime.now());
-        board.setModifydate(LocalDateTime.now());
+        board.setCreatedate(LocalDateTime.now().plusHours(9));
+        board.setModifydate(LocalDateTime.now().plusHours(9));
         board.setView(0);
         boardRepository.save(board);
-        return badgeShowDto;
+        boardRegistShowDto.setIdx(board.getIdx());
+
+        // 뱃지 모달
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        boardRegistShowDto.setModalName(arr);
+        return boardRegistShowDto;
     }
 
     @Override
@@ -117,10 +120,14 @@ public class BoardServiceImpl implements BoardService {
         boardShowDto.setTitle(board.get().getTitle());
         boardShowDto.setContent(board.get().getContent());
         boardShowDto.setPicture(board.get().getPicture());
-        board.get().setView(board.get().getView()+1);
         boardRepository.save(board.get());
         boardShowDto.setView(board.get().getView());
         return boardShowDto;
+    }
+
+    @Override
+    public int updateView(int idx) {
+        return boardRepository.updateView(idx);
     }
 
     @Override
@@ -130,7 +137,7 @@ public class BoardServiceImpl implements BoardService {
             board.get().setTitle(boardUpdateDto.getTitle());
             board.get().setContent(boardUpdateDto.getContent());
             board.get().setPicture(boardUpdateDto.getPicture());
-            board.get().setModifydate(LocalDateTime.now());
+            board.get().setModifydate(LocalDateTime.now().plusHours(9));
         }
         boardRepository.save(board.get());
         return true;

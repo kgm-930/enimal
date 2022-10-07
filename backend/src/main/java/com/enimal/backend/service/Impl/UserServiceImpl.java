@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,9 @@ public class UserServiceImpl implements UserService {
     private MoneyRepository moneyRepository;
     private CollectionRepository collectionRepository;
     private BadgeRepository badgeRepository;
+    private EventDayRepository eventDayRepository;
     @Autowired
-    UserServiceImpl(PuzzleRepository puzzleRepository,CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository){
+    UserServiceImpl(PuzzleRepository puzzleRepository,CollectionRepository collectionRepository, BadgeRepository badgeRepository,UserRepository userRepository,MoneyRepository moneyRepository, AttendenceRepository attendenceRepository,BoardRepository boardRepository,CommentRepository commentRepository,EventDayRepository eventDayRepository){
         this.userRepository = userRepository;
         this.moneyRepository = moneyRepository;
         this.collectionRepository = collectionRepository;
@@ -35,10 +37,12 @@ public class UserServiceImpl implements UserService {
         this.boardRepository = boardRepository;
         this.commentRepository = commentRepository;
         this.puzzleRepository = puzzleRepository;
+        this.eventDayRepository = eventDayRepository;
     }
 
     @Override
     public BadgeShowDto loginUser(UserLoginDto userLoginDto) {
+        List<String> modal = new ArrayList<>();
         BadgeShowDto badgeShowDto = new BadgeShowDto();
         Optional<User> user = userRepository.findByWallet(userLoginDto.getWallet());
         int convertDate = LocalDateTime.now().getDayOfYear();
@@ -47,37 +51,67 @@ public class UserServiceImpl implements UserService {
             userRegist.setId(userLoginDto.getId());
             userRegist.setNickname(userLoginDto.getId());
             userRegist.setWallet(userLoginDto.getWallet());
+            userRegist.setLastPuzzle("lastPuzzle");
             userRepository.save(userRegist);
+            badgeShowDto.setUserId(userLoginDto.getId());
         }else if(!user.isPresent() && userLoginDto.getId() == null){
             badgeShowDto.setResult(false);
+            badgeShowDto.setUserId(userLoginDto.getId());
             return badgeShowDto;
+        }else{
+            badgeShowDto.setUserId(user.get().getId());
         }
-        Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
+        user = userRepository.findByWallet(userLoginDto.getWallet());
+        Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(user.get().getId(),convertDate);
         if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
             Attendence attendence = new Attendence();
-            attendence.setUserId(userLoginDto.getId());
-            attendence.setAttenddate(LocalDateTime.now());
+            attendence.setUserId(user.get().getId());
+            attendence.setAttenddate(LocalDateTime.now().plusHours(9));
             attendence.setConvertdate(LocalDateTime.now().getDayOfYear());
             attendenceRepository.save(attendence);
+            // 출석시 SAVE재화 주기
+            int save = user.get().getCredit() + 500;
+            user.get().setCredit(save);
+            userRepository.save(user.get());
+            // 업적 12번 : 환경 기념일 방문
+            String todayDay = attendence.getAttenddate().toString().substring(5,10);
+            Optional<Badge> isBadge = badgeRepository.findByUserIdAndBadge(user.get().getId(),"환경 지킴이");
+            Optional<EventDay> eventDay = eventDayRepository.findByEventDate(todayDay);
+            if(!isBadge.isPresent()&&eventDay.isPresent()){
+                Badge badge = new Badge();
+                badge.setBadge("환경 지킴이");
+                badge.setCreatedate(LocalDateTime.now().plusHours(9));
+                badge.setUser(user.get());
+                badge.setPercentage(2);
+                badgeRepository.save(badge);
+                modal.add(badge.getBadge());
+                badgeShowDto.setEventDayName(eventDay.get().getEventName());
+            }
         }
         // 업적 6번 : 일주일 연속 출석체크 한 경우 -> 화면에 로그인시 뱃지 얻었다고 보여주는지
-        List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(userLoginDto.getId());
+        List<Attendence> attendences = attendenceRepository.findByUserIdOrderByConvertdateDesc(user.get().getId());
         // 일주일 연속 : size 7이상
         int size = attendences.size();
         if(size >= 7){
             if((attendences.get(0).getConvertdate() - attendences.get(6).getConvertdate()) == 6) {
-                Optional<Badge> realBadge = badgeRepository.findByUserIdAndBadge(userLoginDto.getId(), "개근상");
+                Optional<Badge> realBadge = badgeRepository.findByUserIdAndBadge(user.get().getId(), "개근상");
                 if(!realBadge.isPresent()){ // 개근상을 안받은 경우
                     Badge badge = new Badge();
                     badge.setBadge("개근상");
-                    badge.setCreatedate(LocalDateTime.now());
+                    badge.setCreatedate(LocalDateTime.now().plusHours(9));
                     badge.setUser(user.get());
                     badge.setPercentage(2);
                     badgeRepository.save(badge);
-                    badgeShowDto.setModalName("개근상");
+                    modal.add(badge.getBadge());
                 }
             }
         }
+        // 뱃지 모달
+        String[] arr = new String[modal.size()];
+        for(int i=0; i< modal.size(); i++){
+            arr[i] = modal.get(i);
+        }
+        badgeShowDto.setModalName(arr);
         badgeShowDto.setResult(true);
         return badgeShowDto;
     }
@@ -115,6 +149,7 @@ public class UserServiceImpl implements UserService {
         Slice<Board> boards = boardRepository.findByUserIdOrderByIdxDesc(userId,lastIdx,pageable);
         for(Board board : boards){
             UserPostListDto userPostListDto = new UserPostListDto();
+            userPostListDto.setIdx(board.getIdx());
             userPostListDto.setTitle(board.getTitle());
             userPostListDto.setContent(board.getContent());
             userPostListDto.setPicture(board.getPicture());
@@ -123,7 +158,6 @@ public class UserServiceImpl implements UserService {
             userPostListDto.setView(board.getView());
             userPostListDtos.add(userPostListDto);
         }
-
         return userPostListDtos;
     }
 
@@ -149,11 +183,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserMoneyListDto> listMoneyUser(String userId) {
         List<UserMoneyListDto> userMoneyListDtos = new ArrayList<>();
-        List<Money> monies = moneyRepository.findByUserId("test");
+        List<Money> monies = moneyRepository.findByUserId(userId);
         for(Money money : monies){
             UserMoneyListDto userMoneyListDto = new UserMoneyListDto();
             userMoneyListDto.setUseCredit(money.getCredit());
             userMoneyListDto.setCreateDate(money.getCreatedate());
+            userMoneyListDto.setDonateCredit(money.getDonateCredit());
             userMoneyListDtos.add(userMoneyListDto);
         }
 
@@ -162,7 +197,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProfileDto profileUser(String nickname) {
-
         UserProfileDto userProfileDto = new UserProfileDto();
         Optional<User> user = userRepository.findByNickname(nickname);
         if(user.isPresent()){
@@ -179,7 +213,6 @@ public class UserServiceImpl implements UserService {
                 userBadgeListDto.setBadge(badge.getBadge());
                 userBadgeListDto.setCreatedate(badge.getCreatedate());
                 userBadgeListDto.setPercentage(badge.getPercentage());
-
                 userBadgeListDtos.add(userBadgeListDto);
             }
             userProfileDto.setNickname(user.get().getNickname());
@@ -201,8 +234,14 @@ public class UserServiceImpl implements UserService {
             List<Collection> collections = collectionRepository.findByUserId(user.get().getId());
             for(Collection collection : collections){
                 Map<String,Object> data = new HashMap<>();
+                data.put("idx",collection.getIdx());
+                data.put("info",collection.isInfo());
                 data.put("animal",collection.getAnimal());
-                data.put("info",collection.getInfo());
+                data.put("tokenIdInfo",collection.getTokenIdInfo());
+                data.put("nftIdByWallet",nickname);
+                data.put("nftType",collection.getNftType());
+                data.put("nftURL",collection.getNftURL());
+                data.put("nftName",collection.getNftName());
                 data.put("createDate",collection.getCreatedate());
                 result.add(data);
             }
@@ -220,7 +259,6 @@ public class UserServiceImpl implements UserService {
             userCollectionDto.setPiece(puzzle.getPiece());
             userCollectionDto.setCount(puzzle.getCount());
             userCollectionDto.setCreateDate(puzzle.getCreatedate());
-
             userCollectionDtos.add(userCollectionDto);
         }
         return userCollectionDtos;
@@ -234,5 +272,52 @@ public class UserServiceImpl implements UserService {
         }else{
             return true;
         }
+    }
+
+    @Override
+    public int currentCredit(String userId) {
+        Optional<User> user = userRepository.findById(userId);
+        int credit = user.get().getCredit();
+        return credit;
+    }
+
+    @Override
+    public List<UserRankDonationListDto>  rankListDonation(Integer pageSize, Integer lastIdx) {
+        List<UserRankDonationListDto> userRankDonationListDtos = new ArrayList<>();
+        PageRequest pageRequest = PageRequest.of(lastIdx, pageSize, Sort.by(Sort.Order.desc("donation")));
+        Slice<User> users = userRepository.findAll(pageRequest);
+        for (User user : users) {
+            UserRankDonationListDto userRankDonationListDto = new UserRankDonationListDto();
+            userRankDonationListDto.setIdx(user.getIdx());
+            userRankDonationListDto.setNickname(user.getNickname());
+            userRankDonationListDto.setDoantion(user.getDonation());
+            userRankDonationListDtos.add(userRankDonationListDto);
+        }
+        return userRankDonationListDtos;
+    }
+    @Override
+    public List<UserRankCollectionListDto>  rankListCollection(Integer pageSize, Integer lastIdx) {
+        List<UserRankCollectionListDto> userRankCollectionListDtos = new ArrayList<>();
+        PageRequest pageRequest = PageRequest.of(lastIdx, pageSize);
+        Slice<UserRankCollectionListDto> collections = collectionRepository.findAllByOrderByIdxDesc( pageRequest);
+        for(UserRankCollectionListDto userRankCollectionListDto : collections){
+            UserRankCollectionListDto user = new UserRankCollectionListDto();
+            Optional<User> userBadge = userRepository.findById(userRankCollectionListDto.getNickname());
+            Optional<Badge> badges = badgeRepository.findByUserIdAndBadge(userRankCollectionListDto.getNickname(), "명예 한 스푼");
+            user.setIdx(userRankCollectionListDto.getIdx());
+            user.setNickname(userRankCollectionListDto.getNickname());
+            user.setCollectionCount(userRankCollectionListDto.getCollectionCount());
+            user.setDrawCount(userBadge.get().getUsedcount());
+            userRankCollectionListDtos.add(user);
+            if(!badges.isPresent()){
+                Badge badge = new Badge();
+                badge.setBadge("명예 한 스푼");
+                badge.setCreatedate(LocalDateTime.now().plusHours(9));
+                badge.setUser(userBadge.get());
+                badge.setPercentage(2);
+                badgeRepository.save(badge);
+            }
+        }
+        return userRankCollectionListDtos;
     }
 }

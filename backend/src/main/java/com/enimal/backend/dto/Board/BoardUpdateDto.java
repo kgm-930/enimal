@@ -11,5 +11,5 @@ public class BoardUpdateDto {
     private String title;
     private String content;
     private String user_id;
-    private Byte[] picture;
+    private String picture;
 }

@@ -7,9 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BadgeShowDto {
-    private String userId;
+public class CreditRegistDto {
     private String[] modalName;
-    private String eventDayName;
-    private Boolean result;
 }

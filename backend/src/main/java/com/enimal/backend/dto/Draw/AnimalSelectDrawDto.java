@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AnimalAllDrawDto {
+public class AnimalSelectDrawDto {
     private String animal;
     private int count;
     private int piece;
     private boolean complete; // 컬렉션 완성여부
     private boolean useBadge; // 미보유뽑기 여부
-    private String[] modalName; // 뱃지 획득
+    private String[] modalName; // 첫 뽑기
 }

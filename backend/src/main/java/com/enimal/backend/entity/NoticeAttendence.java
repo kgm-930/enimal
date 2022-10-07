@@ -5,22 +5,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "MONEY")
-public class Money {
+@Table(name = "NOTICEATTENDENCE")
+public class NoticeAttendence {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer idx;
+    private int idx;
     @Column(name = "user_id")
     private String userId;
-    private Integer credit;
-    private LocalDateTime createdate;
-    private Integer donateCredit;
+    @Column(name = "notice_idx")
+    private int noticeIdx;
 }

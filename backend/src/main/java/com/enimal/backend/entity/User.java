@@ -26,4 +26,5 @@ public class User {
     private int usedcredit;
     private int usedcount;
     private int donation;
+    private String lastPuzzle;
 }

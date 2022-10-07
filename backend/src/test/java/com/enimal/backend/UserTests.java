@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-//@Transactional
+@Transactional
 class UserTests {
 	JwtService jwtService;
 	UserRepository userRepository;
@@ -40,8 +40,9 @@ class UserTests {
 	MoneyRepository moneyRepository;
 	CollectionRepository collectionRepository;
 	BadgeRepository badgeRepository;
+	EventDayRepository eventDayRepository;
 	@Autowired
-	public UserTests(PuzzleRepository puzzleRepository, BadgeRepository badgeRepository, CollectionRepository collectionRepository, MoneyRepository moneyRepository, NoticeRepository noticeRepository, JwtService jwtService, UserRepository userRepository, AttendenceRepository attendenceRepository, BoardRepository boardRepository, CommentRepository commentRepository){
+	public UserTests(PuzzleRepository puzzleRepository, BadgeRepository badgeRepository, CollectionRepository collectionRepository, MoneyRepository moneyRepository, NoticeRepository noticeRepository, JwtService jwtService, UserRepository userRepository, AttendenceRepository attendenceRepository, BoardRepository boardRepository, CommentRepository commentRepository,EventDayRepository eventDayRepository){
 		this.noticeRepository = noticeRepository;
 		this.puzzleRepository = puzzleRepository;
 		this.badgeRepository = badgeRepository;
@@ -52,6 +53,7 @@ class UserTests {
 		this.attendenceRepository = attendenceRepository;
 		this.boardRepository = boardRepository;
 		this.commentRepository = commentRepository;
+		this.eventDayRepository = eventDayRepository;
 	}
 	@Test
 	void 공지사항_등록_테스트() {
@@ -82,7 +84,13 @@ class UserTests {
 		}else if(!user.isPresent() && userLoginDto.getId() == null){
 			System.out.println("실패");
 		}
-
+		// 현재 재화 조회
+		System.out.println(user.get().getCredit());
+		// 업적 12번 : 환경 기념일 방문
+		LocalDateTime todayDate = LocalDateTime.now();
+		System.out.println(todayDate.toString());
+		String todayDay = todayDate.toString().substring(5,10);
+		System.out.println(todayDay);
 		Optional<Attendence> attendenceCheck = attendenceRepository.findByUserIdAndConvertdate(userLoginDto.getId(),convertDate);
 		if(!attendenceCheck.isPresent()){ // 출석체크 하지 않았다면 출석하기
 
@@ -125,7 +133,7 @@ class UserTests {
 	@Test
 	void 회원_탈퇴(){
 		//엑세스 토큰에서 나온 아이디를 회원 삭제
-		String userId = "test12";
+		String userId = "test0";
 		userRepository.deleteById(userId);
 	}
 	@Test
@@ -174,7 +182,7 @@ class UserTests {
 	}
 	@Test
 	void 작성한댓글조회(){
-		String userId = "test";
+		String userId = "test2";
 		List<Comment> comments = null;
 		comments = commentRepository.findByUserId(userId);
 		for(Comment comment : comments){

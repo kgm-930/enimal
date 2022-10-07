@@ -4,6 +4,7 @@ import com.enimal.backend.dto.Notice.NoticeListDto;
 import com.enimal.backend.dto.Notice.NoticeRegistDto;
 import com.enimal.backend.dto.Notice.NoticeShowDto;
 import com.enimal.backend.dto.Notice.NoticeUpdateDto;
+import com.enimal.backend.service.JwtService;
 import com.enimal.backend.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,13 @@ import java.util.Map;
 public class NoticeController {
     private static final String okay = "SUCCESS";
     private static final String fail = "FAIL";
-    private static final String admin = "admin";
+    private static final String admin = "Enimal";
     NoticeService noticeService;
+    JwtService jwtService;
     @Autowired
-    NoticeController(NoticeService noticeService){
+    NoticeController(NoticeService noticeService,JwtService jwtService){
         this.noticeService = noticeService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/notice") // 공지사항 작성
@@ -64,45 +67,24 @@ public class NoticeController {
         return new ResponseEntity<>(result,status);
     }
     @GetMapping("/noticeList/{idx}") // 공지사항 세부 조회
-    public ResponseEntity<?> detailNotice(@PathVariable(value = "idx") Integer idx){
+    public ResponseEntity<?> detailNotice(@PathVariable(value = "idx") Integer idx,HttpServletRequest request){
         Map<String,Object> result = new HashMap<>() ;
         HttpStatus status;
-//        Boolean hitadd = false;
-//        Cookie[] cookies = request.getCookies();
-//        Cookie Cookieview = null;
-//
-//        if(cookies!=null && cookies.length>0) {
-//            for (int i = 0; i < cookies.length; i++) {
-//                if (cookies[i].getName().equals("cookie")) {
-//                    Cookieview = cookies[i];
-//                }
-//            }
-//        }
-//        System.out.println(Cookieview);
-//        if(Cookieview==null){
-//            String cookName = "cookie";
-//            Cookie newCookie = new Cookie(cookName,"," + idx);
-//            newCookie.setMaxAge(60*30);
-//            response.addCookie(newCookie);
-//            hitadd=true;
-//        }
-//        else{
-//            String value = Cookieview.getValue();
-//            if(value.indexOf("," + idx)<0){
-//                hitadd=true;
-//                value = value + "," + idx;
-//                Cookieview.setValue(value);
-//                response.addCookie(Cookieview);
-//            }
-//        }
-//        System.out.println(hitadd);
+        String accessToken = request.getHeader("Authorization");
+        String decodeId = jwtService.decodeToken(accessToken);
         try{
-            NoticeShowDto data = noticeService.detailNotice(idx);
+            NoticeShowDto data;
+            if(decodeId != "timeOut" && decodeId != null){
+                data = noticeService.detailNotice(decodeId,idx);
+            }else{
+                data = noticeService.detailNotice(idx);
+            }
             result.put("message",okay);
             result.put("data",data);
             status = HttpStatus.OK;
         }catch (Exception e){
             result.put("message",fail);
+            System.out.println(e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(result,status);
