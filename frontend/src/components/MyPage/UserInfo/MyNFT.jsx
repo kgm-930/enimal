@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import './MyNFT.scss'
 
 import { getMyNFT } from "@apis/mypage";
-
+import { useNavigate } from "react-router-dom";
 
 import NFTtest from '@images/NFTtest.jpg'
 
 import MakeNFTModal from "./MakeNFTModal";
+
 
 function MyNFT(props) {
   const { userId } = props;
@@ -14,16 +15,19 @@ function MyNFT(props) {
   const [openModal, setOpenModal] = useState(false);
   const [Animal, setAnimal] = useState(null);
   const [Animalidx, setAnimalidx] = useState(null);
-
+  const navigate = useNavigate();
+  const [complete, setComplete] = useState(false)
+  
   useEffect(() => {
     getMyNFT(userId).then(res => {
       setMyNFT(res.data.reverse())
     })
-  }, [])
-
-
+  }, [complete])
+  
   const closeModal = () => {
     setOpenModal(false);
+    navigate(`/mypage/${userId}`);
+    setComplete(!complete)
   };
 
 
