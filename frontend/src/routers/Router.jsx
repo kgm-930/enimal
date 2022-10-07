@@ -58,9 +58,6 @@ import CommunityRegist from "@screens/Community/CommunityRegist";
 import CommunityDetail from "@screens/Community/CommunityDetail";
 import CommunitiEdit from "@screens/Community/CommunityEdit";
 
-// not found
-import NotFound from "@screens/NotFound";
-
 
 function Router() {
   return (
@@ -121,8 +118,6 @@ function Router() {
         <Route path="/community/detail/:index" element={<CommunityDetail />} />
         <Route path="/community/edit/:index" element={<CommunitiEdit />} />
 
-        {/* NotFound */}
-        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );

@@ -29,7 +29,9 @@ function CommunityComment(props) {
             </div>
 
 
-            <button type="button" onClick={e=>deleteComment(e)} id={item.comment_idx} className="CommentDeleteButton notoMid fs-18">삭제</button>
+            { item.user_id === localStorage.MyNick ?
+              <button type="button" onClick={e=>deleteComment(e)} id={item.comment_idx} className="CommentDeleteButton notoMid fs-18">삭제</button>
+            :null}
           </div>
         )
       })}

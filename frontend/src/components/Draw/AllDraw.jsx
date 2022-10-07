@@ -39,6 +39,7 @@ function AllDraw() {
     setModalOpen(true);
   };
   const closeModal = () => {
+    
     setModalOpen(false);
   };
 
@@ -183,14 +184,8 @@ function AllDraw() {
       </div>
       <button className="drawButton fs-28 notoBold" onClick={e => drawButton(e)} id="collection" type="button">전체 뽑기 (100SAVE)</button>
       <div>
-        <div className="flex justify-content-around">
-          <div className="Lbox roBold">Legend : 1500</div>
-          <div className="Ubox roBold">Unique : 1200</div>
-          <div className="Ebox roBold">Epic : 900</div>
-          <div className="Rbox roBold">Rare : 600</div>
-          <div className="Nbox roBold">Nomal : 300</div>
-        </div>
         <h1 className="fs-24 notoBold drawNotice">뽑기를 통해 컬렉션을 수집해보세요.</h1>
+        <h1 className="fs-24 notoBold drawNotice">멸종위기등급에 따라 전체뽑기에서 등장할 확률이 차이가 있습니다.</h1>
         <h1 className="fs-24 notoBold drawNotice">전체 뽑기는 216종류의 조각이 중 하나의 조각이 일정 확률로 등장합니다.</h1>
         <h3 className="fs-18 notoMid drawNotice drawNotice2">보유중인 업적에 따라 미보유중인 조각이 등장할 확률이 상승합니다.</h3>
       </div>

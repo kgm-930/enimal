@@ -287,14 +287,7 @@ function SelectDraw() {
               <h1 className="fs-14 notoBold drawTitle">[<span className="Uc">U</span>]검은발족제비</h1>
             </button>
           </div>
-
-       
-
         </div>
-
-
-
-
         <div className="flex justify-center">   
         <div className="drawCard2">
             <button
@@ -519,6 +512,7 @@ function SelectDraw() {
         <h1 className="fs-24 notoBold drawNotice">
           뽑기를 통해 컬렉션을 수집해보세요.
         </h1>
+        <h1 className="fs-24 notoBold drawNotice">멸종위기등급에 따라 선택뽑기의 가격이 차이가 있습니다.</h1>
         <h1 className="fs-24 notoBold drawNotice">
           선택 뽑기는 선택된 동물 9조각중 하나의 조각이 일정 확률로 등장합니다.
         </h1>
