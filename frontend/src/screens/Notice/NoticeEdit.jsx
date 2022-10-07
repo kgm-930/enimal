@@ -11,7 +11,6 @@ function NoticeEdit() {
 
   useEffect(()=>{
     getDetailNotice(noticeID).then(res=>{
-      console.log(res)
       document.getElementById('title').value = res.data.title
       setTitle(res.data.title)
       document.getElementById('content').value = res.data.content
@@ -26,8 +25,7 @@ function NoticeEdit() {
       title:Title,
       content:Content
     }
-    getUpdateNotice(data).then(res =>{
-      console.log(res)
+    getUpdateNotice(data).then(() =>{
       navigate(`/notice/${noticeID}`)
     })
 

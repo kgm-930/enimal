@@ -15,8 +15,8 @@ function Intro() {
   return (
     <>
       <div className="intropg1">
-        <div className="container">
-          <div className="intropg1_title notoBold fs-60">
+        <div className="container" style={{marginRight:'100px'}}>
+          <div className="intropg1_title notoBold fs-60 text-end">
             Enimal = Endangered + Animal
           </div>
           <div className="intropg1_con1 notoBold fs-28">
@@ -26,7 +26,10 @@ function Intro() {
             SSF를 충전해서 Save로 환전한 뒤 멸종동물 NFT 카드를 수집 해 보세요.
           </div>
           <div className="intropg1_con3 notoBold fs-28">
-            뽑기를 통해 멸종 동물 조각을 모두 모으면 NFT 기반의 멸종동물 이미지 카드를 드립니다!
+            뽑기를 통해 멸종 동물 조각을 모두 모으면
+          </div>
+          <div className="intropg1_con3 notoBold fs-28">
+            NFT 기반의 멸종동물 이미지 카드를 드립니다!
           </div>
           <div className="intropg1_con4 notoBold fs-28">
             SSF를 충전해서 기부를 할 수도 있어요!

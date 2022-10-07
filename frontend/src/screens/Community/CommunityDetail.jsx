@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./CommunityDetail.scss";
 
 import profiledummy from "@assets/images/person.png";
-import picdummy from "@assets/images/coco.jpeg";
 import CommunityComment from "@components/Community/CommunityComment"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -37,7 +36,6 @@ function CommunityRegist() {
 
   useEffect(() => {
     getArticleDetail(articleId).then(res => {
-      console.log(res)
       setData(res.data)
       setComment(res.comment)
 
@@ -62,8 +60,7 @@ function CommunityRegist() {
   function deleteArticle(e){
     e.preventDefault();
     if (window.confirm("정말로 삭제하시겠습니까?")) {
-      getDeleteArticle(articleId).then(res=>{
-      console.log(res)
+      getDeleteArticle(articleId).then(()=>{
       navigate('/community')
     })
     }
@@ -92,9 +89,9 @@ function CommunityRegist() {
                 <img src={profiledummy} alt="프로필이미지" />
               </div>
               <div className="commudetail_all_profile_extra flex">
-                <p className="commudetail_all_profile_extra_name notoMid fs-24">
+                <Link to={`/mypage/${data.nickname}`} type="button" className="commudetail_all_profile_extra_name notoMid fs-24">
                   {data.nickname}
-                </p>
+                </Link>
                 <p className="commudetail_all_profile_extra_time notoMid fs-16" style={{ whiteSpace: "nowrap" }}>
                   {time}
                 </p>
@@ -115,7 +112,7 @@ function CommunityRegist() {
           {/* 내용 */}
           <div className="commudetail_all_content">
             <div className="commudetail_all_content_photo">
-              <img src={picdummy} alt="이미지" />
+              <img src={data.picture} alt="이미지" />
             </div>
             <div className="commudetail_all_content_title notoMid fs-32">
               {data.title}

@@ -43,8 +43,7 @@ function MyPage() {
   function deleteAccount(e) {
     e.preventDefault();
     if (window.confirm("정말로 계정을 삭제하시겠습니까?")) {
-      getDeleteUser().then(res => {
-        console.log(res)
+      getDeleteUser().then(() => {
         localStorage.removeItem('token')
         localStorage.removeItem('MyNick')
         localStorage.removeItem('myAddress')
@@ -56,7 +55,7 @@ function MyPage() {
 
   return (
     <div className="MyPage">
-      <div className="flex">
+      <div className="flex align-center">
         <img className="profileImg" src={BaseImg} alt="#" />
         <h1 className="fs-40 roBold userNick">{userId}</h1>
         {userId === localStorage.MyNick ?

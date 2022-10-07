@@ -11,7 +11,6 @@ function NoticeDetail() {
   const noticeID = useParams().index;
   useEffect(() => {
     getDetailNotice(noticeID).then(res => {
-      console.log(res)
       setData(res.data)
     })
   }, [])
@@ -24,8 +23,7 @@ function NoticeDetail() {
   function deleteNotice(e) {
     e.preventDefault();
     if (window.confirm("정말로 삭제하시겠습니까?")) {
-      getDeleteNotice(noticeID).then(res => {
-        console.log(res)
+      getDeleteNotice(noticeID).then(() => {
         navigate('/notice')
       })
     }
@@ -49,7 +47,7 @@ function NoticeDetail() {
             {data.content}
           </div>
           <div className="flex justify-end">
-            {localStorage.MyNick === 'Eniaml' ?
+            {localStorage.MyNick === 'Enimal' ?
               <>
                 <Link to={`/notice/edit/${noticeID}`} className="noticeButton fs-20 notoBold" type="button" style={{ backgroundColor: "#CBDFF1" }}>수정하기</Link>
                 <button type="button" className="noticeButton fs-20 notoBold" onClick={e => deleteNotice(e)} style={{ backgroundColor: "#E8E8E8" }}>삭제하기</button>

@@ -39,12 +39,8 @@ const MakeCalendar = ({ year, month, firstDay, lastDate }) => {
         getMyDayCheck().then(res=>{
             const DayList = []
             const DATA = res.data
-            console.log(res)
-            console.log(DATA)
-            console.log(Object.keys(DATA))
             const keyList = Object.keys(DATA)
             for (let i=1; i<=keyList.length; i+=1){
-                console.log(DATA[i]);
                 const DATE = new Date(DATA[i]);
                 const Checkday=`${DATE.getFullYear()}.${(DATE.getMonth()+1)}.${DATE.getDate()}`;
                 DayList.push(Checkday)
@@ -52,7 +48,6 @@ const MakeCalendar = ({ year, month, firstDay, lastDate }) => {
             setMyDay(DayList)
         })
     },[])
-    console.log(myDay)
     const makeDay = (week) => {
         const result2 = []
         // 첫 주 

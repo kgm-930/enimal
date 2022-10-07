@@ -31,9 +31,9 @@ function GetBadge(props){
     "업적 냠냠":[badge4,"처음으로 게시판에 글을 작성하셨습니다!"],
     "뽑기의 달인":[badge5,"24종의 동물NFT를 모두 수집하였습니다!"],
     "개근상":[badge6,"일주일 연속으로 로그인 하셨습니다!"],
-    "Enimal 홀릭":[badge7,"환전 금액이 100SSF를 달성하였습니다!"],
-    "기부 천사":[badge8,"기부 금액이 100SSF를 달성하였습니다!"],
-    "똥손":[badge9,"똑같은 조각을 연속으로 뽑을 경우 획득하였습니다!"],
+    "Enimal 홀릭":[badge7,"환전 금액이 10000SAVE를 달성하였습니다!"],
+    "기부 천사":[badge8,"기부 금액이 1000SAVE를 달성하였습니다!"],
+    "똥손":[badge9,"똑같은 조각을 연속으로 뽑아서 획득하였습니다!"],
     "뽑기 중독":[badge10,"조각 뽑기를 100회 이상 도전하셨습니다!"],
     "Enimal 애호가":[badge11,"오늘의 동물 영상을 모두 시청하셨습니다!"],
     "환경 지킴이":[badge12,"환경 기념의 날에 로그인을 하셨습니다!"],
@@ -57,7 +57,6 @@ function GetBadge(props){
          
           <main className="text-center">
             { badge.map((item) => {
-              console.log(item)
               return (<div>
                 <img className="badgeModalImg" src={Route[item][0]} alt="#"/>
                 <h1 className="fs-28 notoBold">{Route[item][1]}</h1>

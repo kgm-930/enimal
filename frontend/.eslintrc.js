@@ -25,6 +25,8 @@ module.exports = {
       ],
       "import/no-unresolved": 0,
       "react/prop-types": 0,
+      "arrow-body-style":0,
+      "no-unused-vars":0,
     },
     settings: {
       "import/resolver": {

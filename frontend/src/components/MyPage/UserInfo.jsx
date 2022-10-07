@@ -16,7 +16,6 @@ function UserInfo(props) {
   const [data,setData] = useState(null);
   useEffect(()=>{
     getProfile(userId).then(res=>{
-      console.log(res)
       setData(res.data)
     })
   }, [])

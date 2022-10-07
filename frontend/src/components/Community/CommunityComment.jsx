@@ -8,14 +8,12 @@ function CommunityComment(props) {
 
   function deleteComment(e){
     e.preventDefault();
-    console.log(e.target.id)
     getDeleteComment(e.target.id)
     window.location.href = `/community/detail/${articleId}`
   }
   return (
     <div className="comment">
       {comment.map(item => {
-        console.log(item)
         return (
           <div className="flex justify-space-between comment">
             <div className="flex align-center">
@@ -29,7 +27,9 @@ function CommunityComment(props) {
             </div>
 
 
-            <button type="button" onClick={e=>deleteComment(e)} id={item.comment_idx} className="CommentDeleteButton notoMid fs-18">삭제</button>
+            { item.user_id === localStorage.MyNick ?
+              <button type="button" onClick={e=>deleteComment(e)} id={item.comment_idx} className="CommentDeleteButton notoMid fs-18">삭제</button>
+            :null}
           </div>
         )
       })}

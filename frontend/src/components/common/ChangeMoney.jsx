@@ -5,14 +5,65 @@ import "./ChangeMoney.scss";
 import { faDownLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { charge, revertCharge } from "@apis/sendTx"
+import { chargeSave } from "@apis/draw"
+
+const Web3 = require("web3");
+
 function ChangeMoney(props) {
   const { open, close } = props;
   const [donaPer, setDonaPer] = useState(10);
-  const [cash, setCash] = useState(100);
-  console.log(donaPer);
-  const SAVE = (cash * (100 - donaPer)) / 100; // 여기에 전환비율 곱하기
-  const donateCash = (cash * donaPer)/100; // 기부금 표시해주는 게 좋을 것 같아서
+  const [cash, setCash] = useState(0);
+  const SAVE = (cash * (100 - donaPer)) * 10;
+  const [confirmed, setConfirmed] = useState(false)
+  const {myAddress} = localStorage
+  const [myKey, setMyKey] = useState(0);
 
+  function inputKey(e) {
+    setMyKey(e.target?.value)
+  }
+  const userAddress = localStorage.getItem('myAddress')
+  async function ssfToSave(e) {
+    e.preventDefault();
+    const web3 = new Web3(new Web3.providers.HttpProvider("http://52.141.42.92:8545/"));
+    // 개인키
+    if (myKey.length === 66) {
+      const pubKey = web3.eth.accounts.privateKeyToAccount(myKey);
+      if (pubKey.address === myAddress) {
+        setConfirmed(true)
+      } else {
+        setConfirmed(false)
+        alert('현재 계정의 개인키가 아닙니다')
+      }
+      if (confirmed) {
+        if (Number(cash) <= Number(localStorage.ssf)) {
+          await charge(userAddress, cash, myKey)
+            .then(async () => {
+              // 백에 데이터 보냄
+              const PARAMS = {
+                percent: donaPer,
+                firstCredit: cash * 1000,
+              }
+              await chargeSave(PARAMS).then(async () => {
+                await alert('충전되었습니다')
+                setCash(0)
+                close()
+              }).catch(() => {
+                revertCharge(userAddress, cash)
+                alert('충전에 실패했습니다')
+              })
+            })
+        }
+        else {
+          alert("SSF 코인이 부족합니다!")
+        }
+      } else {
+        alert("개인키가 유효하지 않습니다")
+      }
+    } else {
+      alert("개인키 형식이 맞지 않습니다")
+    }
+  }
 
   return (
     <div className={open ? "openModal modal" : "modal"}>
@@ -32,7 +83,6 @@ function ChangeMoney(props) {
               />
               <h1 className="fs-32 roBold mx-3">SSF</h1>
             </div>
-            기부 비율 조정
             <input
               type="range"
               id="inputSlider"
@@ -44,34 +94,27 @@ function ChangeMoney(props) {
               step="5"
             />
             <h1 className="fs-20 notoBold">
-              전환 금액의 {donaPer}%인 {donateCash} SSF를 동물 보호 단체에 기부하겠습니다.
+              전환 금액의 {donaPer} %인 {cash * donaPer} SSF를 동물 보호 단체에 기부하겠습니다.
             </h1>
             <FontAwesomeIcon className="arrowDown" icon={faDownLong} />
             <div className="flex align-center cashInputSet">
               <div className="fs-32 notoBold saveBox">{SAVE}</div>
               <h1 className="fs-32 roBold mx-3">SAVE</h1>
             </div>
-            <div>
-              <h3 className="fs-15 notoBold">충전 주의사항</h3>
-              <ul>
-                <li className="fs-12">
-                  기본적으로 SSF의 10%가 멸종 위기 동물 지원 단체에 기부되고 기부 비율 조정 시 추가로 SSF가 기부됩니다
-                </li>
-                <li className="fs-12">
-                  충전 시 환불되지 않습니다
-                </li>
-                <li className="fs-12">
-                  추가 기부는 충전 시에만 가능합니다
-                </li>
-
-              </ul>
+            <div className="flex align-center mx-4 keyInputBox">
+              <input
+                className="cashInput fs-18 notoBold"
+                placeholder="privateKey"
+                onChange={e => inputKey(e)}
+                type="text"
+              />
             </div>
           </main>
           <footer>
             <button
               type="button"
               className="changeButton fs-24 notoBold"
-              onClick={close}
+              onClick={e=>ssfToSave(e)}
             >
               충전하기
             </button>

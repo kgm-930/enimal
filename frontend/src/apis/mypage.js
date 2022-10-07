@@ -47,3 +47,10 @@ export const getMyDayCheck = async () => {
   const res = await API_MYPAGE.get('/user/attend');
   return res.data;
 };
+
+
+// NFT 데이터 저장
+export const getSaveMyNFT = async (idx,DATA) => {
+  const res = await API_MYPAGE.post(`/nftCollection/${idx}`,DATA);
+  return res.data;
+};

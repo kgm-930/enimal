@@ -1,59 +1,57 @@
-import React,{ useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Notice.scss";
 
+import Pagination from "react-js-pagination";
 
-import NoticeList from "@components/Notice/NoticeList";
+
+
 import { Link } from "react-router-dom";
 
+import { getNoticeList } from "@apis/notice";
 
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import NoticeCard from "../../components/Notice/NoticeCard";
 
 function Notice() {
-  const [now,setNow] = useState(1);
-  const [page,setPage] = useState(1);
+  const [page, setPage] = useState(1);
+  const [articles, setArticles] = useState([]);
   
-  useEffect(()=>{
-    if (now) {
-      console.log(now)
-      document.getElementById(now).classList.add('selectedNum')
-    }
-    
-  },[now])
+  useEffect(() => {
+    const params = { pageSize: 100, lastIdx: 0 }
+    getNoticeList(params).then(res => {
+      setArticles(res.data)
+    })
+  }, [])
 
-  function leftbutton(e){
-    e.preventDefault();
-    if (page !== 1) {
-      setPage(pre=>pre-1)
-      setNow(pre=>pre-5)
+
+  const handlePageChange = (e) => {
+    setPage(e);
+  };
+
+  const lis = []
+  for (let i=0; i<10; i+=1){
+    if (articles[(page-1)*10+i]) {
+      lis.push(articles[(page-1)*10+i])
     }
   }
-  function rightbutton(e){
-    e.preventDefault();
-    setPage(pre=>pre+1)
-    setNow(pre => pre+5)
-  }
-  function numberbutton(e){
-    e.preventDefault();
-    document.getElementById(now).classList.remove('selectedNum')
-    setNow(Number(e.target.id))
-  }
-  
-
 
   return (
-    <div className="container">
+    <div className="containerBox">
+
+
+
+
       <div className="notice">
+
+
         <div className="notice_pagetitle notoBold fs-36">공지사항</div>
         <div className=" flex justify-center align-center">
-          { localStorage.MyNick === 'Enimal' ?
-          <Link to="/notice/regist" type="button" className="notoBold fs-24 notice_regi">
-            등록하기
-          </Link>
-          :null
-        }
-          
+          {localStorage.MyNick === 'Enimal' ?
+            <Link to="/notice/regist" className="notoBold fs-24 notice_regi">
+              등록하기
+            </Link>
+            : null
+          }
+
         </div>
         <div className="divide" />
         <div className="notice_table flex">
@@ -63,17 +61,25 @@ function Notice() {
         </div>
         <div className="divide" />
         <div className="notice_list">
-          <NoticeList page={now} />
+          <div className="noticeList">
+            {lis.map(article => {
+              return (
+                <NoticeCard idx={(page-1)*10+lis.indexOf(article)+1} key={article.idx} data={article} />
+              )
+            })
+            }
+
+          </div>
         </div>
-      </div>
-      <div className="text-center">
-        <FontAwesomeIcon className="pagenation_button notoBold" onClick={e=>leftbutton(e)} icon={faAngleLeft} />
-        <button type='button' className="pagenation_button fs-22 notoBold" id={(page-1)*5+1} onClick={e=>numberbutton(e)} >{(page-1)*5+1}</button>
-        <button type='button' className="pagenation_button fs-22 notoBold" id={(page-1)*5+2} onClick={e=>numberbutton(e)} >{(page-1)*5+2}</button>
-        <button type='button' className="pagenation_button fs-22 notoBold" id={(page-1)*5+3} onClick={e=>numberbutton(e)} >{(page-1)*5+3}</button>
-        <button type='button' className="pagenation_button fs-22 notoBold" id={(page-1)*5+4} onClick={e=>numberbutton(e)} >{(page-1)*5+4}</button>
-        <button type='button' className="pagenation_button fs-22 notoBold" id={(page-1)*5+5} onClick={e=>numberbutton(e)} >{(page-1)*5+5}</button>
-        <FontAwesomeIcon className="pagenation_button notoBold" onClick={e=>rightbutton(e)} icon={faAngleRight} />
+        <Pagination
+              activePage={page}
+              itemsCountPerPage={10}
+              totalItemsCount={24}
+              pageRangeDisplayed={5}
+              prevPageText="‹"
+              nextPageText="›"
+              onChange={handlePageChange}
+            />
       </div>
     </div>
   );
