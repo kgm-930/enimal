@@ -107,7 +107,7 @@ console.log('Express server listening on port ' + server.address().port);
 "start": "nodemon app.js”
 ```
 
-- 이미 존재하는 addresss 오류
+- 이미 존재하는 addresss 오류 (Error: listen EADDRINUSE: address already in use :::9000)
 
 ```
 // npm start 명령어 입력 시 발생
