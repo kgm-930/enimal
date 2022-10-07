@@ -75,6 +75,9 @@ function NavBar() {
   };
   const closeModal = (e) => {
     setModalOpen(false);
+    getMySave().then(res=>{
+      setSave(res.data)
+    })
     if (e.length > 0) {
       console.log('업적획득')
       setBadge(e)
@@ -88,6 +91,9 @@ function NavBar() {
   };
   const closeModal2 = () => {
     setModalOpen2(false);
+    getMySave().then(res=>{
+      setSave(res.data)
+    })
   };
 
   function Logout(e) {

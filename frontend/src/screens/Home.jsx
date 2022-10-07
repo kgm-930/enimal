@@ -179,9 +179,10 @@ function Home() {
                 컬렉션 순위
               </h1>
               <li className="RankList grid">
-                <span className="col-4 text-center notoBold">순위</span>
-                <span className="col-4 notoBold">닉네임</span>
-                <span className="col-4 textEnd notoBold">수집된 NFT</span>
+                <span className="col-3 text-center notoBold text-center">순위</span>
+                <span className="col-4 notoBold text-center">닉네임</span>
+                <span className="col-3 textEnd notoBold text-center">뽑은 횟수</span>
+                <span className="col-3 textEnd notoBold text-center">수집된 NFT</span>
               </li>
               <hr className="Line2" />
               <div className="collectionRank">
@@ -190,11 +191,12 @@ function Home() {
                   return (
                     <Zoom left>
                       <Link to={`/mypage/${user.nickname}`} key={rankC.indexOf(user)} className="RankList grid">
-                        <span className="col-2 text-center notoMid">
+                        <span className="col-3 text-center notoMid text-center">
                           {rankC.indexOf(user) + 1}
                         </span>
-                        <span className="col-4 notoBold">{user.nickname}</span>
-                        <span className="col-2 textEnd notoMid">
+                        <span className="col-4 notoBold text-center">{user.nickname}</span>
+                        <span className="col-3 notoBold text-center">{user.drawCount}회</span>
+                        <span className="col-3 textEnd notoMid text-center">
                           {user.collectionCount}개
                         </span>
                       </Link>
@@ -208,9 +210,9 @@ function Home() {
                 기부금 순위
               </h1>
               <li className="RankList grid">
-                <span className="col-3 text-center notoBold">순위</span>
-                <span className="col-5 notoBold">닉네임</span>
-                <span className="col-4 textEnd notoBold">기부금</span>
+                <span className="col-3 text-center notoBold text-center">순위</span>
+                <span className="col-5 notoBold text-center">닉네임</span>
+                <span className="col-4 textEnd notoBold text-center">기부금</span>
               </li>
               <hr className="Line2" />
               <div className="donationRank">
@@ -219,11 +221,11 @@ function Home() {
                   return (
                     <Zoom left>
                       <Link to={`/mypage/${user.nickname}`} key={user.rank} className="RankList grid">
-                        <span className="col-3 text-center notoMid">
+                        <span className="col-3 text-center notoMid text-center">
                           {rankD.indexOf(user) + 1}
                         </span>
-                        <span className="col-5 notoBold">{user.nickname}</span>
-                        <span className="col-4 textEnd notoMid">
+                        <span className="col-5 notoBold text-center">{user.nickname}</span>
+                        <span className="col-4 textEnd notoMid text-center">
                           {dona} SAVE
                         </span>
                       </Link>

@@ -19,6 +19,7 @@ export const getCreateNotice = async (DATA) => {
 // 공지사항 상세 조회
 export const getDetailNotice = async (index) => {
   const res = await API_NOTICE.get(`/noticeList/${index}`);
+
   return res.data;
 };
 

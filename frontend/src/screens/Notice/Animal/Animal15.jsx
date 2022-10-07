@@ -1,11 +1,12 @@
 // 강토끼
-import React from "react";
+import React,{useEffect} from "react";
 import "./Animal.scss";
 import { useNavigate } from "react-router-dom";
 
 import YouTube from "react-youtube";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getDetailNotice } from "@apis/notice";
 
 function Animal15() {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ function Animal15() {
     e.preventDefault();
     navigate("/notice");
   }
+
+  useEffect(()=>{
+    getDetailNotice(15)
+  })
 
   return (
     <div className="container flex">

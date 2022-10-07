@@ -13,7 +13,7 @@ function CollectionRank() {
   const bottomObserver = useRef(null);
 
   async function getList() {
-    const params = { pageSize:3, lastIdx: IDX }
+    const params = { pageSize:10, lastIdx: IDX }
     await getRankc(params).then(res => {
       const DATA = res.data;
       if (DATA.length > 0) {
@@ -52,7 +52,6 @@ function CollectionRank() {
 
   return (
     <div className="CollectionRank">
-      <h1 className="fs-32 notoBold title">컬렉션 랭킹</h1>
       <div>
         <li className="RankList grid">
           <span className="col-2 fs-24 text-center notoBold">순위</span>
